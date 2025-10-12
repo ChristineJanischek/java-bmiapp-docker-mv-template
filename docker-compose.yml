@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  # Java-Anwendung als Container
+  java-app:
+    build: .
+    depends_on:
+      - db  # Startet erst, wenn DB bereit ist
+    links:
+      - db  # Verbindet den Container mit dem DB-Container
+
+  # MySQL-Datenbank als Container
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"  # Optionaler Port, falls extern benötigt
