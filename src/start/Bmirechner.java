@@ -1,97 +1,104 @@
 
 package start;
 
-public class Bmirechner {
-  // Deklaration der Eigenschaften (Attribute)
-  private double groesse;
-  private double gewicht;
-  private double ergebnis;
-  private String kategorie;
-  
-  // Standard (Default) Konstruktor
-  public Bmirechner(){
-    
-  }
-  
-  // Getter: Ermittelt Eigenschaftswert eines Objektes
-  
-  public double getGroesse(){
-    
-    return groesse;
-  }
-  
-  public double getGewicht(){
-    
-    return gewicht;
-  }
-  
-  public double getErgebnis(){
-    
-    return ergebnis;
-  }
-  
-  public String getKategorie(){
-    return this.kategorie;
-  }
-  
-  // Setter: ‹bermittelt Eigenschaftswert an das Attribut des Objektes
-  
-  public void setGroesse(double pGroesse){
-    
-    this.groesse = pGroesse;
-  }
-  
-  public void setGewicht(double pGewicht){
-    
-    this.gewicht = pGewicht;
-  }
-  
-  public void setErgebnis(double pErgebnis){
-    
-    this.ergebnis = pErgebnis;
-  }  
-  
-  public void setKategorie(String pKategorie){
-    this.kategorie = pKategorie;
-  }
-  
-  // Sonstige Methoden: Methoden die mehr kˆnnen als nur er- und ¸bermitteln
-  
-  public void berechnen(){
-    
-    this.ergebnis = this.gewicht / (this.groesse * this.groesse);
-    System.out.println("Ergebnis:"+ this.ergebnis );
-  }
-  
-  
-  public void interpretiere(){
-    
-    if (this.ergebnis >= 40) {
-      this.kategorie = "Adipositas Grad III";
-    }else if(this.ergebnis >= 35 && this.ergebnis < 40){
-      
-      this.kategorie = "Adipositas Grad II";
-    }else if(this.ergebnis >= 30 && this.ergebnis < 35){
-      
-      this.kategorie = "Adipositas Grad I";
-    } else if(this.ergebnis >= 25 && this.ergebnis < 30){
-      
-      this.kategorie = "Pr‰dipositas";
-    } else if(this.ergebnis >= 18.5 && this.ergebnis < 25){
-      
-      this.kategorie = "Normalgewicht";
-    } else if(this.ergebnis >= 17 && this.ergebnis < 18.5){
-      
-      this.kategorie = "Leichtes Untergwicht";
-    } else if(this.ergebnis >= 16 && this.ergebnis < 17){
-      this.kategorie = "M‰ﬂiges Untergewicht";
-      
-    } else{
-      this.kategorie = "Starkes Untergewicht";
-    }
-    
-    System.out.println("Ergebnis:"+ this.kategorie);
-  }
-}
 
+public class Bmirechner {
+    // Attribute
+    private double groesse;
+    private double gewicht;
+    private double ergebnis;
+    private String kategorie;
+
+    /**
+     * Standardkonstruktor
+     */
+    public Bmirechner() {
+    }
+
+    /**
+     * Konstruktor mit Initialwerten
+     */
+    public Bmirechner(double gewicht, double groesse) {
+        this.gewicht = gewicht;
+        this.groesse = groesse;
+    }
+
+    // Getter
+    public double getGroesse() {
+        return groesse;
+    }
+
+    public double getGewicht() {
+        return gewicht;
+    }
+
+    public double getErgebnis() {
+        return ergebnis;
+    }
+
+    public String getKategorie() {
+        return this.kategorie;
+    }
+
+    // Setter
+    public void setGroesse(double groesse) {
+        this.groesse = groesse;
+    }
+
+    public void setGewicht(double gewicht) {
+        this.gewicht = gewicht;
+    }
+
+    /**
+     * Berechnet den BMI und speichert das Ergebnis im Attribut ergebnis.
+     * @return berechneter BMI
+     */
+    public double berechne(double pGewicht, double pGroesse) {
+        if (pGroesse > 0) {
+            this.ergebnis = pGewicht / (pGroesse * pGroesse);
+        } else {
+            this.ergebnis = 0;
+        }
+        return this.ergebnis;
+    }
+
+    /**
+     * Interpretiert das BMI-Ergebnis und gibt die Kategorie zur√ºck.
+     * @return Kategorie als String
+     */
+    public String interpretiere() {
+        if (this.ergebnis >= 40) {
+            this.kategorie = "Adipositas Grad III";
+        } else if (this.ergebnis >= 35) {
+            this.kategorie = "Adipositas Grad II";
+        } else if (this.ergebnis >= 30) {
+            this.kategorie = "Adipositas Grad I";
+        } else if (this.ergebnis >= 25) {
+            this.kategorie = "Pr√§dipositas";
+        } else if (this.ergebnis >= 18.5) {
+            this.kategorie = "Normalgewicht";
+        } else if (this.ergebnis >= 17) {
+            this.kategorie = "Leichtes Untergewicht";
+        } else if (this.ergebnis >= 16) {
+            this.kategorie = "M√§√üiges Untergewicht";
+        } else {
+            this.kategorie = "Starkes Untergewicht";
+        }
+        return this.kategorie;
+    }
+
+    /**
+     * Gibt alle Attributwerte des Objekts als formatierten String zur√ºck.
+     * @return String-Repr√§sentation des Objekts
+     */
+    @Override
+    public String toString() {
+        return "Bmirechner{" +
+                "gewicht=" + gewicht + " kg" +
+                ", groesse=" + groesse + " m" +
+                ", ergebnis=" + String.format("%.2f", ergebnis) +
+                ", kategorie='" + (kategorie != null ? kategorie : "noch nicht berechnet") + "'" +
+                '}';
+    }
+}
 

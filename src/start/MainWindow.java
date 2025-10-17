@@ -95,11 +95,11 @@ public class MainWindow extends JFrame {
 		btBerechne.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Eingabe
-				leseGroesse();
-				leseGewicht();
+				double gewicht = Double.valueOf(tfGewicht.getText());
+				double groesse = Double.valueOf(tfGroesse.getText());
 				
 				//Verarbeitung
-				derRechner.berechnen();
+				derRechner.berechne(gewicht, groesse);
 				
 				//Ausgabe
 				schreibeErgebnis();
@@ -112,10 +112,11 @@ public class MainWindow extends JFrame {
 		lbInterpretiere.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Eingabe
-				leseGroesse();
-				leseGewicht();
+				double gewicht = Double.valueOf(tfGewicht.getText());
+				double groesse = Double.valueOf(tfGroesse.getText());
 				
 				//Verarbeitung
+				derRechner.berechne(gewicht, groesse);
 				derRechner.interpretiere();
 				
 				//Ausgabe
