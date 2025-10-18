@@ -34,7 +34,7 @@ public class Bmirechner {
     return this.kategorie;
   }
   
-  // Setter: Übermittelt Eigenschaftswert an das Attribut des Objektes
+  // Setter: Ãœbermittelt Eigenschaftswert an das Attribut des Objektes
   
   public void setGroesse(double pGroesse){
     
@@ -55,10 +55,26 @@ public class Bmirechner {
     this.kategorie = pKategorie;
   }
   
-  // Sonstige Methoden: Methoden die mehr können als nur er- und übermitteln
+  // Sonstige Methoden: Methoden die mehr kÃ¶nnen als nur er- und Ã¼bermitteln
   
+  /**
+   * Neue Methode nach UML: setzt Gewicht und GrÃ¶ÃŸe und berechnet den BMI.
+   */
+  public double berechne(double gewicht, double groesse) {
+    this.gewicht = gewicht;
+    this.groesse = groesse;
+    if (groesse > 0) {
+      this.ergebnis = gewicht / (groesse * groesse);
+    } else {
+      this.ergebnis = 0;
+    }
+    return this.ergebnis;
+  }
+
+  /**
+   * Alte Methode bleibt zur KompatibilitÃ¤t erhalten.
+   */
   public void berechnen(){
-    
     this.ergebnis = this.gewicht / (this.groesse * this.groesse);
     System.out.println("Ergebnis:"+ this.ergebnis );
   }
@@ -76,15 +92,15 @@ public class Bmirechner {
       this.kategorie = "Adipositas Grad I";
     } else if(this.ergebnis >= 25 && this.ergebnis < 30){
       
-      this.kategorie = "Prädipositas";
+  this.kategorie = "PrÃ¤dipositas";
     } else if(this.ergebnis >= 18.5 && this.ergebnis < 25){
       
       this.kategorie = "Normalgewicht";
     } else if(this.ergebnis >= 17 && this.ergebnis < 18.5){
       
-      this.kategorie = "Leichtes Untergwicht";
+  this.kategorie = "Leichtes Untergewicht";
     } else if(this.ergebnis >= 16 && this.ergebnis < 17){
-      this.kategorie = "Mäßiges Untergewicht";
+  this.kategorie = "MÃ¤ÃŸiges Untergewicht";
       
     } else{
       this.kategorie = "Starkes Untergewicht";

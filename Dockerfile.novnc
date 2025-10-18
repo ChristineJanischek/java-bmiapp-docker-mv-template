@@ -1,0 +1,35 @@
+# noVNC-basierte GUI-Ausführung im Browser
+# Basis: Ubuntu (Jammy) für apt-Pakete
+FROM eclipse-temurin:21-jdk-jammy
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    DISPLAY=:1 \
+    SCREEN_RES=1280x800x24
+
+WORKDIR /app
+
+# Systempakete: Xvfb, Window Manager, VNC, noVNC, Websockify, Tools, Fonts
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+    xvfb x11vnc fluxbox novnc websockify \
+    xfonts-base fonts-dejavu-core ca-certificates curl \
+    libxext6 libxrender1 libxtst6 libxi6 libxfixes3 libxrandr2 libxinerama1 \
+ && rm -rf /var/lib/apt/lists/*
+
+# App kopieren und bauen
+COPY ./src ./src
+COPY ./lib ./lib
+RUN mkdir -p build \
+ && javac -d build src/start/*.java \
+ && mkdir -p build/start/images \
+ && cp -r src/start/images/* build/start/images/
+
+# noVNC auf Port 6080 verfügbar machen
+EXPOSE 6080
+
+# Startscript
+COPY ./scripts/start_novnc.sh /usr/local/bin/start_novnc.sh
+RUN chmod +x /usr/local/bin/start_novnc.sh
+
+# Startet noVNC + App
+CMD ["/usr/local/bin/start_novnc.sh"]
