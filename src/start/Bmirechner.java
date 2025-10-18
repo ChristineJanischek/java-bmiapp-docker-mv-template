@@ -60,11 +60,11 @@ public class Bmirechner {
   /**
    * Neue Methode nach UML: setzt Gewicht und Größe und berechnet den BMI.
    */
-  public double berechne(double gewicht, double groesse) {
-    this.gewicht = gewicht;
-    this.groesse = groesse;
-    if (groesse > 0) {
-      this.ergebnis = gewicht / (groesse * groesse);
+  public double berechne(double pGewicht, double pGroesse) {
+    this.gewicht = pGewicht;
+    this.groesse = pGroesse;
+    if (pGroesse > 0) {
+      this.ergebnis = pGewicht / (pGroesse * pGroesse);
     } else {
       this.ergebnis = 0;
     }

@@ -49,7 +49,6 @@ Weitere Erklärungen und Beispiel-Prompts findest du in [info.md](./info.md).
 │ - kategorie: String                                          │
 ├──────────────────────────────────────────────────────────────┤
 │ + Bmirechner()                                               │
-│ + Bmirechner(gewicht: double, groesse: double)               │
 │ + setGewicht(pGewicht: double): void                         │
 │ + setGroesse(pGroesse: double): void                         │
 │ + getGewicht(): double                                       │
@@ -57,7 +56,7 @@ Weitere Erklärungen und Beispiel-Prompts findest du in [info.md](./info.md).
 │ + getErgebnis(): double                                      │
 │ + getKategorie(): String                                     │
 │ + berechne(pGewicht: double, pGroesse: double): double       │
-│ + interpretiere(): String                                    │
+│ + interpretiere(): void                                      │
 │ + toString(): String                                         │
 └──────────────────────────────────────────────────────────────┘
 ```
@@ -69,10 +68,12 @@ Weitere Erklärungen und Beispiel-Prompts findest du in [info.md](./info.md).
 │ - model: Bmirechner                         │
 ├─────────────────────────────────────────────┤
 │ + BmiManager()                              │
-│ + berechneBMI(gewicht: double,              │
-│               groesse: double): void        │
+│ + BmiManager(pModel: Bmirechner)            │
+│ + berechneBMI(pGewicht: double,             │
+│               pGroesse: double): double     │
 │ + interpretiereBMI(): void                  │
 │ + getModel(): Bmirechner                    │
+│ + setModel(pModel: Bmirechner): void        │
 └─────────────────────────────────────────────┘
 ```
 
@@ -101,28 +102,41 @@ Alle drei Komponenten sollen in dieser Version funktionsfähig und miteinander v
 - Unit-Test in `Main.java` zur Überprüfung der Funktionalität
 
 ## 📄 Spezifikation Version 1: Benutzeroberfläche (View)
-  - Eingabefelder und Labels für Gewicht (`tfGewicht`, `lbGewicht`)
-  - Eingabefelder und Labels für Größe (`tfGroesse`, `lbGroesse`)
-  - Buttons für "Berechnen" und "Interpretieren"
-  - Getter- und Setter-Methoden für die Werte
 
-### 🧪 Anleitung zum Testen der Version 1 (main)
+**Ziel:**
+- Die grafische Benutzeroberfläche (GUI) ist vollständig vorgegeben und muss nicht selbst programmiert werden.
+- Die Schüler sollen die Struktur und Funktionsweise der GUI verstehen und mit dem Controller (BmiManager) verbinden.
+- Die Anwendung wird im Browser über noVNC getestet.
+
+**Was ist zu tun?**
+- Verstehe den Aufbau der Klasse `MainWindow.java` (ausführlich kommentiert)
+- Implementiere und teste die Steuerungsklasse `BmiManager` gemäß UML
+- Kompiliere das Projekt und teste die Anwendung im Browser
+
+**Testanleitung:**
 
 1. **Kompiliere alle Java-Dateien:**
-  ```bash
-  javac src/start/*.java
-  ```
-2. **Starte die Anwendung:**
-  ```bash
-  cd src
-  java start.MainWindow
-  ```
-3. **Teste die GUI:**
-  - Gib verschiedene Werte für Gewicht und Größe ein
-  - Klicke auf "Berechnen" und "Interpretieren"
-  - Überprüfe die angezeigten Ergebnisse und Kategorien
+   ```bash
+   javac -d build src/start/*.java
+   ```
+2. **Starte die Anwendung im Browser (noVNC):**
+   ```bash
+   docker compose -f docker-compose.novnc.yml up --build -d
+   ```
+3. **Öffne die GUI:**
+   - Im VS Code PORTS-Panel Port 6080 öffnen (Globe-Symbol)
+   - Oder im Browser: http://localhost:6080/vnc.html
+   - Klicke auf "Connect"
+4. **Teste die App:**
+   - Gewicht und Größe eingeben
+   - "Berechne BMI" und "Interpretiere BMI" klicken
+   - "Leeren" und "Schließen" testen
 
-**Hinweis:** Die MainWindow-Klasse ist jetzt der Einstiegspunkt für die Anwendung. Die Konsole zeigt nur noch Fehler oder Debug-Ausgaben an.
+**Hinweis:**
+- Die Schüler müssen die MainWindow-Klasse nicht selbst schreiben, sondern nur verstehen und nutzen.
+- Die Steuerung (Controller) und das Modell (Model) werden selbst implementiert.
+- Die GUI ist der Einstiegspunkt für die Anwendung.
+- Eine Schritt-für-Schritt-Anleitung findet sich in [MVC_ANLEITUNG.md](./MVC_ANLEITUNG.md).
 
 ## 📄 Spezifikation Version 2: Controller-Integration
 **Ereignissteuerung und MVC-Verknüpfung:**

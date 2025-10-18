@@ -11,12 +11,12 @@ public class BmiManager {
         this.model = new Bmirechner();
     }
 
-    public BmiManager(Bmirechner model) {
-        this.model = model;
+    public BmiManager(Bmirechner pModel) {
+        this.model = pModel;
     }
 
-    public double berechneBMI(double gewicht, double groesse) {
-        return model.berechne(gewicht, groesse);
+    public double berechneBMI(double pGewicht, double pGroesse) {
+        return model.berechne(pGewicht, pGroesse);
     }
 
     public void interpretiereBMI() {
@@ -27,7 +27,7 @@ public class BmiManager {
         return model;
     }
 
-    public void setModel(Bmirechner model) {
-        this.model = model;
+    public void setModel(Bmirechner pModel) {
+        this.model = pModel;
     }
 }
