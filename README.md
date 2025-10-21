@@ -43,6 +43,63 @@ cd java-bmiapp-docker-mv-template
 
 Weitere Details zum Fahrplan siehe `VERSIONING_STRATEGY.md`.
 
+## 👣 Schritt-für-Schritt (für Schüler)
+
+1) Starte im richtigen Branch (Version 0)
+```bash
+git checkout main
+git pull
+```
+
+2) Lege die fehlenden Klassen an und implementiere sie
+- `src/start/Bmirechner.java` (Model): berechnet den BMI und liefert die Interpretation.
+- `src/start/BmiManager.java` (Controller): verbindet View (MainWindow) und Model.
+
+3) Baue und starte die App
+```bash
+./build.sh     # oder: mvn clean compile
+./run.sh       # startet die GUI
+```
+
+4) Teste die Funktionen in der GUI
+- Gewicht/Größe eingeben → BMI berechnen → Interpretation anzeigen
+- Buttons „Leeren“ und „Schließen“ ausprobieren
+
+5) Änderungen speichern und hochladen
+```bash
+git add .
+git commit -m "Implementiere Bmirechner und BmiManager (Version 0)"
+git push
+```
+
+6) Nächste Versionen ansehen/weiterentwickeln
+```bash
+# Musterlösung (Vergleich):
+git checkout version-1-mvc-gui
+
+# Version 2 (Alter & Geschlecht):
+git checkout version-2-alter-geschlecht
+
+# Version 3 (Validierung):
+git checkout version-3-validation
+```
+
+Tipps:
+- Lies die Spezifikationen unter „📄 Spezifikation Version X“ weiter unten.
+- Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen).
+
+## 🛠️ Troubleshooting
+
+- „Class not found“ oder GUI startet nicht:
+  - Stelle sicher, dass `./build.sh` ohne Fehler durchläuft.
+  - Prüfe, ob die Dateien unter `src/start/` im richtigen Paket `package start;` liegen.
+- Docker/noVNC zeigt keine Oberfläche:
+  - Container neu bauen/starten: `docker compose -f docker-compose.novnc.yml up --build -d`
+  - Browser: http://localhost:6080/vnc.html → Connect
+- Falscher Branch/Stand:
+  - `git branch -a` zeigt alle Branches
+  - `git checkout <branch>` wechselt den Zweig
+
 ## 🎯 Ziel
 
 Entwickle eine eigene BMI-App (Body Mass Index) und lerne dabei:
