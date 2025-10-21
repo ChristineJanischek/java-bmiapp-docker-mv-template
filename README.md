@@ -17,6 +17,32 @@ mvn clean compile
 ./build.sh
 ```
 
+## 🔀 Versionsfahrplan (Überblick)
+
+Diese Branches entsprechen den Versionen im Unterricht. Starte im Branch `main` (Version 0) und arbeite dich hoch.
+
+- `main` → Version 0: Schüler-Template (ohne Bmirechner.java, ohne BmiManager.java)
+- `version-1-mvc-gui` → Version 1: Musterlösung mit MVC (Model + Controller + GUI)
+- `version-2-alter-geschlecht` → Version 2: Erweiterung um Alter & Geschlecht
+- `version-3-validation` → Version 3: Eingabevalidierung & Fehlerbehandlung
+
+Schnellstart für Schüler (Version 0):
+```bash
+# Repository klonen (main = Version 0)
+git clone https://github.com/ChristineJanischek/java-bmiapp-docker-mv-template
+cd java-bmiapp-docker-mv-template
+
+# Eigene Implementierung ergänzen
+# - src/start/Bmirechner.java (Model)
+# - src/start/BmiManager.java (Controller)
+
+# Bauen & Starten
+./build.sh
+./run.sh
+```
+
+Weitere Details zum Fahrplan siehe `VERSIONING_STRATEGY.md`.
+
 ## 🎯 Ziel
 
 Entwickle eine eigene BMI-App (Body Mass Index) und lerne dabei:
