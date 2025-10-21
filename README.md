@@ -1,5 +1,22 @@
 # 🧑‍💻 Aufgabe: BMI-Rechner in Docker mit eigener Ausgabe
 
+## ☕ Java Version
+
+Dieses Projekt verwendet **Java 21 LTS** (Long-Term Support).
+
+- **Version**: OpenJDK 21.0.5 LTS (Eclipse Temurin)
+- **Build-Tool**: Maven 3.x
+- **Weitere Informationen**: Siehe [JAVA21_UPGRADE.md](./JAVA21_UPGRADE.md)
+
+### Build-Befehle
+```bash
+# Mit Maven
+mvn clean compile
+
+# Mit Build-Skript
+./build.sh
+```
+
 ## 🎯 Ziel
 
 Entwickle eine eigene BMI-App (Body Mass Index) und lerne dabei:
@@ -15,29 +32,30 @@ Wende bei der Umsetzung des Projektes das **MVC-Prinzip** an und berücksichtige
 
 ## 📄 Konzepte und Prinzipien (MVC)
 
-Weitere Erklärungen und Beispiel-Prompts findest du in [info.md](./info.md).
+Weitere Erklärungen und Beispiel-Prompts findest du in [info.md](./INFO.md).
 
 ### Architektur und Secure Coding:
-- **Model-View-Controller-Prinzip (MVC)**: Trennung von Datenmodell, Darstellung und Steuerung
-- **Single Entry Point-Prinzip**: Ein zentraler Einstiegspunkt für die Anwendung
-- **Prinzip der geringsten Berechtigung**: Kapselung und sinnvolle Zugriffsmodifikatoren
+ - **Kontrollstrukturen (Schleifen & Alternativen)**: Grundlagen und Beispiele zur Programmlogik (siehe [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md))
+- **Model-View-Controller-Prinzip (MVC)**: Trennung von Datenmodell, Darstellung und Steuerung (siehe [MVC_KONZEPT.md](./MVC_KONZEPT.md))
+- **Assoziationen zwischen Klassen**: Verbindungen und Multiplizität (siehe [ASSOZIATIONEN.md](./ASSOZIATIONEN.md))
+- **Single Entry Point-Prinzip**: Ein zentraler Einstiegspunkt für die Anwendung (siehe [SINGLE_ENTRY_POINT.md](./SINGLE_ENTRY_POINT.md))
+- **Prinzip der geringsten Berechtigung**: Kapselung und sinnvolle Zugriffsmodifikatoren (siehe [KAPSELUNG.md](./KAPSELUNG.md))
+  - Arbeitsblatt (PDF): [materials/quiz_kapselung.pdf](./materials/quiz_kapselung.pdf)
+- **Secure Coding**: Grundlagen und Best Practices zur Entwicklung sicherer Software (siehe [SECURE_CODING.md](./SECURE_CODING.md))
 
 ### Benutzerfreundlichkeit (Usability & Softwareergonomie):
 - Eingabefehler vermeiden durch geeignete UI-Elemente
 - Benutzerführung und Assistenz bieten
 
 ### Validierung (Secure Coding):
-- Eingaben prüfen und validieren
+- Eingaben prüfen und validieren (siehe [SECURE_CODING.md](./SECURE_CODING.md))
 - Ausgaben bereinigen und sicher darstellen
 
 ### Vorgehensweise:
 
 #### 1. Bmirechner-Klasse (Model)
-- Erstelle die Klasse `Bmirechner` und implementiere die Grundfunktionalität
-- Implementiere alle erforderlichen Attribute, Konstruktoren, Getter/Setter und Methoden
-- Die `toString()`-Methode gibt alle Attributwerte formatiert zurück
+Weitere grundlegende Fakten zur Implementierung des Grundgerüsts einer Klasse findest du in [GRUNDGERUEST_KLASSE.md](./GRUNDGERUEST_KLASSE.md).
 
-**UML-Klassendiagramm:**
 
 ```text
 ┌──────────────────────────────────────────────────────────────┐
@@ -60,6 +78,19 @@ Weitere Erklärungen und Beispiel-Prompts findest du in [info.md](./info.md).
 │ + toString(): String                                         │
 └──────────────────────────────────────────────────────────────┘
 ```
+
+#### Wertetabelle für die BMI-Interpretation
+
+| BMI-Wert         | Kategorie                |
+|------------------|------------------------- |
+| < 16             | Starkes Untergewicht     |
+| 16 – < 17        | Mäßiges Untergewicht     |
+| 17 – < 18.5      | Leichtes Untergewicht    |
+| 18.5 – < 25      | Normalgewicht            |
+| 25 – < 30        | Prädipositas             |
+| 30 – < 35        | Adipositas Grad I        |
+| 35 – < 40        | Adipositas Grad II       |
+| ≥ 40             | Adipositas Grad III      |
 
 ```
 ┌─────────────────────────────────────────────┐
@@ -91,7 +122,7 @@ Nachdem der Unit-Test für das Modell läuft, sollen die Schüler die Steuerungs
 - Ersetzt die Main-Klasse als Einstiegspunkt
 - Wird vom BmiManager gesteuert
 
-## 📄 Spezifikation Version 0: Prototyp
+## 📄 Spezifikation Version 0: Prototyp (Model, Controler))
 **Basis-Implementierung:**
 - Implementierung der `Bmirechner`-Klasse (Model)
 Implementierung der `BmiManager`-Klasse (Controller).
@@ -101,7 +132,7 @@ Das Model (`Bmirechner`), die View (`Main`) und der Controller (`BmiManager`) m�
 Alle drei Komponenten sollen in dieser Version funktionsfähig und miteinander verbunden sein.
 - Unit-Test in `Main.java` zur Überprüfung der Funktionalität
 
-## 📄 Spezifikation Version 1: Benutzeroberfläche (View)
+## 📄 Spezifikation Version 1: Benutzeroberfläche (View) & Steuerung (Controller)
 
 **Ziel:**
 - Die grafische Benutzeroberfläche (GUI) ist vollständig vorgegeben und muss nicht selbst programmiert werden.
@@ -134,30 +165,37 @@ Alle drei Komponenten sollen in dieser Version funktionsfähig und miteinander v
 
 **Hinweis:**
 - Die Schüler müssen die MainWindow-Klasse nicht selbst schreiben, sondern nur verstehen und nutzen.
-- Die Steuerung (Controller) und das Modell (Model) werden selbst implementiert.
+- Die Steuerung (Controller/BmiManager) und das Modell (Bmirechner) werden selbst implementiert.
 - Die GUI ist der Einstiegspunkt für die Anwendung.
+- Die Controller-Integration (BmiManager) ist bereits Bestandteil dieser Version.
+- Die Ereignissteuerung für die Buttons ist in der MainWindow-Klasse vorgegeben und nutzt den BmiManager.
 - Eine Schritt-für-Schritt-Anleitung findet sich in [MVC_ANLEITUNG.md](./MVC_ANLEITUNG.md).
 
-## 📄 Spezifikation Version 2: Controller-Integration
-**Ereignissteuerung und MVC-Verknüpfung:**
-- Implementierung der Ereignissteuerung für die Buttons "Berechnen" und "Interpretieren"
-- Der BmiManager steuert die Interaktion zwischen Model und View
-- Objektorientierte Verwaltung der Komponenten
-
-## 📄 Spezifikation Version 3: Erweiterte Funktionalität
+## 📄 Spezifikation Version 2: Erweiterte Funktionalität (Alter & Geschlecht)
 **Erweiterung um Alter und Geschlecht:**
 - **Neue GUI-Elemente:**
   - ComboBox für das Alter (`cbAlter`)
   - RadioButtons für das Geschlecht (`rbGeschlecht`)
-- **Implementierung der Logik:**
-  - BMI-Berechnung mit `berechne()`
-  - BMI-Interpretation mit `interpretiere()`:
-    - Untergewichtig
-    - Normalgewicht
-    - Übergewicht
-    - Adipositas
-- **Ereignissteuerung:**
-  - Ereignissteuerung in der Steuerungsklasse `BmiManager` 
+- **Erweiterte Logik:**
+  - BMI-Berechnung bleibt bestehen
+  - BMI-Interpretation wird erweitert um alters- und geschlechtsspezifische Kategorien
+  - Anpassung der Methode `interpretiere()` im Model
+- **Controller-Erweiterung:**
+  - BmiManager erhält zusätzliche Methoden für Alter und Geschlecht
+  - Ereignissteuerung wird entsprechend angepasst
+
+## 📄 Spezifikation Version 3: Eingabevalidierung und Fehlerbehandlung
+**Secure Coding und Benutzerfreundlichkeit:**
+- **Eingabevalidierung:**
+  - Prüfung auf gültige Zahlenwerte (keine negativen Werte, keine leeren Felder)
+  - Bereichsprüfung (z.B. Gewicht: 1-500 kg, Größe: 0.5-2.5 m)
+  - Fehlerbehandlung mit aussagekräftigen Meldungen
+- **Exception Handling:**
+  - Try-Catch-Blöcke für NumberFormatException
+  - Benutzerfreundliche Fehlermeldungen in der GUI
+- **Usability-Verbesserungen:**
+  - Eingabefelder werden bei ungültigen Werten rot markiert
+  - Hilfetext für erwartete Eingabeformate 
 
 ## 📄 Spezifikation Version 4: Datenpersistenz
 **Speicherung von Profildaten:**

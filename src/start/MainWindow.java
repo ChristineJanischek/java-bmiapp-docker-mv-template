@@ -41,20 +41,18 @@ private static final long serialVersionUID = 8519171689153531668L;
 
 public static void main(String[] args) {
 EventQueue.invokeLater(new Runnable() {
-public void run() {
-try {
-MainWindow frame = new MainWindow();
-frame.setVisible(true);
-} catch (Exception e) {
-e.printStackTrace();
-}
-}
+	public void run() {
+		try {
+			MainWindow frame = new MainWindow();
+			frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 });
 }
 
-gbc.insets = new Insets(8, 8, 8, 8);
-gbc.fill = GridBagConstraints.HORIZONTAL;
-gbc.weightx = 1.0; // Horizontal expandieren
+
 
 	/**
 	 * Konstruktor: Initialisiert die GUI und verbindet sie mit dem Controller.
@@ -231,8 +229,7 @@ gbc.weightx = 1.0; // Horizontal expandieren
 		tfErgebnis.setText(text);
 	}
 
-tfGroesse.setText("");
-tfErgebnis.setText("");
+
 
 	/**
 	 * Löscht alle Eingabefelder und das Ergebnis.
