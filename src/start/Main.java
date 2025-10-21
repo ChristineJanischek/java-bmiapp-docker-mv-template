@@ -1,33 +1,26 @@
+
 package start;
 
 public class Main {
     public static void main(String[] args) {
-    //Erzeuge ein Objekt der Klasse 
-    Bmirechner rechner1 = new Bmirechner();
-    
-    //##### IF-Fall: bmi > 40 testen
-    
-    //Eingabe: Wert an Objekt der Fachklasse übermitteln
-    rechner1.setGroesse(1.80);
-    rechner1.setGewicht(150.0); 
-    
-    //Verarbeitung: Wert verarbeiten z.b. berechnen, prüfen
-    rechner1.berechnen();
-    rechner1.interpretiere();
-    
-    //Ausgabe: Erzeut eine Ausgabe des Ergebnisses auf der Konsole
-    System.out.println("BMI: " + rechner1.getErgebnis());
-    System.out.println("Kategorie: " + rechner1.getKategorie()); 
+        // View: Main
+        System.out.println("=== BMI-Rechner (MVC) ===\n");
 
+        // Controller: BmiManager
+        BmiManager manager = new BmiManager();
 
-        // Verbindungsdaten für die Datenbank (müssen zu docker-compose.yml passen)
-    String url = "jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC";
-        String user = "user";
-        String password = "password";
+        // Beispiel-Eingaben (könnten später von der View kommen)
+        double gewicht = 150.0;
+        double groesse = 1.80;
 
-        // Datenbankverbindung testen
-        DatabaseConnector connector = new DatabaseConnector(url, user, password);
-        connector.connectAndQuery();
+        // Model-Steuerung über Controller
+        manager.berechneBMI(gewicht, groesse);
+        manager.interpretiereBMI();
+
+        // Ausgabe (View)
+        Bmirechner rechner = manager.getModel();
+        System.out.println("BMI: " + rechner.getErgebnis());
+        System.out.println("Kategorie: " + rechner.getKategorie());
     }
 }
 
