@@ -1,0 +1,22 @@
+services:
+  java-app-novnc:
+    build:
+      context: .
+      dockerfile: Dockerfile.novnc
+    ports:
+      - "6080:6080"   # noVNC im Browser: http://localhost:6080/vnc.html
+    environment:
+      - SCREEN_RES=1280x800x24
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"

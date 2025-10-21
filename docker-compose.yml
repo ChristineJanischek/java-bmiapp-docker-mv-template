@@ -8,6 +8,18 @@ services:
       - db  # Startet erst, wenn DB bereit ist
     links:
       - db  # Verbindet den Container mit dem DB-Container
+    environment:
+      - DISPLAY=${DISPLAY}
+      # Optional: Falls Xauthority genutzt wird
+      - XAUTHORITY=/tmp/.docker.xauth
+    volumes:
+      # X11 Socket vom Host einbinden, damit GUI angezeigt werden kann
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # Optional: Xauthority Datei, wenn benötigt
+      - ${XAUTHORITY:-/dev/null}:/tmp/.docker.xauth:ro
+    # Optional: erlauben, auf X-Server zuzugreifen (manchmal notwendig)
+    devices:
+      - "/dev/dri:/dev/dri"
 
   # MySQL-Datenbank als Container
   db:

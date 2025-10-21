@@ -1,0 +1,29 @@
+# Kompilierte Java-Dateien
+*.class
+
+# Build-Verzeichnis
+build/
+target/
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE-Dateien
+.vscode/
+.idea/
+*.iml
+
+# Log-Dateien
+*.log
+
+# Temporäre Dateien
+*.tmp
+*.swp
+*~
+
+# Python
+.venv/
+__pycache__/
+*.pyc
