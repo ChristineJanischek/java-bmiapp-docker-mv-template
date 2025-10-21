@@ -43,6 +43,13 @@ cd java-bmiapp-docker-mv-template
 
 Weitere Details zum Fahrplan siehe `VERSIONING_STRATEGY.md`.
 
+## 🧩 Als Template verwenden
+
+Du möchtest dieses Projekt als Vorlage für ähnliche Aufgaben nutzen? Lies die Anleitung in `TEMPLATE_GUIDE.md`. Dort steht:
+- Wie du das Repo als Template markierst (GitHub Web/CLI)
+- Wie du neue Repositories aus der Vorlage erstellst
+- Wie du gemeinsame Dateien später per Skript (`scripts/sync_shared_docs.sh`) in abgeleitete Repos synchronisierst
+
 ## 👣 Schritt-für-Schritt (für Schüler)
 
 1) Starte im richtigen Branch (Version 0)
