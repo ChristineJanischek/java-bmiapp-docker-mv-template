@@ -1,98 +1,108 @@
-# 📋 Versionsverwaltungsstrategie für BMI-Rechner Musterlösung
+# 📋 Versions- und Branch-Strategie (Stand: 2025-10-21)
 
 ## 🎯 Ziel
-Jede Entwicklungsversion (V0-V5) soll als separate, nachvollziehbare Lösung im Repository verfügbar sein.
+Der Fahrplan für die Studierenden soll 1:1 zur tatsächlichen Branch-Struktur im Repository passen. Jede Version (V0–V5) ist als separater Branch nachvollziehbar.
 
-## 🌳 Branch-Strategie
+## 🌳 Aktuelle Branches und Bedeutung
 
-### Haupt-Branches:
-- `main` - Finale, vollständige Musterlösung (Version 5)
-- `version-0-grundgeruest` - Basis-Implementierung
-- `version-1-gui` - Mit grafischer Benutzeroberfläche
-- `version-2-controller` - Mit Controller-Integration
-- `version-3-erweiterte-funktionen` - Mit Alter/Geschlecht
-- `version-4-datenpersistenz` - Mit Datenbankanbindung
-- `version-5-alternative-plattform` - Mit XML-View
+- `main` → Version 0: Schüler-Template (Startpunkt)
+  - Ohne `Bmirechner.java` und `BmiManager.java` (werden von den Schüler:innen implementiert)
+  - Java 21, Maven, Docker/Compose vorbereitet, GUI (`MainWindow`) vorhanden
 
-### Workflow:
+- `version-1-mvc-gui` → Version 1: GUI + vollständige Musterlösung
+  - Referenz-Implementierung (Model + Controller + View)
 
-1. **Version 0 erstellen:**
+- `version-2-alter-geschlecht` → Version 2: Erweiterte Funktionalität
+  - Erweiterungen um Alter (ComboBox) und Geschlecht (RadioButtons)
+  - Anpassung der Interpretation im Modell und Anbindung im Controller
+
+- `version-3-validation` → Version 3: Eingabevalidierung & Fehlerbehandlung
+  - Range-Checks, Exception Handling, nutzerfreundliche Meldungen/Markierungen in der GUI
+
+- (optional) `version-4-datenpersistenz` → Version 4: Datenbank/Persistenz
+- (optional) `version-5-alternative-plattform` → Version 5: Alternative View (z. B. XML)
+
+Hinweis: `version-0-grundgeruest` ist ein historischer Branch, aktuell identisch/nahe mit `main` und kann als Backup bestehen bleiben.
+
+## 🧭 Fahrplan für Studierende (Schritt-für-Schritt)
+
+### Version 0 (Start in `main`)
+1) Repository klonen und im `main`-Branch bleiben.
+2) `src/start/` öffnen und die beiden Klassen selbst anlegen/implementieren:
+   - `Bmirechner.java` (Model): BMI berechnen + Interpretation (siehe README und UML)
+   - `BmiManager.java` (Controller): bindet Model an View/Buttons
+3) Bauen/Starten:
    ```bash
-   git checkout -b version-0-grundgeruest
-   # Bmirechner-Klasse implementieren
-   git add .
-   git commit -m "Version 0: Grundgerüst mit Bmirechner-Klasse"
-   git tag v0.0 -m "Version 0: Grundgerüst"
-   git push origin version-0-grundgeruest --tags
+   ./build.sh        # oder: mvn clean compile
+   ./run.sh          # startet die GUI
    ```
 
-2. **Version 1 auf Basis von Version 0:**
-   ```bash
-   git checkout -b version-1-gui version-0-grundgeruest
-   # GUI implementieren
-   git add .
-   git commit -m "Version 1: GUI mit MainWindow hinzugefügt"
-   git tag v1.0 -m "Version 1: GUI"
-   git push origin version-1-gui --tags
-   ```
-
-3. **Weitere Versionen analog aufbauen**
-
-4. **Main Branch aktualisieren:**
-   ```bash
-   git checkout main
-   git merge version-5-alternative-plattform
-   git push origin main
-   ```
-
-## 🏷️ Tag-Konvention
-- `v0.0` - Version 0: Grundgerüst
-- `v1.0` - Version 1: GUI
-- `v2.0` - Version 2: Controller
-- `v3.0` - Version 3: Erweiterte Funktionen
-- `v4.0` - Version 4: Datenpersistenz
-- `v5.0` - Version 5: Alternative Plattform
-
-## 📚 Für Studierende
-
-### Eine bestimmte Version auschecken:
+### Version 1 ansehen (Vergleich/Referenz)
 ```bash
-# Als Branch
-git checkout version-1-gui
+git checkout version-1-mvc-gui
+```
+– Dient als Musterlösung zum Vergleichen (nicht überschreiben, nur ansehen/testen).
 
-# Oder als Tag
-git checkout v1.0
+### Version 2 entwickeln (Alter & Geschlecht)
+```bash
+git checkout version-2-alter-geschlecht
+```
+– Aufgaben: GUI-Felder anbinden, Modell-Interpretation erweitern, Controller ergänzen.
+
+### Version 3 entwickeln (Validierung)
+```bash
+git checkout version-3-validation
+```
+– Aufgaben: Eingabevalidierung, Exceptions, visuelles Feedback in der GUI.
+
+## 🔁 Arbeiten mit Branches
+
+Änderungen machen, committen und pushen:
+```bash
+git add .
+git commit -m "Kurzbeschreibung der Änderung"
+git push
 ```
 
-### Unterschiede zwischen Versionen anzeigen:
+Vergleiche zwischen Versionen (lokal):
 ```bash
-git diff version-0-grundgeruest..version-1-gui
+git diff main..version-1-mvc-gui
+git diff version-1-mvc-gui..version-2-alter-geschlecht
+git diff version-2-alter-geschlecht..version-3-validation
 ```
 
-### Alle verfügbaren Versionen anzeigen:
-```bash
-# Branches
-git branch -a
+Vergleiche auf GitHub (Beispiele):
+- V0 → V1: …/compare/main...version-1-mvc-gui
+- V1 → V2: …/compare/version-1-mvc-gui...version-2-alter-geschlecht
+- V2 → V3: …/compare/version-2-alter-geschlecht...version-3-validation
 
-# Tags
-git tag -l
+Pull Requests (optional, empfohlen für Reviews):
+1) Auf dem Ziel-Branch (z. B. `version-2-alter-geschlecht`) pushen
+2) Auf GitHub „Compare & pull request“ öffnen
+3) Titel/Beschreibung ausfüllen, prüfen/mergen
+
+## 🏷️ Tags (optional)
+Auf Wunsch können Versionen zusätzlich getaggt werden (z. B. zu Abgabezwecken):
+```bash
+git tag -a v0.0 -m "Version 0: Template (main)" main
+git tag -a v1.0 -m "Version 1: MVC GUI" version-1-mvc-gui
+git tag -a v2.0 -m "Version 2: Alter & Geschlecht" version-2-alter-geschlecht
+git tag -a v3.0 -m "Version 3: Validierung" version-3-validation
+git push --tags
 ```
 
-## 📝 README-Anpassung
-In jeder Version sollte die README.md angepasst werden und nur die relevanten Abschnitte enthalten:
-- Version 0: Nur bis "Spezifikation Version 1"
-- Version 1: Bis "Spezifikation Version 2"
-- usw.
+## 🧹 Konventionen & Hygiene
+- Keine Build-Artefakte committen (`build/`, `target/` sind in `.gitignore`)
+- Branch-Namen aussagekräftig und konsistent halten (siehe Liste oben)
+- README pro Version schlank halten (nur relevante Abschnitte hervorheben)
 
 ## 🔄 Maintenance
-Bei Bugfixes oder Verbesserungen:
-1. Fix im entsprechenden Version-Branch durchführen
-2. Mit `git cherry-pick` in nachfolgende Versionen übernehmen
-3. Oder alle Branches nacheinander mergen
+Bugfixes/Verbesserungen gezielt weiterreichen:
+1) Fix in der niedrigsten betroffenen Version implementieren
+2) In höhere Versionen übernehmen (`git cherry-pick <commit>` oder Merge des Branches)
 
-## 🎓 Vorteile für Lehre
-- ✅ Studierende können schrittweise lernen
+## 🎓 Vorteile für die Lehre
+- ✅ Klare, lineare Progression (V0 → V1 → V2 → V3 …)
 - ✅ Jede Version ist lauffähig und testbar
-- ✅ Klare Progression erkennbar
-- ✅ Vergleiche zwischen Versionen möglich
-- ✅ Individuelles Tempo möglich
+- ✅ Einfaches Vergleichen zwischen Ständen (diff/compare)
+- ✅ Saubere Trennung von Themen (Funktionalität vs. Validierung vs. Persistenz)
