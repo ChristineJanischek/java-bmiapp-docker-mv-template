@@ -1,5 +1,8 @@
 # 🧑‍💻 Aufgabe: BMI-Rechner in Docker mit eigener Ausgabe
 
+> Hinweis: Diese README wird beim Öffnen des Workspace in VS Code automatisch angezeigt (Einstellung "workbench.startupEditor": "readme").
+> Deaktivieren: In `.vscode/settings.json` den Wert auf `none` setzen oder in VS Code unter Einstellungen `Startup Editor` auf `none` ändern.
+
 ## ☕ Java Version
 
 Dieses Projekt verwendet **Java 21 LTS** (Long-Term Support).
