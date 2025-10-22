@@ -44,11 +44,11 @@ cd java-bmiapp-docker-mv-template
 ./run.sh
 ```
 
-Weitere Details zum Fahrplan siehe `VERSIONING_STRATEGY.md`.
+Weitere Details zum Fahrplan siehe [VERSIONING_STRATEGY.md](./VERSIONING_STRATEGY.md).
 
 ## 🧩 Als Template verwenden
 
-Du möchtest dieses Projekt als Vorlage für ähnliche Aufgaben nutzen? Lies die Anleitung in `TEMPLATE_GUIDE.md`. Dort steht:
+Du möchtest dieses Projekt als Vorlage für ähnliche Aufgaben nutzen? Lies die Anleitung in [TEMPLATE_GUIDE.md](./TEMPLATE_GUIDE.md). Dort steht:
 - Wie du das Repo als Template markierst (GitHub Web/CLI)
 - Wie du neue Repositories aus der Vorlage erstellst
 - Wie du gemeinsame Dateien später per Skript (`scripts/sync_shared_docs.sh`) in abgeleitete Repos synchronisierst
@@ -118,7 +118,7 @@ Entwickle eine eigene BMI-App (Body Mass Index) und lerne dabei:
 - Das Modell um eine Steuerungsklasse (BmiManager) zu erweitern
 - Die Programmlogik für `berechne()` und `interpretiere()` zu implementieren
 - Die BmiApp um eine grafische Benutzeroberfläche (MainWindow) zu erweitern
-- Vorgehensweise im Management von Versionen (siehe `VERSIONING_STRATEGY.md`)
+- Vorgehensweise im Management von Versionen (siehe [VERSIONING_STRATEGY.md](./VERSIONING_STRATEGY.md))
 
 Wende bei der Umsetzung des Projektes das **MVC-Prinzip** an und berücksichtige in jedem Entwicklungsschritt die Prinzipien des **Secure Coding**.
 
