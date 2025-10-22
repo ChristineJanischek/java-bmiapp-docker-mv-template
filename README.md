@@ -80,7 +80,6 @@ Weitere Tipps:
 - [SINGLE_ENTRY_POINT.md](./SINGLE_ENTRY_POINT.md) – Single Entry Point-Prinzip
 - [GUI_DOCKER.md](./GUI_DOCKER.md) – GUI im Docker-Container
 - [GUI_BROWSER.md](./GUI_BROWSER.md) – GUI im Browser (noVNC)
-- [SCHRITT_FUER_SCHRITT_GUI_V2.md](./SCHRITT_FUER_SCHRITT_GUI_V2.md) – GUI-Erweiterung Version 2
 
 ---
 
