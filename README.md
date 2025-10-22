@@ -53,7 +53,6 @@ Du möchtest dieses Projekt als Vorlage für ähnliche Aufgaben nutzen? Lies die
 - Wie du neue Repositories aus der Vorlage erstellst
 - Wie du gemeinsame Dateien später per Skript (`scripts/sync_shared_docs.sh`) in abgeleitete Repos synchronisierst
 
-
 ## 👣 Schritt-für-Schritt-Anleitungen
 
 Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleitung:
@@ -64,7 +63,7 @@ Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleit
 - [Version 3 (Validierung & Fehlerbehandlung)](./SCHRITTE_VERSION_3.md)
 
 Weitere Tipps:
-- Lies die Spezifikationen unter „📄 Spezifikation Version X“ weiter unten.
+- Lies die Spezifikationen unter „📄 Spezifikation Version X" weiter unten.
 - Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen).
 
 ---
@@ -81,9 +80,55 @@ Weitere Tipps:
 - [SINGLE_ENTRY_POINT.md](./SINGLE_ENTRY_POINT.md) – Single Entry Point-Prinzip
 - [GUI_DOCKER.md](./GUI_DOCKER.md) – GUI im Docker-Container
 - [GUI_BROWSER.md](./GUI_BROWSER.md) – GUI im Browser (noVNC)
-- [SCHRITT_FUER_SCHRITT_GUI_V2.md](./SCHRITT_FUER_SCHRITT_GUI_V2.md) – GUI-Erweiterung Version 2
 
 ---
+
+## 🛠️ Troubleshooting
+
+## 👣 Schritt-für-Schritt (für Schüler)
+
+1) Starte im richtigen Branch (Version 0)
+```bash
+git checkout main
+git pull
+```
+
+2) Lege die fehlenden Klassen an und implementiere sie
+- `src/start/Bmirechner.java` (Model): berechnet den BMI und liefert die Interpretation.
+- `src/start/BmiManager.java` (Controller): verbindet View (MainWindow) und Model.
+
+3) Baue und starte die App
+```bash
+./build.sh     # oder: mvn clean compile
+./run.sh       # startet die GUI
+```
+
+4) Teste die Funktionen in der GUI
+- Gewicht/Größe eingeben → BMI berechnen → Interpretation anzeigen
+- Buttons „Leeren“ und „Schließen“ ausprobieren
+
+5) Änderungen speichern und hochladen
+```bash
+git add .
+git commit -m "Implementiere Bmirechner und BmiManager (Version 0)"
+git push
+```
+
+6) Nächste Versionen ansehen/weiterentwickeln
+```bash
+# Musterlösung (Vergleich):
+git checkout version-1-mvc-gui
+
+# Version 2 (Methoden & Algorithmen):
+git checkout version-2-methoden
+
+# Version 3 (Validierung):
+git checkout version-3-validation
+```
+
+Tipps:
+- Lies die Spezifikationen unter „📄 Spezifikation Version X“ weiter unten.
+- Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen).
 
 ## 🛠️ Troubleshooting
 
@@ -131,98 +176,42 @@ Weitere Erklärungen und Beispiel-Prompts findest du in [info.md](./INFO.md).
 - Eingaben prüfen und validieren (siehe [SECURE_CODING.md](./SECURE_CODING.md))
 - Ausgaben bereinigen und sicher darstellen
 
-### Vorgehensweise:
+### Klassenstruktur und UML-Diagramme:
 
-#### 1. Bmirechner-Klasse (Model)
-Weitere grundlegende Fakten zur Implementierung des Grundgerüsts einer Klasse findest du in [GRUNDGERUEST_KLASSE.md](./GRUNDGERUEST_KLASSE.md).
+Die detaillierten UML-Klassendiagramme für `Bmirechner` (Model) und `BmiManager` (Controller) sowie die BMI-Wertetabelle findest du in den jeweiligen Schritt-für-Schritt-Anleitungen:
+- [SCHRITTE_VERSION_0.md](./SCHRITTE_VERSION_0.md) – Grundgerüst mit UML-Diagrammen
+- [SCHRITTE_VERSION_1.md](./SCHRITTE_VERSION_1.md) – MVC-Integration
 
+Weitere grundlegende Fakten zur Implementierung des Grundgerüsts einer Klasse: [GRUNDGERUEST_KLASSE.md](./GRUNDGERUEST_KLASSE.md)
 
-```text
-┌──────────────────────────────────────────────────────────────┐
-│                        Bmirechner                            │
-├──────────────────────────────────────────────────────────────┤
-│ - gewicht: double                                            │
-│ - groesse: double                                            │
-│ - ergebnis: double                                           │
-│ - kategorie: String                                          │
-├──────────────────────────────────────────────────────────────┤
-│ + Bmirechner()                                               │
-│ + setGewicht(pGewicht: double): void                         │
-│ + setGroesse(pGroesse: double): void                         │
-│ + getGewicht(): double                                       │
-│ + getGroesse(): double                                       │
-│ + getErgebnis(): double                                      │
-│ + getKategorie(): String                                     │
-│ + berechne(pGewicht: double, pGroesse: double): double       │
-│ + interpretiere(): void                                      │
-│ + toString(): String                                         │
-└──────────────────────────────────────────────────────────────┘
-```
+---
 
-#### Wertetabelle für die BMI-Interpretation
+## 📄 Spezifikation Version 0: Prototyp (Model, Controller)
 
-| BMI-Wert         | Kategorie                |
-|------------------|------------------------- |
-| < 16             | Starkes Untergewicht     |
-| 16 – < 17        | Mäßiges Untergewicht     |
-| 17 – < 18.5      | Leichtes Untergewicht    |
-| 18.5 – < 25      | Normalgewicht            |
-| 25 – < 30        | Prädipositas             |
-| 30 – < 35        | Adipositas Grad I        |
-| 35 – < 40        | Adipositas Grad II       |
-| ≥ 40             | Adipositas Grad III      |
-
-```
-┌─────────────────────────────────────────────┐
-│                BmiManager                   │
-├─────────────────────────────────────────────┤
-│ - model: Bmirechner                         │
-├─────────────────────────────────────────────┤
-│ + BmiManager()                              │
-│ + BmiManager(pModel: Bmirechner)            │
-│ + berechneBMI(pGewicht: double,             │
-│               pGroesse: double): double     │
-│ + interpretiereBMI(): void                  │
-│ + getModel(): Bmirechner                    │
-│ + setModel(pModel: Bmirechner): void        │
-└─────────────────────────────────────────────┘
-```
-
-**Aufgabe:**
-Nachdem der Unit-Test für das Modell läuft, sollen die Schüler die Steuerungsklasse `BmiManager` gemäß obigem UML-Diagramm implementieren. Die Klasse übernimmt die Steuerung der BMI-Berechnung und der Interpretation und verbindet das Modell mit der Benutzeroberfläche.
-
-#### 3. Unit-Test (Preview)
-- Öffne die Datei `Main.java` im Ordner `src/start`
-- Ergänze die `main()`-Methode so, dass:
-  - ein Objekt der Klasse `Bmirechner` erstellt wird
-  - die Methode `berechne(double pGewicht, double pGroesse)` aufgerufen wird
-  - im Terminal die Ausgabe erscheint, z.B.: `Ihr BMI beträgt: 22.5`
-
-#### 4. GUI (View)
-- Ersetzt die Main-Klasse als Einstiegspunkt
-- Wird vom BmiManager gesteuert
-
-## 📄 Spezifikation Version 0: Prototyp (Model, Controler))
 **Basis-Implementierung:**
 - Implementierung der `Bmirechner`-Klasse (Model)
-Implementierung der `BmiManager`-Klasse (Controller).
-Der `BmiManager` übernimmt die Steuerung der Anwendung und koordiniert die Interaktion zwischen Model (`Bmirechner`) und View (`Main`).
-Der bestehende Unit-Test in `Main.java` muss so umgeschrieben werden, dass die Steuerung über den `BmiManager` erfolgt.
-Das Model (`Bmirechner`), die View (`Main`) und der Controller (`BmiManager`) müssen gemäß dem MVC-Prinzip umgesetzt werden.
-Alle drei Komponenten sollen in dieser Version funktionsfähig und miteinander verbunden sein.
+- Implementierung der `BmiManager`-Klasse (Controller)
+- Der `BmiManager` übernimmt die Steuerung der Anwendung und koordiniert die Interaktion zwischen Model (`Bmirechner`) und View (`Main`)
+- Der bestehende Unit-Test in `Main.java` muss so umgeschrieben werden, dass die Steuerung über den `BmiManager` erfolgt
+- Das Model (`Bmirechner`), die View (`Main`) und der Controller (`BmiManager`) müssen gemäß dem MVC-Prinzip umgesetzt werden
+- Alle drei Komponenten sollen in dieser Version funktionsfähig und miteinander verbunden sein
 - Unit-Test in `Main.java` zur Überprüfung der Funktionalität
+
+**Details:** Siehe [SCHRITTE_VERSION_0.md](./SCHRITTE_VERSION_0.md)
 
 ## 📄 Spezifikation Version 1: Benutzeroberfläche (View) & Steuerung (Controller)
 
 **Ziel:**
-- Die grafische Benutzeroberfläche (GUI) ist vollständig vorgegeben und muss nicht selbst programmiert werden.
-- Die Schüler sollen die Struktur und Funktionsweise der GUI verstehen und mit dem Controller (BmiManager) verbinden.
-- Die Anwendung wird im Browser über noVNC getestet.
+- Die grafische Benutzeroberfläche (GUI) ist vollständig vorgegeben und muss nicht selbst programmiert werden
+- Die Schüler sollen die Struktur und Funktionsweise der GUI verstehen und mit dem Controller (BmiManager) verbinden
+- Die Anwendung wird im Browser über noVNC getestet
 
 **Was ist zu tun?**
 - Verstehe den Aufbau der Klasse `MainWindow.java` (ausführlich kommentiert)
-- Implementiere und teste die Steuerungsklasse `BmiManager` gemäß UML
+- Implementiere und teste die Steuerungsklasse `BmiManager`
 - Kompiliere das Projekt und teste die Anwendung im Browser
+
+**Details und UML-Diagramme:** Siehe [SCHRITTE_VERSION_1.md](./SCHRITTE_VERSION_1.md)
 
 **Testanleitung:**
 
@@ -244,14 +233,17 @@ Alle drei Komponenten sollen in dieser Version funktionsfähig und miteinander v
    - "Leeren" und "Schließen" testen
 
 **Hinweis:**
-- Die Schüler müssen die MainWindow-Klasse nicht selbst schreiben, sondern nur verstehen und nutzen.
-- Die Steuerung (Controller/BmiManager) und das Modell (Bmirechner) werden selbst implementiert.
-- Die GUI ist der Einstiegspunkt für die Anwendung.
-- Die Controller-Integration (BmiManager) ist bereits Bestandteil dieser Version.
-- Die Ereignissteuerung für die Buttons ist in der MainWindow-Klasse vorgegeben und nutzt den BmiManager.
-- Eine Schritt-für-Schritt-Anleitung findet sich in [MVC_ANLEITUNG.md](./MVC_ANLEITUNG.md).
+- Die Schüler müssen die MainWindow-Klasse nicht selbst schreiben, sondern nur verstehen und nutzen
+- Die Steuerung (Controller/BmiManager) und das Modell (Bmirechner) werden selbst implementiert
+- Die GUI ist der Einstiegspunkt für die Anwendung
+- Die Controller-Integration (BmiManager) ist bereits Bestandteil dieser Version
+- Die Ereignissteuerung für die Buttons ist in der MainWindow-Klasse vorgegeben und nutzt den BmiManager
+- Eine Schritt-für-Schritt-Anleitung findet sich in [MVC_ANLEITUNG.md](./MVC_ANLEITUNG.md)
+
+---
 
 ## 📄 Spezifikation Version 2: Erweiterte Funktionalität (Alter & Geschlecht)
+
 **Erweiterung um Alter und Geschlecht:**
 - **Neue GUI-Elemente:**
   - ComboBox für das Alter (`cbAlter`)
@@ -264,7 +256,12 @@ Alle drei Komponenten sollen in dieser Version funktionsfähig und miteinander v
   - BmiManager erhält zusätzliche Methoden für Alter und Geschlecht
   - Ereignissteuerung wird entsprechend angepasst
 
+**Details:** Siehe [SCHRITTE_VERSION_2.md](./SCHRITTE_VERSION_2.md) und [SCHRITT_FUER_SCHRITT_GUI_V2.md](./SCHRITT_FUER_SCHRITT_GUI_V2.md)
+
+---
+
 ## 📄 Spezifikation Version 3: Eingabevalidierung und Fehlerbehandlung
+
 **Secure Coding und Benutzerfreundlichkeit:**
 - **Eingabevalidierung:**
   - Prüfung auf gültige Zahlenwerte (keine negativen Werte, keine leeren Felder)
@@ -275,7 +272,11 @@ Alle drei Komponenten sollen in dieser Version funktionsfähig und miteinander v
   - Benutzerfreundliche Fehlermeldungen in der GUI
 - **Usability-Verbesserungen:**
   - Eingabefelder werden bei ungültigen Werten rot markiert
-  - Hilfetext für erwartete Eingabeformate 
+  - Hilfetext für erwartete Eingabeformate
+
+**Details:** Siehe [SCHRITTE_VERSION_3.md](./SCHRITTE_VERSION_3.md)
+
+---
 
 ## 📄 Spezifikation Version 4: Datenpersistenz
 **Speicherung von Profildaten:**
