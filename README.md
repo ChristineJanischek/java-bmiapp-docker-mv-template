@@ -23,7 +23,7 @@ Diese Branches entsprechen den Versionen im Unterricht. Starte im Branch `main` 
 
 - `main` → Version 0: Schüler-Template (ohne Bmirechner.java, ohne BmiManager.java)
 - `version-1-mvc-gui` → Version 1: Musterlösung mit MVC (Model + Controller + GUI)
-- `version-2-alter-geschlecht` → Version 2: Erweiterung um Alter & Geschlecht
+- `version-2-methoden` → Version 2: Methoden, Kontrollstrukturen & Algorithmen
 - `version-3-validation` → Version 3: Eingabevalidierung & Fehlerbehandlung
 
 Schnellstart für Schüler (Version 0):
@@ -84,8 +84,8 @@ git push
 # Musterlösung (Vergleich):
 git checkout version-1-mvc-gui
 
-# Version 2 (Alter & Geschlecht):
-git checkout version-2-alter-geschlecht
+# Version 2 (Methoden & Algorithmen):
+git checkout version-2-methoden
 
 # Version 3 (Validierung):
 git checkout version-3-validation

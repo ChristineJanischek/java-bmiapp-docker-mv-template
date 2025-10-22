@@ -28,7 +28,7 @@ Dieses Repository kann als Vorlage (Template) für ähnliche Projekte wie „Rec
 
 Hinweise:
 - GitHub-Template-Repositories kopieren standardmäßig nur den Standard-Branch (meist `main`).
-- Die Branches für Version 1–3 (z. B. `version-1-mvc-gui`, `version-2-alter-geschlecht`, `version-3-validation`) musst du bei Bedarf im neuen Repo separat anlegen.
+- Die Branches für Version 1–3 (z. B. `version-1-mvc-gui`, `version-2-methoden`, `version-3-validation`) musst du bei Bedarf im neuen Repo separat anlegen.
 
 Beispiel (im neuen Repo):
 ```bash
@@ -38,7 +38,7 @@ cd <NEUER_REPO_NAME>
 
 # Branches für spätere Unterrichtsstufen anlegen (optional)
 git checkout -b version-1-mvc-gui && git push -u origin version-1-mvc-gui
-git checkout -b version-2-alter-geschlecht && git push -u origin version-2-alter-geschlecht
+git checkout -b version-2-methoden && git push -u origin version-2-methoden
 git checkout -b version-3-validation && git push -u origin version-3-validation
 
 # Zurück zu main
