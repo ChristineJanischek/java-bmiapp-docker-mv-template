@@ -73,6 +73,7 @@ Weitere Tipps:
 - [VERSIONING_STRATEGY.md](./VERSIONING_STRATEGY.md) – Überblick über die Branches und Versionen
 - [TEMPLATE_GUIDE.md](./TEMPLATE_GUIDE.md) – Anleitung zur Nutzung als Vorlage
 - [MVC_KONZEPT.md](./MVC_KONZEPT.md) – Das MVC-Prinzip erklärt
+- [INTELLIGENTE_METHODENWAHL.md](./INTELLIGENTE_METHODENWAHL.md) – Controller-Logik für optionale Parameter
 - [POLYMORPHIE.md](./POLYMORPHIE.md) – Polymorphie verstehen und anwenden (Version 2+)
 - [UNIT_TESTING.md](./UNIT_TESTING.md) – Unit-Tests implementieren und Best Practices
 - [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md) – Kontrollstrukturen in Java

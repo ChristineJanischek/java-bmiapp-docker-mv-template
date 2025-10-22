@@ -70,6 +70,30 @@ public class BmiManager {
     }
 
     /**
+     * Intelligente Interpretationsmethode: Entscheidet automatisch, welche Interpretationsmethode
+     * verwendet werden soll, basierend auf den übergebenen Parametern.
+     * 
+     * @param pGewicht Körpergewicht in kg
+     * @param pGroesse Körpergröße in Metern
+     * @param pAlter Alter der Person in Jahren (0 = nicht angegeben)
+     * @param pGeschlecht Geschlecht ("männlich", "weiblich" oder null/leer = nicht angegeben)
+     */
+    public void interpretiereIntelligent(double pGewicht, double pGroesse, int pAlter, String pGeschlecht) {
+        // Prüfe, ob Alter und Geschlecht gültig sind
+        boolean alterVorhanden = pAlter > 0;
+        boolean geschlechtVorhanden = pGeschlecht != null && !pGeschlecht.trim().isEmpty();
+        
+        if (alterVorhanden && geschlechtVorhanden) {
+            // Erweiterte Interpretation mit allen Parametern
+            model.interpretiere(pGewicht, pGroesse, pAlter, pGeschlecht);
+        } else {
+            // Einfache Interpretation ohne Alter/Geschlecht
+            model.berechne(pGewicht, pGroesse);
+            model.interpretiere();
+        }
+    }
+
+    /**
      * Zeigt die BMI-Interpretation in einem Dialog-Fenster an.
      * Nutzt JOptionPane für eine benutzerfreundliche Darstellung.
      */

@@ -180,9 +180,52 @@ public class Main {
 ---
 
 ## 6. MVC-Prinzip anwenden
-- Verbinde die neuen GUI-Elemente (ComboBox für Alter, RadioButtons für Geschlecht) mit Controller und Model
-- Rufe die polymorphe Methode `interpretiere(gewicht, groesse, alter, geschlecht)` im Controller auf
-- Nutze `JOptionPane` zur Anzeige des Ergebnisses
+
+### Controller erweitern (BmiManager)
+
+Füge eine intelligente Methode hinzu, die automatisch entscheidet, welche Interpretation verwendet wird:
+
+```java
+public void interpretiereIntelligent(double pGewicht, double pGroesse, 
+                                     int pAlter, String pGeschlecht) {
+    // Prüfe, ob Alter und Geschlecht gültig sind
+    boolean alterVorhanden = pAlter > 0;
+    boolean geschlechtVorhanden = pGeschlecht != null && !pGeschlecht.trim().isEmpty();
+    
+    if (alterVorhanden && geschlechtVorhanden) {
+        // Erweiterte Interpretation mit allen Parametern
+        model.interpretiere(pGewicht, pGroesse, pAlter, pGeschlecht);
+    } else {
+        // Einfache Interpretation ohne Alter/Geschlecht
+        model.berechne(pGewicht, pGroesse);
+        model.interpretiere();
+    }
+}
+```
+
+**Warum im Controller?** Siehe [INTELLIGENTE_METHODENWAHL.md](./INTELLIGENTE_METHODENWAHL.md)
+
+### GUI-Integration (MainWindow)
+
+Im ActionListener des "Berechnen"-Buttons:
+
+```java
+// Werte aus GUI auslesen
+double gewicht = Double.parseDouble(txtGewicht.getText());
+double groesse = Double.parseDouble(txtGroesse.getText());
+int alter = cbAlter.getSelectedIndex();  // 0 = nicht ausgewählt
+
+String geschlecht = null;
+if (rbMann.isSelected()) {
+    geschlecht = "männlich";
+} else if (rbFrau.isSelected()) {
+    geschlecht = "weiblich";
+}
+
+// Controller entscheidet automatisch, welche Methode aufgerufen wird!
+manager.interpretiereIntelligent(gewicht, groesse, alter, geschlecht);
+manager.zeigeInterpretation();
+```
 
 ---
 
@@ -205,6 +248,7 @@ git push
 ---
 
 ## Weitere Hilfen
+- [INTELLIGENTE_METHODENWAHL.md](./INTELLIGENTE_METHODENWAHL.md) – Entscheidungslogik im Controller
 - [UNIT_TESTING.md](./UNIT_TESTING.md) – Unit-Tests verstehen und implementieren
 - [POLYMORPHIE.md](./POLYMORPHIE.md) – Polymorphie verstehen und anwenden
 - [SCHRITT_FUER_SCHRITT_GUI_V2.md](./SCHRITT_FUER_SCHRITT_GUI_V2.md)
