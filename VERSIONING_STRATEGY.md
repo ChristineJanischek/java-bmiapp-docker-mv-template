@@ -12,9 +12,9 @@ Der Fahrplan für die Studierenden soll 1:1 zur tatsächlichen Branch-Struktur i
 - `version-1-mvc-gui` → Version 1: GUI + vollständige Musterlösung
   - Referenz-Implementierung (Model + Controller + View)
 
-- `version-2-alter-geschlecht` → Version 2: Erweiterte Funktionalität
-  - Erweiterungen um Alter (ComboBox) und Geschlecht (RadioButtons)
-  - Anpassung der Interpretation im Modell und Anbindung im Controller
+- `version-2-methoden` → Version 2: Methoden, Kontrollstrukturen & Algorithmen
+  - Vertiefung: Methodenimplementierung, Schleifen, Verzweigungen, algorithmisches Denken
+  - Beispiel im BMI-Projekt: Erweiterungen um Alter (ComboBox) und Geschlecht (RadioButtons), erweiterte Interpretation
 
 - `version-3-validation` → Version 3: Eingabevalidierung & Fehlerbehandlung
   - Range-Checks, Exception Handling, nutzerfreundliche Meldungen/Markierungen in der GUI
@@ -43,11 +43,12 @@ git checkout version-1-mvc-gui
 ```
 – Dient als Musterlösung zum Vergleichen (nicht überschreiben, nur ansehen/testen).
 
-### Version 2 entwickeln (Alter & Geschlecht)
+### Version 2 entwickeln (Methoden & Algorithmen)
 ```bash
-git checkout version-2-alter-geschlecht
+git checkout version-2-methoden
 ```
-– Aufgaben: GUI-Felder anbinden, Modell-Interpretation erweitern, Controller ergänzen.
+– Aufgaben: Weitere Methoden implementieren, Kontrollstrukturen anwenden, algorithmisches Denken vertiefen.
+  Beispiel BMI: GUI-Felder für Alter/Geschlecht anbinden, Modell-Interpretation erweitern, Controller ergänzen.
 
 ### Version 3 entwickeln (Validierung)
 ```bash
@@ -67,17 +68,17 @@ git push
 Vergleiche zwischen Versionen (lokal):
 ```bash
 git diff main..version-1-mvc-gui
-git diff version-1-mvc-gui..version-2-alter-geschlecht
-git diff version-2-alter-geschlecht..version-3-validation
+git diff version-1-mvc-gui..version-2-methoden
+git diff version-2-methoden..version-3-validation
 ```
 
 Vergleiche auf GitHub (Beispiele):
 - V0 → V1: …/compare/main...version-1-mvc-gui
-- V1 → V2: …/compare/version-1-mvc-gui...version-2-alter-geschlecht
-- V2 → V3: …/compare/version-2-alter-geschlecht...version-3-validation
+- V1 → V2: …/compare/version-1-mvc-gui...version-2-methoden
+- V2 → V3: …/compare/version-2-methoden...version-3-validation
 
 Pull Requests (optional, empfohlen für Reviews):
-1) Auf dem Ziel-Branch (z. B. `version-2-alter-geschlecht`) pushen
+1) Auf dem Ziel-Branch (z. B. `version-2-methoden`) pushen
 2) Auf GitHub „Compare & pull request“ öffnen
 3) Titel/Beschreibung ausfüllen, prüfen/mergen
 
@@ -86,7 +87,7 @@ Auf Wunsch können Versionen zusätzlich getaggt werden (z. B. zu Abgabezwecken)
 ```bash
 git tag -a v0.0 -m "Version 0: Template (main)" main
 git tag -a v1.0 -m "Version 1: MVC GUI" version-1-mvc-gui
-git tag -a v2.0 -m "Version 2: Alter & Geschlecht" version-2-alter-geschlecht
+git tag -a v2.0 -m "Version 2: Methoden & Algorithmen" version-2-methoden
 git tag -a v3.0 -m "Version 3: Validierung" version-3-validation
 git push --tags
 ```
