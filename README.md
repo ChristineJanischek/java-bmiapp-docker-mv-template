@@ -53,50 +53,37 @@ Du möchtest dieses Projekt als Vorlage für ähnliche Aufgaben nutzen? Lies die
 - Wie du neue Repositories aus der Vorlage erstellst
 - Wie du gemeinsame Dateien später per Skript (`scripts/sync_shared_docs.sh`) in abgeleitete Repos synchronisierst
 
-## 👣 Schritt-für-Schritt (für Schüler)
 
-1) Starte im richtigen Branch (Version 0)
-```bash
-git checkout main
-git pull
-```
+## 👣 Schritt-für-Schritt-Anleitungen
 
-2) Lege die fehlenden Klassen an und implementiere sie
-- `src/start/Bmirechner.java` (Model): berechnet den BMI und liefert die Interpretation.
-- `src/start/BmiManager.java` (Controller): verbindet View (MainWindow) und Model.
+Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleitung:
 
-3) Baue und starte die App
-```bash
-./build.sh     # oder: mvn clean compile
-./run.sh       # startet die GUI
-```
+- [Version 0 (main): Einstieg & Grundgerüst](./SCHRITTE_VERSION_0.md)
+- [Version 1 (MVC + GUI)](./SCHRITTE_VERSION_1.md)
+- [Version 2 (Methoden, Kontrollstrukturen, Algorithmen)](./SCHRITTE_VERSION_2.md)
+- [Version 3 (Validierung & Fehlerbehandlung)](./SCHRITTE_VERSION_3.md)
 
-4) Teste die Funktionen in der GUI
-- Gewicht/Größe eingeben → BMI berechnen → Interpretation anzeigen
-- Buttons „Leeren“ und „Schließen“ ausprobieren
-
-5) Änderungen speichern und hochladen
-```bash
-git add .
-git commit -m "Implementiere Bmirechner und BmiManager (Version 0)"
-git push
-```
-
-6) Nächste Versionen ansehen/weiterentwickeln
-```bash
-# Musterlösung (Vergleich):
-git checkout version-1-mvc-gui
-
-# Version 2 (Methoden & Algorithmen):
-git checkout version-2-methoden
-
-# Version 3 (Validierung):
-git checkout version-3-validation
-```
-
-Tipps:
+Weitere Tipps:
 - Lies die Spezifikationen unter „📄 Spezifikation Version X“ weiter unten.
 - Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen).
+
+---
+
+## 📚 Weitere Dokumentation & Hilfen
+
+- [VERSIONING_STRATEGY.md](./VERSIONING_STRATEGY.md) – Überblick über die Branches und Versionen
+- [TEMPLATE_GUIDE.md](./TEMPLATE_GUIDE.md) – Anleitung zur Nutzung als Vorlage
+- [MVC_KONZEPT.md](./MVC_KONZEPT.md) – Das MVC-Prinzip erklärt
+- [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md) – Kontrollstrukturen in Java
+- [SECURE_CODING.md](./SECURE_CODING.md) – Sichere Programmierung
+- [ASSOZIATIONEN.md](./ASSOZIATIONEN.md) – Assoziationen zwischen Klassen
+- [GRUNDGERUEST_KLASSE.md](./GRUNDGERUEST_KLASSE.md) – Grundgerüst einer Klasse
+- [SINGLE_ENTRY_POINT.md](./SINGLE_ENTRY_POINT.md) – Single Entry Point-Prinzip
+- [GUI_DOCKER.md](./GUI_DOCKER.md) – GUI im Docker-Container
+- [GUI_BROWSER.md](./GUI_BROWSER.md) – GUI im Browser (noVNC)
+- [SCHRITT_FUER_SCHRITT_GUI_V2.md](./SCHRITT_FUER_SCHRITT_GUI_V2.md) – GUI-Erweiterung Version 2
+
+---
 
 ## 🛠️ Troubleshooting
 
