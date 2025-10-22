@@ -20,12 +20,70 @@ git pull
 ---
 
 ## 3. Controller (BmiManager) implementieren
-- Ergänze Methoden laut UML (siehe [MVC_KONZEPT.md](./MVC_KONZEPT.md))
+
+Implementiere die Klasse gemäß diesem UML-Diagramm:
+
+```text
+┌─────────────────────────────────────────────┐
+│                BmiManager                   │
+├─────────────────────────────────────────────┤
+│ - model: Bmirechner                         │
+├─────────────────────────────────────────────┤
+│ + BmiManager()                              │
+│ + BmiManager(pModel: Bmirechner)            │
+│ + berechneBMI(pGewicht: double,             │
+│               pGroesse: double): double     │
+│ + interpretiereBMI(): void                  │
+│ + getModel(): Bmirechner                    │
+│ + setModel(pModel: Bmirechner): void        │
+└─────────────────────────────────────────────┘
+```
+
+- Ergänze die Methoden laut UML-Diagramm
 - Verbinde die GUI-Events mit Methoden im Controller
+- Weitere Infos: [MVC_KONZEPT.md](./MVC_KONZEPT.md)
 
 ---
 
 ## 4. Model (Bmirechner) nutzen
+
+Das Model sollte bereits implementiert sein (siehe Version 0):
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│                        Bmirechner                            │
+├──────────────────────────────────────────────────────────────┤
+│ - gewicht: double                                            │
+│ - groesse: double                                            │
+│ - ergebnis: double                                           │
+│ - kategorie: String                                          │
+├──────────────────────────────────────────────────────────────┤
+│ + Bmirechner()                                               │
+│ + setGewicht(pGewicht: double): void                         │
+│ + setGroesse(pGroesse: double): void                         │
+│ + getGewicht(): double                                       │
+│ + getGroesse(): double                                       │
+│ + getErgebnis(): double                                      │
+│ + getKategorie(): String                                     │
+│ + berechne(pGewicht: double, pGroesse: double): double       │
+│ + interpretiere(): void                                      │
+│ + toString(): String                                         │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### BMI-Wertetabelle für die Interpretation
+
+| BMI-Wert         | Kategorie                |
+|------------------|------------------------- |
+| < 16             | Starkes Untergewicht     |
+| 16 – < 17        | Mäßiges Untergewicht     |
+| 17 – < 18.5      | Leichtes Untergewicht    |
+| 18.5 – < 25      | Normalgewicht            |
+| 25 – < 30        | Prädipositas             |
+| 30 – < 35        | Adipositas Grad I        |
+| 35 – < 40        | Adipositas Grad II       |
+| ≥ 40             | Adipositas Grad III      |
+
 - Stelle sicher, dass die Methoden `berechne()` und `interpretiere()` korrekt funktionieren
 - Übergib Werte aus der GUI an das Model
 
