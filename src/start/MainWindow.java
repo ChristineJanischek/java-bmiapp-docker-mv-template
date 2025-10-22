@@ -16,6 +16,9 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -36,6 +39,12 @@ private static final long serialVersionUID = 8519171689153531668L;
 	private JTextField tfGroesse;
 	// Feld zur Anzeige des Ergebnisses
 	private JTextField tfErgebnis;
+	// ComboBox für das Alter (Version 2)
+	private JComboBox<String> cbAlter;
+	// RadioButtons für das Geschlecht (Version 2)
+	private JRadioButton rbMann;
+	private JRadioButton rbFrau;
+	private ButtonGroup bgGeschlecht;
 	// Der Controller, der die Logik steuert
 	private BmiManager manager;
 
@@ -125,8 +134,55 @@ EventQueue.invokeLater(new Runnable() {
 		tfGroesse.setColumns(15);
 		contentPane.add(tfGroesse, gbc);
 
+		// Alter (Version 2) - ComboBox
+		gbc.gridx = 0; gbc.gridy = 4;
+		gbc.weightx = 0.3;
+		gbc.anchor = GridBagConstraints.EAST;
+		JLabel lbAlter = new JLabel("Alter (Jahre):");
+		contentPane.add(lbAlter, gbc);
+		gbc.gridx = 1;
+		gbc.weightx = 0.7;
+		gbc.anchor = GridBagConstraints.WEST;
+		
+		// ComboBox mit Altersgruppen
+		String[] altersGruppen = {
+			"-- nicht angegeben --",
+			"18-24", "25-34", "35-44", "45-54", 
+			"55-64", "65-74", "75+"
+		};
+		cbAlter = new JComboBox<>(altersGruppen);
+		contentPane.add(cbAlter, gbc);
+
+		// Geschlecht (Version 2) - RadioButtons
+		gbc.gridx = 0; gbc.gridy = 5;
+		gbc.weightx = 0.3;
+		gbc.anchor = GridBagConstraints.EAST;
+		JLabel lbGeschlecht = new JLabel("Geschlecht:");
+		contentPane.add(lbGeschlecht, gbc);
+		
+		gbc.gridx = 1;
+		gbc.weightx = 0.7;
+		gbc.anchor = GridBagConstraints.WEST;
+		
+		// Panel für RadioButtons
+		JPanel panelGeschlecht = new JPanel();
+		panelGeschlecht.setBackground(Color.WHITE);
+		rbMann = new JRadioButton("Männlich");
+		rbMann.setBackground(Color.WHITE);
+		rbFrau = new JRadioButton("Weiblich");
+		rbFrau.setBackground(Color.WHITE);
+		
+		// ButtonGroup sorgt dafür, dass nur ein RadioButton ausgewählt werden kann
+		bgGeschlecht = new ButtonGroup();
+		bgGeschlecht.add(rbMann);
+		bgGeschlecht.add(rbFrau);
+		
+		panelGeschlecht.add(rbMann);
+		panelGeschlecht.add(rbFrau);
+		contentPane.add(panelGeschlecht, gbc);
+
 		// Ergebnisfeld (BMI/Kategorie)
-		gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
+		gbc.gridx = 0; gbc.gridy = 6; gbc.gridwidth = 2;
 		gbc.weightx = 1.0;
 		gbc.anchor = GridBagConstraints.CENTER;
 		tfErgebnis = new JTextField();
@@ -139,7 +195,7 @@ EventQueue.invokeLater(new Runnable() {
 
 		// Buttons für Aktionen
 		gbc.gridwidth = 1;
-		gbc.gridy = 5;
+		gbc.gridy = 7;
 		gbc.gridx = 0;
 		// Button: BMI berechnen
 		JButton btBerechne = new JButton("Berechne BMI");
@@ -157,9 +213,14 @@ EventQueue.invokeLater(new Runnable() {
 		JButton btInterpretiere = new JButton("Interpretiere BMI");
 		btInterpretiere.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Übergibt die Eingaben an den Controller und zeigt die Kategorie
-				manager.berechneBMI(getGewichtValue(), getGroesseValue());
-				manager.interpretiereBMI();
+				// Version 2: Nutzt intelligente Methodenwahl mit Alter & Geschlecht
+				manager.interpretiereIntelligent(
+					getGewichtValue(), 
+					getGroesseValue(), 
+					getAlterValue(), 
+					getGeschlechtValue()
+				);
+				manager.zeigeInterpretation();
 				schreibeKategorie();
 			}
 		});
@@ -167,7 +228,7 @@ EventQueue.invokeLater(new Runnable() {
 
 
 		// Button: Felder leeren
-		gbc.gridy = 6;
+		gbc.gridy = 8;
 		gbc.gridx = 0;
 		JButton btLeeren = new JButton("Leeren");
 		btLeeren.addActionListener(new ActionListener() {
@@ -223,6 +284,45 @@ EventQueue.invokeLater(new Runnable() {
 
 
 	/**
+	 * Liest das Alter aus dem ComboBox (Version 2).
+	 * Berechnet den Mittelwert der ausgewählten Altersgruppe.
+	 * @return Alter als int (0 wenn keine Gruppe gewählt)
+	 */
+	public int getAlterValue() {
+		String auswahl = (String) cbAlter.getSelectedItem();
+		if (auswahl == null || auswahl.equals("-- nicht angegeben --")) {
+			return 0;
+		}
+		
+		// Berechne Mittelwert der Altersgruppe
+		switch (auswahl) {
+			case "18-24": return 21;
+			case "25-34": return 30;
+			case "35-44": return 40;
+			case "45-54": return 50;
+			case "55-64": return 60;
+			case "65-74": return 70;
+			case "75+": return 75;
+			default: return 0;
+		}
+	}
+
+
+	/**
+	 * Liest das Geschlecht aus den RadioButtons (Version 2).
+	 * @return "Mann", "Frau" oder null (wenn nichts ausgewählt)
+	 */
+	public String getGeschlechtValue() {
+		if (rbMann.isSelected()) {
+			return "Mann";
+		} else if (rbFrau.isSelected()) {
+			return "Frau";
+		}
+		return null;
+	}
+
+
+	/**
 	 * Setzt den Text im Ergebnisfeld.
 	 */
 	public void setErgebnisText(String text) {
@@ -238,6 +338,8 @@ EventQueue.invokeLater(new Runnable() {
 		tfGewicht.setText("");
 		tfGroesse.setText("");
 		tfErgebnis.setText("");
+		cbAlter.setSelectedIndex(0); // Zurück auf "-- nicht angegeben --"
+		bgGeschlecht.clearSelection(); // Keine Auswahl bei RadioButtons
 	}
 
 

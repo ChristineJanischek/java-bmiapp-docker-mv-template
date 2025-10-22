@@ -229,19 +229,203 @@ manager.zeigeInterpretation();
 
 ---
 
-## 7. Anwendung testen
-```bash
-./build.sh
-./run.sh
+## 7. GUI-Erweiterung: Alter & Geschlecht
+
+### 🎯 Lernziel
+Erweitere die grafische Benutzeroberfläche um Eingabefelder für Alter und Geschlecht und verknüpfe diese mit der intelligenten Methodenwahl im Controller.
+
+### Schritt 7.1: GUI-Komponenten deklarieren
+
+Füge in `MainWindow.java` folgende Felder nach den bestehenden TextFields hinzu:
+
+```java
+private JComboBox<String> cbAlter;      // ComboBox für Altersgruppen
+private JRadioButton rbMann;             // RadioButton für "Männlich"
+private JRadioButton rbFrau;             // RadioButton für "Weiblich"
+private ButtonGroup bgGeschlecht;        // ButtonGroup für RadioButtons
 ```
-- Teste verschiedene Kombinationen von Alter und Geschlecht
+
+**Imports ergänzen:**
+```java
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+```
+
+### Schritt 7.2: ComboBox für Alter erstellen
+
+Füge im Konstruktor nach dem Größe-Feld (nach `gridy=3`) folgende Komponenten ein:
+
+```java
+// Alter (Version 2) - ComboBox
+gbc.gridx = 0; gbc.gridy = 4;
+gbc.weightx = 0.3;
+gbc.anchor = GridBagConstraints.EAST;
+JLabel lbAlter = new JLabel("Alter (Jahre):");
+contentPane.add(lbAlter, gbc);
+gbc.gridx = 1;
+gbc.weightx = 0.7;
+gbc.anchor = GridBagConstraints.WEST;
+
+// ComboBox mit Altersgruppen
+String[] altersGruppen = {
+    "-- nicht angegeben --",
+    "18-24", "25-34", "35-44", "45-54", 
+    "55-64", "65-74", "75+"
+};
+cbAlter = new JComboBox<>(altersGruppen);
+contentPane.add(cbAlter, gbc);
+```
+
+### Schritt 7.3: RadioButtons für Geschlecht erstellen
+
+```java
+// Geschlecht (Version 2) - RadioButtons
+gbc.gridx = 0; gbc.gridy = 5;
+gbc.weightx = 0.3;
+gbc.anchor = GridBagConstraints.EAST;
+JLabel lbGeschlecht = new JLabel("Geschlecht:");
+contentPane.add(lbGeschlecht, gbc);
+
+gbc.gridx = 1;
+gbc.weightx = 0.7;
+gbc.anchor = GridBagConstraints.WEST;
+
+// Panel für RadioButtons
+JPanel panelGeschlecht = new JPanel();
+panelGeschlecht.setBackground(Color.WHITE);
+rbMann = new JRadioButton("Männlich");
+rbMann.setBackground(Color.WHITE);
+rbFrau = new JRadioButton("Weiblich");
+rbFrau.setBackground(Color.WHITE);
+
+// ButtonGroup sorgt dafür, dass nur ein RadioButton ausgewählt werden kann
+bgGeschlecht = new ButtonGroup();
+bgGeschlecht.add(rbMann);
+bgGeschlecht.add(rbFrau);
+
+panelGeschlecht.add(rbMann);
+panelGeschlecht.add(rbFrau);
+contentPane.add(panelGeschlecht, gbc);
+```
+
+**⚠️ Wichtig:** Passe alle nachfolgenden `gridy`-Werte an:
+- Ergebnisfeld: `gridy = 6` (statt 4)
+- Buttons (Berechne/Interpretiere): `gridy = 7` (statt 5)
+- Buttons (Leeren/Schließen): `gridy = 8` (statt 6)
+
+### Schritt 7.4: Hilfsmethoden für Alter & Geschlecht
+
+Erstelle zwei neue Methoden in `MainWindow.java`:
+
+```java
+/**
+ * Liest das Alter aus dem ComboBox (Version 2).
+ * Berechnet den Mittelwert der ausgewählten Altersgruppe.
+ * @return Alter als int (0 wenn keine Gruppe gewählt)
+ */
+public int getAlterValue() {
+    String auswahl = (String) cbAlter.getSelectedItem();
+    if (auswahl == null || auswahl.equals("-- nicht angegeben --")) {
+        return 0;
+    }
+    
+    // Berechne Mittelwert der Altersgruppe
+    switch (auswahl) {
+        case "18-24": return 21;
+        case "25-34": return 30;
+        case "35-44": return 40;
+        case "45-54": return 50;
+        case "55-64": return 60;
+        case "65-74": return 70;
+        case "75+": return 75;
+        default: return 0;
+    }
+}
+
+/**
+ * Liest das Geschlecht aus den RadioButtons (Version 2).
+ * @return "Mann", "Frau" oder null (wenn nichts ausgewählt)
+ */
+public String getGeschlechtValue() {
+    if (rbMann.isSelected()) {
+        return "Mann";
+    } else if (rbFrau.isSelected()) {
+        return "Frau";
+    }
+    return null;
+}
+```
+
+### Schritt 7.5: Event-Handler anpassen
+
+**Ändere den ActionListener für `btInterpretiere`:**
+
+```java
+// Button: BMI interpretieren
+JButton btInterpretiere = new JButton("Interpretiere BMI");
+btInterpretiere.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        // Version 2: Nutzt intelligente Methodenwahl mit Alter & Geschlecht
+        manager.interpretiereIntelligent(
+            getGewichtValue(), 
+            getGroesseValue(), 
+            getAlterValue(), 
+            getGeschlechtValue()
+        );
+        manager.zeigeInterpretation();
+        schreibeKategorie();
+    }
+});
+```
+
+### Schritt 7.6: `clearFields()` erweitern
+
+```java
+public void clearFields() {
+    tfGewicht.setText("");
+    tfGroesse.setText("");
+    tfErgebnis.setText("");
+    cbAlter.setSelectedIndex(0);      // Zurück auf "-- nicht angegeben --"
+    bgGeschlecht.clearSelection();     // Keine Auswahl bei RadioButtons
+}
+```
+
+### 🧪 GUI-Test (mit noVNC)
+
+```bash
+docker-compose -f docker-compose.novnc.yml up
+```
+
+Öffne http://localhost:6080 und teste:
+
+1. **Einfache Interpretation** (ohne Alter/Geschlecht):
+   - Gewicht: `75` kg, Größe: `1.75` m
+   - Klicke "Interpretiere BMI" → Allgemeine WHO-Kategorie
+
+2. **Erweiterte Interpretation** (mit Alter/Geschlecht):
+   - Gewicht: `75` kg, Größe: `1.75` m
+   - Alter: `35-44`, Geschlecht: `Männlich`
+   - Klicke "Interpretiere BMI" → Geschlechtsspezifische Kategorie
+
+3. **Reset**: Klicke "Leeren" → Alle Felder zurückgesetzt
 
 ---
 
-## 8. Änderungen committen und pushen
+## 8. Anwendung testen
+```bash
+./build.sh
+./run.sh  # Oder mit noVNC: docker-compose -f docker-compose.novnc.yml up
+```
+- Teste verschiedene Kombinationen von Alter und Geschlecht
+- Prüfe, ob ohne Alter/Geschlecht die einfache Methode verwendet wird
+
+---
+
+## 9. Änderungen committen und pushen
 ```bash
 git add .
-git commit -m "feat: GUI und Logik für Version 2 erweitert"
+git commit -m "feat: GUI mit Alter & Geschlecht erweitert, intelligente Methodenwahl implementiert"
 git push
 ```
 
@@ -251,7 +435,6 @@ git push
 - [INTELLIGENTE_METHODENWAHL.md](./INTELLIGENTE_METHODENWAHL.md) – Entscheidungslogik im Controller
 - [UNIT_TESTING.md](./UNIT_TESTING.md) – Unit-Tests verstehen und implementieren
 - [POLYMORPHIE.md](./POLYMORPHIE.md) – Polymorphie verstehen und anwenden
-- [SCHRITT_FUER_SCHRITT_GUI_V2.md](./SCHRITT_FUER_SCHRITT_GUI_V2.md)
 - [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md)
 - [MVC_KONZEPT.md](./MVC_KONZEPT.md)
 - [SECURE_CODING.md](./SECURE_CODING.md)
