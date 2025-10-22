@@ -99,14 +99,94 @@ public void zeigeInterpretation() {
 
 ---
 
-## 5. MVC-Prinzip anwenden
+## 5. Unit-Tests implementieren
+
+Bevor du die GUI programmierst, teste deine Implementierung mit Unit-Tests in `Main.java`.
+
+### Testfälle für die einfache Interpretation
+
+Implementiere mindestens diese Grenzwert-Tests:
+
+| Test | Gewicht (kg) | Größe (m) | Erwarteter BMI | Erwartete Kategorie    |
+|------|--------------|-----------|----------------|------------------------|
+| 1    | 70           | 1.75      | 22.9           | Normalgewicht          |
+| 2    | 53.5         | 1.70      | 18.5           | Normalgewicht          |
+| 3    | 72.25        | 1.70      | 25.0           | Prädipositas           |
+| 4    | 50           | 1.70      | 17.3           | Leichtes Untergewicht  |
+
+### Testfälle für die polymorphe Interpretation (Alter + Geschlecht)
+
+| Test | Gewicht | Größe | Alter | Geschlecht | Erwartete Kategorie |
+|------|---------|-------|-------|------------|---------------------|
+| 5    | 60      | 1.70  | 22    | männlich   | Normalgewicht       |
+| 6    | 73      | 1.75  | 35    | männlich   | Normalgewicht       |
+| 7    | 65      | 1.65  | 35    | weiblich   | Normalgewicht       |
+| 8    | 80      | 1.70  | 70    | männlich   | Normalgewicht       |
+
+### Beispiel-Implementierung in Main.java
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("=== Unit-Tests BMI-Rechner Version 2 ===\n");
+        
+        int testsPassed = 0;
+        int testsFailed = 0;
+        
+        // Test 1: Normalfall
+        System.out.println("Test 1: Normalgewicht (70kg, 1.75m)");
+        Bmirechner test1 = new Bmirechner();
+        test1.berechne(70, 1.75);
+        test1.interpretiere();
+        
+        if (test1.getKategorie().equals("Normalgewicht")) {
+            System.out.println("✅ BESTANDEN\n");
+            testsPassed++;
+        } else {
+            System.out.println("❌ FEHLGESCHLAGEN - Erwartet: Normalgewicht, Erhalten: " 
+                + test1.getKategorie() + "\n");
+            testsFailed++;
+        }
+        
+        // Test 2: Polymorphie - Junge Erwachsene
+        System.out.println("Test 2: Polymorphie - 22-jähriger Mann (60kg, 1.70m)");
+        Bmirechner test2 = new Bmirechner();
+        test2.interpretiere(60, 1.70, 22, "männlich");
+        
+        if (test2.getKategorie().equals("Normalgewicht")) {
+            System.out.println("✅ BESTANDEN\n");
+            testsPassed++;
+        } else {
+            System.out.println("❌ FEHLGESCHLAGEN - Erwartet: Normalgewicht, Erhalten: " 
+                + test2.getKategorie() + "\n");
+            testsFailed++;
+        }
+        
+        // Weitere Tests hier hinzufügen...
+        
+        // Zusammenfassung
+        System.out.println("==================");
+        System.out.println("Tests bestanden: " + testsPassed);
+        System.out.println("Tests fehlgeschlagen: " + testsFailed);
+        if (testsFailed == 0) {
+            System.out.println("🎉 Alle Tests erfolgreich!");
+        }
+    }
+}
+```
+
+**Weitere Infos:** Siehe [UNIT_TESTING.md](./UNIT_TESTING.md) für Best Practices und erweiterte Testmethoden.
+
+---
+
+## 6. MVC-Prinzip anwenden
 - Verbinde die neuen GUI-Elemente (ComboBox für Alter, RadioButtons für Geschlecht) mit Controller und Model
 - Rufe die polymorphe Methode `interpretiere(gewicht, groesse, alter, geschlecht)` im Controller auf
 - Nutze `JOptionPane` zur Anzeige des Ergebnisses
 
 ---
 
-## 6. Anwendung testen
+## 7. Anwendung testen
 ```bash
 ./build.sh
 ./run.sh
@@ -115,7 +195,7 @@ public void zeigeInterpretation() {
 
 ---
 
-## 6. Änderungen committen und pushen
+## 8. Änderungen committen und pushen
 ```bash
 git add .
 git commit -m "feat: GUI und Logik für Version 2 erweitert"
@@ -125,6 +205,7 @@ git push
 ---
 
 ## Weitere Hilfen
+- [UNIT_TESTING.md](./UNIT_TESTING.md) – Unit-Tests verstehen und implementieren
 - [POLYMORPHIE.md](./POLYMORPHIE.md) – Polymorphie verstehen und anwenden
 - [SCHRITT_FUER_SCHRITT_GUI_V2.md](./SCHRITT_FUER_SCHRITT_GUI_V2.md)
 - [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md)

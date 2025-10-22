@@ -74,6 +74,7 @@ Weitere Tipps:
 - [TEMPLATE_GUIDE.md](./TEMPLATE_GUIDE.md) – Anleitung zur Nutzung als Vorlage
 - [MVC_KONZEPT.md](./MVC_KONZEPT.md) – Das MVC-Prinzip erklärt
 - [POLYMORPHIE.md](./POLYMORPHIE.md) – Polymorphie verstehen und anwenden (Version 2+)
+- [UNIT_TESTING.md](./UNIT_TESTING.md) – Unit-Tests implementieren und Best Practices
 - [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md) – Kontrollstrukturen in Java
 - [SECURE_CODING.md](./SECURE_CODING.md) – Sichere Programmierung
 - [ASSOZIATIONEN.md](./ASSOZIATIONEN.md) – Assoziationen zwischen Klassen
