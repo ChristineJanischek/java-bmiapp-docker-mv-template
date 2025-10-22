@@ -1,8 +1,10 @@
 package start;
 
+import javax.swing.JOptionPane;
+
 /**
  * Controller-Klasse nach dem MVC-Prinzip.
- * Steuert die Interaktion zwischen Model (Bmirechner) und View (Main).
+ * Steuert die Interaktion zwischen Model (Bmirechner) und View (Main/MainWindow).
  */
 public class BmiManager {
     // Attribut: Referenz auf das Model (Bmirechner)
@@ -52,5 +54,40 @@ public class BmiManager {
      */
     public void setModel(Bmirechner pModel) {
         this.model = pModel;
+    }
+
+    /**
+     * Polymorphe Fachmethode: Interpretiert BMI unter Berücksichtigung von Alter und Geschlecht.
+     * Nutzt die überladene interpretiere()-Methode des Models.
+     * 
+     * @param pGewicht Körpergewicht in kg
+     * @param pGroesse Körpergröße in Metern
+     * @param pAlter Alter der Person in Jahren
+     * @param pGeschlecht Geschlecht ("männlich" oder "weiblich")
+     */
+    public void interpretiereBMI(double pGewicht, double pGroesse, int pAlter, String pGeschlecht) {
+        model.interpretiere(pGewicht, pGroesse, pAlter, pGeschlecht);
+    }
+
+    /**
+     * Zeigt die BMI-Interpretation in einem Dialog-Fenster an.
+     * Nutzt JOptionPane für eine benutzerfreundliche Darstellung.
+     */
+    public void zeigeInterpretation() {
+        String kategorie = model.getKategorie();
+        double bmi = model.getErgebnis();
+        
+        String nachricht = String.format(
+            "Ihr BMI: %.2f\nKategorie: %s",
+            bmi, 
+            kategorie
+        );
+        
+        JOptionPane.showMessageDialog(
+            null,                           // Kein Parent-Frame
+            nachricht,                      // Nachricht
+            "BMI-Interpretation",           // Titel
+            JOptionPane.INFORMATION_MESSAGE // Icon-Typ
+        );
     }
 }

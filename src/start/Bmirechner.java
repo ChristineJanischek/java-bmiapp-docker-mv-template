@@ -103,6 +103,62 @@ public class Bmirechner {
       }
       System.out.println("Ergebnis:"+ this.kategorie);
     }
-}
 
+    /**
+     * Polymorphe Methode (Überladung): Interpretiert BMI unter Berücksichtigung von Alter und Geschlecht.
+     * Diese Methode erweitert die einfache interpretiere()-Methode um zwei zusätzliche Parameter.
+     * 
+     * @param pGewicht Körpergewicht in kg
+     * @param pGroesse Körpergröße in Metern
+     * @param pAlter Alter der Person in Jahren
+     * @param pGeschlecht Geschlecht ("männlich" oder "weiblich")
+     */
+    public void interpretiere(double pGewicht, double pGroesse, int pAlter, String pGeschlecht) {
+      // Zuerst BMI berechnen
+      berechne(pGewicht, pGroesse);
+      
+      // Alters- und geschlechtsspezifische Interpretation
+      if (pAlter < 25) {
+        // Junge Erwachsene (< 25 Jahre)
+        if (this.ergebnis < 19) {
+          this.kategorie = "Untergewicht";
+        } else if (this.ergebnis < 24) {
+          this.kategorie = "Normalgewicht";
+        } else {
+          this.kategorie = "Übergewicht";
+        }
+      } else if (pAlter >= 65) {
+        // Senioren (≥ 65 Jahre)
+        if (this.ergebnis < 22) {
+          this.kategorie = "Untergewicht";
+        } else if (this.ergebnis < 28) {
+          this.kategorie = "Normalgewicht";
+        } else {
+          this.kategorie = "Übergewicht";
+        }
+      } else {
+        // Erwachsene (25-64 Jahre) - geschlechtsspezifisch
+        if (pGeschlecht.equalsIgnoreCase("männlich")) {
+          if (this.ergebnis < 20) {
+            this.kategorie = "Untergewicht";
+          } else if (this.ergebnis < 25) {
+            this.kategorie = "Normalgewicht";
+          } else {
+            this.kategorie = "Übergewicht";
+          }
+        } else {
+          // Weiblich
+          if (this.ergebnis < 19) {
+            this.kategorie = "Untergewicht";
+          } else if (this.ergebnis < 24) {
+            this.kategorie = "Normalgewicht";
+          } else {
+            this.kategorie = "Übergewicht";
+          }
+        }
+      }
+      /*Testausgabe: */
+      System.out.println("Erweiterte Interpretation (Alter: " + pAlter + ", Geschlecht: " + pGeschlecht + "): " + this.kategorie);
+    }
+}
 
