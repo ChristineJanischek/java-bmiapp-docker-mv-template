@@ -11,7 +11,9 @@ mvnw
 mvnw.cmd
 
 # IDE-Dateien
+# Standardmäßig .vscode ignorieren, aber die Workspace-Einstellung erlauben
 .vscode/
+!/.vscode/settings.json
 .idea/
 *.iml
 

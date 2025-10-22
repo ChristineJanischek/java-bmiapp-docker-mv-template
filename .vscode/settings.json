@@ -1,0 +1,4 @@
+{
+  // Öffnet automatisch die README beim Start des Workspace
+  "workbench.startupEditor": "readme"
+}
