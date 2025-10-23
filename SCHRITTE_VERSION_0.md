@@ -88,6 +88,16 @@ Der BmiManager verbindet View (später: MainWindow) und Model (Bmirechner).
 
 Weitere Infos: [MVC_KONZEPT.md](./MVC_KONZEPT.md)
 
+### Hinweis: Überschreiben von Methoden & Java Object-API
+
+Alle Klassen in Java erben implizit von `java.lang.Object`. Das bedeutet, dass Methoden wie
+`toString()`, `equals()` und `hashCode()` in jedem Objekt verfügbar sind. Für dieses Projekt
+soll `Bmirechner` und ggf. `BmiManager` eine eigene `toString()`-Implementierung haben,
+die die wichtigsten Werte (z.B. BMI und Kategorie) lesbar darstellt. Unit-Tests und Testprogramme
+sollen die Werte mittels `toString()` ausgeben, z.B. `System.out.println(rechner.toString());`.
+
+Weiterführende Anleitung: [METHODEN_UEBERSCHREIBEN.md](./METHODEN_UEBERSCHREIBEN.md)
+
 ---
 
 ## 5. Kompilieren und starten

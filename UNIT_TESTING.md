@@ -27,6 +27,21 @@ if (ergebnis == 22.86) {
 }
 ```
 
+### Ausgabe in Tests: toString() verwenden
+
+Anstatt mehrere Getter manuell zusammenzusetzen, ist es praktisch, das Objekt über
+`toString()` auszugeben. Beispiel:
+
+```java
+Bmirechner rechner = new Bmirechner();
+rechner.berechne(70, 1.75);
+rechner.interpretiere();
+System.out.println(rechner); // ruft rechner.toString() auf
+```
+
+Stelle sicher, dass `toString()` eine kurze, gut lesbare Zusammenfassung (z.B. "BMI: 22.9, Kategorie: Normalgewicht")
+liefert, damit Testergebnisse leicht lesbar sind.
+
 ### 2. **Grenzwerte testen** (Boundary Testing)
 
 Teste immer die **Grenzen** der Kategorien:

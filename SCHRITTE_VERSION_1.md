@@ -87,6 +87,12 @@ Das Model sollte bereits implementiert sein (siehe Version 0):
 - Stelle sicher, dass die Methoden `berechne()` und `interpretiere()` korrekt funktionieren
 - Übergib Werte aus der GUI an das Model
 
+### Hinweis: `Object`-API und `toString()`
+
+Alle Java-Klassen erben von `java.lang.Object`. Überschreibe `toString()` in `Bmirechner`
+und ggf. `BmiManager`, damit Objekte eine aussagekräftige Textdarstellung liefern. Tests
+sollten bevorzugt `rechner.toString()` verwenden, z.B. `System.out.println(rechner);`.
+
 ---
 
 ## 5. Anwendung testen
