@@ -177,6 +177,12 @@ public class Main {
 
 **Weitere Infos:** Siehe [UNIT_TESTING.md](./UNIT_TESTING.md) für Best Practices und erweiterte Testmethoden.
 
+### Ergänzung: toString() & Tests
+
+Für Debugging und Tests sollten Modelle eine `toString()`-Methode implementieren. Die
+Unit-Tests in `Main.java` bzw. Testprogrammen dürfen die Objekte mit `System.out.println(obj)`
+ausgeben — das ruft `toString()` auf. Das macht Testausgaben kompakter und stabiler.
+
 ---
 
 ## 6. MVC-Prinzip anwenden

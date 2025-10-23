@@ -76,7 +76,6 @@ public class Bmirechner {
      */
     public void berechnen(){
       this.ergebnis = this.gewicht / (this.groesse * this.groesse);
-      System.out.println("Ergebnis:"+ this.ergebnis );
     }
 
     /**
@@ -101,7 +100,7 @@ public class Bmirechner {
       } else{
         this.kategorie = "Starkes Untergewicht";
       }
-      System.out.println("Ergebnis:"+ this.kategorie);
+      // keine direkte Ausgabe hier, Tests sollen toString() verwenden
     }
 
     /**
@@ -157,8 +156,12 @@ public class Bmirechner {
           }
         }
       }
-      /*Testausgabe: */
-      System.out.println("Erweiterte Interpretation (Alter: " + pAlter + ", Geschlecht: " + pGeschlecht + "): " + this.kategorie);
+
     }
-}
+
+    public String toString(){
+      return "BMI: " + this.ergebnis + ", Kategorie: " + this.kategorie;
+    } 
+
+  }
 

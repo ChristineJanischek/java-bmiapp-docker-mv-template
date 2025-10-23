@@ -34,4 +34,12 @@ public class DatabaseConnector {
             e.printStackTrace();
         }
     }
+    
+    @Override
+    public String toString() {
+        // Passwort wird aus Sicherheitsgründen nicht ausgegeben
+        return "DatabaseConnector{url='" + url + "', user='" + user + "'}";
+    }
+
 }
+

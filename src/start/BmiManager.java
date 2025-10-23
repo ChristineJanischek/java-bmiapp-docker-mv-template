@@ -114,4 +114,9 @@ public class BmiManager {
             JOptionPane.INFORMATION_MESSAGE // Icon-Typ
         );
     }
+
+    @Override
+    public String toString() {
+        return "BmiManager{model=" + (model != null ? model.toString() : "null") + "}";
+    }
 }

@@ -21,11 +21,11 @@ public class Main {
         test1.interpretiere();
         
         if (test1.getKategorie().equals("Normalgewicht")) {
-            System.out.println("  ✅ BESTANDEN - BMI: " + String.format("%.1f", test1.getErgebnis()) + "\n");
+            System.out.println("  ✅ BESTANDEN - " + test1.toString() + "\n");
             testsPassed++;
         } else {
             System.out.println("  ❌ FEHLGESCHLAGEN - Erwartet: Normalgewicht, Erhalten: " 
-                + test1.getKategorie() + "\n");
+                + test1.getKategorie() + " -> " + test1.toString() + "\n");
             testsFailed++;
         }
         
@@ -37,11 +37,11 @@ public class Main {
         
         if (test2.getKategorie().equals("Normalgewicht") && 
             Math.abs(test2.getErgebnis() - 18.5) < 0.1) {
-            System.out.println("  ✅ BESTANDEN - BMI: " + String.format("%.1f", test2.getErgebnis()) + "\n");
+            System.out.println("  ✅ BESTANDEN - " + test2.toString() + "\n");
             testsPassed++;
         } else {
             System.out.println("  ❌ FEHLGESCHLAGEN - Erwartet: Normalgewicht (BMI 18.5), Erhalten: " 
-                + test2.getKategorie() + " (BMI " + String.format("%.1f", test2.getErgebnis()) + ")\n");
+                + test2.getKategorie() + " -> " + test2.toString() + "\n");
             testsFailed++;
         }
         
@@ -53,11 +53,11 @@ public class Main {
         
         if (test3.getKategorie().equals("Prädipositas") && 
             Math.abs(test3.getErgebnis() - 25.0) < 0.1) {
-            System.out.println("  ✅ BESTANDEN - BMI: " + String.format("%.1f", test3.getErgebnis()) + "\n");
+            System.out.println("  ✅ BESTANDEN - " + test3.toString() + "\n");
             testsPassed++;
         } else {
             System.out.println("  ❌ FEHLGESCHLAGEN - Erwartet: Prädipositas (BMI 25.0), Erhalten: " 
-                + test3.getKategorie() + " (BMI " + String.format("%.1f", test3.getErgebnis()) + ")\n");
+                + test3.getKategorie() + " -> " + test3.toString() + "\n");
             testsFailed++;
         }
         
@@ -68,11 +68,11 @@ public class Main {
         test4.interpretiere();
         
         if (test4.getKategorie().equals("Leichtes Untergewicht")) {
-            System.out.println("  ✅ BESTANDEN - BMI: " + String.format("%.1f", test4.getErgebnis()) + "\n");
+            System.out.println("  ✅ BESTANDEN - " + test4.toString() + "\n");
             testsPassed++;
         } else {
             System.out.println("  ❌ FEHLGESCHLAGEN - Erwartet: Leichtes Untergewicht, Erhalten: " 
-                + test4.getKategorie() + "\n");
+                + test4.getKategorie() + " -> " + test4.toString() + "\n");
             testsFailed++;
         }
         
@@ -88,8 +88,7 @@ public class Main {
         test5.interpretiere(60, 1.70, 22, "männlich");
         
         if (test5.getKategorie().equals("Normalgewicht")) {
-            System.out.println("  ✅ BESTANDEN - BMI: " + String.format("%.1f", test5.getErgebnis()) 
-                + ", Kategorie: " + test5.getKategorie() + "\n");
+            System.out.println("  ✅ BESTANDEN - " + test5.toString() + "\n");
             testsPassed++;
         } else {
             System.out.println("  ❌ FEHLGESCHLAGEN - Erwartet: Normalgewicht, Erhalten: " 
@@ -103,8 +102,7 @@ public class Main {
         test6.interpretiere(73, 1.75, 35, "männlich");
         
         if (test6.getKategorie().equals("Normalgewicht")) {
-            System.out.println("  ✅ BESTANDEN - BMI: " + String.format("%.1f", test6.getErgebnis()) 
-                + ", Kategorie: " + test6.getKategorie() + "\n");
+            System.out.println("  ✅ BESTANDEN - " + test6.toString() + "\n");
             testsPassed++;
         } else {
             System.out.println("  ❌ FEHLGESCHLAGEN - Erwartet: Normalgewicht, Erhalten: " 
@@ -118,8 +116,7 @@ public class Main {
         test7.interpretiere(65, 1.65, 35, "weiblich");
         
         if (test7.getKategorie().equals("Normalgewicht")) {
-            System.out.println("  ✅ BESTANDEN - BMI: " + String.format("%.1f", test7.getErgebnis()) 
-                + ", Kategorie: " + test7.getKategorie() + "\n");
+            System.out.println("  ✅ BESTANDEN - " + test7.toString() + "\n");
             testsPassed++;
         } else {
             System.out.println("  ❌ FEHLGESCHLAGEN - Erwartet: Normalgewicht, Erhalten: " 
@@ -133,8 +130,7 @@ public class Main {
         test8.interpretiere(80, 1.70, 70, "männlich");
         
         if (test8.getKategorie().equals("Normalgewicht")) {
-            System.out.println("  ✅ BESTANDEN - BMI: " + String.format("%.1f", test8.getErgebnis()) 
-                + ", Kategorie: " + test8.getKategorie() + "\n");
+            System.out.println("  ✅ BESTANDEN - " + test8.toString() + "\n");
             testsPassed++;
         } else {
             System.out.println("  ❌ FEHLGESCHLAGEN - Erwartet: Normalgewicht, Erhalten: " 
