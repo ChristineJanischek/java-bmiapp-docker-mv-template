@@ -70,14 +70,21 @@ Weitere Tipps:
 
 ## 📚 Weitere Dokumentation & Hilfen
 
+### Grundlegende Konzepte
 - [VERSIONING_STRATEGY.md](./VERSIONING_STRATEGY.md) – Überblick über die Branches und Versionen
 - [TEMPLATE_GUIDE.md](./TEMPLATE_GUIDE.md) – Anleitung zur Nutzung als Vorlage
 - [MVC_KONZEPT.md](./MVC_KONZEPT.md) – Das MVC-Prinzip erklärt
-- [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md) – Kontrollstrukturen in Java
-- [SECURE_CODING.md](./SECURE_CODING.md) – Sichere Programmierung
-- [ASSOZIATIONEN.md](./ASSOZIATIONEN.md) – Assoziationen zwischen Klassen
 - [GRUNDGERUEST_KLASSE.md](./GRUNDGERUEST_KLASSE.md) – Grundgerüst einer Klasse
+- [ASSOZIATIONEN.md](./ASSOZIATIONEN.md) – Assoziationen zwischen Klassen
+
+### Programmierung & Best Practices
+- [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md) – Kontrollstrukturen in Java
+- [EXCEPTION_HANDLING.md](./EXCEPTION_HANDLING.md) – **Ausnahmebehandlung (Try-Catch, eigene Exceptions)**
+- [SECURE_CODING.md](./SECURE_CODING.md) – Sichere Programmierung
 - [SINGLE_ENTRY_POINT.md](./SINGLE_ENTRY_POINT.md) – Single Entry Point-Prinzip
+- [UNIT_TESTING.md](./UNIT_TESTING.md) – Unit Tests mit JUnit 5
+
+### GUI & Docker
 - [GUI_DOCKER.md](./GUI_DOCKER.md) – GUI im Docker-Container
 - [GUI_BROWSER.md](./GUI_BROWSER.md) – GUI im Browser (noVNC)
 
