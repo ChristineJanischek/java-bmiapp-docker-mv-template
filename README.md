@@ -87,6 +87,7 @@ Weitere Tipps:
 ### GUI & Docker
 - [GUI_DOCKER.md](./GUI_DOCKER.md) – GUI im Docker-Container
 - [GUI_BROWSER.md](./GUI_BROWSER.md) – GUI im Browser (noVNC)
+ - [GUI_ECLIPSE_WINDOWSBUILDER.md](./GUI_ECLIPSE_WINDOWSBUILDER.md) – Swing-GUI mit Eclipse WindowBuilder (absolut → GridLayout)
 
 ---
 
