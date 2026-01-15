@@ -4,6 +4,47 @@ Diese Anleitung führt dich von der Implementierung des MVC-Prinzips bis zum Tes
 
 ---
 
+## Übersicht: Die drei Komponenten im MVC-Prinzip
+
+Bevor du loslegst, hier ein Überblick über alle drei Klassen, die du implementieren/nutzen wirst:
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│ View (MainWindow)                                            │
+│ - tfGewicht, tfGroesse, cbAlter, rbMaennlich, rbWeiblich    │
+│ - taErgebnis                                                 │
+│ - btBerechneBmi, btInterpretiereBmi, btLeeren, btSchliessen │
+│ - manager: BmiManager                                        │
+│ - addEventListeners() – Buttons sind aktiv!                 │
+└─────────────────────────────┬──────────────────────────────┘
+                              │ nutzt / ruft auf
+                              ↓
+┌──────────────────────────────────────────────────────────────┐
+│ Controller (BmiManager)                                       │
+│ - model: Bmirechner                                          │
+│ - berechneBMI(gewicht, groesse): double                      │
+│ - interpretiereIntelligent(gewicht, groesse, alter, ...) ──→ Logik-Koordination
+└─────────────────────────────┬──────────────────────────────┘
+                              │ nutzt / ruft auf
+                              ↓
+┌──────────────────────────────────────────────────────────────┐
+│ Model (Bmirechner)                                           │
+│ - gewicht, groesse, ergebnis, kategorie                      │
+│ - berechne(gewicht, groesse): double                         │
+│ - interpretiere(bmi, alter, geschlecht): String             │
+│ - getErgebnis(), getKategorie()                             │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**Der Ablauf:**
+1. Benutzer klickt Button → MainWindow reagiert
+2. MainWindow ruft BmiManager auf
+3. BmiManager ruft Bmirechner auf
+4. Bmirechner liefert Ergebnis
+5. MainWindow zeigt Ergebnis an
+
+---
+
 ## 1. Model (Bmirechner.java)
 
 - Lege die Datei `src/start/Bmirechner.java` an.

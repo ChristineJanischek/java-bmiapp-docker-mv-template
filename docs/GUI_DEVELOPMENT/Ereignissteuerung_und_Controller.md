@@ -22,7 +22,37 @@ Ergebnis wird in GUI angezeigt
 
 Der **Controller** ist die Schnittstelle zwischen GUI und Model. Er koordiniert die Zusammenarbeit.
 
-### 1.1 Klasse anlegen
+### 1.1 UML-Struktur des BmiManager
+
+Damit du weißt, welche Struktur dein Controller haben sollte:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│                      BmiManager                             │
+├─────────────────────────────────────────────────────────────┤
+│ - model: Bmirechner                                         │
+├─────────────────────────────────────────────────────────────┤
+│ + BmiManager()                                              │
+│ + BmiManager(pModel: Bmirechner)                            │
+│ + getModel(): Bmirechner                                    │
+│ + setModel(pModel: Bmirechner): void                        │
+│ + berechneBMI(pGewicht: double, pGroesse: double): double   │
+│ + interpretiereIntelligent(pGewicht: double,                │
+│                           pGroesse: double,                 │
+│                           pAlter: int,                      │
+│                           pGeschlecht: String): String      │
+│ + zeigeInterpretation(): void                               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Erklärung:**
+- **Attribut `model`**: Speichert die Instanz des Models (Bmirechner)
+- **Konstruktor**: Initialisiert das Model
+- **`berechneBMI()`**: Ruft Model auf, gibt berechneten BMI zurück
+- **`interpretiereIntelligent()`**: Ruft Model auf, gibt Interpretation zurück
+- **`zeigeInterpretation()`**: Zeigt Ergebnis in Dialog oder TextArea an
+
+### 1.2 Klasse anlegen
 
 Erstelle eine neue Datei `src/start/BmiManager.java`:
 
@@ -95,7 +125,41 @@ public class Bmirechner {
 
 Die **MainWindow.java** ist deine GUI. Sie enthält die Button-Listener und ruft den Controller auf.
 
-### 2.1 Controller-Instanz in MainWindow
+### 2.1 UML-Struktur des MainWindow
+
+Hier die vollständige Struktur deiner MainWindow-Klasse:
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│                      MainWindow                              │
+├──────────────────────────────────────────────────────────────┤
+│ - manager: BmiManager                                        │
+│ - tfGewicht: JTextField                                      │
+│ - tfGroesse: JTextField                                      │
+│ - cbAlter: JComboBox<String>                                 │
+│ - rbMaennlich: JRadioButton                                  │
+│ - rbWeiblich: JRadioButton                                   │
+│ - taErgebnis: JTextArea                                      │
+│ - btBerechneBmi: JButton                                     │
+│ - btInterpretiereBmi: JButton                                │
+│ - btLeeren: JButton                                          │
+│ - btSchliessen: JButton                                      │
+├──────────────────────────────────────────────────────────────┤
+│ + MainWindow()                                               │
+│ + initializeGUI(): void                                      │
+│ + addEventListeners(): void                                  │
+│ + mapAlterToMittelwert(altersgruppe: String): int            │
+│ + main(args: String[]): void                                 │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**Feldgruppen:**
+- **Controller:** `manager` (Instanz des BmiManager)
+- **Eingabefelder:** `tfGewicht`, `tfGroesse`, `cbAlter`, `rbMaennlich`, `rbWeiblich`
+- **Ausgabe:** `taErgebnis` (TextArea für Ergebnisse)
+- **Buttons:** `btBerechneBmi`, `btInterpretiereBmi`, `btLeeren`, `btSchliessen`
+
+### 2.2 Controller-Instanz in MainWindow
 
 ```java
 public class MainWindow extends JFrame {

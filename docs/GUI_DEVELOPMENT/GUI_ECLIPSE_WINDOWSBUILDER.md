@@ -27,6 +27,42 @@ Dieses Tutorial zeigt dir Schritt für Schritt, wie du mit dem Eclipse-Plugin Wi
 - Name: `MainWindow` (Package: `start`).
 - Oder bestehende Datei öffnen: `src/start/MainWindow.java` und im Tab „Design" arbeiten.
 
+### Überblick: MainWindow UML-Struktur
+
+Damit du weißt, welche Komponenten und Methoden dein `MainWindow` haben sollte:
+
+```text
+┌───────────────────────────────────────────────────────────┐
+│                      MainWindow                           │
+├───────────────────────────────────────────────────────────┤
+│ - manager: BmiManager                                     │
+│ - tfGewicht: JTextField                                   │
+│ - tfGroesse: JTextField                                   │
+│ - cbAlter: JComboBox<String>                              │
+│ - rbMaennlich: JRadioButton                               │
+│ - rbWeiblich: JRadioButton                                │
+│ - taErgebnis: JTextArea                                   │
+│ - btBerechneBmi: JButton                                  │
+│ - btInterpretiereBmi: JButton                             │
+│ - btLeeren: JButton                                       │
+│ - btSchliessen: JButton                                   │
+├───────────────────────────────────────────────────────────┤
+│ + MainWindow()                                            │
+│ + initializeGUI(): void                                   │
+│ + addEventListeners(): void                               │
+│ + mapAlterToMittelwert(altersgruppe: String): int         │
+│ + main(args: String[]): void                              │
+└───────────────────────────────────────────────────────────┘
+```
+
+**Wichtige Felder:**
+- `manager`: Der Controller (BmiManager) für die Geschäftslogik
+- `tfGewicht`, `tfGroesse`: Eingabefelder für Gewicht und Größe
+- `cbAlter`: ComboBox mit Altersgruppen
+- `rbMaennlich`, `rbWeiblich`: RadioButtons für Geschlecht
+- `taErgebnis`: TextArea für Ausgabe der Ergebnisse
+- `btBerechneBmi`, `btInterpretiereBmi`, `btLeeren`, `btSchliessen`: Buttons für Aktionen
+
 ---
 
 ## 2) Phase A – Absolutes Layout (null‑Layout)
