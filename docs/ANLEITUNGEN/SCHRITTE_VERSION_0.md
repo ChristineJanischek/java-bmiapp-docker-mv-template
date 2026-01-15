@@ -60,7 +60,7 @@ Implementiere die Klasse gemäß diesem UML-Diagramm:
 | 35 – < 40        | Adipositas Grad II       |
 | ≥ 40             | Adipositas Grad III      |
 
-Weitere Infos: [GRUNDGERUEST_KLASSE.md](./GRUNDGERUEST_KLASSE.md)
+Weitere Infos: [GRUNDGERUEST_KLASSE.md](../JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md)
 
 ---
 
@@ -86,7 +86,7 @@ Implementiere die Klasse gemäß diesem UML-Diagramm:
 
 Der BmiManager verbindet View (später: MainWindow) und Model (Bmirechner).
 
-Weitere Infos: [MVC_KONZEPT.md](./MVC_KONZEPT.md)
+Weitere Infos: [MVC_KONZEPT.md](../KONZEPTE/MVC_KONZEPT.md)
 
 ### Hinweis: Überschreiben von Methoden & Java Object-API
 
@@ -96,7 +96,7 @@ soll `Bmirechner` und ggf. `BmiManager` eine eigene `toString()`-Implementierung
 die die wichtigsten Werte (z.B. BMI und Kategorie) lesbar darstellt. Unit-Tests und Testprogramme
 sollen die Werte mittels `toString()` ausgeben, z.B. `System.out.println(rechner.toString());`.
 
-Weiterführende Anleitung: [METHODEN_UEBERSCHREIBEN.md](./METHODEN_UEBERSCHREIBEN.md)
+Weiterführende Anleitung: [METHODEN_UEBERSCHREIBEN.md](../JAVA_PROGRAMMIERUNG/METHODEN_UEBERSCHREIBEN.md)
 
 ---
 
@@ -131,8 +131,8 @@ git checkout version-1-mvc-gui   # Musterlösung
 ---
 
 ## Weitere Hilfen
-- [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md)
-- [MVC_KONZEPT.md](./MVC_KONZEPT.md)
-- [SECURE_CODING.md](./SECURE_CODING.md)
-- [ASSOZIATIONEN.md](./ASSOZIATIONEN.md)
+- [KONTROLLSTRUKTUREN.md](../JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md)
+- [MVC_KONZEPT.md](../KONZEPTE/MVC_KONZEPT.md)
+- [SECURE_CODING.md](../BEST_PRACTICES/SECURE_CODING.md)
+- [ASSOZIATIONEN.md](../JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md)
 - [INFO.md](./INFO.md)

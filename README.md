@@ -9,7 +9,7 @@ Dieses Projekt verwendet **Java 21 LTS** (Long-Term Support).
 
 - **Version**: OpenJDK 21.0.5 LTS (Eclipse Temurin)
 - **Build-Tool**: Maven 3.x
-- **Weitere Informationen**: Siehe [JAVA21_UPGRADE.md](./JAVA21_UPGRADE.md)
+- **Weitere Informationen**: Siehe [docs/GETTING_STARTED/JAVA21_UPGRADE.md](docs/GETTING_STARTED/JAVA21_UPGRADE.md)
 
 ### Build-Befehle
 ```bash
@@ -20,16 +20,24 @@ mvn clean compile
 ./build.sh
 ```
 
+## 🚀 Schnellstart
+
+Für deine erste Orientierung:
+
+1. **Neu im Projekt?** Starte mit [docs/GETTING_STARTED/TEMPLATE_QUICKSTART.md](docs/GETTING_STARTED/TEMPLATE_QUICKSTART.md)
+2. **Schrittweise Anleitung für deine Version?** Siehe [👣 Schritt-für-Schritt-Anleitungen](#-schritt-für-schritt-anleitungen)
+3. **Fragen zu Konzepten?** Sieh dir die [📚 Dokumentation nach Thema](#-dokumentation--übersicht) an
+
 ## 🔀 Versionsfahrplan (Überblick)
 
 Diese Branches entsprechen den Versionen im Unterricht. Starte im Branch `main` (Version 0) und arbeite dich hoch.
 
-- `main` → Version 0: Schüler-Template (ohne Bmirechner.java, ohne BmiManager.java)
-- `version-1-mvc-gui` → Version 1: Musterlösung mit MVC (Model + Controller + GUI)
-- `version-2-methoden` → Version 2: Methoden, Kontrollstrukturen & Algorithmen
-- `version-3-validation` → Version 3: Eingabevalidierung & Fehlerbehandlung
+- `main` → **Version 0**: Schüler-Template (ohne Bmirechner.java, ohne BmiManager.java)
+- `version-1-mvc-gui` → **Version 1**: Musterlösung mit MVC (Model + Controller + GUI)
+- `version-2-methoden` → **Version 2**: Methoden, Kontrollstrukturen & Algorithmen
+- `version-3-validation` → **Version 3**: Eingabevalidierung & Fehlerbehandlung
 
-Schnellstart für Schüler (Version 0):
+**Schnellstart für Schüler (Version 0):**
 ```bash
 # Repository klonen (main = Version 0)
 git clone https://github.com/ChristineJanischek/java-bmiapp-docker-mv-template
@@ -44,366 +52,211 @@ cd java-bmiapp-docker-mv-template
 ./run.sh
 ```
 
-Weitere Details zum Fahrplan siehe [VERSIONING_STRATEGY.md](./VERSIONING_STRATEGY.md).
+Weitere Details zum Fahrplan: [docs/KONZEPTE/VERSIONING_STRATEGY.md](docs/KONZEPTE/VERSIONING_STRATEGY.md)
 
 ## 🧩 Als Template verwenden
 
-Du möchtest dieses Projekt als Vorlage für ähnliche Aufgaben nutzen? Lies die Anleitung in [TEMPLATE_GUIDE.md](./TEMPLATE_GUIDE.md). Dort steht:
+Du möchtest dieses Projekt als Vorlage für ähnliche Aufgaben nutzen? Lies die Anleitung in [docs/GETTING_STARTED/TEMPLATE_GUIDE.md](docs/GETTING_STARTED/TEMPLATE_GUIDE.md). Dort steht:
 - Wie du das Repo als Template markierst (GitHub Web/CLI)
 - Wie du neue Repositories aus der Vorlage erstellst
 - Wie du gemeinsame Dateien später per Skript (`scripts/sync_shared_docs.sh`) in abgeleitete Repos synchronisierst
+
+---
 
 ## 👣 Schritt-für-Schritt-Anleitungen
 
 Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleitung:
 
-- [Version 0 (main): Einstieg & Grundgerüst](./SCHRITTE_VERSION_0.md)
-- [Version 1 (MVC + GUI)](./SCHRITTE_VERSION_1.md)
-- [Version 2 (Methoden, Kontrollstrukturen, Algorithmen)](./SCHRITTE_VERSION_2.md)
-- [Version 3 (Validierung & Fehlerbehandlung)](./SCHRITTE_VERSION_3.md)
+| Version | Branch | Anleitung | Beschreibung |
+|---------|--------|-----------|-------------|
+| **0** | `main` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_0.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_0.md) | Einstieg & Grundgerüst – Starte hier! |
+| **1** | `version-1-mvc-gui` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_1.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_1.md) | MVC-Pattern + GUI implementieren |
+| **2** | `version-2-methoden` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) | Methoden, Kontrollstrukturen, Algorithmen |
+| **3** | `version-3-validation` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) | Validierung & Fehlerbehandlung |
 
-Weitere Tipps:
-- Lies die Spezifikationen unter „📄 Spezifikation Version X" weiter unten.
-- Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen).
-
----
-
-## 📚 Weitere Dokumentation & Hilfen
-
-### Grundlegende Konzepte
-- [VERSIONING_STRATEGY.md](./VERSIONING_STRATEGY.md) – Überblick über die Branches und Versionen
-- [TEMPLATE_GUIDE.md](./TEMPLATE_GUIDE.md) – Anleitung zur Nutzung als Vorlage
-- [MVC_KONZEPT.md](./MVC_KONZEPT.md) – Das MVC-Prinzip erklärt
-- [GRUNDGERUEST_KLASSE.md](./GRUNDGERUEST_KLASSE.md) – Grundgerüst einer Klasse
-- [ASSOZIATIONEN.md](./ASSOZIATIONEN.md) – Assoziationen zwischen Klassen
-
-### Programmierung & Best Practices
-- [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md) – Kontrollstrukturen in Java
-- [EXCEPTION_HANDLING.md](./EXCEPTION_HANDLING.md) – **Ausnahmebehandlung (Try-Catch, eigene Exceptions)**
-- [SECURE_CODING.md](./SECURE_CODING.md) – Sichere Programmierung
-- [SINGLE_ENTRY_POINT.md](./SINGLE_ENTRY_POINT.md) – Single Entry Point-Prinzip
-- [UNIT_TESTING.md](./UNIT_TESTING.md) – Unit Tests mit JUnit 5
-
-### GUI & Docker
-- [GUI_DOCKER.md](./GUI_DOCKER.md) – GUI im Docker-Container
-- [GUI_BROWSER.md](./GUI_BROWSER.md) – GUI im Browser (noVNC)
- - [GUI_ECLIPSE_WINDOWSBUILDER.md](./GUI_ECLIPSE_WINDOWSBUILDER.md) – Swing-GUI mit Eclipse WindowBuilder (absolut → GridLayout)
+**Weitere Tipps:**
+- Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen)
+- Nutze die Dokumentation zur Vertiefung von Konzepten
 
 ---
 
-## 🛠️ Troubleshooting
+## 📚 Dokumentation – Übersicht
 
-## 👣 Schritt-für-Schritt (für Schüler)
+Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um schnell zu finden, was du brauchst:
 
-1) Starte im richtigen Branch (Version 0)
-```bash
-git checkout main
-git pull
-```
+### 🎯 Erste Schritte & Getting Started
+- [TEMPLATE_QUICKSTART.md](docs/GETTING_STARTED/TEMPLATE_QUICKSTART.md) – Schneller Einstieg für Anfänger
+- [TEMPLATE_GUIDE.md](docs/GETTING_STARTED/TEMPLATE_GUIDE.md) – Dieses Projekt als Vorlage nutzen
+- [JAVA21_UPGRADE.md](docs/GETTING_STARTED/JAVA21_UPGRADE.md) – Informationen zu Java 21 LTS
 
-2) Lege die fehlenden Klassen an und implementiere sie
-- `src/start/Bmirechner.java` (Model): berechnet den BMI und liefert die Interpretation.
-- `src/start/BmiManager.java` (Controller): verbindet View (MainWindow) und Model.
+### 🏗️ Konzepte & Architektur
+- [VERSIONING_STRATEGY.md](docs/KONZEPTE/VERSIONING_STRATEGY.md) – Überblick über Branches und Versionen
+- [MVC_KONZEPT.md](docs/KONZEPTE/MVC_KONZEPT.md) – Das MVC-Prinzip erklärt (Model-View-Controller)
+- [MVC_ANLEITUNG.md](docs/KONZEPTE/MVC_ANLEITUNG.md) – Praktische Anleitung zur MVC-Implementierung
+- [SINGLE_ENTRY_POINT.md](docs/KONZEPTE/SINGLE_ENTRY_POINT.md) – Single Entry Point-Prinzip
 
-3) Baue und starte die App
-```bash
-./build.sh     # oder: mvn clean compile
-./run.sh       # startet die GUI
-```
+### ☕ Java Programmierung – Grundlagen
+- [GRUNDGERUEST_KLASSE.md](docs/JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) – Grundgerüst einer Klasse
+- [KONTROLLSTRUKTUREN.md](docs/JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md) – if, else, switch, for, while
+- [ASSOZIATIONEN.md](docs/JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md) – Beziehungen zwischen Klassen
+- [METHODEN_UEBERSCHREIBEN.md](docs/JAVA_PROGRAMMIERUNG/METHODEN_UEBERSCHREIBEN.md) – Methoden überschreiben (@Override)
+- [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) – Polymorphie und ihre Anwendung
+- [INTELLIGENTE_METHODENWAHL.md](docs/JAVA_PROGRAMMIERUNG/INTELLIGENTE_METHODENWAHL.md) – Wann welche Methode nutzen
 
-4) Teste die Funktionen in der GUI
-- Gewicht/Größe eingeben → BMI berechnen → Interpretation anzeigen
-- Buttons „Leeren“ und „Schließen“ ausprobieren
+### 🛡️ Best Practices & Code-Qualität
+- [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) – **Ausnahmebehandlung (Try-Catch, eigene Exceptions)**
+- [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) – Sichere Programmierung & Eingabevalidierung
+- [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) – Encapsulation Prinzip & Information Hiding
+- [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) – Unit Tests mit JUnit 5
 
-5) Änderungen speichern und hochladen
-```bash
-git add .
-git commit -m "Implementiere Bmirechner und BmiManager (Version 0)"
-git push
-```
+### 🖥️ GUI & Benutzeroberfläche
+- [GUI_ECLIPSE_WINDOWSBUILDER.md](docs/GUI_DEVELOPMENT/GUI_ECLIPSE_WINDOWSBUILDER.md) – Swing-GUI mit Eclipse WindowBuilder
+- [GUI_DOCKER.md](docs/GUI_DEVELOPMENT/GUI_DOCKER.md) – GUI im Docker-Container ausführen
+- [GUI_BROWSER.md](docs/GUI_DEVELOPMENT/GUI_BROWSER.md) – GUI im Browser mit noVNC
+- [GUI_VERFUEGBARKEIT_ANALYSE.md](docs/GUI_DEVELOPMENT/GUI_VERFUEGBARKEIT_ANALYSE.md) – Verfügbarkeit verschiedener GUI-Techniken analysieren
+- [TEST_GUI.md](docs/GUI_DEVELOPMENT/TEST_GUI.md) – GUI manuell testen
 
-6) Nächste Versionen ansehen/weiterentwickeln
-```bash
-# Musterlösung (Vergleich):
-git checkout version-1-mvc-gui
-
-# Version 2 (Methoden & Algorithmen):
-git checkout version-2-methoden
-
-# Version 3 (Validierung):
-git checkout version-3-validation
-```
-
-Tipps:
-- Lies die Spezifikationen unter „📄 Spezifikation Version X“ weiter unten.
-- Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen).
-
-## 🛠️ Troubleshooting
-
-- „Class not found“ oder GUI startet nicht:
-  - Stelle sicher, dass `./build.sh` ohne Fehler durchläuft.
-  - Prüfe, ob die Dateien unter `src/start/` im richtigen Paket `package start;` liegen.
-- Docker/noVNC zeigt keine Oberfläche:
-  - Container neu bauen/starten: `docker compose -f docker-compose.novnc.yml up --build -d`
-  - Browser: http://localhost:6080/vnc.html → Connect
-- Falscher Branch/Stand:
-  - `git branch -a` zeigt alle Branches
-  - `git checkout <branch>` wechselt den Zweig
-
-## 🎯 Ziel
-
-Entwickle eine eigene BMI-App (Body Mass Index) und lerne dabei:
-- Das Grundgerüst einer Klasse selbstständig zu programmieren
-- Einen Unit-Test zu implementieren
-- Das Modell um eine Steuerungsklasse (BmiManager) zu erweitern
-- Die Programmlogik für `berechne()` und `interpretiere()` zu implementieren
-- Die BmiApp um eine grafische Benutzeroberfläche (MainWindow) zu erweitern
-- Vorgehensweise im Management von Versionen (siehe [VERSIONING_STRATEGY.md](./VERSIONING_STRATEGY.md))
-
-Wende bei der Umsetzung des Projektes das **MVC-Prinzip** an und berücksichtige in jedem Entwicklungsschritt die Prinzipien des **Secure Coding**.
-
-
-## 📄 Konzepte und Prinzipien (MVC)
-
-Weitere Erklärungen und Beispiel-Prompts findest du in [info.md](./INFO.md).
-
-### Architektur und Secure Coding:
- - **Kontrollstrukturen (Schleifen & Alternativen)**: Grundlagen und Beispiele zur Programmlogik (siehe [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md))
-- **Model-View-Controller-Prinzip (MVC)**: Trennung von Datenmodell, Darstellung und Steuerung (siehe [MVC_KONZEPT.md](./MVC_KONZEPT.md))
-- **Assoziationen zwischen Klassen**: Verbindungen und Multiplizität (siehe [ASSOZIATIONEN.md](./ASSOZIATIONEN.md))
-- **Single Entry Point-Prinzip**: Ein zentraler Einstiegspunkt für die Anwendung (siehe [SINGLE_ENTRY_POINT.md](./SINGLE_ENTRY_POINT.md))
-- **Prinzip der geringsten Berechtigung**: Kapselung und sinnvolle Zugriffsmodifikatoren (siehe [KAPSELUNG.md](./KAPSELUNG.md))
-  - Arbeitsblatt (PDF): [materials/quiz_kapselung.pdf](./materials/quiz_kapselung.pdf)
-- **Secure Coding**: Grundlagen und Best Practices zur Entwicklung sicherer Software (siehe [SECURE_CODING.md](./SECURE_CODING.md))
-
-### Benutzerfreundlichkeit (Usability & Softwareergonomie):
-- Eingabefehler vermeiden durch geeignete UI-Elemente
-- Benutzerführung und Assistenz bieten
-
-### Validierung (Secure Coding):
-- Eingaben prüfen und validieren (siehe [SECURE_CODING.md](./SECURE_CODING.md))
-- Ausgaben bereinigen und sicher darstellen
-
-### Klassenstruktur und UML-Diagramme:
-
-Die detaillierten UML-Klassendiagramme für `Bmirechner` (Model) und `BmiManager` (Controller) sowie die BMI-Wertetabelle findest du in den jeweiligen Schritt-für-Schritt-Anleitungen:
-- [SCHRITTE_VERSION_0.md](./SCHRITTE_VERSION_0.md) – Grundgerüst mit UML-Diagrammen
-- [SCHRITTE_VERSION_1.md](./SCHRITTE_VERSION_1.md) – MVC-Integration
-
-Weitere grundlegende Fakten zur Implementierung des Grundgerüsts einer Klasse: [GRUNDGERUEST_KLASSE.md](./GRUNDGERUEST_KLASSE.md)
+### 📝 Release Notes & Versionshistorie
+- [CHANGELOG_VERSION_2.md](docs/RELEASE_NOTES/CHANGELOG_VERSION_2.md) – Changelog für Version 2
+- [UPGRADE_SUMMARY.md](docs/RELEASE_NOTES/UPGRADE_SUMMARY.md) – Zusammenfassung von Upgrades und Änderungen
 
 ---
 
-## 📄 Spezifikation Version 0: Prototyp (Model, Controller)
+## 📖 Dokumentation nach Lernzielen
 
-**Basis-Implementierung:**
-- Implementierung der `Bmirechner`-Klasse (Model)
-- Implementierung der `BmiManager`-Klasse (Controller)
-- Der `BmiManager` übernimmt die Steuerung der Anwendung und koordiniert die Interaktion zwischen Model (`Bmirechner`) und View (`Main`)
-- Der bestehende Unit-Test in `Main.java` muss so umgeschrieben werden, dass die Steuerung über den `BmiManager` erfolgt
-- Das Model (`Bmirechner`), die View (`Main`) und der Controller (`BmiManager`) müssen gemäß dem MVC-Prinzip umgesetzt werden
-- Alle drei Komponenten sollen in dieser Version funktionsfähig und miteinander verbunden sein
-- Unit-Test in `Main.java` zur Überprüfung der Funktionalität
+### Wenn du... dann lese
 
-**Details:** Siehe [SCHRITTE_VERSION_0.md](./SCHRITTE_VERSION_0.md)
-
-## 📄 Spezifikation Version 1: Benutzeroberfläche (View) & Steuerung (Controller)
-
-**Ziel:**
-- Die grafische Benutzeroberfläche (GUI) ist vollständig vorgegeben und muss nicht selbst programmiert werden
-- Die Schüler sollen die Struktur und Funktionsweise der GUI verstehen und mit dem Controller (BmiManager) verbinden
-- Die Anwendung wird im Browser über noVNC getestet
-
-**Was ist zu tun?**
-- Verstehe den Aufbau der Klasse `MainWindow.java` (ausführlich kommentiert)
-- Implementiere und teste die Steuerungsklasse `BmiManager`
-- Kompiliere das Projekt und teste die Anwendung im Browser
-
-**Details und UML-Diagramme:** Siehe [SCHRITTE_VERSION_1.md](./SCHRITTE_VERSION_1.md)
-
-**Testanleitung:**
-
-1. **Kompiliere alle Java-Dateien:**
-   ```bash
-   javac -d build src/start/*.java
-   ```
-2. **Starte die Anwendung im Browser (noVNC):**
-   ```bash
-   docker compose -f docker-compose.novnc.yml up --build -d
-   ```
-3. **Öffne die GUI:**
-   - Im VS Code PORTS-Panel Port 6080 öffnen (Globe-Symbol)
-   - Oder im Browser: http://localhost:6080/vnc.html
-   - Klicke auf "Connect"
-4. **Teste die App:**
-   - Gewicht und Größe eingeben
-   - "Berechne BMI" und "Interpretiere BMI" klicken
-   - "Leeren" und "Schließen" testen
-
-**Hinweis:**
-- Die Schüler müssen die MainWindow-Klasse nicht selbst schreiben, sondern nur verstehen und nutzen
-- Die Steuerung (Controller/BmiManager) und das Modell (Bmirechner) werden selbst implementiert
-- Die GUI ist der Einstiegspunkt für die Anwendung
-- Die Controller-Integration (BmiManager) ist bereits Bestandteil dieser Version
-- Die Ereignissteuerung für die Buttons ist in der MainWindow-Klasse vorgegeben und nutzt den BmiManager
-- Eine Schritt-für-Schritt-Anleitung findet sich in [MVC_ANLEITUNG.md](./MVC_ANLEITUNG.md)
+| Ziel | Dateien |
+|------|---------|
+| **Anfänger bin und nicht weißt, wo ich anfangen soll** | [TEMPLATE_QUICKSTART.md](docs/GETTING_STARTED/TEMPLATE_QUICKSTART.md) + [SCHRITTE_VERSION_0.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_0.md) |
+| **MVC verstehen möchte** | [MVC_KONZEPT.md](docs/KONZEPTE/MVC_KONZEPT.md) + [MVC_ANLEITUNG.md](docs/KONZEPTE/MVC_ANLEITUNG.md) |
+| **Eine GUI mit Swing erstellen möchte** | [GUI_ECLIPSE_WINDOWSBUILDER.md](docs/GUI_DEVELOPMENT/GUI_ECLIPSE_WINDOWSBUILDER.md) + [SCHRITTE_VERSION_1.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_1.md) |
+| **Kontrollflusselemente (if, for, while) verstehen möchte** | [KONTROLLSTRUKTUREN.md](docs/JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md) + [SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) |
+| **Eingaben validieren und Fehler behandeln möchte** | [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) + [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) + [SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) |
+| **Klassen ordnungsgemäß strukturieren möchte** | [GRUNDGERUEST_KLASSE.md](docs/JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) + [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) |
+| **Unit Tests schreiben möchte** | [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) |
+| **Polymorphie verstehen möchte** | [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) |
+| **Sichere Code-Praktiken lernen möchte** | [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) + [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) |
+| **Dieses Projekt als Template für andere Aufgaben nutzen möchte** | [TEMPLATE_GUIDE.md](docs/GETTING_STARTED/TEMPLATE_GUIDE.md) |
 
 ---
 
-## 📄 Spezifikation Version 2: Erweiterte Funktionalität (Alter & Geschlecht)
+## 🛠️ Docker & Container
 
-**Erweiterung um Alter und Geschlecht:**
-- **Neue GUI-Elemente:**
-  - ComboBox für das Alter (`cbAlter`)
-  - RadioButtons für das Geschlecht (`rbGeschlecht`)
-- **Erweiterte Logik:**
-  - BMI-Berechnung bleibt bestehen
-  - BMI-Interpretation wird erweitert um alters- und geschlechtsspezifische Kategorien
-  - Anpassung der Methode `interpretiere()` im Model
-- **Controller-Erweiterung:**
-  - BmiManager erhält zusätzliche Methoden für Alter und Geschlecht
-  - Ereignissteuerung wird entsprechend angepasst
+Das Projekt kann in Docker ausgeführt werden. Weitere Informationen:
 
-**Details:** Siehe [SCHRITTE_VERSION_2.md](./SCHRITTE_VERSION_2.md) und [SCHRITT_FUER_SCHRITT_GUI_V2.md](./SCHRITT_FUER_SCHRITT_GUI_V2.md)
+```bash
+# Mit Docker Compose (mit noVNC)
+docker-compose up -d
+
+# GUI im Browser öffnen
+# http://localhost:6080
+```
+
+Details: [docs/GUI_DEVELOPMENT/GUI_DOCKER.md](docs/GUI_DEVELOPMENT/GUI_DOCKER.md) und [docs/GUI_DEVELOPMENT/GUI_BROWSER.md](docs/GUI_DEVELOPMENT/GUI_BROWSER.md)
 
 ---
 
-## 📄 Spezifikation Version 3: Eingabevalidierung und Fehlerbehandlung
+## 📋 Checklisten nach Version
 
-**Secure Coding und Benutzerfreundlichkeit:**
-- **Eingabevalidierung:**
-  - Prüfung auf gültige Zahlenwerte (keine negativen Werte, keine leeren Felder)
-  - Bereichsprüfung (z.B. Gewicht: 1-500 kg, Größe: 0.5-2.5 m)
-  - Fehlerbehandlung mit aussagekräftigen Meldungen
-- **Exception Handling:**
-  - Try-Catch-Blöcke für NumberFormatException
-  - Benutzerfreundliche Fehlermeldungen in der GUI
-- **Usability-Verbesserungen:**
-  - Eingabefelder werden bei ungültigen Werten rot markiert
-  - Hilfetext für erwartete Eingabeformate
+### ✅ Version 0 (main) – Grundlagen
+- [ ] Repository klonen und öffnen
+- [ ] Java 21 verfügbar? (siehe `java -version`)
+- [ ] `Bmirechner.java` erstellt (Model mit BMI-Berechnung)
+- [ ] `BmiManager.java` erstellt (Controller)
+- [ ] `MainWindow.java` benutzbar (GUI)
+- [ ] `./build.sh` läuft erfolgreich
+- [ ] `./run.sh` startet die Anwendung
 
-**Details:** Siehe [SCHRITTE_VERSION_3.md](./SCHRITTE_VERSION_3.md)
+### ✅ Version 1 (version-1-mvc-gui) – MVC + GUI
+- [ ] MVC-Pattern verstanden
+- [ ] Model-Klasse korrekt implementiert
+- [ ] Controller-Klasse korrekt implementiert
+- [ ] GUI mit Swing/AWT erstellt
+- [ ] Buttons und Text-Felder funktionieren
+- [ ] Eingaben in Berechnung fließen ein
+- [ ] Ausgabe wird angezeigt
+
+### ✅ Version 2 (version-2-methoden) – Methoden & Kontrollstrukturen
+- [ ] Mehrere Methoden in `Bmirechner` implementiert
+- [ ] BMI-Kategorien mit if/else umgesetzt
+- [ ] Schleifen (for/while) wo sinnvoll genutzt
+- [ ] Algorithmen korrekt implementiert
+
+### ✅ Version 3 (version-3-validation) – Validierung & Fehlerbehandlung
+- [ ] Eingabevalidierung implementiert
+- [ ] Try-Catch für Fehlerbehandlung
+- [ ] Aussagekräftige Fehlermeldungen
+- [ ] Unit Tests geschrieben und grün
 
 ---
 
-## 📄 Spezifikation Version 4: Datenpersistenz
-**Speicherung von Profildaten:**
-- Implementierung von Datenstrukturen zur Speicherung von Personenprofilen
-- **Datenbankanbindung:**
-  - Steuerung der Datenbank über `BmiManager`
-  - Methode: `connectTo(host, db, bn, ps)`
-  - Persistente Speicherung von Benutzerdaten
-- **Secure Coding:**
-  - SQL-Injection vermeiden
-  - Eingabevalidierung und Parameterisierung
-  - Sichere Passworthandhabung
+## 💡 Häufig Gestellte Fragen (FAQ)
 
-## 📄 Spezifikation Version 5: Alternative Plattformen
-**XML-basierte View:**
-- Alternative Implementierung mit XML (z.B. für Android: AndroidAppWindow)
-- Plattformübergreifende Darstellung
+### Wie starte ich?
+Siehe [TEMPLATE_QUICKSTART.md](docs/GETTING_STARTED/TEMPLATE_QUICKSTART.md)
 
-## 🔧 Entwicklung und Kompilierung
+### Welche Version soll ich bearbeiten?
+Starte mit Version 0 (`main`). Folge dann dem [Versionsfahrplan](#-versionsfahrplan-überblick).
 
-### Lokales Kompilieren und Testen
+### Wie funktioniert das MVC-Pattern?
+[MVC_KONZEPT.md](docs/KONZEPTE/MVC_KONZEPT.md) erklärt das Pattern. [MVC_ANLEITUNG.md](docs/KONZEPTE/MVC_ANLEITUNG.md) zeigt die Praxis.
 
-**1. Alle Java-Dateien kompilieren:**
-```bash
-javac src/start/*.java
+### Wie erstelle ich eine GUI?
+[GUI_ECLIPSE_WINDOWSBUILDER.md](docs/GUI_DEVELOPMENT/GUI_ECLIPSE_WINDOWSBUILDER.md) hat die Schritte.
+
+### Wie beheble ich Fehler?
+[EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) zeigt Try-Catch und Custom Exceptions.
+
+### Wie teste ich meinen Code?
+[UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) erklärt JUnit 5 Tests.
+
+---
+
+## 📁 Projektstruktur
+
+```
+.
+├── README.md                          ← Du bist hier!
+├── docs/                              ← Komplette Dokumentation
+│   ├── GETTING_STARTED/               ← Erste Schritte
+│   ├── ANLEITUNGEN/                   ← Schritt-für-Schritt für jede Version
+│   ├── KONZEPTE/                      ← Architektur & Prinzipien
+│   ├── JAVA_PROGRAMMIERUNG/           ← Java Grundlagen
+│   ├── BEST_PRACTICES/                ← Code-Qualität & Sicherheit
+│   ├── GUI_DEVELOPMENT/               ← GUI-Entwicklung
+│   └── RELEASE_NOTES/                 ← Versionshistorie
+├── src/
+│   ├── start/                         ← Dein Java-Code hier
+│   │   ├── Main.java
+│   │   ├── MainWindow.java
+│   │   ├── Bmirechner.java            ← Model (du schreibst das)
+│   │   └── BmiManager.java            ← Controller (du schreibst das)
+│   └── test/                          ← Unit Tests
+├── build/                             ← Kompilierte Dateien
+├── lib/                               ← Externe Bibliotheken
+├── scripts/                           ← Hilfsskripte
+├── pom.xml                            ← Maven-Konfiguration
+├── Dockerfile                         ← Docker-Bild
+├── docker-compose.yml                 ← Docker Compose
+├── build.sh                           ← Build-Skript
+└── run.sh                             ← Start-Skript
 ```
 
-**2. Ins src-Verzeichnis wechseln:**
-```bash
-cd src
-```
+---
 
-**3. Anwendung testen:**
-```bash
-java start.Main
-```
+## 🤝 Beitragen
 
-## ▶️ Ausführen mit Docker
+Hast du Verbesserungsvorschläge für die Dokumentation? Erstelle ein Issue oder einen Pull Request!
 
-### Docker Container starten
+---
 
-**1. Zurück ins Hauptverzeichnis wechseln (falls notwendig):**
-```bash
-cd /workspaces/java-bmiapp-docker-mv-template
-```
+## 📄 Lizenz
 
-**2. Docker Image erstellen und Container starten:**
-```bash
-docker-compose up --build
-```
+Siehe LICENSE-Datei (falls vorhanden)
 
-**3. Docker Compose-Prozess beenden:**
-```bash
-# Drücke STRG+C auf der Tastatur
-```
+---
 
-Alternativ in einem neuen Terminal:
-```bash
-docker-compose down
-```
+**Happy Coding! 🎉**
 
-## ✅ Testen und Validierung
-
-Nach der Implementierung solltest du folgende Tests durchführen:
-- [ ] Unit-Tests für die `Bmirechner`-Klasse
-- [ ] Funktionstest der GUI (alle Eingabefelder und Buttons)
-- [ ] Validierung der BMI-Berechnung und -Interpretation
-- [ ] Test der Datenbankanbindung (Version 4)
-- [ ] Secure Coding: Eingabevalidierung testen
-
-## 📤 Lösung abgeben
-
-### Änderungen committen und pushen:
-
-**1. Alle Dateien für den Commit vormerken:**
-```bash
-git add .
-```
-
-**2. Commit mit aussagekräftiger Nachricht erstellen:**
-```bash
-git commit -m "BMI-Rechner Version X implementiert"
-```
-*Hinweis: Ersetze X durch die entsprechende Versionsnummer (1-5)*
-
-**3. Änderungen ins GitHub-Repository hochladen:**
-```bash
-git push
-```
-
-Nach dem Push werden automatische Tests (sofern eingerichtet) ausgeführt und die Lehrkraft kann deine Lösung einsehen und bewerten.
-
-Nach dem Push werden automatische Tests (sofern eingerichtet) ausgeführt und die Lehrkraft kann deine Lösung einsehen und bewerten.
-
-
-
-## ✅ Test / Feedback
-
-Wenn du richtig gearbeitet hast, bekommst du automatisches Feedback:
-- Gibt dein Programm den Text „Hallo“ aus? ✅
-
-## ✅ Abgeben: Lösung übermitteln
-So gehst du vor:
-
-1.Änderungen speichern und alle Dateien zum Commit vormerken:
-```bash (Terminal)
-git add .
-```
-
-2. Commit mit einer Nachricht erstellen:
-```bash (Terminal)
-git commit -m "Lösung Aufgabe HalloWelt"
-```
-
-3. Änderungen ins GitHub-Repository hochladen (pushen):
-```bash (Terminal)
-git push
-```
-
-Danach werden die Tests (sofern eingerichtet) meist automatisch ausgeführt und die Lehrkraft sieht deine Lösung.
-
-- [Schritt-für-Schritt-Anleitung: MVC-Prinzip und Test im Browser](./MVC_ANLEITUNG.md)
+Fragen? Schau in der [Dokumentation](docs/) nach oder öffne ein Issue.

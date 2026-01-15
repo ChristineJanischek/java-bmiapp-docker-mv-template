@@ -145,4 +145,4 @@ java-bmiapp-docker-mv-template/
 
 ---
 
-Bei Fragen zur Java 21 Migration siehe: [JAVA21_UPGRADE.md](./JAVA21_UPGRADE.md)
+Bei Fragen zur Java 21 Migration siehe: [JAVA21_UPGRADE.md](../GETTING_STARTED/JAVA21_UPGRADE.md)

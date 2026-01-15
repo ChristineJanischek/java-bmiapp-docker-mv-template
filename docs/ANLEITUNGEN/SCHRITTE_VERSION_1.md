@@ -41,7 +41,7 @@ Implementiere die Klasse gemäß diesem UML-Diagramm:
 
 - Ergänze die Methoden laut UML-Diagramm
 - Verbinde die GUI-Events mit Methoden im Controller
-- Weitere Infos: [MVC_KONZEPT.md](./MVC_KONZEPT.md)
+- Weitere Infos: [MVC_KONZEPT.md](../KONZEPTE/MVC_KONZEPT.md)
 
 ---
 
@@ -114,7 +114,7 @@ git push
 ---
 
 ## Weitere Hilfen
-- [MVC_KONZEPT.md](./MVC_KONZEPT.md)
+- [MVC_KONZEPT.md](../KONZEPTE/MVC_KONZEPT.md)
 - [INFO.md](./INFO.md)
-- [SECURE_CODING.md](./SECURE_CODING.md)
-- [ASSOZIATIONEN.md](./ASSOZIATIONEN.md)
+- [SECURE_CODING.md](../BEST_PRACTICES/SECURE_CODING.md)
+- [ASSOZIATIONEN.md](../JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md)

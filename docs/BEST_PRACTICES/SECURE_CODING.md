@@ -14,7 +14,7 @@ Secure Coding bezeichnet die Praxis, Software so zu entwickeln, dass Sicherheits
 ## 2. Zentrale Prinzipien
 
 ### Hinweis zum Single Entry Point-Prinzip
-Ein klar definierter Einstiegspunkt (siehe [SINGLE_ENTRY_POINT.md](./SINGLE_ENTRY_POINT.md)) ist ein wichtiger Baustein für sichere und wartbare Software. Er ermöglicht zentrale Initialisierung, Security-Checks und Logging und verhindert, dass das System an unerwarteten Stellen betreten wird.
+Ein klar definierter Einstiegspunkt (siehe [SINGLE_ENTRY_POINT.md](../KONZEPTE/SINGLE_ENTRY_POINT.md)) ist ein wichtiger Baustein für sichere und wartbare Software. Er ermöglicht zentrale Initialisierung, Security-Checks und Logging und verhindert, dass das System an unerwarteten Stellen betreten wird.
 
 ### 2.1 Principle of Least Privilege (Prinzip der geringsten Berechtigung)
 - Gewähre nur die minimal notwendigen Zugriffsrechte.

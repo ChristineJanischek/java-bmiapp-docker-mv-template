@@ -95,8 +95,8 @@ deshalb ist `System.out.println(obj)` immer sicher und liefert die passende Dars
 ---
 
 ### Weiterführende Links
-- Polymorphie: [POLYMORPHIE.md](./POLYMORPHIE.md)
-- MVC-Konzept: [MVC_KONZEPT.md](./MVC_KONZEPT.md)
-- Unit Testing: [UNIT_TESTING.md](./UNIT_TESTING.md)
+- Polymorphie: [POLYMORPHIE.md](../JAVA_PROGRAMMIERUNG/POLYMORPHIE.md)
+- MVC-Konzept: [MVC_KONZEPT.md](../KONZEPTE/MVC_KONZEPT.md)
+- Unit Testing: [UNIT_TESTING.md](../BEST_PRACTICES/UNIT_TESTING.md)
 
 ````

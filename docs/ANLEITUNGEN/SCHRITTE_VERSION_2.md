@@ -33,7 +33,7 @@ public void interpretiere(double pGewicht, double pGroesse, int pAlter, String p
 ```
 
 **Was ist Polymorphie?** 
-Mehrere Methoden mit gleichem Namen, aber unterschiedlichen Parametern. Siehe [POLYMORPHIE.md](./POLYMORPHIE.md) für Details und Beispiele.
+Mehrere Methoden mit gleichem Namen, aber unterschiedlichen Parametern. Siehe [POLYMORPHIE.md](../JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) für Details und Beispiele.
 
 ### Erweiterte BMI-Wertetabelle (Alter + Geschlecht)
 
@@ -175,7 +175,7 @@ public class Main {
 }
 ```
 
-**Weitere Infos:** Siehe [UNIT_TESTING.md](./UNIT_TESTING.md) für Best Practices und erweiterte Testmethoden.
+**Weitere Infos:** Siehe [UNIT_TESTING.md](../BEST_PRACTICES/UNIT_TESTING.md) für Best Practices und erweiterte Testmethoden.
 
 ### Ergänzung: toString() & Tests
 
@@ -209,7 +209,7 @@ public void interpretiereIntelligent(double pGewicht, double pGroesse,
 }
 ```
 
-**Warum im Controller?** Siehe [INTELLIGENTE_METHODENWAHL.md](./INTELLIGENTE_METHODENWAHL.md)
+**Warum im Controller?** Siehe [INTELLIGENTE_METHODENWAHL.md](../JAVA_PROGRAMMIERUNG/INTELLIGENTE_METHODENWAHL.md)
 
 ### GUI-Integration (MainWindow)
 
@@ -438,9 +438,9 @@ git push
 ---
 
 ## Weitere Hilfen
-- [INTELLIGENTE_METHODENWAHL.md](./INTELLIGENTE_METHODENWAHL.md) – Entscheidungslogik im Controller
-- [UNIT_TESTING.md](./UNIT_TESTING.md) – Unit-Tests verstehen und implementieren
-- [POLYMORPHIE.md](./POLYMORPHIE.md) – Polymorphie verstehen und anwenden
-- [KONTROLLSTRUKTUREN.md](./KONTROLLSTRUKTUREN.md)
-- [MVC_KONZEPT.md](./MVC_KONZEPT.md)
-- [SECURE_CODING.md](./SECURE_CODING.md)
+- [INTELLIGENTE_METHODENWAHL.md](../JAVA_PROGRAMMIERUNG/INTELLIGENTE_METHODENWAHL.md) – Entscheidungslogik im Controller
+- [UNIT_TESTING.md](../BEST_PRACTICES/UNIT_TESTING.md) – Unit-Tests verstehen und implementieren
+- [POLYMORPHIE.md](../JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) – Polymorphie verstehen und anwenden
+- [KONTROLLSTRUKTUREN.md](../JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md)
+- [MVC_KONZEPT.md](../KONZEPTE/MVC_KONZEPT.md)
+- [SECURE_CODING.md](../BEST_PRACTICES/SECURE_CODING.md)
