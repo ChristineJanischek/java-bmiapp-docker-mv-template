@@ -19,79 +19,19 @@ git pull
 
 ---
 
-## 3. Controller (BmiManager) implementieren
+## 3. Controller (BmiManager) implementieren und verbinden
 
-Implementiere die Klasse gemäß diesem UML-Diagramm:
+Implementiere die Klasse `BmiManager` basierend auf dem UML-Diagramm aus Version 0.
 
-```text
-┌─────────────────────────────────────────────┐
-│                BmiManager                   │
-├─────────────────────────────────────────────┤
-│ - model: Bmirechner                         │
-├─────────────────────────────────────────────┤
-│ + BmiManager()                              │
-│ + BmiManager(pModel: Bmirechner)            │
-│ + berechneBMI(pGewicht: double,             │
-│               pGroesse: double): double     │
-│ + interpretiereBMI(): void                  │
-│ + getModel(): Bmirechner                    │
-│ + setModel(pModel: Bmirechner): void        │
-└─────────────────────────────────────────────┘
-```
+Der BmiManager verbindet View (MainWindow) und Model (Bmirechner).
 
-- Ergänze die Methoden laut UML-Diagramm
-- Verbinde die GUI-Events mit Methoden im Controller
-- Weitere Infos: [MVC_KONZEPT.md](../KONZEPTE/MVC_KONZEPT.md)
+Weitere Details zur **Implementierung der Ereignissteuerung** (Event-Listener & Controller-Integration):
+
+👉 **[Ereignissteuerung_und_Controller.md](../GUI_DEVELOPMENT/Ereignissteuerung_und_Controller.md)**
 
 ---
 
 ## 4. Model (Bmirechner) nutzen
-
-Das Model sollte bereits implementiert sein (siehe Version 0):
-
-```text
-┌──────────────────────────────────────────────────────────────┐
-│                        Bmirechner                            │
-├──────────────────────────────────────────────────────────────┤
-│ - gewicht: double                                            │
-│ - groesse: double                                            │
-│ - ergebnis: double                                           │
-│ - kategorie: String                                          │
-├──────────────────────────────────────────────────────────────┤
-│ + Bmirechner()                                               │
-│ + setGewicht(pGewicht: double): void                         │
-│ + setGroesse(pGroesse: double): void                         │
-│ + getGewicht(): double                                       │
-│ + getGroesse(): double                                       │
-│ + getErgebnis(): double                                      │
-│ + getKategorie(): String                                     │
-│ + berechne(pGewicht: double, pGroesse: double): double       │
-│ + interpretiere(): void                                      │
-│ + toString(): String                                         │
-└──────────────────────────────────────────────────────────────┘
-```
-
-### BMI-Wertetabelle für die Interpretation
-
-| BMI-Wert         | Kategorie                |
-|------------------|------------------------- |
-| < 16             | Starkes Untergewicht     |
-| 16 – < 17        | Mäßiges Untergewicht     |
-| 17 – < 18.5      | Leichtes Untergewicht    |
-| 18.5 – < 25      | Normalgewicht            |
-| 25 – < 30        | Prädipositas             |
-| 30 – < 35        | Adipositas Grad I        |
-| 35 – < 40        | Adipositas Grad II       |
-| ≥ 40             | Adipositas Grad III      |
-
-- Stelle sicher, dass die Methoden `berechne()` und `interpretiere()` korrekt funktionieren
-- Übergib Werte aus der GUI an das Model
-
-### Hinweis: `Object`-API und `toString()`
-
-Alle Java-Klassen erben von `java.lang.Object`. Überschreibe `toString()` in `Bmirechner`
-und ggf. `BmiManager`, damit Objekte eine aussagekräftige Textdarstellung liefern. Tests
-sollten bevorzugt `rechner.toString()` verwenden, z.B. `System.out.println(rechner);`.
 
 ---
 

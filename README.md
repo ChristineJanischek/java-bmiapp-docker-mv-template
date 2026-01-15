@@ -111,6 +111,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 
 ### 🖥️ GUI & Benutzeroberfläche
 - [GUI_ECLIPSE_WINDOWSBUILDER.md](docs/GUI_DEVELOPMENT/GUI_ECLIPSE_WINDOWSBUILDER.md) – Swing-GUI mit Eclipse WindowBuilder
+- [Ereignissteuerung_und_Controller.md](docs/GUI_DEVELOPMENT/Ereignissteuerung_und_Controller.md) – **Event-Listener und Controller-Integration (BmiManager, MainWindow)**
 - [GUI_DOCKER.md](docs/GUI_DEVELOPMENT/GUI_DOCKER.md) – GUI im Docker-Container ausführen
 - [GUI_BROWSER.md](docs/GUI_DEVELOPMENT/GUI_BROWSER.md) – GUI im Browser mit noVNC
 - [GUI_VERFUEGBARKEIT_ANALYSE.md](docs/GUI_DEVELOPMENT/GUI_VERFUEGBARKEIT_ANALYSE.md) – Verfügbarkeit verschiedener GUI-Techniken analysieren
@@ -131,6 +132,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 | **Anfänger bin und nicht weißt, wo ich anfangen soll** | [TEMPLATE_QUICKSTART.md](docs/GETTING_STARTED/TEMPLATE_QUICKSTART.md) + [SCHRITTE_VERSION_0.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_0.md) |
 | **MVC verstehen möchte** | [MVC_KONZEPT.md](docs/KONZEPTE/MVC_KONZEPT.md) + [MVC_ANLEITUNG.md](docs/KONZEPTE/MVC_ANLEITUNG.md) |
 | **Eine GUI mit Swing erstellen möchte** | [GUI_ECLIPSE_WINDOWSBUILDER.md](docs/GUI_DEVELOPMENT/GUI_ECLIPSE_WINDOWSBUILDER.md) + [SCHRITTE_VERSION_1.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_1.md) |
+| **Event-Listener und Controller verbinden möchte** | [Ereignissteuerung_und_Controller.md](docs/GUI_DEVELOPMENT/Ereignissteuerung_und_Controller.md) |
 | **Kontrollflusselemente (if, for, while) verstehen möchte** | [KONTROLLSTRUKTUREN.md](docs/JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md) + [SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) |
 | **Eingaben validieren und Fehler behandeln möchte** | [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) + [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) + [SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) |
 | **Klassen ordnungsgemäß strukturieren möchte** | [GRUNDGERUEST_KLASSE.md](docs/JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) + [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) |
