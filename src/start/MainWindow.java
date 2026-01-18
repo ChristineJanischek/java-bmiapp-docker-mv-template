@@ -28,13 +28,22 @@ public class MainWindow extends JFrame
 	private JTextField tfGroesse;
 	private final ButtonGroup bgGeschlecht = new ButtonGroup();
 
-	// Neu: als Felder, damit Action-Handler darauf zugreifen können
+	/* Neu: als Felder, damit Action-Handler darauf zugreifen können
+	 * LÜCKE****/
 	private JComboBox<String> cbAlter;
 	private JRadioButton rbMaennlich;
 	private JRadioButton rbWeiblich;
 	private JTextArea taErgebnis;
 
+	/*Manager-Objekt: (Assoziation)*
+	LÜCKE****/
 	private BmiManager manager = new BmiManager();
+
+	// Konstanten für Altersgruppen (DRY-Prinzip)
+	private static final String[] ALTERSGRUPPEN = {
+		"-- nicht angegeben --", "18-25", "25-34", "35-44",
+		"45-54", "55-64", "65-74", "75+"
+	};
 
 	/**
 	 * Launch the application.
@@ -70,7 +79,7 @@ public class MainWindow extends JFrame
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel paImages = new JPanel();
 		paImages.setBounds(10, 11, 386, 156);
@@ -110,8 +119,7 @@ public class MainWindow extends JFrame
 		JLabel lbAlter = new JLabel("Alter (Jahre):");
 		paInput.add(lbAlter);
 		
-		String[] altersgruppen =new String[] {"-- nicht angegeben --", "18-25", "25-34", "35-44", "45-54", "55-64", "65-74", "75+"};
-		cbAlter = new JComboBox<>(altersgruppen);
+		cbAlter = new JComboBox<>(ALTERSGRUPPEN);
 		paInput.add(cbAlter);
 
 		
@@ -159,7 +167,12 @@ public class MainWindow extends JFrame
 		JButton btSchliessen = new JButton("Schlie\u00DFen");
 		paActions.add(btSchliessen);
 
-		// Action-Handler
+		/* Action-Handler "Berechne BMI": 
+		 * 1. Eingabewerte aus Textfeldern auslesen
+		 * 2. Mit parseDouble() in double konvertieren
+		 * 3. Controller aufrufen: manager.berechneBMI()
+		 * 4. Ergebnis formatieren und anzeigen
+		 */
 		btBerechneBmi.addActionListener(e -> {
 			try {
 				double gewicht = Double.parseDouble(tfGewicht.getText().trim());
@@ -176,11 +189,18 @@ public class MainWindow extends JFrame
 				double gewicht = Double.parseDouble(tfGewicht.getText().trim());
 				double groesse = Double.parseDouble(tfGroesse.getText().trim());
 				int alter = mapAlterToMittelwert((String) cbAlter.getSelectedItem());
-				String geschlecht = rbMaennlich.isSelected() ? "männlich" : (rbWeiblich.isSelected() ? "weiblich" : null);
+				String geschlecht = getSelectedGeschlecht();
 
-				manager.interpretiereIntelligent(gewicht, groesse, alter, geschlecht);
-				manager.zeigeInterpretation();
-				taErgebnis.setText(manager.getModel().getKategorie());
+				if (geschlecht != null) {
+					manager.interpretiereIntelligent(gewicht, groesse, alter, geschlecht);
+					manager.zeigeInterpretation();
+					taErgebnis.setText(manager.getModel().getKategorie());
+				} else {
+					// Wenn kein Geschlecht ausgewählt, nutze einfache Interpretation
+					manager.getModel().berechne(gewicht, groesse);
+					manager.getModel().interpretiere();
+					taErgebnis.setText(manager.getModel().getKategorie());
+				}
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(this, "Bitte gültige Zahlen für Gewicht und Größe eingeben.", "Eingabefehler", JOptionPane.WARNING_MESSAGE);
 			}
@@ -213,5 +233,21 @@ public class MainWindow extends JFrame
 			default: value = 0; break;
 		}
 		return value;
+	}
+
+	/**
+	 * Hilfsmethode: Bestimmt das ausgewählte Geschlecht aus den RadioButtons.
+	 * Gibt "männlich" oder "weiblich" zurück, oder null wenn nichts ausgewählt ist.
+	 * 
+	 * @return Geschlecht als String oder null
+	 */
+	private String getSelectedGeschlecht() {
+		if (rbMaennlich.isSelected()) {
+			return "männlich";
+		} else if (rbWeiblich.isSelected()) {
+			return "weiblich";
+		} else {
+			return null;
+		}
 	}
 }
