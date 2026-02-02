@@ -1,57 +1,25 @@
-# GUI mit Docker/Compose anzeigen
+# GUI Docker Dokumentation
 
-Dieses Projekt kann die Swing-GUI (`start.MainWindow`) direkt aus einem Docker-Container anzeigen. Dazu wird X11-Forwarding genutzt.
+Diese Dokumentation beschreibt die Verwendung von Docker für die GUI-Entwicklung.
 
 ## Voraussetzungen
-- Linux Desktop mit X-Server (z. B. Ubuntu, Fedora)
-- Docker und docker-compose installiert
-- X-Server muss Docker-Clients erlauben (xhost)
 
-## Einmalig erlauben
+- Docker muss installiert sein.
+- Kenntnisse über Docker und Containerisierung sind erforderlich.
 
-```bash
-# Erlaubt lokalen Docker-Containern, auf den X-Server zuzugreifen
-xhost +local:docker
-```
+## Installation
 
-Optional restriktiver:
-```bash
-xhost +SI:localuser:$(whoami)
-```
-
-## Build und Start
+Um das Projekt in einem Docker-Container auszuführen, verwenden Sie die folgenden Befehle:
 
 ```bash
-# Image bauen und Container starten
-docker compose up --build
+# Klonen Sie das Repository
+git clone https://github.com/ChristineJanischek/java-bmiapp-docker-mv-template.git
+cd java-bmiapp-docker-mv-template
+
+# Führen Sie Docker Compose aus
+docker-compose up
 ```
 
-Der Dienst `java-app` startet automatisch die GUI `start.MainWindow`.
+## Verwendung
 
-## Troubleshooting
-
-- Fehler: `libXtst.so.6: cannot open shared object file`
-  - Lösung: Im Image sind X11-Libs installiert. Stellen Sie sicher, dass das neue Image gebaut wurde (`--build`).
-
-- Fehler: `Error: Can't connect to X11 window server ...`
-  - Lösung: DISPLAY-Variable korrekt? Host hat `DISPLAY` gesetzt? Führen Sie im Host aus:
-    ```bash
-    echo $DISPLAY
-    xeyes  # sollte ein Fenster öffnen
-    ```
-  - `xhost` Freigabe gesetzt? (`xhost +local:docker`)
-
-- Kein Icon/Logo sichtbar
-  - Prüfen Sie, ob `src/start/images/*` vorhanden ist. Beim Build werden Bilder nach `build/start/images/` kopiert und via `MainWindow.class.getResource("/start/images/...")` geladen.
-
-- Wayland statt X11
-  - Unter Wayland kann XWayland aktiv sein. Stellen Sie sicher, dass `/tmp/.X11-unix` vorhanden ist und `DISPLAY` gesetzt ist. Ggf. Wayland auf X11 umstellen oder X11-compat aktivieren.
-
-## Was wird im Container gemacht?
-- Alpine-basiertes Java 21 Image
-- Installation der X11-Bibliotheken (libx11, libxext, libxrender, libxtst, libxi, ...)
-- Kompilierung nach `/app/build`
-- Start von `java -cp build:lib/* start.MainWindow`
-
-## Sicherheitshinweis
-`xhost +local:docker` öffnet lokalen Zugriff auf Ihren X-Server. Nutzen Sie dies nur in vertrauenswürdigen Umgebungen. Alternative ist eine granulare Xauthority-Konfiguration.
+Sobald der Container läuft, können Sie die Anwendung im Browser unter `http://localhost:8080` aufrufen.
