@@ -102,6 +102,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 - [METHODEN_UEBERSCHREIBEN.md](docs/JAVA_PROGRAMMIERUNG/METHODEN_UEBERSCHREIBEN.md) – Methoden überschreiben (@Override)
 - [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) – Polymorphie und ihre Anwendung
 - [INTELLIGENTE_METHODENWAHL.md](docs/JAVA_PROGRAMMIERUNG/INTELLIGENTE_METHODENWAHL.md) – Wann welche Methode nutzen
+- [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) – Container-Klassen (ArrayList, HashMap, HashSet, etc.)
 
 ### 🛡️ Best Practices & Code-Qualität
 - [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) – **Ausnahmebehandlung (Try-Catch, eigene Exceptions)**
@@ -138,6 +139,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 | **Klassen ordnungsgemäß strukturieren möchte** | [GRUNDGERUEST_KLASSE.md](docs/JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) + [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) |
 | **Unit Tests schreiben möchte** | [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) |
 | **Polymorphie verstehen möchte** | [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) |
+| **Container-Klassen (ArrayList, HashMap, etc.) verstehen möchte** | [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) |
 | **Sichere Code-Praktiken lernen möchte** | [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) + [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) |
 | **Dieses Projekt als Template für andere Aufgaben nutzen möchte** | [TEMPLATE_GUIDE.md](docs/GETTING_STARTED/TEMPLATE_GUIDE.md) |
 
