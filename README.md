@@ -25,9 +25,11 @@ mvn clean compile
 Diese Branches entsprechen den Versionen im Unterricht. Starte im Branch `main` (Version 0) und arbeite dich hoch.
 
 - `main` → Version 0: Schüler-Template (ohne Bmirechner.java, ohne BmiManager.java)
+- `version-0-grundgeruest` → Version 0: Grundgerüst
 - `version-1-mvc-gui` → Version 1: Musterlösung mit MVC (Model + Controller + GUI)
 - `version-2-methoden` → Version 2: Methoden, Kontrollstrukturen & Algorithmen
 - `version-3-validation` → Version 3: Eingabevalidierung & Fehlerbehandlung
+- `version-4-assoziationen` → **Version 4 (Musterlösung): Assoziationen - Personen & Messungen** ⭐ NEU!
 
 Schnellstart für Schüler (Version 0):
 ```bash
@@ -57,12 +59,15 @@ Du möchtest dieses Projekt als Vorlage für ähnliche Aufgaben nutzen? Lies die
 
 Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleitung:
 
-- [Version 0 (main): Einstieg & Grundgerüst](./SCHRITTE_VERSION_0.md)
-- [Version 1 (MVC + GUI)](./SCHRITTE_VERSION_1.md)
-- [Version 2 (Methoden, Kontrollstrukturen, Algorithmen)](./SCHRITTE_VERSION_2.md)
-- [Version 3 (Validierung & Fehlerbehandlung)](./SCHRITTE_VERSION_3.md)
+| Version | Branch | Anleitung | Beschreibung |
+|---------|--------|-----------|----------|
+| **0** | `main` | [SCHRITTE_VERSION_0.md](./docs/ANLEITUNGEN/SCHRITTE_VERSION_0.md) | Einstieg & Grundgerüst – Starte hier! |
+| **1** | `version-1-mvc-gui` | [SCHRITTE_VERSION_1.md](./docs/ANLEITUNGEN/SCHRITTE_VERSION_1.md) | MVC-Pattern + GUI implementieren |
+| **2** | `version-2-methoden` | [SCHRITTE_VERSION_2.md](./docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) | Methoden, Kontrollstrukturen, Algorithmen |
+| **3** | `version-3-validation` | [SCHRITTE_VERSION_3.md](./docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) | Validierung & Fehlerbehandlung |
+| **4 ⭐** | `version-4-assoziationen` | [SCHRITTE_VERSION_4.md](./docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) | Assoziationen - Personen & Messungen (Musterlösung) |
 
-Weitere Tipps:
+**Weitere Tipps:**
 - Lies die Spezifikationen unter „📄 Spezifikation Version X" weiter unten.
 - Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen).
 
@@ -278,22 +283,48 @@ Weitere grundlegende Fakten zur Implementierung des Grundgerüsts einer Klasse: 
 
 ---
 
-## 📄 Spezifikation Version 4: Datenpersistenz
-**Speicherung von Profildaten:**
-- Implementierung von Datenstrukturen zur Speicherung von Personenprofilen
-- **Datenbankanbindung:**
-  - Steuerung der Datenbank über `BmiManager`
-  - Methode: `connectTo(host, db, bn, ps)`
-  - Persistente Speicherung von Benutzerdaten
-- **Secure Coding:**
-  - SQL-Injection vermeiden
-  - Eingabevalidierung und Parameterisierung
-  - Sichere Passworthandhabung
+## 📄 Spezifikation Version 4: Assoziationen - Personen & Messungen (Musterlösung) ⭐
 
-## 📄 Spezifikation Version 5: Alternative Plattformen
+**Vollständig implementierte Lösung mit Assoziationen:**
+- **Person-Klasse**: Speichert Personendaten (Vorname, Nachname, Alter, Geschlecht, Email)
+- **Messung-Klasse**: Speichert BMI-Messungen mit Zeitstempel und Kategorie
+- **1:N Beziehung**: Eine Person kann mehrere Messungen haben
+  - `List<Messung> messungen;` in der Person-Klasse
+  - Methoden wie `addMessung()`, `getMessungen()`, `getDurchschnittsBmi()`
+- **BmiManager erweitert**:
+  - Person-Verwaltung: `erstellePerson()`, `getAllePersonen()`, `setAktuellePerson()`
+  - Messung-Verwaltung: `erstelleMessung()`, `getAlleMessungen()`
+  - Statistik-Berechnung: `getDurchschnittsBmi()`, `getAnzahlMessungen()`, etc.
+- **Erweiterte GUI (MainWindow)**:
+  - Bereich 1: Personen-Verwaltung (anlegen, auswählen)
+  - Bereich 2: BMI-Berechnung & Messung-Erfassung
+  - Bereich 3: Messungs-Historie (alle Messungen mit Datum)
+  - Bereich 4: Statistik-Anzeige (Durchschnitt, beste/schlechteste Messung, Differenz)
+- **Kapselung & Validierung**:
+  - `getMessungen()` gibt Kopie zurück (nicht Original!)
+  - Eingabevalidierung mit aussagekräftigen Fehlermeldungen
+  - LocalDateTime für Zeitstempel
+- **Objekt-oriented Design**:
+  - Klare Trennung der Verantworten
+  - MVC-Prinzip konsequent angewandt
+  - Assoziationen richtig implementiert
+
+**Details & Aufgaben:** Siehe [SCHRITTE_VERSION_4.md](./docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md)
+
+**Diese Version ist eine komplette Musterlösung** und zeigt professionelle Java-Programmierung mit:
+- Assoziationen zwischen Klassen
+- Kapselung und Information Hiding
+- Persistierung von Messungen pro Person
+- Statistik-Berechnung über mehrere Messungen
+- Erweiterte GUI mit Daten-Verwaltung
+
+---
+
+## 📄 Spezifikation Version 5: Alternative Plattformen (Zukünftig)
 **XML-basierte View:**
 - Alternative Implementierung mit XML (z.B. für Android: AndroidAppWindow)
 - Plattformübergreifende Darstellung
+- Datenbankanbindung für Persistierung
 
 ## 🔧 Entwicklung und Kompilierung
 
