@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Die Messung-Klasse repräsentiert eine einzelne BMI-Messung.
  * Sie speichert Gewicht, Größe, BMI und den Messzeitpunkt.
  * 
- * Diese Klasse wird in einer 1:N Beziehung mit der Person-Klasse verwendet.
+ * Die Berechnung nutzt die bestehende Bmirechner-Klasse (DRY-Prinzip).
  * 
  * @version 4.0
  * @since 2026-02-09
@@ -21,9 +21,12 @@ public class Messung {
     private double bmi;               // Berechneter BMI
     private String kategorie;         // BMI-Kategorie (z.B. "Übergewicht")
     
+    // Nutzen der bestehenden Bmirechner-Klasse
+    private Bmirechner rechner;       // Delegiert die BMI-Berechnung
+    
     /**
      * Konstruktor: Erstellt eine neue Messung.
-     * Der BMI wird automatisch berechnet.
+     * Der BMI wird automatisch mittels Bmirechner berechnet.
      * 
      * @param gewicht Das Gewicht in kg
      * @param groesse Die Größe in m
@@ -41,8 +44,14 @@ public class Messung {
         this.gewicht = gewicht;
         this.groesse = groesse;
         this.zeitstempel = LocalDateTime.now();
-        this.bmi = berechneBMI(gewicht, groesse);
-        this.kategorie = bestimmeKategorie(this.bmi);
+        
+        // Bmirechner nutzen zur Berechnung
+        this.rechner = new Bmirechner();
+        this.bmi = rechner.berechne(gewicht, groesse);
+        
+        // Kategorisierung mit Bmirechner
+        rechner.interpretiere();
+        this.kategorie = rechner.getKategorie();
     }
     
     /**
@@ -66,40 +75,130 @@ public class Messung {
         this.gewicht = gewicht;
         this.groesse = groesse;
         this.zeitstempel = zeitstempel;
-        this.bmi = berechneBMI(gewicht, groesse);
-        this.kategorie = bestimmeKategorie(this.bmi);
+        
+        // Bmirechner nutzen zur Berechnung
+        this.rechner = new Bmirechner();
+        this.bmi = rechner.berechne(gewicht, groesse);
+        
+        // Kategorisierung mit Bmirechner
+        rechner.interpretiere();
+        this.kategorie = rechner.getKategorie();
+    }
+    
+    // Getter-Methoden
+    public double getGewicht() {
+        return gewicht;
+    }
+    
+    public double getGroesse() {
+        return groesse;
+    }
+    
+    public LocalDateTime getZeitstempel() {
+        return zeitstempel;
+    }
+    
+    public double getBmi() {
+        return bmi;
+    }
+    
+    public String getKategorie() {
+        return kategorie;
     }
     
     /**
-     * Berechnet den BMI aus Gewicht und Größe.
-     * Formel: BMI = Gewicht / (Größe²)
+     * Gibt das Messdatum im Format "dd.MM.yyyy HH:mm" zurück.
      * 
-     * @param gewicht Das Gewicht in kg
-     * @param groesse Die Größe in m
-     * @return Der berechnete BMI
+     * @return Formatierter Zeitstempel
      */
-    private double berechneBMI(double gewicht, double groesse) {
-        return gewicht / (groesse * groesse);
+    public String getFormatiertesDatum() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        return zeitstempel.format(formatter);
     }
     
     /**
-     * Bestimmt die BMI-Kategorie basierend auf dem BMI-Wert.
+     * Gibt das Messdatum im Format "dd.MM.yyyy" zurück (nur Datum).
      * 
-     * Kategorien nach WHO-Standard:
-     * - < 18.5: Untergewicht
-     * - 18.5 - 24.9: Normalgewicht
-     * - 25.0 - 29.9: Übergewicht
-     * - >= 30.0: Adipositas
-     * 
-     * @param bmi Der BMI-Wert
-     * @return Die BMI-Kategorie als String
+     * @return Formatiertes Datum
      */
-    private String bestimmeKategorie(double bmi) {
-        if (bmi < 18.5) return "Untergewicht";
-        else if (bmi < 25) return "Normalgewicht";
-        else if (bmi < 30) return "Übergewicht";
-        else return "Adipositas";
+    public String getFormatiertesKurzesDatum() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return zeitstempel.format(formatter);
     }
+    
+    /**
+     * Gibt die Uhrzeit im Format "HH:mm" zurück.
+     * 
+     * @return Formatierte Uhrzeit
+     */
+    public String getFormatierteUhrzeit() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return zeitstempel.format(formatter);
+    }
+    
+    /**
+     * Gibt den BMI formatiert auf 2 Dezimalstellen zurück.
+     * 
+     * @return Formatierter BMI-String
+     */
+    public String getFormatierteBMI() {
+        return String.format("%.2f", bmi);
+    }
+    
+    /**
+     * Gibt eine Farbe basierend auf der BMI-Kategorie zurück (für GUI).
+     * 
+     * @return Farb-String (#RRGGBB Format)
+     */
+    public String getKategorieColor() {
+        switch (kategorie) {
+            case "Leichtes Untergewicht": 
+            case "Mäßiges Untergewicht":
+            case "Starkes Untergewicht":
+                return "#FFD700"; // Gold
+            case "Normalgewicht": 
+                return "#90EE90"; // LightGreen
+            case "Prädipositas":
+                return "#FFA500"; // Orange
+            case "Adipositas Grad I":
+            case "Adipositas Grad II":
+            case "Adipositas Grad III":
+                return "#FF6347"; // Tomato
+            default: 
+                return "#FFFFFF"; // White
+        }
+    }
+    
+    @Override
+    public String toString() {
+        return "Messung{" +
+                "gewicht=" + gewicht + " kg, " +
+                "groesse=" + groesse + " m, " +
+                "bmi=" + String.format("%.2f", bmi) + ", " +
+                "kategorie='" + kategorie + "', " +
+                "zeitstempel=" + getFormatiertesDatum() +
+                '}';
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        
+        Messung messung = (Messung) obj;
+        return Double.compare(messung.gewicht, gewicht) == 0 &&
+               Double.compare(messung.groesse, groesse) == 0 &&
+               zeitstempel.equals(messung.zeitstempel);
+    }
+    
+    @Override
+    public int hashCode() {
+        int result = Double.hashCode(gewicht);
+        result = 31 * result + Double.hashCode(groesse);
+        result = 31 * result + zeitstempel.hashCode();
+        return result;
+    }
+}
     
     // Getter-Methoden
     public double getGewicht() {
