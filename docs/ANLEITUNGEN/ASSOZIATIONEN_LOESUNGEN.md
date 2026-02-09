@@ -15,9 +15,10 @@ Die `Messung`-Klasse speichert:
 - `groesse` (double): Körpergröße in Metern
 - `bmi` (double): Berechneter BMI-Wert
 - `zeitstempel` (LocalDateTime): Zeitpunkt der Messung
-- `kategorie` (String): BMI-Kategorie (Untergewicht, Normalgewicht, Übergewicht, Adipositas)
+- `kategorie` (String): BMI-Kategorie (detailliert von Bmirechner)
+- `rechner` (Bmirechner): Delegiert die BMI-Berechnung und Kategorisierung
 
-Der BMI wird mit der Formel berechnet:
+Der BMI wird mit der `Bmirechner`-Klasse berechnet:
 ```
 BMI = Gewicht / (Größe²)
 
@@ -27,17 +28,21 @@ BMI = 80 / (1.8 * 1.8) = 80 / 3.24 = 24,69 (Normalgewicht)
 
 **Code:**
 ```java
-private double berechneBMI(double gewicht, double groesse) {
-    return gewicht / (groesse * groesse);
-}
-
-private String bestimmeKategorie(double bmi) {
-    if (bmi < 18.5) return "Untergewicht";
-    else if (bmi < 25) return "Normalgewicht";
-    else if (bmi < 30) return "Übergewicht";
-    else return "Adipositas";
+public Messung(double gewicht, double groesse) {
+    this.gewicht = gewicht;
+    this.groesse = groesse;
+    this.zeitstempel = LocalDateTime.now();
+    
+    // Bmirechner (DRY-Prinzip: Keine Duplikation!)
+    this.rechner = new Bmirechner();
+    this.bmi = rechner.berechne(gewicht, groesse);
+    
+    rechner.interpretiere();
+    this.kategorie = rechner.getKategorie();
 }
 ```
+
+**Wichtig:** Statt die BMI-Berechnung selbst zu implementieren, nutzen wir die bestehende `Bmirechner`-Klasse. Das ist effizienter und konsistent mit den vorherigen Versionen!
 
 ---
 

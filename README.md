@@ -74,6 +74,7 @@ Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleit
 | **1** | `version-1-mvc-gui` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_1.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_1.md) | MVC-Pattern + GUI implementieren |
 | **2** | `version-2-methoden` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) | Methoden, Kontrollstrukturen, Algorithmen |
 | **3** | `version-3-validation` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) | Validierung & Fehlerbehandlung |
+| **4** | `version-4-assoziationen` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) | ⭐ Assoziationen (1:N) – Personen & Messungen |
 
 **Weitere Tipps:**
 - Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen)
@@ -137,6 +138,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 | **Event-Listener und Controller verbinden möchte** | [Ereignissteuerung_und_Controller.md](docs/GUI_DEVELOPMENT/Ereignissteuerung_und_Controller.md) |
 | **Kontrollflusselemente (if, for, while) verstehen möchte** | [KONTROLLSTRUKTUREN.md](docs/JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md) + [SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) |
 | **Eingaben validieren und Fehler behandeln möchte** | [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) + [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) + [SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) |
+| **Assoziationen (1:N) und Container-Klassen nutzen möchte** | [ASSOZIATIONEN.md](docs/JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md) + [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) + [SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) |
 | **Klassen ordnungsgemäß strukturieren möchte** | [GRUNDGERUEST_KLASSE.md](docs/JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) + [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) |
 | **Unit Tests schreiben möchte** | [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) |
 | **Polymorphie verstehen möchte** | [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) |
@@ -193,6 +195,17 @@ Details: [docs/GUI_DEVELOPMENT/GUI_DOCKER.md](docs/GUI_DEVELOPMENT/GUI_DOCKER.md
 - [ ] Try-Catch für Fehlerbehandlung
 - [ ] Aussagekräftige Fehlermeldungen
 - [ ] Unit Tests geschrieben und grün
+
+### ✅ Version 4 (version-4-assoziationen) – Assoziationen & Messungs-Historie
+- [ ] `Person.java` mit 1:N Assoziation erstellt
+- [ ] `Messung.java` mit Bmirechner für Berechnung
+- [ ] Person-Liste in `BmiManager` implementiert
+- [ ] `addMessung()` und `getMessungen()` funktionieren
+- [ ] Statistik-Methoden (Durchschnitt, beste/schlechteste Messung)
+- [ ] GUI erweitert: Person-Verwaltung, Messungs-Historie, Statistik
+- [ ] LocalDateTime für Zeitstempel genutzt
+- [ ] Kapselung mit defensiven Kopien implementiert
+- [ ] Alle Tests grün
 
 ---
 

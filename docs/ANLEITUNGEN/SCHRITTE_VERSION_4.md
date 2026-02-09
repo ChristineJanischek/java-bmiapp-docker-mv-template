@@ -127,14 +127,21 @@ public class Messung {
     private LocalDateTime zeitstempel; // WANN gemessen?
     private double bmi;            // Berechnet
     private String kategorie;      // BMI-Kategorie
+    private Bmirechner rechner;    // Nutzt bestehende Bmirechner-Klasse!
     
     // Konstruktor
     public Messung(double gewicht, double groesse) {
         this.gewicht = gewicht;
         this.groesse = groesse;
         this.zeitstempel = LocalDateTime.now(); // Aktuelles Datum/Zeit
-        this.bmi = berechneBMI(gewicht, groesse);
-        this.kategorie = bestimmeKategorie(this.bmi);
+        
+        // Bmirechner nutzen zur Berechnung (DRY-Prinzip!)
+        this.rechner = new Bmirechner();
+        this.bmi = rechner.berechne(gewicht, groesse);
+        
+        // Kategorisierung mit Bmirechner
+        rechner.interpretiere();
+        this.kategorie = rechner.getKategorie();
     }
 }
 ```
