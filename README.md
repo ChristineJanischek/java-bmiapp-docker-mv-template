@@ -36,6 +36,7 @@ Diese Branches entsprechen den Versionen im Unterricht. Starte im Branch `main` 
 - `version-1-mvc-gui` → **Version 1**: Musterlösung mit MVC (Model + Controller + GUI)
 - `version-2-methoden` → **Version 2**: Methoden, Kontrollstrukturen & Algorithmen
 - `version-3-validation` → **Version 3**: Eingabevalidierung & Fehlerbehandlung
+- `version-4-assoziationen` → **Version 4 (Musterlösung): Assoziationen - Personen & Messungen** ⭐ NEU
 
 **Schnellstart für Schüler (Version 0):**
 ```bash
