@@ -3,22 +3,50 @@
 > Hinweis: Diese README wird beim Öffnen des Workspace in VS Code automatisch angezeigt (Einstellung "workbench.startupEditor": "readme").
 > Deaktivieren: In `.vscode/settings.json` den Wert auf `none` setzen oder in VS Code unter Einstellungen `Startup Editor` auf `none` ändern.
 
-## ☕ Java Version
+## ☕ Java Version & Setup
 
 Dieses Projekt verwendet **Java 21 LTS** (Long-Term Support).
 
 - **Version**: OpenJDK 21.0.5 LTS (Eclipse Temurin)
-- **Build-Tool**: Maven 3.x
+- **Build-Tool**: Maven 4.x
 - **Weitere Informationen**: Siehe [docs/GETTING_STARTED/JAVA21_UPGRADE.md](docs/GETTING_STARTED/JAVA21_UPGRADE.md)
 
-### Build-Befehle
-```bash
-# Mit Maven
-mvn clean compile
+### 🔧 System vorbereiten & Anwendung starten
 
-# Mit Build-Skript
-./build.sh
+**👉 [📖 Zur kompletten Setup- & Build-Anleitung](docs/GETTING_STARTED/SETUP_UND_BUILD.md)**
+
+Diese Anleitung erklärt dir:
+- ✅ Java 21 LTS installieren
+- ✅ Maven konfigurieren
+- ✅ Projekt compilieren
+- ✅ Anwendung starten und testen
+- ✅ Docker nutzen (optional)
+
+### Quick-Start Befehle
+```bash
+# Java 21 installieren (einmalig)
+sudo apt-get install -y openjdk-21-jdk-headless
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+
+# Projekt bauen
+mvn clean package -DskipTests
+
+# Anwendung starten (GUI-Fenster öffnet sich)
+java -jar target/bmi-rechner-1.0.0.jar
 ```
+
+### 🌐 GUI im Browser mit Docker & NoVNC
+
+Wenn Sie die Anwendung im Browser anschauen möchten (empfohlen für bessere Kompatibilität):
+
+```bash
+# Docker-Image bauen und starten
+docker-compose -f docker-compose.novnc.yml up -d
+
+# Öffne im Browser: http://localhost:6080
+```
+
+👉 **[Mehr Details: Docker & NoVNC Anleitung](docs/GUI_DEVELOPMENT/DOCKER_NOVNC_ANLEITUNG.md)**
 
 ## 🚀 Schnellstart
 

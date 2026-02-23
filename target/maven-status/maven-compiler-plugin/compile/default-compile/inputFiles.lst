@@ -3,4 +3,5 @@
 /workspaces/java-bmiapp-docker-mv-template/src/start/DatabaseConnector.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/Main.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/MainWindow.java
-/workspaces/java-bmiapp-docker-mv-template/src/start/TestIntelligent.java
+/workspaces/java-bmiapp-docker-mv-template/src/start/Messung.java
+/workspaces/java-bmiapp-docker-mv-template/src/start/Person.java

@@ -47,6 +47,7 @@
                     <release>21</release>
                     <excludes>
                         <exclude>test/**</exclude>
+                        <exclude>**/TestIntelligent.java</exclude>
                     </excludes>
                 </configuration>
                 <executions>

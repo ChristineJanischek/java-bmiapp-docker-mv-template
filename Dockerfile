@@ -24,8 +24,8 @@ COPY ./src ./src
 # Kopiere den lib-Ordner (JDBC-Treiber) ins Image
 COPY ./lib ./lib
 
-# Kompiliere alle Java-Dateien ins build-Verzeichnis
-RUN mkdir -p build && javac -d build src/start/*.java \
+# Kompiliere alle Java-Dateien ins build-Verzeichnis (außer TestIntelligent.java)
+RUN mkdir -p build && find src/start -name "*.java" ! -name "TestIntelligent.java" -print0 | xargs -0 javac -d build \
  && mkdir -p build/start/images \
  && cp -r src/start/images/* build/start/images/
 

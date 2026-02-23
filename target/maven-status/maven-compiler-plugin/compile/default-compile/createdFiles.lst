@@ -1,11 +1,8 @@
 start/Bmirechner.class
-start/MainWindow$5.class
-start/MainWindow$3.class
+start/Messung.class
+start/MainWindow$1.class
+start/Person.class
+start/Main.class
 start/MainWindow.class
 start/DatabaseConnector.class
-start/MainWindow$2.class
-start/TestIntelligent.class
-start/MainWindow$1.class
-start/Main.class
 start/BmiManager.class
-start/MainWindow$4.class
