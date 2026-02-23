@@ -31,12 +31,19 @@ ___________________________________________________________________________
 
 Ordne die ArrayList-Methoden ihren Beschreibungen zu. Schreibe den Buchstaben in die Klammer.
 
-| Methode | Beschreibung |
-|---------|-------------|
-| `add(Object)` | ( ) | Gibt die Anzahl der Elemente zurück |
-| `get(int index)` | ( ) | Fügt ein Element am Ende hinzu |
-| `remove(int index)` | ( ) | Gibt das Element an Position index zurück |
-| `size()` | ( ) | Entfernt das Element an Position index |
+**Beschreibungen:**
+
+- **(a)** Gibt die Anzahl der Elemente zurück
+- **(b)** Fügt ein Element am Ende hinzu
+- **(c)** Gibt das Element an Position index zurück
+- **(d)** Entfernt das Element an Position index
+
+| Methode | Buchstabe |
+|---------|-----------|
+| `add(Object)` | ( ) |
+| `get(int index)` | ( ) |
+| `remove(int index)` | ( ) |
+| `size()` | ( ) |
 
 ---
 

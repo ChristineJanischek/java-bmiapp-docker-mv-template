@@ -49,12 +49,19 @@ ArrayList wird verwendet, da die Anzahl der Messungen vorher nicht bekannt ist. 
 
 ### Aufgabenstellung
 
-Ordne die ArrayList-Methoden ihren Beschreibungen zu.
+Ordne die ArrayList-Methoden ihren Beschreibungen zu (Buchstaben a-d).
+
+**Beschreibungen (wie im Schülerblatt):**
+
+- **(a)** Gibt die Anzahl der Elemente zurück
+- **(b)** Fügt ein Element am Ende hinzu
+- **(c)** Gibt das Element an Position index zurück
+- **(d)** Entfernt das Element an Position index
 
 ### Musterlösung (Zuordnung)
 
-| Methode | Beschreibung |
-|---------|-------------|
+| Methode | Richtiger Buchstabe | Bedeutung |
+|---------|----------------------|-----------|
 | `add(Object)` | **(b)** | Fügt ein Element am Ende hinzu |
 | `get(int index)` | **(c)** | Gibt das Element an Position index zurück |
 | `remove(int index)` | **(d)** | Entfernt das Element an Position index |
