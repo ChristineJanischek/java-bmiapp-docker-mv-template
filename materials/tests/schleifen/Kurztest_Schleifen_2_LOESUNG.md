@@ -20,6 +20,21 @@ Gib folgendes Muster aus (3 Zeilen):
 // TODO
 ```
 
+### Musterloesung
+
+```java
+for (int zeile = 0; zeile < 3; zeile++) {
+    for (int spalte = 0; spalte < 3; spalte++) {
+        System.out.print("*");
+    }
+    System.out.println();
+}
+```
+
+### Erlaeuterung
+
+Die aeussere Schleife steuert die Zeilen, die innere die Anzahl Sterne pro Zeile.
+
 ---
 
 ## Aufgabe 2: break/continue (4 Punkte)
@@ -36,6 +51,14 @@ for (int i = 1; i <= 5; i++) {
 
 Was wird ausgegeben? _______________________________________________
 
+### Musterloesung
+
+Ausgabe: `1 3 `
+
+### Erlaeuterung
+
+Bei `2` wird der Durchlauf uebersprungen (`continue`), bei `4` wird die Schleife beendet (`break`).
+
 ---
 
 ## Aufgabe 3: Suche in Array (5 Punkte)
@@ -47,6 +70,23 @@ public boolean enthaelt(int[] arr, int ziel) {
     // TODO
 }
 ```
+
+### Musterloesung
+
+```java
+public boolean enthaelt(int[] arr, int ziel) {
+    for (int wert : arr) {
+        if (wert == ziel) {
+            return true;
+        }
+    }
+    return false;
+}
+```
+
+### Erlaeuterung
+
+Sobald der gesuchte Wert gefunden wird, kann sofort `true` zurueckgegeben werden.
 
 ---
 
@@ -68,6 +108,16 @@ a) Was wird ausgegeben? ____________
 
 b) Erklaere kurz. _________________________________________________
 
+### Musterloesung
+
+a) Ausgabe: `5`
+
+b) `sum` wird zu `1, 3, 6, 10`; danach wurde `n` bereits auf `5` erhoeht.
+
+### Erlaeuterung
+
+Die Abbruchbedingung prueft erst am Schleifenkopf des naechsten Durchlaufs.
+
 ---
 
 ## Aufgabe 5: for-each und Index (4 Punkte)
@@ -87,6 +137,24 @@ for (String s : liste) {
 
 _____________________________________________________________________
 
+### Musterloesung
+
+Der Code ist problematisch, weil waehrend einer for-each-Iteration aus derselben Liste entfernt wird (`ConcurrentModificationException`). Zusaetzlich ist `indexOf` bei Duplikaten unzuverlaessig.
+
+Korrekt z. B. rueckwaerts mit Index:
+
+```java
+for (int i = liste.size() - 1; i >= 0; i--) {
+    if (i % 2 == 0) {
+        liste.remove(i);
+    }
+}
+```
+
+### Erlaeuterung
+
+Rueckwaerts entfernen verschiebt keine noch zu verarbeitenden Indizes nach vorne.
+
 ---
 
 ## Aufgabe 6: Fehlersuche (3 Punkte)
@@ -104,6 +172,22 @@ Was fehlt?
 
 _____________________________________________________________________
 
+### Musterloesung
+
+Es fehlt die Zaehleraenderung, z. B.:
+
+```java
+int i = 0;
+while (i < 5) {
+    System.out.println(i);
+    i++;
+}
+```
+
+### Erlaeuterung
+
+Ohne `i++` bleibt `i` immer `0` und die Schleife endet nie.
+
 ---
 
 **Viel Erfolg!**
@@ -117,4 +201,3 @@ _____________________________________________________________________
 | 5 | 4 |
 | 6 | 3 |
 | **Gesamt** | **25** |
-

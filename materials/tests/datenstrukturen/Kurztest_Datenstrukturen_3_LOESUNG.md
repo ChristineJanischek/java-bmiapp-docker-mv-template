@@ -14,6 +14,16 @@ Waehle die passende Struktur:
 2) Schnellstes contains() fuer viele IDs: __________________________
 3) Mehrere Werte pro Schluessel (Abteilung -> Mitarbeiterliste): ____
 
+### Musterloesung
+
+1) `LinkedHashSet`
+2) `HashSet`
+3) `Map<String, List<Mitarbeiter>>`
+
+### Erlaeuterung
+
+`LinkedHashSet` kombiniert Eindeutigkeit und Einfuegereihenfolge. `HashSet` ist sehr schnell fuer `contains`.
+
 ---
 
 ## Aufgabe 2: Maximum in Liste (4 Punkte)
@@ -25,6 +35,28 @@ public int maxWert(List<Integer> werte) {
     // TODO
 }
 ```
+
+### Musterloesung
+
+```java
+public int maxWert(List<Integer> werte) {
+    if (werte == null || werte.isEmpty()) {
+        throw new IllegalArgumentException("Liste darf nicht leer sein");
+    }
+
+    int max = werte.get(0);
+    for (int wert : werte) {
+        if (wert > max) {
+            max = wert;
+        }
+    }
+    return max;
+}
+```
+
+### Erlaeuterung
+
+Es wird linear durchlaufen und das aktuell groesste Element gespeichert.
 
 ---
 
@@ -47,6 +79,24 @@ public Map<String, List<Mitarbeiter>> gruppiere(List<Mitarbeiter> liste) {
 }
 ```
 
+### Musterloesung
+
+```java
+public Map<String, List<Mitarbeiter>> gruppiere(List<Mitarbeiter> liste) {
+    Map<String, List<Mitarbeiter>> map = new HashMap<>();
+
+    for (Mitarbeiter m : liste) {
+        map.computeIfAbsent(m.abteilung, k -> new ArrayList<>()).add(m);
+    }
+
+    return map;
+}
+```
+
+### Erlaeuterung
+
+`computeIfAbsent` erstellt bei Bedarf die Liste pro Abteilung und fuegt dann den Mitarbeiter hinzu.
+
 ---
 
 ## Aufgabe 4: Code-Analyse - TreeSet (5 Punkte)
@@ -65,6 +115,16 @@ a) Welche Ausgabe erwartest du? ______________________
 
 b) Warum ist die Reihenfolge so? ______________________
 
+### Musterloesung
+
+a) `[1, 3, 5]`
+
+b) `TreeSet` sortiert Elemente automatisch nach natuerlicher Ordnung.
+
+### Erlaeuterung
+
+Im Gegensatz zu `HashSet` ist die Reihenfolge bei `TreeSet` sortiert.
+
 ---
 
 ## Aufgabe 5: Duplikate entfernen (4 Punkte)
@@ -79,6 +139,16 @@ List<String> namen = List.of("A", "B", "A", "C");
 // Entferne Duplikate:
 Set<String> unique = ________________________________;
 ```
+
+### Musterloesung
+
+```java
+Set<String> unique = new LinkedHashSet<>(namen);
+```
+
+### Erlaeuterung
+
+`LinkedHashSet` entfernt Duplikate und behaelt die erste Reihenfolge (`A, B, C`).
 
 ---
 
@@ -96,6 +166,22 @@ Was ist das Problem, und wie loest du es?
 
 _____________________________________________________________________
 
+### Musterloesung
+
+Problem: Rohtypen (`List` ohne Generics) erlauben gemischte Typen und fuehren spaeter zu Laufzeitfehlern.
+
+Korrekt:
+
+```java
+List<Integer> zahlen = new ArrayList<>();
+zahlen.add(1);
+// zahlen.add("zwei"); // Compilerfehler, daher sicherer
+```
+
+### Erlaeuterung
+
+Generics sorgen fuer Typsicherheit bereits zur Compile-Zeit.
+
 ---
 
 **Viel Erfolg!**
@@ -109,4 +195,3 @@ _____________________________________________________________________
 | 5 | 4 |
 | 6 | 3 |
 | **Gesamt** | **25** |
-

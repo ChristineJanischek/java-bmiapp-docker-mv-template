@@ -16,6 +16,18 @@ public boolean istGueltig(int alter) {
 }
 ```
 
+### Musterloesung
+
+```java
+public boolean istGueltig(int alter) {
+    return alter >= 0 && alter <= 120;
+}
+```
+
+### Erlaeuterung
+
+Nur Werte innerhalb des Intervalls inklusive Grenzen sind gueltig.
+
 ---
 
 ## Aufgabe 2: Guard Clause (4 Punkte)
@@ -32,6 +44,21 @@ public void verarbeite(String input) {
     System.out.println(input.trim());
 }
 ```
+
+### Musterloesung
+
+```java
+public void verarbeite(String input) {
+    if (input == null || input.isBlank()) {
+        return;
+    }
+    System.out.println(input.trim());
+}
+```
+
+### Erlaeuterung
+
+Guard Clauses beenden ungueltige Faelle frueh und reduzieren Verschachtelung.
 
 ---
 
@@ -54,6 +81,29 @@ public String gruppe(int note) {
 }
 ```
 
+### Musterloesung
+
+```java
+public String gruppe(int note) {
+    switch (note) {
+        case 1:
+        case 2:
+            return "gut";
+        case 3:
+            return "mittel";
+        case 4:
+        case 5:
+            return "schwach";
+        default:
+            return "ungueltig";
+    }
+}
+```
+
+### Erlaeuterung
+
+Mehrere `case`-Labels ohne Code dazwischen nutzen bewusst Fall-Through.
+
 ---
 
 ## Aufgabe 4: Code-Analyse (5 Punkte)
@@ -73,6 +123,14 @@ if (admin || aktiv) {
 
 Was wird ausgegeben? _______________________________________________
 
+### Musterloesung
+
+Ausgabe: `Zugriff`
+
+### Erlaeuterung
+
+Bei `||` reicht eine wahre Teilbedingung; `aktiv` ist `true`.
+
 ---
 
 ## Aufgabe 5: Ternary vs if (4 Punkte)
@@ -84,6 +142,21 @@ Schreibe als if/else:
 ```java
 String r = (x > 0) ? "positiv" : "nicht positiv";
 ```
+
+### Musterloesung
+
+```java
+String r;
+if (x > 0) {
+    r = "positiv";
+} else {
+    r = "nicht positiv";
+}
+```
+
+### Erlaeuterung
+
+Funktional identisch zum ternary Ausdruck, aber laenger ausgeschrieben.
 
 ---
 
@@ -101,6 +174,22 @@ Warum kann die Prioritaet hier problematisch sein, und wie machst du es eindeuti
 
 _____________________________________________________________________
 
+### Musterloesung
+
+Ohne Klammern ist die Lesbarkeit schlecht; `&&` wird zwar vor `||` ausgewertet, aber das ist fehleranfaellig.
+
+Eindeutig z. B.:
+
+```java
+if ((x > 5 && x < 10) || x == 20) {
+    // ...
+}
+```
+
+### Erlaeuterung
+
+Klammern dokumentieren die gewollte Logik explizit und verhindern Missverstaendnisse.
+
 ---
 
 **Viel Erfolg!**
@@ -114,4 +203,3 @@ _____________________________________________________________________
 | 5 | 4 |
 | 6 | 3 |
 | **Gesamt** | **25** |
-
