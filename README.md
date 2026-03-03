@@ -138,6 +138,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 - [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) – **Ausnahmebehandlung (Try-Catch, eigene Exceptions)**
 - [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) – Sichere Programmierung & Eingabevalidierung
 - [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) – Encapsulation Prinzip & Information Hiding
+- [MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md](docs/BEST_PRACTICES/MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md) – **M:N Beziehungen auflösen oder direkt implementieren?** Design-Kriterien & Best Practices
 - [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) – Unit Tests mit JUnit 5
 
 ### 🖥️ GUI & Benutzeroberfläche
@@ -166,7 +167,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 | **Event-Listener und Controller verbinden möchte** | [Ereignissteuerung_und_Controller.md](docs/GUI_DEVELOPMENT/Ereignissteuerung_und_Controller.md) |
 | **Kontrollflusselemente (if, for, while) verstehen möchte** | [KONTROLLSTRUKTUREN.md](docs/JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md) + [SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) |
 | **Eingaben validieren und Fehler behandeln möchte** | [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) + [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) + [SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) |
-| **Assoziationen (1:N) und Container-Klassen nutzen möchte** | [ASSOZIATIONEN.md](docs/JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md) + [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) + [SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) |
+| **Assoziationen (1:N, M:N) und Container-Klassen nutzen möchte** | [ASSOZIATIONEN.md](docs/JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md) + [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) + [ASSOZIATIONEN_PERSON_MESSUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_PERSON_MESSUNG.md) + [ASSOZIATIONEN_BRIDGE_KLASSE_BEHANDLUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_BRIDGE_KLASSE_BEHANDLUNG.md) + [MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md](docs/BEST_PRACTICES/MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md) + [SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) |
 | **Klassen ordnungsgemäß strukturieren möchte** | [GRUNDGERUEST_KLASSE.md](docs/JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) + [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) |
 | **Unit Tests schreiben möchte** | [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) |
 | **Polymorphie verstehen möchte** | [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) |
