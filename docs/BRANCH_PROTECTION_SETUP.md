@@ -1,5 +1,10 @@
 # Branch Protection Rule einrichten – Schritt-für-Schritt
 
+> Aktualisierung 2026-03-11:
+> Diese Seite beschreibt weiterhin den Basis-Setup fuer `main`.
+> Die vollstaendige, aktuelle Multi-Branch-Konfiguration fuer `main`, `feat/testsdev` und `chore/todos-next-block` steht in:
+> `docs/KONZEPTE/PARALLELE_ENTWICKLUNG_UND_BRANCH_PROTECTION.md`
+
 ## 🔒 Ziel
 Nach dieser Anleitung darf niemand (auch nicht Sie selbst) direkt zu `main` pushen.  
 Alle Änderungen müssen über einen **Pull Request mit mindestens 1 Genehmigung** erfolgen.
