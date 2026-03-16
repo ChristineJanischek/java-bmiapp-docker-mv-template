@@ -105,22 +105,59 @@ Das System soll Kurse ermöglichen für:
 
 Die Umsetzung ist realistisch, da folgende Technologien bereits existieren:ö
 
-| Bereich         | Technologie      |
-| --------------- | ---------------- |
-| Repository      | GitHub           |
-| Kollaboration   | GitHub Classroom |
-| Codeeditor      | VS Code          |
-| Dokumentation   | Markdown         |
-| Diagramme       | Draw.io          |
-| Automatisierung | GitHub Actions   |
-| KI-Integration  | LLM APIs         |
-| Export          | Pandoc           |
+| Bereich              | Technologie                        |
+| -------------------- | ---------------------------------- |
+| Repository           | GitHub                             |
+| Kollaboration        | GitHub Classroom                   |
+| Codeeditor           | VS Code                            |
+| Dokumentation        | Markdown                           |
+| Diagramme            | Draw.io                            |
+| Automatisierung      | GitHub Actions                     |
+| KI-Integration       | LLM APIs                           |
+| Export               | Pandoc                             |
+| Programmiersprache   | Java 21 LTS (OpenJDK / Temurin)    |
+| Build-Tool           | Maven 4.x                          |
+| Test-Framework       | JUnit 5                            |
+| GUI-Technologie      | Java Swing                         |
+| Browser-GUI-Zugang   | noVNC (Port 6080)                  |
+| Containerisierung    | Docker & Docker Compose            |
+| Datenbank            | MySQL (containerisiert)            |
 
 Diese Technologien ermöglichen eine skalierbare Architektur.
 
----
+## Systemvoraussetzungen
 
-# 6 Bedarfsanalyse
+Für den Betrieb und die Entwicklung sind folgende Softwarekomponenten erforderlich:
+
+| Komponente         | Version          | Zweck                             |
+| ------------------ | ---------------- | --------------------------------- |
+| Java (OpenJDK)     | 21 LTS           | Laufzeitumgebung und Compiler     |
+| Maven              | 4.x              | Build, Abhängigkeits­verwaltung   |
+| Docker             | aktuell          | Container-Laufzeitumgebung        |
+| Docker Compose     | aktuell          | Multi-Container-Orchestrierung    |
+| Git                | beliebig         | Versionskontrolle                 |
+| Browser            | modern (Chrome / Firefox / Edge) | noVNC-GUI-Zugang  |
+
+**Installation Docker (Ubuntu/Debian):**
+```bash
+sudo apt-get update
+sudo apt-get install -y docker.io docker-compose
+sudo usermod -aG docker $USER
+```
+
+**Installation Java 21 (Ubuntu/Debian):**
+```bash
+sudo apt-get install -y openjdk-21-jdk-headless
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+```
+
+Getestete Betriebssysteme:
+- Ubuntu 24.04 LTS
+- Ubuntu 22.04 LTS
+- Linux (allgemein) mit Java 21
+- macOS und Windows (JAVA_HOME manuell setzen)
+
+---
 
 Probleme im Informatikunterricht heute:
 
@@ -161,6 +198,32 @@ Content Engine
 Wissensdatenbank  
 ↓  
 GitHub Repository
+
+## MVC-Architekturmuster
+
+Alle Kursanwendungen und interaktiven Codeaufgaben folgen dem **Model-View-Controller (MVC)**-Muster:
+
+| Schicht        | Aufgabe                                    | Beispiel im Referenz-Projekt    |
+| -------------- | ------------------------------------------ | ------------------------------- |
+| **Model**      | Daten, Geschäftslogik, Berechnungen        | `Bmirechner.java`               |
+| **View**       | GUI, Darstellung, Benutzeroberfläche       | `MainWindow.java` (Java Swing)  |
+| **Controller** | Vermittlung zwischen Model und View        | `BmiManager.java`               |
+
+Das Single-Entry-Point-Prinzip (SEP) ist verbindlich: Jede Anwendung hat genau eine `main`-Methode als Einstiegspunkt. Alle Initialisierungen, Security-Checks und Konfigurationen laufen zentral über diesen Einstiegspunkt.
+
+## Containerisierung
+
+Anwendungen werden als Docker-Container ausgeliefert:
+
+- **Dockerfile** – definiert das Basis-Image (Alpine-basiert für Produktion)
+- **Dockerfile.novnc** – GUI im Browser via noVNC (Port 6080)
+- **docker-compose.yml** – Orchestrierung: Anwendung + MySQL-Datenbank
+
+Vorteile:
+- plattformunabhängige Ausführung
+- reproduzierbare Entwicklungsumgebungen
+- einfache Verteilung an Schüler (kein lokales Java-Setup nötig)
+- Datenbankdienste containerisiert und isoliert
 
 ---
 
@@ -292,6 +355,28 @@ Verbindliche CI-Prüfungen umfassen zusätzlich:
 - Drift-Prüfung der VS-Code-Extension-Empfehlungen gegen zentrales Manifest
 - Accessibility- und Lighthouse-Qualitätschecks für Web-Projekte
 
+## Unit-Tests mit JUnit 5
+
+Alle Klassen der Geschäftslogik (Model) müssen durch automatisierte Unit-Tests abgedeckt sein.
+
+Anforderungen:
+- Test-Framework: **JUnit 5**
+- Build-Ausführung: `mvn test`
+- Grenzwerttests für Algorithmen (z. B. BMI-Kategorien) sind verpflichtend
+- Tests müssen im CI-Workflow (GitHub Actions) automatisch laufen
+- Testergebnisse blockieren den Push bei Fehler (Pre-Push-Hook)
+
+## Git Hooks
+
+Zur lokalen Qualitätssicherung sind folgende Git Hooks einzurichten:
+
+| Hook              | Zweck                                          |
+| ----------------- | ---------------------------------------------- |
+| `pre-push`        | Führt `mvn test` aus; blockiert bei Fehler     |
+| `post-commit`     | Auto-Push nach erfolgreichem Commit (optional) |
+
+Die Hooks sind als Teil des Template-Repositories bereitzustellen und in der Onboarding-Dokumentation zu beschreiben.
+
 Lokale Qualitätssicherung:
 
 - Pre-Commit-Hooks müssen für prüfungsrelevante Inhalte aktivierbar sein
@@ -329,11 +414,44 @@ elearning-core
 ├── courses  
 └── tools
 
+## Template-Repository-System
+
+Kursaufgaben werden als **GitHub Template-Repositories** bereitgestellt. Jedes Template enthält:
+
+- vollständige Projektstruktur (MVC, Build-Skripte, Tests)
+- versionierte Branches für schrittweisen Lernfortschritt
+- Docker-Setup für lokale und containerisierte Ausführung
+- vorkonfigurierte Git Hooks und CI-Workflows
+
+**Versionierte Lernbranches:**
+
+Jedes Template-Repository enthält Branches, die den Lernpfad abbilden:
+
+| Branch             | Version   | Beschreibung                                 |
+| ------------------ | --------- | -------------------------------------------- |
+| `main`             | Version 0 | Schüler-Template (Einstiegspunkt)            |
+| `version-1-*`      | Version 1 | Musterlösung MVC (Model + Controller + GUI)  |
+| `version-2-*`      | Version 2 | Methoden, Kontrollstrukturen, Algorithmen    |
+| `version-3-*`      | Version 3 | Eingabevalidierung & Fehlerbehandlung        |
+| `version-4-*`      | Version 4 | Assoziationen, Personen- & Messungsmodell    |
+
+Schüler starten im `main`-Branch (Version 0) und arbeiten sich schrittweise hoch.
+
 Template-Update-Strategie:
 
 - Updates aus dem Template müssen selektiv übernehmbar sein (z. B. Dokumentation, Workflows, neue Versionen)
 - Eigene Schülerarbeiten in `version*/aufgabe/` dürfen durch Template-Sync nicht automatisch überschrieben werden
 - Update-Prozess soll semi-automatisch mit Benachrichtigung und manueller Freigabe erfolgen
+
+## GitHub Classroom Integration
+
+Das System ist explizit für die Nutzung mit **GitHub Classroom** konzipiert:
+
+- Jede Aufgabe wird als Template-Repository auf GitHub bereitgestellt
+- GitHub Classroom verteilt das Repository automatisch an Schüler (eigene Kopie je Schüler)
+- Autograding erfolgt über `mvn test` (JUnit 5 Tests liefern automatisierte Bewertungsgrundlage)
+- Lehrer sehen alle Abgaben zentral im GitHub Classroom Dashboard
+- Branch Protection verhindert unbeabsichtigtes Überschreiben von Musterlösungen
 
 ---
 
