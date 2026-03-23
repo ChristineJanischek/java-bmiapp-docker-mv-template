@@ -325,6 +325,212 @@ public class BmiManager {
 
 ---
 
+## 8. JSON-Datei als kleine Datenbank: Struktur und Daten trennen
+
+Wenn ihr JSON als einfache Datei-Datenbank nutzt, trennt ihr konsequent:
+
+- **Strukturdatei** (Schema): Welche Felder gibt es? Welche Typen? Welche Pflichtfelder?
+- **Datendatei**: Die konkreten Datensaetze.
+
+Warum diese Trennung wichtig ist:
+
+- Struktur aendert sich selten, Daten aendern sich oft.
+- Validierung wird einfacher und reproduzierbar.
+- Fehler lassen sich schneller eingrenzen (Schema-Fehler vs. Daten-Fehler).
+- Teamarbeit wird sauberer, weil Modellierung und Dateneingabe getrennt sind.
+
+### Beispiel-Dateien
+
+`personen.schema.json`:
+
+```json
+{
+  "entity": "person",
+  "version": 1,
+  "fields": [
+    { "name": "id", "type": "int", "required": true },
+    { "name": "vorname", "type": "string", "required": true },
+    { "name": "nachname", "type": "string", "required": true },
+    { "name": "alter", "type": "int", "required": false }
+  ]
+}
+```
+
+`personen.data.json`:
+
+```json
+{
+  "personen": [
+    { "id": 1, "vorname": "Mia", "nachname": "Muster", "alter": 16 },
+    { "id": 2, "vorname": "Noah", "nachname": "Beispiel", "alter": 17 }
+  ]
+}
+```
+
+---
+
+## 9. Schreiben: Schema und Daten getrennt speichern
+
+```java
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+public class JsonDateiDatenbankSpeicher {
+
+    public void speichern(List<Person> personen, String ordner) throws IOException {
+        Path ordnerPfad = Paths.get(ordner);
+        Path schemaPfad = ordnerPfad.resolve("personen.schema.json");
+        Path datenPfad = ordnerPfad.resolve("personen.data.json");
+
+        Files.createDirectories(ordnerPfad);
+
+        String schemaJson = """
+            {
+              "entity": "person",
+              "version": 1,
+              "fields": [
+                {"name":"id","type":"int","required":true},
+                {"name":"vorname","type":"string","required":true},
+                {"name":"nachname","type":"string","required":true},
+                {"name":"alter","type":"int","required":false}
+              ]
+            }
+            """;
+
+        StringBuilder datenJson = new StringBuilder();
+        datenJson.append("{\n  \"personen\": [\n");
+
+        for (int i = 0; i < personen.size(); i++) {
+            Person p = personen.get(i);
+
+            datenJson.append("    {")
+                     .append("\"id\": ").append(p.getId()).append(", ")
+                     .append("\"vorname\": \"").append(escapeJson(p.getVorname())).append("\", ")
+                     .append("\"nachname\": \"").append(escapeJson(p.getNachname())).append("\", ")
+                     .append("\"alter\": ").append(p.getAlter())
+                     .append("}");
+
+            if (i < personen.size() - 1) {
+                datenJson.append(",");
+            }
+            datenJson.append("\n");
+        }
+
+        datenJson.append("  ]\n}");
+
+        Files.writeString(schemaPfad, schemaJson, StandardCharsets.UTF_8);
+        atomarSchreiben(datenPfad, datenJson.toString());
+    }
+
+    private static void atomarSchreiben(Path ziel, String inhalt) throws IOException {
+        Path tmp = Paths.get(ziel.toString() + ".tmp");
+        Files.writeString(tmp, inhalt, StandardCharsets.UTF_8);
+        Files.move(tmp, ziel,
+            java.nio.file.StandardCopyOption.REPLACE_EXISTING,
+            java.nio.file.StandardCopyOption.ATOMIC_MOVE);
+    }
+
+    private static String escapeJson(String text) {
+        if (text == null) {
+            return "";
+        }
+        return text.replace("\\", "\\\\").replace("\"", "\\\"");
+    }
+}
+```
+
+### Warum das Best Practice ist
+
+- UTF-8 ist explizit gesetzt.
+- Daten werden nicht blind in JSON eingefuegt (`escapeJson`).
+- `ATOMIC_MOVE` minimiert Risiko kaputter Dateien.
+- Strukturdatei und Datendatei sind klar getrennt.
+
+---
+
+## 10. Lesen: Erst Struktur pruefen, dann Daten laden
+
+```java
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+public class JsonDateiDatenbankLeser {
+
+    public List<String> ladePersonenRohdaten(String ordner) throws IOException {
+        Path schemaPfad = Paths.get(ordner, "personen.schema.json");
+        Path datenPfad = Paths.get(ordner, "personen.data.json");
+
+        String schema = Files.readString(schemaPfad, StandardCharsets.UTF_8);
+        String daten = Files.readString(datenPfad, StandardCharsets.UTF_8);
+
+        pruefeSchemaMinimal(schema);
+        pruefeDatenMinimal(daten);
+
+        // Im Unterricht reicht oft eine einfache Plausibilitaetspruefung.
+        // Fuer produktive Systeme sollten JSON-Parser genutzt werden.
+        List<String> rohObjekte = new ArrayList<>();
+        String marker = "{\"id\":";
+        int start = 0;
+        while ((start = daten.indexOf(marker, start)) >= 0) {
+            int ende = daten.indexOf("}", start);
+            if (ende < 0) {
+                break;
+            }
+            rohObjekte.add(daten.substring(start, ende + 1));
+            start = ende + 1;
+        }
+        return rohObjekte;
+    }
+
+    private static void pruefeSchemaMinimal(String schema) throws IOException {
+        if (!schema.contains("\"fields\"") || !schema.contains("\"entity\"")) {
+            throw new IOException("Schema-Datei ungueltig: fields/entity fehlen");
+        }
+    }
+
+    private static void pruefeDatenMinimal(String daten) throws IOException {
+        if (!daten.contains("\"personen\"")) {
+            throw new IOException("Daten-Datei ungueltig: Container 'personen' fehlt");
+        }
+        if (!daten.contains("\"id\"") ||
+            !daten.contains("\"vorname\"") ||
+            !daten.contains("\"nachname\"")) {
+            throw new IOException("Daten-Datei ungueltig: Pflichtfelder fehlen");
+        }
+    }
+}
+```
+
+---
+
+## 11. Adaptionsleitfaden fuer Projekte
+
+So passt ihr die Loesung fuer euer Projekt an:
+
+1. Legt pro Entitaet zwei Dateien an, z.B. `messung.schema.json` und `messung.data.json`.
+2. Definiert Pflichtfelder (`required: true`) im Schema klar.
+3. Nutzt feste Containernamen in Datendateien, z.B. `"messungen"`, `"personen"`.
+4. Validiert beim Laden mindestens: Container vorhanden, Pflichtfelder vorhanden.
+5. Schreibt Daten mit Backup/Temp-Datei, nicht direkt in die Live-Datei.
+6. Protokolliert Fehler fachlich sinnvoll (`Datei fehlt`, `Schema ungueltig`, `Pflichtfeld fehlt`).
+
+Optional fuer produktive Anwendungen:
+
+- JSON-Library verwenden (z.B. Jackson oder Gson) statt Stringbau.
+- Unit-Tests fuer `speichern()` und `laden()` schreiben.
+- Versionierung im Schema (`version`) fuer Migrationen nutzen.
+
+---
+
 ## Zusammenfassung
 
 | Aufgabe | Empfohlene Klassen |
@@ -336,6 +542,7 @@ public class BmiManager {
 | Pfade plattformunabhängig | `Paths.get(...)` |
 | Verzeichnis erstellen | `Files.createDirectories()` |
 | Datei prüfen | `Files.exists()` / `datei.exists()` |
+| JSON-Datei-Datenbank | `schema.json` + `data.json` trennen |
 
 **Merksätze:**
 - `try-with-resources` verwenden → Datei wird automatisch geschlossen

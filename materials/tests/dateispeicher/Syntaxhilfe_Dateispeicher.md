@@ -76,3 +76,11 @@ int menge = Integer.parseInt(teile[1]);
 - Immer try-with-resources nutzen.
 - UTF-8 bei Sonderzeichen verwenden.
 - Bei CSV: split(",", 3) fuer feste Anzahl Spalten.
+
+---
+
+## Kurztest 5 Spezialblatt
+
+Die kompakte 1-Seiten-Syntaxhilfe fuer den JSON-Kurztest (Struktur/Daten trennen) steht hier:
+
+- `materials/tests/dateispeicher/Syntaxhilfe_Kurztest_Dateispeicher_5.md`

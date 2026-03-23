@@ -339,6 +339,32 @@ db.personLoeschen(neueId);
 
 Datenbankzugriffe gehören in das **Model** oder eine eigene **Persistenz-Klasse**. Der Controller ruft diese auf:
 
+---
+
+## Alternative ohne SQL: JSON-Datei-Datenbank
+
+Fuer kleinere Unterrichtsprojekte kann statt MySQL auch eine JSON-Datei-Datenbank genutzt werden.
+Dabei gilt als Best Practice:
+
+- **Struktur (Schema) und Daten getrennt speichern**
+- Struktur in `*.schema.json`, Daten in `*.data.json`
+- Beim Laden erst Struktur pruefen, dann Daten validieren
+
+Beispiel:
+
+- `personen.schema.json` enthaelt Felder, Typen, Pflichtfelder
+- `personen.data.json` enthaelt nur konkrete Person-Eintraege
+
+Vorteile im Unterricht:
+
+- Kein DB-Server notwendig
+- Architekturprinzipien (Trennung von Modell und Daten) bleiben erhalten
+- Leichter Einstieg in Persistenz, bevor JDBC/SQL vertieft wird
+
+Fuer konkrete Codebeispiele siehe:
+
+- `docs/JAVA_PROGRAMMIERUNG/DATEIEN_LESEN_SCHREIBEN.md` (Abschnitt JSON-Datei-Datenbank)
+
 ```
 MainWindow  (View)
     │
