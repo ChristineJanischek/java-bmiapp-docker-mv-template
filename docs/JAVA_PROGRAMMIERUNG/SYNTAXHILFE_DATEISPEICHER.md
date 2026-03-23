@@ -83,4 +83,4 @@ int menge = Integer.parseInt(teile[1]);
 
 Die kompakte 1-Seiten-Syntaxhilfe fuer den JSON-Kurztest (Struktur/Daten trennen) steht hier:
 
-- `materials/tests/dateispeicher/Syntaxhilfe_Kurztest_Dateispeicher_5.md`
+- `../../materials/tests/dateispeicher/Syntaxhilfe_Kurztest_Dateispeicher_5.md`

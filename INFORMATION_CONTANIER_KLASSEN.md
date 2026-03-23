@@ -21,3 +21,11 @@ Managing measurement data effectively is crucial for the accuracy and reliabilit
 9. **Documentation**: Maintain comprehensive documentation on how measurement data is collected, processed, and analyzed. This is critical for transparency and reproducibility in any scientific or analytical context.
 
 10. **Feedback Mechanisms**: Set up feedback mechanisms for users to report errors or anomalies in the measurement data, which can help improve the data collection processes over time.
+
+---
+
+## Weiterfuehrende Dokumentation im Repository
+
+- Dateispeicher-Syntaxhilfe: `docs/JAVA_PROGRAMMIERUNG/SYNTAXHILFE_DATEISPEICHER.md`
+- Dateien lesen und schreiben: `docs/JAVA_PROGRAMMIERUNG/DATEIEN_LESEN_SCHREIBEN.md`
+- JSON-Kurztest Spezialhilfe: `materials/tests/dateispeicher/Syntaxhilfe_Kurztest_Dateispeicher_5.md`

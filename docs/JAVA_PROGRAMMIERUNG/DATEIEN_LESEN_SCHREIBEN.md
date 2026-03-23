@@ -544,6 +544,11 @@ Optional fuer produktive Anwendungen:
 | Datei prüfen | `Files.exists()` / `datei.exists()` |
 | JSON-Datei-Datenbank | `schema.json` + `data.json` trennen |
 
+## Weiterfuehrende Syntaxhilfen
+
+- Allgemeine Syntaxhilfe Dateispeicher: `SYNTAXHILFE_DATEISPEICHER.md`
+- Kurztest 5 Spezialblatt (JSON Struktur/Daten): `../../materials/tests/dateispeicher/Syntaxhilfe_Kurztest_Dateispeicher_5.md`
+
 **Merksätze:**
 - `try-with-resources` verwenden → Datei wird automatisch geschlossen
 - `IOException` ist Checked Exception → muss behandelt werden
