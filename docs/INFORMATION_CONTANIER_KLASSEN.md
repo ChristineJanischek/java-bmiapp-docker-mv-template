@@ -64,3 +64,11 @@ Java bietet mehrere Container-Klassen, die das `Collection`-Interface implementi
 
 ## Fazit
 Das Verständnis dieser Container-Klassen ist entscheidend für effizientes Datenmanagement in Java, da sie je nach Anwendungsanforderungen unterschiedliche Leistungsmerkmale und Funktionsumfänge bieten.
+
+---
+
+## Weiterfuehrende Dokumentation
+
+- Dateispeicher (allgemeine Syntaxhilfe): `JAVA_PROGRAMMIERUNG/SYNTAXHILFE_DATEISPEICHER.md`
+- Dateien lesen/schreiben (Vertiefung): `JAVA_PROGRAMMIERUNG/DATEIEN_LESEN_SCHREIBEN.md`
+- JSON-Kurztest Spezialhilfe: `../materials/tests/dateispeicher/Syntaxhilfe_Kurztest_Dateispeicher_5.md`

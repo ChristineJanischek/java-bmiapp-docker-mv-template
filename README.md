@@ -121,6 +121,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 
 ### 🏗️ Konzepte & Architektur
 - [VERSIONING_STRATEGY.md](docs/KONZEPTE/VERSIONING_STRATEGY.md) – Überblick über Branches und Versionen
+- [PARALLELE_ENTWICKLUNG_UND_BRANCH_PROTECTION.md](docs/KONZEPTE/PARALLELE_ENTWICKLUNG_UND_BRANCH_PROTECTION.md) – Parallele Entwicklung von System und `materials/tests` mit verbindlicher Branch-Protection
 - [MVC_KONZEPT.md](docs/KONZEPTE/MVC_KONZEPT.md) – Das MVC-Prinzip erklärt (Model-View-Controller)
 - [MVC_ANLEITUNG.md](docs/KONZEPTE/MVC_ANLEITUNG.md) – Praktische Anleitung zur MVC-Implementierung
 - [SINGLE_ENTRY_POINT.md](docs/KONZEPTE/SINGLE_ENTRY_POINT.md) – Single Entry Point-Prinzip
@@ -133,11 +134,15 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 - [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) – Polymorphie und ihre Anwendung
 - [INTELLIGENTE_METHODENWAHL.md](docs/JAVA_PROGRAMMIERUNG/INTELLIGENTE_METHODENWAHL.md) – Wann welche Methode nutzen
 - [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) – Container-Klassen (ArrayList, HashMap, HashSet, etc.)
+- [VERERBUNG.md](docs/JAVA_PROGRAMMIERUNG/VERERBUNG.md) – Vererbung (extends, super, @Override, abstrakte Klassen)
+- [DATEIEN_LESEN_SCHREIBEN.md](docs/JAVA_PROGRAMMIERUNG/DATEIEN_LESEN_SCHREIBEN.md) – Dateien lesen und schreiben (BufferedReader, PrintWriter, CSV)
+- [DATENBANK.md](docs/JAVA_PROGRAMMIERUNG/DATENBANK.md) – Datenbankanbindung (JDBC, MySQL, CRUD-Operationen)
 
 ### 🛡️ Best Practices & Code-Qualität
 - [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) – **Ausnahmebehandlung (Try-Catch, eigene Exceptions)**
 - [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) – Sichere Programmierung & Eingabevalidierung
 - [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) – Encapsulation Prinzip & Information Hiding
+- [MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md](docs/BEST_PRACTICES/MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md) – **M:N Beziehungen auflösen oder direkt implementieren?** Design-Kriterien & Best Practices
 - [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) – Unit Tests mit JUnit 5
 
 ### 🖥️ GUI & Benutzeroberfläche
@@ -166,10 +171,13 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 | **Event-Listener und Controller verbinden möchte** | [Ereignissteuerung_und_Controller.md](docs/GUI_DEVELOPMENT/Ereignissteuerung_und_Controller.md) |
 | **Kontrollflusselemente (if, for, while) verstehen möchte** | [KONTROLLSTRUKTUREN.md](docs/JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md) + [SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) |
 | **Eingaben validieren und Fehler behandeln möchte** | [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) + [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) + [SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) |
-| **Assoziationen (1:N) und Container-Klassen nutzen möchte** | [ASSOZIATIONEN.md](docs/JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md) + [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) + [SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) |
+| **Assoziationen (1:N, M:N) und Container-Klassen nutzen möchte** | [ASSOZIATIONEN.md](docs/JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md) + [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) + [ASSOZIATIONEN_PERSON_MESSUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_PERSON_MESSUNG.md) + [ASSOZIATIONEN_BRIDGE_KLASSE_BEHANDLUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_BRIDGE_KLASSE_BEHANDLUNG.md) + [MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md](docs/BEST_PRACTICES/MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md) + [SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) |
 | **Klassen ordnungsgemäß strukturieren möchte** | [GRUNDGERUEST_KLASSE.md](docs/JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) + [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) |
 | **Unit Tests schreiben möchte** | [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) |
 | **Polymorphie verstehen möchte** | [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) |
+| **Vererbung (extends, super, abstrakte Klassen) verstehen möchte** | [VERERBUNG.md](docs/JAVA_PROGRAMMIERUNG/VERERBUNG.md) + [METHODEN_UEBERSCHREIBEN.md](docs/JAVA_PROGRAMMIERUNG/METHODEN_UEBERSCHREIBEN.md) |
+| **Dateien lesen oder schreiben möchte (CSV, Text)** | [DATEIEN_LESEN_SCHREIBEN.md](docs/JAVA_PROGRAMMIERUNG/DATEIEN_LESEN_SCHREIBEN.md) |
+| **Eine Datenbank anbinden möchte (JDBC, MySQL, CRUD)** | [DATENBANK.md](docs/JAVA_PROGRAMMIERUNG/DATENBANK.md) |
 | **Container-Klassen (ArrayList, HashMap, etc.) verstehen möchte** | [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) |
 | **Sichere Code-Praktiken lernen möchte** | [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) + [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) |
 | **Dieses Projekt als Template für andere Aufgaben nutzen möchte** | [TEMPLATE_GUIDE.md](docs/GETTING_STARTED/TEMPLATE_GUIDE.md) |
