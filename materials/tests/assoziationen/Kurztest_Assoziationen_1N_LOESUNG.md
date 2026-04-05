@@ -6,13 +6,26 @@
 
 ## Aufgabe 1: ArrayList-Deklaration (3 Punkte)
 
-**Thema:** Datenstruktur verstehen
-
 ### Aufgabenstellung
+
+**Thema:** Datenstruktur verstehen
 
 Schreibe die Deklaration und Initialisierung einer ArrayList, die Messung-Objekte speichert.
 
+```java
+// Hier aufschreiben:
+
+
+```
+
 Erkläre in 1-2 Sätzen, warum man hier ArrayList statt Array verwendet.
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+
+---
 
 ### Musterlösung
 
@@ -45,18 +58,27 @@ ArrayList wird verwendet, da die Anzahl der Messungen vorher nicht bekannt ist. 
 
 ## Aufgabe 2: ArrayList-Methoden (4 Punkte)
 
-**Thema:** Zugriff auf Listenelemente
-
 ### Aufgabenstellung
 
-Ordne die ArrayList-Methoden ihren Beschreibungen zu (Buchstaben a-d).
+**Thema:** Zugriff auf Listenelemente
 
-**Beschreibungen (wie im Schülerblatt):**
+Ordne die ArrayList-Methoden ihren Beschreibungen zu. Schreibe den Buchstaben in die Klammer.
+
+**Beschreibungen:**
 
 - **(a)** Gibt die Anzahl der Elemente zurück
 - **(b)** Fügt ein Element am Ende hinzu
 - **(c)** Gibt das Element an Position index zurück
 - **(d)** Entfernt das Element an Position index
+
+| Methode | Buchstabe |
+|---------|-----------|
+| `add(Object)` | ( ) |
+| `get(int index)` | ( ) |
+| `remove(int index)` | ( ) |
+| `size()` | ( ) |
+
+---
 
 ### Musterlösung (Zuordnung)
 
@@ -87,9 +109,9 @@ size → Anzahl
 
 ## Aufgabe 3: Code-Analyse (5 Punkte)
 
-**Thema:** Praktische Anwendung der 1:N Beziehung
-
 ### Aufgabenstellung
+
+**Thema:** Praktische Anwendung der 1:N Beziehung
 
 Gegeben ist folgender Code:
 
@@ -109,10 +131,26 @@ Messung letzteMessung = person.getMessungen().get(2);
 System.out.println("Gewicht letzte Messung: " + letzteMessung.getGewicht());
 ```
 
-Fragen:
-- a) Was wird folgende Zeile als Ausgabe produzieren?
-- b) Welches Gewicht wird ausgegeben bei der Zeile mit `get(2)`?
-- c) Erkläre, was `.getMessungen().get(2)` macht:
+**Fragen:**
+
+a) Was wird folgende Zeile als Ausgabe produzieren?  
+```java
+System.out.println("Anzahl Messungen: " + person.getAnzahlMessungen());
+```
+
+Antwort: ___________________________________________________________________
+
+b) Welches Gewicht wird ausgegeben bei der Zeile mit `get(2)`?
+
+Antwort: ___________________________________________________________________
+
+c) Erkläre, was `.getMessungen().get(2)` macht:
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+---
 
 ### Musterlösungen
 
@@ -171,9 +209,9 @@ Zusammen wird die dritte Messung (m3) der Person zurückgegeben.
 
 ## Aufgabe 4: Schleife & Ausgabe (5 Punkte)
 
-**Thema:** Alle Elemente einer ArrayList verarbeiten und ausgeben
-
 ### Aufgabenstellung
+
+**Thema:** Alle Elemente einer ArrayList verarbeiten und ausgeben
 
 Schreibe eine vollständige **for-Schleife** (oder for-each Schleife), die alle Messungen einer Person ausgibt.
 
@@ -181,9 +219,20 @@ Schreibe eine vollständige **for-Schleife** (oder for-each Schleife), die alle 
 
 ```java
 List<Messung> messungen = person.getMessungen();
+
+// Schleife hier schreiben:
+
+
 ```
 
 Bonus (+1 Punkt): Schreibe zusätzlich eine `System.out.println()` Zeile, die den Index (Nummer) und das Gewicht ausgibt.
+
+```java
+// Bonus-Ausgabe:
+
+```
+
+---
 
 ### Musterlösungen
 
@@ -247,15 +296,28 @@ System.out.println((i+1) + ". Messung - Gewicht: " + messung.getGewicht());
 
 ## Aufgabe 5: Methode verstehen (4 Punkte)
 
-**Thema:** Methoden für 1:N Beziehungen
-
 ### Aufgabenstellung
+
+**Thema:** Methoden für 1:N Beziehungen
 
 In der `Person`-Klasse gibt es eine Methode `getDurchschnittsBmi()`.
 
-a) Schreibe die Methodensignatur (ohne Implementierung).
+a) Schreibe die **Methodensignatur** (ohne Implementierung):
 
-b) Erkläre in 2-3 Sätzen, wie diese Methode funktionieren würde.
+```java
+// Methodensignatur:
+
+```
+
+b) Erkläre in 2-3 Sätzen, wie diese Methode funktionieren würde:
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+---
 
 ### Musterlösung
 
@@ -311,9 +373,9 @@ Das Ergebnis ist der durchschnittliche BMI der Person über alle Messzeitpunkte.
 
 ## Aufgabe 6: Fehlersuche & Analyse (4 Punkte)
 
-**Thema:** Häufige Fehler bei ArrayList-Nutzung
-
 ### Aufgabenstellung
+
+**Thema:** Häufige Fehler bei ArrayList-Nutzung
 
 Gegeben ist folgender fehlerhafter Code:
 
@@ -329,9 +391,38 @@ System.out.println(person.getMessungen().get(5));  // ← FEHLER 2
 
 a) **Fehler 1:** `person.messungen.add(m1)` - Was ist das Problem?
 
+___________________________________________________________________________
+
+___________________________________________________________________________
+
 b) **Fehler 2:** `person.getMessungen().get(5)` - Warum funktioniert das nicht?
 
+___________________________________________________________________________
+
+___________________________________________________________________________
+
 c) Schreibe die **korrekte Version** von Fehler 1:
+
+```java
+// Korrekt:
+
+```
+
+---
+
+**Viel Erfolg! ✓**
+
+_Tabelle zur Eigenkontrolle (für den Schüler):_
+
+| Aufgabe | Punkte | ✓ |
+|---------|--------|---|
+| 1. ArrayList-Deklaration | 3 | |
+| 2. ArrayList-Methoden | 4 | |
+| 3. Code-Analyse | 5 | |
+| 4. Schleife & Ausgabe | 5 | |
+| 5. Methode verstehen | 4 | |
+| 6. Fehlersuche | 4 | |
+| **Gesamt** | **25** | |
 
 ### Musterlösungen
 
