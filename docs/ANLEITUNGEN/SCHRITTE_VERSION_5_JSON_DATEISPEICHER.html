@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version 5 – JSON-Dateispeicher</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; line-height: 1.6; color: #333; }
+        h1, h2, h3 { color: #0066cc; margin-top: 30px; }
+        code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; }
+        pre { background-color: #f4f4f4; padding: 15px; border-left: 4px solid #0066cc; overflow-x: auto; }
+        blockquote { border-left: 4px solid #0066cc; margin-left: 0; padding-left: 20px; font-style: italic; color: #555; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #0066cc; color: white; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        @media print {
+            body { margin: 0; }
+            h1, h2 { page-break-after: avoid; }
+        }
+    </style>
+</head>
+<body>
+<h1>Schritt-für-Schritt-Anleitung Version 5 (JSON-Dateispeicher mit Strukturtrennung)</h1></p><p><h2>Überblick</h2></p><p>In Version 4 speichert die BMI-App Personen, Messungen und statistische Auswertungen nur im Arbeitsspeicher.
+Sobald das Programm beendet wird, gehen alle Daten verloren.</p><p>In Version 5 erweitern wir die bestehende Anwendung deshalb um einen JSON-Dateispeicher.
+Dabei orientieren wir uns an der Idee aus Kurztest_Dateispeicher_5:</p><p>- Struktur und Daten werden getrennt gespeichert.
+- Die Daten werden als kleine JSON-Datei-Datenbank organisiert.
+- Personen und Messungen werden als zusammenhängender Objektspeicher abgelegt.
+- Die fachliche Struktur bleibt nachvollziehbar und testbar.</p><p>Didaktisch ist das wichtig, weil die Schülerinnen und Schüler hier lernen, dass Persistenz nicht nur bedeutet, Daten irgendwie in eine Datei zu schreiben.
+Sie lernen vielmehr, Datenmodell, Beziehungen, Dateiformat und Programmlogik bewusst aufeinander abzustimmen.</p><p>---</p><p><h2>Lernziele</h2></p><p>Nach dieser Version sollen die Lernenden:</p><p>- den Unterschied zwischen flüchtigen Objekten im RAM und persistenten Daten erklären können,
+- den Nutzen einer Trennung von Schema und Nutzdaten verstehen,
+- ein kleines Datenmodell in einer JSON-Datei-Datenbank umsetzen können,
+- 1:N-Beziehungen auch nach dem Speichern und Laden korrekt wiederherstellen können,
+- eine bestehende MVC-Anwendung sauber um Persistenz erweitern können,
+- typische Fehler beim JSON-Schreiben und JSON-Lesen erkennen und vermeiden.</p><p>---</p><p><h2>Ausgangspunkt: Was aus Version 4 übernommen wird</h2></p><p>Die neue Version baut direkt auf Version 4 auf.
+Diese Version enthält bereits:</p><p>- die Klasse <code>Person</code>,
+- die Klasse <code>Messung</code>,
+- den Controller <code>BmiManager</code>,
+- die GUI <code>MainWindow</code>,
+- die statistische Auswertung pro Person,
+- die Historie mehrerer Messungen.</p><p>Das ist ein didaktisch guter Ausgangspunkt, weil die fachliche Modellierung schon vorhanden ist.
+Die neue Aufgabe besteht also nicht darin, das Modell neu zu erfinden, sondern es dauerhaft speicherbar zu machen.</p><p>Merksatz für Schülerinnen und Schüler:</p><p><blockquote>Version 4 kann Daten verwalten.</blockquote>
+<blockquote>Version 5 kann Daten verwalten und dauerhaft sichern.</blockquote></p><p>---</p><p><h2>Fachliche Modellidee: JSON-Datenbank in 3. Normalform</h2></p><p>Auch wenn wir keine echte SQL-Datenbank einsetzen, denken wir modellorientiert.
+Die Daten werden so gespeichert, dass Redundanzen reduziert werden und Beziehungen sauber abbildbar sind.</p><p><h3>Entitäten</h3></p><p>Wir arbeiten mit mindestens zwei Entitäten:</p><p>1. Person
+2. Messung</p><p><h3>Beziehung</h3></p><p>Eine Person kann mehrere Messungen besitzen.
+Das ist eine 1:N-Beziehung.</p><p><h3>Warum 3. Normalform hier sinnvoll ist</h3></p><p>Die Schülerinnen und Schüler sollen verstehen:</p><p>- Personendaten gehören in einen eigenen Bereich.
+- Messungsdaten gehören in einen eigenen Bereich.
+- Eine Messung speichert nicht alle Personendaten erneut.
+- Die Verbindung entsteht über eine ID.</p><p>Damit vermeiden wir unnötige Wiederholungen.
+Wenn sich z. B. die E-Mail einer Person ändert, muss sie nur an einer Stelle geändert werden.</p><p>Didaktische Kernidee:</p><p><blockquote>Nicht alles, was zusammengehört, wird auch zusammen gespeichert.</blockquote>
+<blockquote>Oft speichert man Daten getrennt und verbindet sie über Schlüssel.</blockquote></p><p>---</p><p><h2>Speicherkonzept</h2></p><p>Wie im Kurztest werden Struktur und Daten getrennt gespeichert.</p><p><h3>Strukturdatei</h3></p><p>Die Strukturdatei beschreibt, welche Bereiche und Felder es gibt.
+Beispiel:</p><p>- <code>bmiapp.schema.json</code></p><p>Diese Datei ändert sich selten.</p><p><h3>Datendatei</h3></p><p>Die Datendatei enthält die konkreten Personen und Messungen.
+Beispiel:</p><p>- <code>bmiapp.data.json</code></p><p>Diese Datei ändert sich häufig.</p><p><h3>Didaktische Begründung</h3></p><p>Diese Trennung hilft den Lernenden, zwei Ebenen zu unterscheiden:</p><p>- Wie ist etwas aufgebaut?
+- Welche konkreten Inhalte gibt es aktuell?</p><p>Das entspricht genau dem Unterschied zwischen Datenmodell und Datensatz.</p><p>---</p><p><h2>Zielstruktur der JSON-Dateien</h2></p><p><h3>1. Strukturdatei</h3></p><p>Die Strukturdatei kann z. B. so aufgebaut sein:</p><p><pre><code class="json">{
+  "database": "bmiapp",
+  "version": 5,
+  "entities": [
+    {
+      "name": "personen",
+      "primaryKey": "id",
+      "fields": [
+        { "name": "id", "type": "int", "required": true },
+        { "name": "vorname", "type": "string", "required": true },
+        { "name": "nachname", "type": "string", "required": true },
+        { "name": "alter", "type": "int", "required": true },
+        { "name": "geschlecht", "type": "string", "required": true },
+        { "name": "email", "type": "string", "required": true }
+      ]
+    },
+    {
+      "name": "messungen",
+      "primaryKey": "id",
+      "foreignKey": "personId",
+      "fields": [
+        { "name": "id", "type": "int", "required": true },
+        { "name": "personId", "type": "int", "required": true },
+        { "name": "gewicht", "type": "double", "required": true },
+        { "name": "groesse", "type": "double", "required": true },
+        { "name": "zeitstempel", "type": "string", "required": true }
+      ]
+    }
+  ]
+}</code></pre></p><p><h3>2. Datendatei</h3></p><p>Die Datendatei trennt Personen und Messungen ebenfalls logisch:</p><p><pre><code class="json">{
+  "personen": [
+    {
+      "id": 1,
+      "vorname": "Mia",
+      "nachname": "Muster",
+      "alter": 16,
+      "geschlecht": "Frau",
+      "email": "mia@example.de"
+    }
+  ],
+  "messungen": [
+    {
+      "id": 1,
+      "personId": 1,
+      "gewicht": 62.0,
+      "groesse": 1.68,
+      "zeitstempel": "2026-04-05T10:15:00"
+    }
+  ]
+}</code></pre></p><p><h3>Warum ist das besser als verschachtelte Komplettobjekte?</h3></p><p>Eine verschachtelte Speicherung wäre zwar auf den ersten Blick einfacher, aber fachlich schlechter für diese Lernphase.</p><p>Hier sollen die Lernenden gerade verstehen:</p><p>- wie Beziehungen modelliert werden,
+- wie IDs funktionieren,
+- wie man Daten getrennt speichert und später wieder verknüpft.</p><p>---</p><p><h2>Architektur für Version 5</h2></p><p>Die MVC-Struktur bleibt erhalten.
+Neu kommt eine eigene Persistenz-Schicht hinzu.</p><p>``<code>text
+MainWindow (View)
+    ↓
+BmiManager (Controller)
+    ↓
+Person / Messung / Bmirechner (Model)
+    ↓
+JsonDateiDatenbankSpeicher (Persistenz)
+</code>`<code></p><p>Didaktischer Hinweis:</p><p>Die Schülerinnen und Schüler sollen hier lernen, dass Dateioperationen nicht in die GUI gehören.
+Die GUI löst nur Aktionen aus.
+Das eigentliche Speichern und Laden übernimmt eine eigene Klasse.</p><p>Das ist sauberer, testbarer und besser wartbar.</p><p>---</p><p><h2>Schritt 1: Das Datenmodell für Persistenz vorbereiten</h2></p><p>Bevor gespeichert werden kann, brauchen die Objekte stabile Identifikatoren.</p><p><h3>Aufgabe</h3></p><p>Ergänze </code>Person<code> und </code>Messung<code> um eine ID.</p><p><h3>Warum ist das nötig?</h3></p><p>Solange Objekte nur im RAM leben, kann Java Referenzen verwalten.
+Nach dem Speichern in einer Datei existieren diese Referenzen aber nicht mehr.
+Deshalb brauchen wir technische Schlüssel:</p><p>- </code>personId<code> für Personen
+- </code>messungId<code> für Messungen
+- </code>personId<code> als Fremdschlüssel in der Messung</p><p><h3>Didaktische Erklärung</h3></p><p>Das ist ein zentraler Schritt vom objektorientierten Denken zum datenbankorientierten Denken.
+Die Beziehung zwischen Person und Messung darf nicht nur im Kopf oder im Java-Objekt existieren.
+Sie muss explizit speicherbar werden.</p><p><h3>Umsetzungsidee</h3></p><p>In </code>Person<code>:</p><p><pre><code class="java">private int id;</code></pre></p><p>In </code>Messung<code>:</p><p><pre><code class="java">private int id;
+private int personId;</code></pre></p><p>Wichtig:</p><p>- IDs müssen eindeutig sein.
+- Beim Laden aus JSON müssen die IDs wieder übernommen werden.
+- Der Controller sollte neue IDs vergeben können.</p><p>---</p><p><h2>Schritt 2: Eine eigene Persistenz-Klasse anlegen</h2></p><p>Lege eine Klasse an, z. B.:</p><p><pre><code class="java">public class JsonDateiDatenbankSpeicher {
+}</code></pre></p><p>Diese Klasse übernimmt:</p><p>- Schema schreiben
+- Daten schreiben
+- Schema minimal prüfen
+- Daten laden
+- Personen und Messungen wieder verknüpfen</p><p><h3>Didaktische Erklärung</h3></p><p>Viele Lernende schreiben Speichercode spontan direkt in die GUI oder in den Controller.
+Für kleine Anfängerprogramme ist das verständlich, aber fachlich nicht sauber.</p><p>Mit einer eigenen Persistenz-Klasse lernen die Schülerinnen und Schüler:</p><p>- Verantwortung zu trennen,
+- Klassen nach Aufgaben zu strukturieren,
+- Code wiederverwendbar zu machen.</p><p>---</p><p><h2>Schritt 3: Das Schema schreiben</h2></p><p>Zuerst wird beim Speichern die Strukturdatei erzeugt.</p><p><h3>Ziel</h3></p><p>Die Datei </code>bmiapp.schema.json<code> beschreibt:</p><p>- welche Entitäten es gibt,
+- welche Felder Pflichtfelder sind,
+- welche Felder Primär- oder Fremdschlüssel sind.</p><p><h3>Beispielidee</h3></p><p><pre><code class="java">String schemaJson = """
+{
+  \"database\": \"bmiapp\",
+  \"version\": 5,
+  \"entities\": [
+    {
+      \"name\": \"personen\",
+      \"primaryKey\": \"id\"
+    },
+    {
+      \"name\": \"messungen\",
+      \"primaryKey\": \"id\",
+      \"foreignKey\": \"personId\"
+    }
+  ]
+}
+""";</code></pre></p><p><h3>Didaktischer Schwerpunkt</h3></p><p>Hier sollen die Lernenden erkennen:</p><p>- Die Strukturdatei speichert keine konkreten BMI-Werte.
+- Sie beschreibt nur das Gerüst.
+- Ein Datenmodell ist etwas anderes als eine Datensammlung.</p><p>Das ist oft ein gedanklicher Sprung und sollte bewusst thematisiert werden.</p><p>---</p><p><h2>Schritt 4: Die Datendatei normalisiert schreiben</h2></p><p>Nun werden die Nutzdaten gespeichert.</p><p><h3>Fachliche Regel</h3></p><p>Personen und Messungen werden in getrennten Arrays gespeichert.</p><p><h3>Warum?</h3></p><p>Weil wir keine unnötigen Wiederholungen möchten.
+Jede Messung enthält nur den Verweis auf die zugehörige Person, nicht alle Personendaten.</p><p><h3>Beispielaufbau</h3></p><p><pre><code class="java">datenJson.append("{\n");
+datenJson.append("  \"personen\": [ ... ],\n");
+datenJson.append("  \"messungen\": [ ... ]\n");
+datenJson.append("}\n");</code></pre></p><p><h3>Didaktische Erläuterung</h3></p><p>Für Schülerinnen und Schüler ist es sehr verlockend, jede Person inklusive aller Messungen direkt verschachtelt zu speichern.
+Das kann man technisch machen, aber für diese Lernstufe ist die getrennte Speicherung wertvoller.</p><p>Sie trainiert:</p><p>- Schlüsselkonzepte,
+- Beziehungen,
+- saubere Datenmodellierung,
+- Wiederaufbau von Objektgraphen.</p><p>---</p><p><h2>Schritt 5: JSON sicher schreiben</h2></p><p>Beim Schreiben dürfen keine kaputten JSON-Dateien entstehen.</p><p><h3>Worauf ist zu achten?</h3></p><p>1. UTF-8 explizit verwenden.
+2. Sonderzeichen in Strings escapen.
+3. Kein Komma hinter dem letzten Element.
+4. Am besten über eine temporäre Datei schreiben und dann atomar verschieben.</p><p><h3>Warum ist das didaktisch wichtig?</h3></p><p>Hier lernen die Schülerinnen und Schüler, dass funktionierender Code nicht automatisch robuster Code ist.
+Gerade Dateispeicherung ist fehleranfällig.</p><p>Ein guter Unterrichtspunkt ist die Frage:</p><p><blockquote>Was passiert, wenn das Programm während des Schreibens abstürzt?</blockquote></p><p>Damit wird verständlich, warum man mit </code>.tmp<code>-Datei und atomischem Move arbeiten sollte.</p><p>---</p><p><h2>Schritt 6: Beim Laden zuerst die Struktur prüfen</h2></p><p>Bevor Daten geladen werden, wird die Schema-Datei gelesen und minimal validiert.</p><p><h3>Minimalprüfungen</h3></p><p>- Gibt es die erwarteten Entitäten?
+- Kommen </code>personen<code> und </code>messungen<code> vor?
+- Enthält die Struktur Angaben zu </code>id<code> und </code>personId<code>?</p><p><h3>Didaktische Erklärung</h3></p><p>Das ist ein wichtiger Qualitätsgedanke:</p><p>- nicht blind laden,
+- zuerst prüfen,
+- dann weiterarbeiten.</p><p>Die Schülerinnen und Schüler lernen dadurch einen professionellen Arbeitsstil kennen.</p><p>---</p><p><h2>Schritt 7: Daten laden und Beziehungen wiederherstellen</h2></p><p>Nach dem Lesen der Datendatei müssen die Objekte rekonstruiert werden.</p><p><h3>Reihenfolge</h3></p><p>1. Alle Personen laden
+2. Personen in einer Map nach ID ablegen
+3. Alle Messungen laden
+4. Jede Messung über </code>personId<code> der passenden Person zuordnen</p><p><h3>Warum in dieser Reihenfolge?</h3></p><p>Eine Messung kann erst korrekt zugeordnet werden, wenn die zugehörige Person schon existiert.</p><p><h3>Didaktischer Mehrwert</h3></p><p>Hier sehen die Lernenden sehr konkret, wie aus Dateien wieder zusammenhängende Objekte werden.
+Das ist der Kern eines einfachen Objektspeichers mit Zusammenhang.</p><p><h3>Typisches Denkmuster</h3></p><p><pre><code class="java">Map<Integer, Person> personenNachId = new HashMap<>();</code></pre></p><p>Danach können Messungen so zugeordnet werden:</p><p><pre><code class="java">Person person = personenNachId.get(personId);
+if (person != null) {
+    person.addMessung(messung);
+}</code></pre></p><p>---</p><p><h2>Schritt 8: Den BmiManager erweitern</h2></p><p>Der Controller soll nicht selbst JSON bauen, aber er soll Speichern und Laden auslösen können.</p><p><h3>Sinnvolle Methoden</h3></p><p><pre><code class="java">public void speichereDaten(Path ordner) throws IOException
+public void ladeDaten(Path ordner) throws IOException</code></pre></p><p><h3>Weitere sinnvolle Aufgaben des Controllers</h3></p><p>- IDs verwalten,
+- geladene Personenliste setzen,
+- aktuelle Person nach dem Laden sinnvoll auswählen,
+- Fehler an die GUI weitergeben.</p><p><h3>Didaktische Erläuterung</h3></p><p>Die Schülerinnen und Schüler sollen hier sehen, dass der Controller Vermittler ist:</p><p>- GUI kennt die Persistenzdetails nicht.
+- Persistenz kennt die GUI nicht.
+- Der Controller verbindet beide Seiten.</p><p>---</p><p><h2>Schritt 9: Die GUI um Speichern und Laden ergänzen</h2></p><p>In der GUI können zwei neue Buttons ergänzt werden:</p><p>- </code>Speichern<code>
+- </code>Laden<code></p><p><h3>Erwartetes Verhalten</h3></p><p>- </code>Speichern<code>: schreibt Schema und Daten in einen festen Ordner,
+- </code>Laden<code>: liest Daten ein und aktualisiert Personenliste, Historie und Statistik.</p><p><h3>Didaktische Erklärung</h3></p><p>Gerade hier verstehen Lernende den Mehrwert der Persistenz besonders gut.
+Sie können:</p><p>1. Personen anlegen,
+2. Messungen erfassen,
+3. die App schließen,
+4. neu starten,
+5. die Daten wieder laden.</p><p>Das macht die abstrakte Idee von Dauerhaftigkeit sichtbar.</p><p>---</p><p><h2>Schritt 10: Statistik bewusst mitdenken</h2></p><p>Die App aus Version 4 berechnet bereits statistische Werte wie:</p><p>- Anzahl der Messungen,
+- Durchschnitts-BMI,
+- beste Messung,
+- schlechteste Messung,
+- BMI-Differenz.</p><p>Diese Statistik soll in Version 5 nicht separat gespeichert werden.</p><p><h3>Warum nicht?</h3></p><p>Weil Statistik aus Rohdaten berechnet werden kann.
+Wenn man berechenbare Werte zusätzlich speichert, entstehen leicht Widersprüche.</p><p><h3>Didaktischer Kernpunkt</h3></p><p>Schülerinnen und Schüler sollen den Unterschied verstehen zwischen:</p><p>- Primärdaten: Person und Messung
+- abgeleiteten Daten: Statistik</p><p>Abgeleitete Daten werden neu berechnet, nicht dauerhaft redundant gespeichert.</p><p>Das ist ein wichtiger Gedanke im Sinne der Normalisierung.</p><p>---</p><p><h2>Schritt 11: Testbare Lösung aufbauen</h2></p><p>Eine gute Version 5 ist nicht nur funktional, sondern testbar.</p><p><h3>Sinnvolle Tests</h3></p><p>1. Speichern erzeugt beide Dateien.
+2. Die Schema-Datei enthält die erwarteten Entitäten.
+3. Die Datendatei enthält getrennte Bereiche für Personen und Messungen.
+4. Nach dem Laden sind Personen und Messungen vollständig wiederhergestellt.
+5. Die Statistik liefert nach dem Laden dieselben Werte wie vor dem Speichern.</p><p><h3>Didaktische Erklärung</h3></p><p>Das ist ein sehr guter Anlass, um mit den Lernenden über Qualität zu sprechen:</p><p>- Ein Programm ist nicht schon dann gut, wenn es einmal funktioniert.
+- Es ist gut, wenn seine Korrektheit überprüfbar ist.</p><p>---</p><p><h2>Typische Fehler und wie man sie im Unterricht bespricht</h2></p><p><h3>Fehler 1: Personen und Messungen werden doppelt gespeichert</h3></p><p>Problem:
+Die Messung enthält zusätzlich noch Vorname, Nachname und E-Mail.</p><p>Folge:
+Redundanz und Inkonsistenzen.</p><p>Didaktische Frage:</p><p><blockquote>Was passiert, wenn sich der Nachname ändert, aber alte Messungen noch den alten Wert speichern?</blockquote></p><p>---</p><p><h3>Fehler 2: Statistik wird mitgespeichert</h3></p><p>Problem:
+Durchschnitt, Differenz oder bester BMI werden dauerhaft in JSON geschrieben.</p><p>Folge:
+Diese Werte können veralten oder falsch sein.</p><p>Didaktische Frage:</p><p><blockquote>Muss man alles speichern, was man anzeigen kann?</blockquote></p><p>---</p><p><h3>Fehler 3: Kein Trennprinzip zwischen Struktur und Daten</h3></p><p>Problem:
+Alles landet in einer einzigen Datei.</p><p>Folge:
+Strukturänderungen und Datenspeicherung sind nicht sauber getrennt.</p><p>Didaktische Frage:</p><p><blockquote>Woran erkennt man später, ob ein Fehler in der Modellierung oder in den konkreten Daten liegt?</blockquote></p><p>---</p><p><h3>Fehler 4: Trailing-Komma im JSON</h3></p><p>Problem:
+Nach dem letzten Element wird noch ein Komma angehängt.</p><p>Folge:
+Ungültiges JSON.</p><p>Didaktische Chance:</p><p>Die Lernenden erkennen, dass textbasierte Formate exakt eingehalten werden müssen.</p><p>---</p><p><h3>Fehler 5: Laden ohne Validierung</h3></p><p>Problem:
+Die Datei wird blind eingelesen.</p><p>Folge:
+Spätere Fehler sind schwer nachvollziehbar.</p><p>Didaktische Frage:</p><p><blockquote>Warum ist eine frühe Plausibilitätsprüfung oft besser als ein später Absturz an ganz anderer Stelle?</blockquote></p><p>---</p><p><h2>Musterlösung als Umsetzungsfahrplan</h2></p><p>Die Musterlösung kann in dieser Reihenfolge entwickelt werden:</p><p><h3>Phase 1: Modell erweitern</h3></p><p>- </code>Person<code> bekommt </code>id<code>
+- </code>Messung<code> bekommt </code>id<code> und </code>personId<code>
+- Konstruktoren und Getter/Setter werden angepasst</p><p><h3>Phase 2: Persistenzklasse entwickeln</h3></p><p>- Methode zum Schreiben des Schemas
+- Methode zum Schreiben der Daten
+- Methode zum Laden der Daten
+- Hilfsmethoden für Escaping, atomisches Schreiben und Minimalvalidierung</p><p><h3>Phase 3: Controller anbinden</h3></p><p>- </code>BmiManager<code> erhält Methoden für Speichern und Laden
+- ID-Zähler werden sauber verwaltet
+- geladene Daten werden als neue Arbeitsbasis gesetzt</p><p><h3>Phase 4: GUI ergänzen</h3></p><p>- Buttons für Speichern und Laden
+- Erfolgs- und Fehlermeldungen
+- Anzeige nach dem Laden aktualisieren</p><p><h3>Phase 5: Tests ergänzen</h3></p><p>- Roundtrip-Test: speichern und wieder laden
+- Kontrolltest für Statistik nach dem Laden
+- Test für Strukturtrennung</p><p>---</p><p><h2>Unterrichtlich sinnvolle Zwischenfragen</h2></p><p>Diese Fragen helfen, die Lösung nicht nur technisch, sondern auch fachlich zu verstehen:</p><p>1. Warum reicht es nicht, einfach </code>toString()` in eine Datei zu schreiben?
+2. Warum speichern wir Statistik nicht dauerhaft mit?
+3. Warum brauchen wir IDs, obwohl wir doch schon Objekte haben?
+4. Warum ist es sinnvoll, Personen und Messungen getrennt zu speichern?
+5. Welche Rolle hat der Controller in einer MVC-Anwendung mit Persistenz?
+6. Warum ist die Trennung von Schema und Daten auch für Fehlersuche hilfreich?</p><p>---</p><p><h2>Erwartung an eine gute Schülerlösung</h2></p><p>Eine gute Lösung erkennt man daran, dass:</p><p>- die bestehende Version 4 nicht zerstört, sondern sinnvoll erweitert wird,
+- Person und Messung über IDs verbunden bleiben,
+- Struktur und Daten in getrennten JSON-Dateien liegen,
+- Statistik aus geladenen Daten wieder korrekt berechnet wird,
+- Speichern und Laden über eigene Methoden und eine eigene Persistenzklasse laufen,
+- die App nach einem Neustart wieder denselben fachlichen Zustand herstellen kann.</p><p>---</p><p><h2>Zusammenfassung für Schülerinnen und Schüler</h2></p><p>Version 5 ist der Schritt von einer reinen Objektverwaltung zu einer kleinen datenbankartigen Anwendung.</p><p>Die wichtigste fachliche Idee lautet:</p><p><blockquote>Daten sollen nicht nur existieren, solange das Programm läuft.</blockquote>
+<blockquote>Sie sollen strukturiert, nachvollziehbar und dauerhaft gespeichert werden.</blockquote></p><p>Die wichtigste technische Idee lautet:</p><p><blockquote>Wir speichern nicht einfach alles in eine Datei,</blockquote>
+<blockquote>sondern trennen Struktur und Nutzdaten,</blockquote>
+<blockquote>normalisieren die Daten,</blockquote>
+<blockquote>und stellen Beziehungen beim Laden wieder her.</blockquote></p><p>Wenn die Schülerinnen und Schüler diese Gedanken verstanden haben, ist das Lernziel von Version 5 erreicht.
+
+</body>
+</html>
