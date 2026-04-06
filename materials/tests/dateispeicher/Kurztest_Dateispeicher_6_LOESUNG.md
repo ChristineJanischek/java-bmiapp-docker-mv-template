@@ -6,6 +6,8 @@
 
 ## Aufgabe 1: JSON-Messwert-Datenbank mit Validierung (5 Punkte)
 
+### Aufgabenstellung
+
 **Thema:** Separates Speichern von Messkontext und Messdaten
 
 Ein Wissenschaftsprojekt speichert Temperaturmessungen über längere Zeit.
@@ -76,172 +78,8 @@ public class JsonMesswertDatenbankWriter {
 
 Vervollständige die Schreiblogik mit atomarer Schreibweise (Backup vor Überschreiben).
 
----
 
-## Aufgabe 2: JSON-Messdaten lesen und Range-Validierung (4 Punkte)
-
-**Thema:** Plausibilitätsprüfung geladener Messwerte
-
-```java
-public class JsonMesswertDatenbankReader {
-
-    public List<Temperaturmessung> ladeMesswerteDatenbank(String ordner) throws IOException, IllegalArgumentException {
-        Path schemaPfad = Paths.get(ordner, "messungen.schema.json");
-        Path datenPfad = Paths.get(ordner, "messungen.data.json");
-
-        // Lies beide Dateien:
-        String schema = Files.readString(schemaPfad, StandardCharsets.UTF_8);  // 1 Punkt
-        String daten = Files.readString(datenPfad, StandardCharsets.UTF_8);
-
-        // Lese minValid und maxValid aus Schema:
-        double minValid = extractDouble(schema, "\"minValid\": ");  // 1 Punkt
-        double maxValid = extractDouble(schema, "\"maxValid\": ");
-
-        // TODO:
-        // - Prüfe, dass Daten den Container "messungen" enthaelt  (1 Punkt)
-        // - Prüfe beim Laden: Jede Temperatur muss zwischen minValid und maxValid liegen (1 Punkt)
-        //   Falls nicht: werfe IllegalArgumentException mit beschreibendem Text
-        // - Gib die validierte List<Temperaturmessung> zurück
-
-        return new ArrayList<>();  // Placeholder
-    }
-
-    private double extractDouble(String json, String key) {
-        int start = json.indexOf(key) + key.length();
-        int end = json.indexOf(",", start);
-        if (end == -1) end = json.indexOf("\n", start);
-        return Double.parseDouble(json.substring(start, end).trim());
-    }
-}
-```
-
----
-
-## Aufgabe 3: Code-Analyse – Fehler in der Serialisierung (5 Punkte)
-
-**Thema:** Typische JSON-Strukturfehler erkennen
-
-Gegeben ist folgender fehlerhafter Code:
-
-```java
-public class FalscheMesswertDb {
-
-    public void speichern(List<Temperaturmessung> messungen, String datei) throws IOException {
-        String json = "{\"messungen\":{"; // FEHLER: Array statt Objekt!
-
-        for (Temperaturmessung m : messungen) {
-            json += "\"" + m.getId() + "\":{" +
-                    "\"temperatur\":" + m.getTemperatur() + "," +
-                    "\"ort\":\"" + m.getOrt() + "\"},";
-        }
-
-        json += "}}";
-        Files.writeString(Paths.get(datei), json, StandardCharsets.UTF_8);
-    }
-}
-```
-
-**Fragen:**
-
-a) **Strukturfehler:** Nenne einen Fehler in der JSON-Struktur, der dazu führt, dass die Datei sich später nicht regulär lesen lässt.
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-b) **Konsequenz:** Kann man mit diesem Format später über einen Index (0, 1, 2...) auf die Messwerte zugreifen? Warum/Warum nicht?
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
----
-
-## Aufgabe 4: Datenredundanz und Anomalien (5 Punkte)
-
-**Thema:** Redundanz erkennen und Normalisierung verstehen
-
-Gegeben ist eine redundante Speicherform. Jede Messung speichert auch die Geräte-Info:
-
-```json
-{
-  "messungen": [
-    {"id": 1, "temp": 22.5, "device": "DS18B20 Sensor", "unit": "Celsius", "ort": "Kueche"},
-    {"id": 2, "temp": 20.1, "device": "DS18B20 Sensor", "unit": "Celsius", "ort": "Schlafzimmer"},
-    {"id": 3, "temp": 18.9, "device": "DS18B20 Sensor", "unit": "Celsius", "ort": "Buero"}
-  ]
-}
-```
-
-**Aufgabe:**
-
-a) Erkläre das **Anomalieproblem:** Was würde passieren, wenn man nachträglich feststellt, dass die Einheit in Kelvin statt Celsius speichern möchte?
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-b) Wie würde die **normalisierte Lösung** aussehen (Schema/Daten-Trennung)?
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
----
-
-## Aufgabe 5: Best Practices für Sensormessungen (3 Punkte)
-
-**Thema:** Robustheit bei kontinuierlichen Messungen
-
-Nenne drei Best Practices für JSON-Speicherung von Messdaten (insbesondere bei kontinuierlichen oder wiederholten Messungen) und begründe jeweils kurz:
-
-1. ________________________________________________________________
-2. ________________________________________________________________
-3. ________________________________________________________________
-
----
-
-## Aufgabe 6: Fehlerhafte Timestamps korrigieren (3 Punkte)
-
-**Thema:** Datenqualität sicherstellen
-
-Der folgende Code hat einen Fehler beim Schreiben von Timestamps:
-
-```java
-for (Temperaturmessung m : messungen) {
-    LocalDateTime now = LocalDateTime.now();  // FEHLER!
-    json += "{\"zeitstempel\": \"" + now + "\", ...}";
-}
-```
-
-**Aufgabe:**
-1. Beschreibe den Fehler.
-2. Zeige die korrekte Lösung.
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
----
-
-## Erwartungshorizont (Kurzüberblick)
-
-- **Sehr gut (23-25 Punkte):** Atomare Schreibweise verstanden, Range-Validierung sauber, Redundanz/Normalisierung klar analysiert.
-- **Gut (19-22 Punkte):** Trennung und Validierung grundsätzlich richtig, kleinere Ungenauigkeiten bei Normalisierung oder Fehleranalyse.
-- **Ausreichend (14-18 Punkte):** Grundideen erkannt, aber Lücken bei Validierunglogik oder Datenintegrität.
-- **Unter 14 Punkte:** Wichtige Konzepte (Trennung, Validierung, Normalisierung) nicht hinreichend verstanden.
-
----
-
-# LÖSUNGEN
-
-## Lösung Aufgabe 1 (5 Punkte)
+### Musterloesung
 
 ```java
 public void speichereMesswerteDatenbank(List<Temperaturmessung> messungen, String ordner) throws IOException {
@@ -313,7 +151,50 @@ public void speichereMesswerteDatenbank(List<Temperaturmessung> messungen, Strin
 }
 ```
 
-## Lösung Aufgabe 2 (4 Punkte)
+
+---
+
+## Aufgabe 2: JSON-Messdaten lesen und Range-Validierung (4 Punkte)
+
+### Aufgabenstellung
+
+**Thema:** Plausibilitätsprüfung geladener Messwerte
+
+```java
+public class JsonMesswertDatenbankReader {
+
+    public List<Temperaturmessung> ladeMesswerteDatenbank(String ordner) throws IOException, IllegalArgumentException {
+        Path schemaPfad = Paths.get(ordner, "messungen.schema.json");
+        Path datenPfad = Paths.get(ordner, "messungen.data.json");
+
+        // Lies beide Dateien:
+        String schema = Files.readString(schemaPfad, StandardCharsets.UTF_8);  // 1 Punkt
+        String daten = Files.readString(datenPfad, StandardCharsets.UTF_8);
+
+        // Lese minValid und maxValid aus Schema:
+        double minValid = extractDouble(schema, "\"minValid\": ");  // 1 Punkt
+        double maxValid = extractDouble(schema, "\"maxValid\": ");
+
+        // TODO:
+        // - Prüfe, dass Daten den Container "messungen" enthaelt  (1 Punkt)
+        // - Prüfe beim Laden: Jede Temperatur muss zwischen minValid und maxValid liegen (1 Punkt)
+        //   Falls nicht: werfe IllegalArgumentException mit beschreibendem Text
+        // - Gib die validierte List<Temperaturmessung> zurück
+
+        return new ArrayList<>();  // Placeholder
+    }
+
+    private double extractDouble(String json, String key) {
+        int start = json.indexOf(key) + key.length();
+        int end = json.indexOf(",", start);
+        if (end == -1) end = json.indexOf("\n", start);
+        return Double.parseDouble(json.substring(start, end).trim());
+    }
+}
+```
+
+
+### Musterloesung
 
 ```java
 public List<Temperaturmessung> ladeMesswerteDatenbank(String ordner) throws IOException, IllegalArgumentException {
@@ -354,7 +235,53 @@ public List<Temperaturmessung> ladeMesswerteDatenbank(String ordner) throws IOEx
 }
 ```
 
-## Lösung Aufgabe 3 (5 Punkte)
+
+---
+
+## Aufgabe 3: Code-Analyse – Fehler in der Serialisierung (5 Punkte)
+
+### Aufgabenstellung
+
+**Thema:** Typische JSON-Strukturfehler erkennen
+
+Gegeben ist folgender fehlerhafter Code:
+
+```java
+public class FalscheMesswertDb {
+
+    public void speichern(List<Temperaturmessung> messungen, String datei) throws IOException {
+        String json = "{\"messungen\":{"; // FEHLER: Array statt Objekt!
+
+        for (Temperaturmessung m : messungen) {
+            json += "\"" + m.getId() + "\":{" +
+                    "\"temperatur\":" + m.getTemperatur() + "," +
+                    "\"ort\":\"" + m.getOrt() + "\"},";
+        }
+
+        json += "}}";
+        Files.writeString(Paths.get(datei), json, StandardCharsets.UTF_8);
+    }
+}
+```
+
+**Fragen:**
+
+a) **Strukturfehler:** Nenne einen Fehler in der JSON-Struktur, der dazu führt, dass die Datei sich später nicht regulär lesen lässt.
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+b) **Konsequenz:** Kann man mit diesem Format später über einen Index (0, 1, 2...) auf die Messwerte zugreifen? Warum/Warum nicht?
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+
+### Musterloesung
 
 **a) Strukturfehler:**
 "messungen" wird als Objekt `{...}` statt als Array `[...]` definiert. Später kann man dann nicht mit Index-Zugriff (0, 1, 2) arbeiten, sondern müsste auf die ID-Keys zugreifen.
@@ -362,7 +289,45 @@ public List<Temperaturmessung> ladeMesswerteDatenbank(String ordner) throws IOEx
 **b) Zugriff über Index nicht möglich:**
 Nein, weil die Struktur Objekt-Keys verwendet ({"1": {...}, "2": {...}}), keine Array-Indizes. Ein echtes JSON-Array hätte eine sortierte numerische Reihenfolge und wäre mit `messungen[0], messungen[1]` adressierbar. Hier müssten alle IDs vorher bekannt sein.
 
-## Lösung Aufgabe 4 (5 Punkte)
+
+---
+
+## Aufgabe 4: Datenredundanz und Anomalien (5 Punkte)
+
+### Aufgabenstellung
+
+**Thema:** Redundanz erkennen und Normalisierung verstehen
+
+Gegeben ist eine redundante Speicherform. Jede Messung speichert auch die Geräte-Info:
+
+```json
+{
+  "messungen": [
+    {"id": 1, "temp": 22.5, "device": "DS18B20 Sensor", "unit": "Celsius", "ort": "Kueche"},
+    {"id": 2, "temp": 20.1, "device": "DS18B20 Sensor", "unit": "Celsius", "ort": "Schlafzimmer"},
+    {"id": 3, "temp": 18.9, "device": "DS18B20 Sensor", "unit": "Celsius", "ort": "Buero"}
+  ]
+}
+```
+
+**Aufgabe:**
+
+a) Erkläre das **Anomalieproblem:** Was würde passieren, wenn man nachträglich feststellt, dass die Einheit in Kelvin statt Celsius speichern möchte?
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+b) Wie würde die **normalisierte Lösung** aussehen (Schema/Daten-Trennung)?
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+
+### Musterloesung
 
 **a) Anomalieproblem (Update-Anomalie):**
 Wenn die Einheit von Celsius auf Kelvin gewechselt werden soll, müssten **alle drei Messwerte** aktualisiert werden. Das ist fehleranfällig und ineffizient. Redundante Daten führen zu Inkonsistenzen.
@@ -385,13 +350,58 @@ Wenn die Einheit von Celsius auf Kelvin gewechselt werden soll, müssten **alle 
 
 Geräte-Info nur einmal im Schema, nicht in jedem Messwert.
 
-## Lösung Aufgabe 5 (3 Punkte)
+
+---
+
+## Aufgabe 5: Best Practices für Sensormessungen (3 Punkte)
+
+### Aufgabenstellung
+
+**Thema:** Robustheit bei kontinuierlichen Messungen
+
+Nenne drei Best Practices für JSON-Speicherung von Messdaten (insbesondere bei kontinuierlichen oder wiederholten Messungen) und begründe jeweils kurz:
+
+1. ________________________________________________________________
+2. ________________________________________________________________
+3. ________________________________________________________________
+
+
+### Musterloesung
 
 1. **Timestamps korrekt speichern:** Format (ISO 8601) standardisieren, damit Alle-Messungen sortierbar und vergleichbar bleiben.
 2. **Plausibilitätsprüfung:** Min-/Max-Werte im Schema definieren und beim Laden validieren (Range-Check).
 3. **Datenhistorie bewahren:** Alte Messungen nicht löschen, nur archivieren, damit Zeitreihen vollständig bleiben.
 
-## Lösung Aufgabe 6 (3 Punkte)
+
+---
+
+## Aufgabe 6: Fehlerhafte Timestamps korrigieren (3 Punkte)
+
+### Aufgabenstellung
+
+**Thema:** Datenqualität sicherstellen
+
+Der folgende Code hat einen Fehler beim Schreiben von Timestamps:
+
+```java
+for (Temperaturmessung m : messungen) {
+    LocalDateTime now = LocalDateTime.now();  // FEHLER!
+    json += "{\"zeitstempel\": \"" + now + "\", ...}";
+}
+```
+
+**Aufgabe:**
+1. Beschreibe den Fehler.
+2. Zeige die korrekte Lösung.
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+
+### Musterloesung
 
 **Fehler:** Der Code ruft `LocalDateTime.now()` **in der Schleife** auf. Das bedeutet, dass für jeden Messwert der **aktuelle Zeitstempel** gespeichert wird, nicht der ursprüngliche Messzeitstempel!
 
@@ -412,3 +422,15 @@ for (Temperaturmessung m : messungen) {
 ```
 
 Wichtig: **Einmal generieren, nicht in der Schleife!**
+
+---
+
+## Erwartungshorizont (Kurzüberblick)
+
+- **Sehr gut (23-25 Punkte):** Atomare Schreibweise verstanden, Range-Validierung sauber, Redundanz/Normalisierung klar analysiert.
+- **Gut (19-22 Punkte):** Trennung und Validierung grundsätzlich richtig, kleinere Ungenauigkeiten bei Normalisierung oder Fehleranalyse.
+- **Ausreichend (14-18 Punkte):** Grundideen erkannt, aber Lücken bei Validierunglogik oder Datenintegrität.
+- **Unter 14 Punkte:** Wichtige Konzepte (Trennung, Validierung, Normalisierung) nicht hinreichend verstanden.
+
+---
+

@@ -6,6 +6,8 @@
 
 ## Aufgabe 1: JSON-Noten-Datenbank mit mehreren Entitäten (5 Punkte)
 
+### Aufgabenstellung
+
 **Thema:** Speicherung von Schülern und ihren Noten mit Trennung
 
 Ein Schulportal soll Schüler und ihre Noten (mit Fächern) speichern.
@@ -94,9 +96,45 @@ public class JsonNotenDatenbankWriter {
 
 Vervollständige die Schreiblogik mit **atomarem Schreiben** über temporäre Dateien.
 
+
+### Musterloesung
+
+```java
+public void speichereNotenDatenbank(List<Schueler> schueler, List<String> faecher, String ordner) throws IOException {
+    Path schemaPfad = Paths.get(ordner, "noten.schema.json");
+    Path datenPfad = Paths.get(ordner, "noten.data.json");
+
+    // Beide Dateien wie oben definiert
+    String schemaJson = /* ... */;
+    String datenJson = /* ... */;
+
+    // Atomares Schreiben mit temp-Dateien
+    Path schemaTmp = Paths.get(schemaPfad.toString() + ".tmp");
+    Path datenTmp = Paths.get(datenPfad.toString() + ".tmp");
+
+    try {
+        // Schreibe in temp-Dateien
+        Files.writeString(schemaTmp, schemaJson, StandardCharsets.UTF_8);
+        Files.writeString(datenTmp, datenJson, StandardCharsets.UTF_8);
+
+        // Atomic rename (nur bei Erfolg)
+        Files.move(schemaTmp, schemaPfad, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+        Files.move(datenTmp, datenPfad, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+    } catch (IOException e) {
+        // Aufräumen bei Fehler
+        Files.deleteIfExists(schemaTmp);
+        Files.deleteIfExists(datenTmp);
+        throw e;
+    }
+}
+```
+
+
 ---
 
 ## Aufgabe 2: JSON-Noten lesen und Konsistenzprüfung (4 Punkte)
+
+### Aufgabenstellung
 
 **Thema:** Gewährleisten, dass alle Schülernoten den Fächern entsprechen
 
@@ -136,193 +174,8 @@ public class JsonNotenDatenbankReader {
 }
 ```
 
----
 
-## Aufgabe 3: Datenmodellierungs-Fehler erkennen (5 Punkte)
-
-**Thema:** Erfassung von Änderungsproblemen
-
-Gegeben ist folgende fehlerhafte Datenstruktur ohne Normalisierung:
-
-```json
-{
-  "schueler_mit_faecher": [
-    {
-      "schueler_id": 1, "schueler_name": "Anna", "klasse": "10a",
-      "faecher": [
-        {"id": 101, "name": "Deutsch", "note": 2.0},
-        {"id": 102, "name": "Mathe", "note": 1.5},
-        {"id": 103, "name": "Englisch", "note": 2.5}
-      ]
-    },
-    {
-      "schueler_id": 2, "schueler_name": "Ben", "klasse": "10a",
-      "faecher": [
-        {"id": 101, "name": "Deutsch", "note": 3.0},
-        {"id": 102, "name": "Mathe", "note": 2.0},
-        {"id": 103, "name": "Englisch", "note": 2.5}
-      ]
-    }
-  ]
-}
-```
-
-**Aufgabe:**
-
-a) Identifiziere **zwei Redundanzen** in dieser Struktur.
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-b) Beschreibe eine **Anomalie**, die auftreten kann, wenn der Fachname "Englisch" → "English" geändert wird.
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
----
-
-## Aufgabe 4: Transaktionale Sicherheit – Fehlerhafte Implementierung (5 Punkte)
-
-**Thema:** Konsistenz bei gleichzeitigen Änderungen verhindern
-
-```java
-public class UnsichereNotenAenderung {
-
-    public void addNoteZuSchueler(int schuelerID, String fach, double note, String dateiPfad) throws IOException {
-        String daten = Files.readString(Paths.get(dateiPfad), StandardCharsets.UTF_8);
-
-        // Ändere Daten in-memory
-        daten = daten.replace(
-            "\"" + fach + "\": 0.0",    // Platzhalter für neue Note
-            "\"" + fach + "\": " + note  // Neue Note eintragen
-        );
-
-        // Schreibe direkt zurück (UNSICHER!)
-        Files.writeString(Paths.get(dateiPfad), daten, StandardCharsets.UTF_8);
-    }
-}
-```
-
-**Aufgaben:**
-
-a) Beschreibe das **Sicherheitsproblem** dieser Implementierung (Szenario: zwei Prozesse ändern gleichzeitig).
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-b) Skizziere eine **sichere Lösung**.
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-c) Welche Dateioperationen brauchst du dafür? (Stichwort: atomic operations)
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
----
-
-## Aufgabe 5: Best Practices bei Schulnotenverwaltung (3 Punkte)
-
-**Thema:** Robustheit und Nachvollziehbarkeit
-
-Nenne drei Best Practices für die Verwaltung von Schülernoten in JSON-Dateien:
-
-1. ________________________________________________________________
-2. ________________________________________________________________
-3. ________________________________________________________________
-
----
-
-## Aufgabe 6: Fehlerhafte Noten-Validierung (3 Punkte)
-
-**Thema:** Eingabevalidierung
-
-Ein Programm speichert Noten wie folgt:
-
-```java
-for (Schueler s : schueler) {
-    for (String fach : faecher) {
-        Double note = scanner.nextDouble();  // Benutzer gibt Note ein
-        s.addNote(fach, note);  // Keine Validierung!
-        datenbank.speichern();  // Speichert sofort
-    }
-}
-```
-
-**Aufgabe:**
-
-a) Welche **ungültigen Eingaben** könnten zu Problemen führen?
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-b) Wie sollte die Validierung aussehen (Pseudocode)?
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
-___________________________________________________________________________
-
----
-
-## Erwartungshorizont (Kurzüberblick)
-
-- **Sehr gut (23-25 Punkte):** Atomares Schreiben verstanden, Konsistenzprüfung sauber, Anomalien und Normalisierung klar analysiert.
-- **Gut (19-22 Punkte):** Trennung und Validierung grundsätzlich richtig, kleinere Lücken bei Redundanzanalyse oder Fehlerbehandlung.
-- **Ausreichend (14-18 Punkte):** Grundideen erkannt, aber Lücken bei transaktionaler Sicherheit oder vollständiger Konsistenzprüfung.
-- **Unter 14 Punkte:** Wichtige Konzepte (Normalisierung, Atomarität, Validierung) nicht hinreichend verstanden.
-
----
-
-# LÖSUNGEN
-
-## Lösung Aufgabe 1 (5 Punkte)
-
-```java
-public void speichereNotenDatenbank(List<Schueler> schueler, List<String> faecher, String ordner) throws IOException {
-    Path schemaPfad = Paths.get(ordner, "noten.schema.json");
-    Path datenPfad = Paths.get(ordner, "noten.data.json");
-
-    // Beide Dateien wie oben definiert
-    String schemaJson = /* ... */;
-    String datenJson = /* ... */;
-
-    // Atomares Schreiben mit temp-Dateien
-    Path schemaTmp = Paths.get(schemaPfad.toString() + ".tmp");
-    Path datenTmp = Paths.get(datenPfad.toString() + ".tmp");
-
-    try {
-        // Schreibe in temp-Dateien
-        Files.writeString(schemaTmp, schemaJson, StandardCharsets.UTF_8);
-        Files.writeString(datenTmp, datenJson, StandardCharsets.UTF_8);
-
-        // Atomic rename (nur bei Erfolg)
-        Files.move(schemaTmp, schemaPfad, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
-        Files.move(datenTmp, datenPfad, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
-    } catch (IOException e) {
-        // Aufräumen bei Fehler
-        Files.deleteIfExists(schemaTmp);
-        Files.deleteIfExists(datenTmp);
-        throw e;
-    }
-}
-```
-
-## Lösung Aufgabe 2 (4 Punkte)
+### Musterloesung
 
 ```java
 public List<Schueler> ladeNotenDatenbank(String ordner) throws IOException, IllegalArgumentException {
@@ -387,7 +240,58 @@ private List<String> extractFaecher(String schema) {
 }
 ```
 
-## Lösung Aufgabe 3 (5 Punkte)
+
+---
+
+## Aufgabe 3: Datenmodellierungs-Fehler erkennen (5 Punkte)
+
+### Aufgabenstellung
+
+**Thema:** Erfassung von Änderungsproblemen
+
+Gegeben ist folgende fehlerhafte Datenstruktur ohne Normalisierung:
+
+```json
+{
+  "schueler_mit_faecher": [
+    {
+      "schueler_id": 1, "schueler_name": "Anna", "klasse": "10a",
+      "faecher": [
+        {"id": 101, "name": "Deutsch", "note": 2.0},
+        {"id": 102, "name": "Mathe", "note": 1.5},
+        {"id": 103, "name": "Englisch", "note": 2.5}
+      ]
+    },
+    {
+      "schueler_id": 2, "schueler_name": "Ben", "klasse": "10a",
+      "faecher": [
+        {"id": 101, "name": "Deutsch", "note": 3.0},
+        {"id": 102, "name": "Mathe", "note": 2.0},
+        {"id": 103, "name": "Englisch", "note": 2.5}
+      ]
+    }
+  ]
+}
+```
+
+**Aufgabe:**
+
+a) Identifiziere **zwei Redundanzen** in dieser Struktur.
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+b) Beschreibe eine **Anomalie**, die auftreten kann, wenn der Fachname "Englisch" → "English" geändert wird.
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+
+### Musterloesung
 
 **a) Zwei Redundanzen:**
 
@@ -400,7 +304,59 @@ private List<String> extractFaecher(String schema) {
 **b) Anomalie (Update-Anomalie):**
 Wenn "Englisch" → "English" geändert werden soll, müsste diese Änderung bei **beiden** Schülern (und allen anderen Schülern) durchgeführt werden. Wird sie vergessen, entsteht eine Inkonsistenz. In einer normalisierten Struktur würde nur ein Fach-Record aktualisiert.
 
-## Lösung Aufgabe 4 (5 Punkte)
+
+---
+
+## Aufgabe 4: Transaktionale Sicherheit – Fehlerhafte Implementierung (5 Punkte)
+
+### Aufgabenstellung
+
+**Thema:** Konsistenz bei gleichzeitigen Änderungen verhindern
+
+```java
+public class UnsichereNotenAenderung {
+
+    public void addNoteZuSchueler(int schuelerID, String fach, double note, String dateiPfad) throws IOException {
+        String daten = Files.readString(Paths.get(dateiPfad), StandardCharsets.UTF_8);
+
+        // Ändere Daten in-memory
+        daten = daten.replace(
+            "\"" + fach + "\": 0.0",    // Platzhalter für neue Note
+            "\"" + fach + "\": " + note  // Neue Note eintragen
+        );
+
+        // Schreibe direkt zurück (UNSICHER!)
+        Files.writeString(Paths.get(dateiPfad), daten, StandardCharsets.UTF_8);
+    }
+}
+```
+
+**Aufgaben:**
+
+a) Beschreibe das **Sicherheitsproblem** dieser Implementierung (Szenario: zwei Prozesse ändern gleichzeitig).
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+b) Skizziere eine **sichere Lösung**.
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+c) Welche Dateioperationen brauchst du dafür? (Stichwort: atomic operations)
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+
+### Musterloesung
 
 **a) Sicherheitsproblem (Race Condition):**
 Wenn zwei Prozesse **gleichzeitig** die gleiche Notendatei modifizieren:
@@ -430,13 +386,67 @@ public void addNoteZuSchueler(int schuelerID, String fach, double note, String d
 - Temp-Dateien für isolierte Schreiboperation
 - Kein direktes Überschreiben -> kein Zustand mit halbgeschriebener Datei
 
-## Lösung Aufgabe 5 (3 Punkte)
+
+---
+
+## Aufgabe 5: Best Practices bei Schulnotenverwaltung (3 Punkte)
+
+### Aufgabenstellung
+
+**Thema:** Robustheit und Nachvollziehbarkeit
+
+Nenne drei Best Practices für die Verwaltung von Schülernoten in JSON-Dateien:
+
+1. ________________________________________________________________
+2. ________________________________________________________________
+3. ________________________________________________________________
+
+
+### Musterloesung
 
 1. **Unveränderliches Audit-Log:** Speichere Änderungen in einer separaten Log-Datei (Wer? Wann? Alte/Neue Note?), um Nachvollziehbarkeit zu gewährleisten.
 2. **Validierung vor Speichern:** Prüfe Noten im Wertebereich [1.0, 6.0] und unbekannte Fächer ab, bevor in die Datei geschrieben wird.
 3. **Konsistenzsprüfung beim Laden:** Prüfe, dass alle Schüler die gleichen Fächer haben (oder mindestens nur zulässige Fächer).
 
-## Lösung Aufgabe 6 (3 Punkte)
+
+---
+
+## Aufgabe 6: Fehlerhafte Noten-Validierung (3 Punkte)
+
+### Aufgabenstellung
+
+**Thema:** Eingabevalidierung
+
+Ein Programm speichert Noten wie folgt:
+
+```java
+for (Schueler s : schueler) {
+    for (String fach : faecher) {
+        Double note = scanner.nextDouble();  // Benutzer gibt Note ein
+        s.addNote(fach, note);  // Keine Validierung!
+        datenbank.speichern();  // Speichert sofort
+    }
+}
+```
+
+**Aufgabe:**
+
+a) Welche **ungültigen Eingaben** könnten zu Problemen führen?
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+b) Wie sollte die Validierung aussehen (Pseudocode)?
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+___________________________________________________________________________
+
+
+### Musterloesung
 
 **a) Ungültige Eingaben:**
 - Negative Noten oder Noten > 6.0
@@ -478,3 +488,15 @@ for (Schueler s : schueler) {
 ```
 
 **Wichtig:** Speichern erst **nach** vollständiger Validierung, nicht nach jeder Eingabe!
+
+---
+
+## Erwartungshorizont (Kurzüberblick)
+
+- **Sehr gut (23-25 Punkte):** Atomares Schreiben verstanden, Konsistenzprüfung sauber, Anomalien und Normalisierung klar analysiert.
+- **Gut (19-22 Punkte):** Trennung und Validierung grundsätzlich richtig, kleinere Lücken bei Redundanzanalyse oder Fehlerbehandlung.
+- **Ausreichend (14-18 Punkte):** Grundideen erkannt, aber Lücken bei transaktionaler Sicherheit oder vollständiger Konsistenzprüfung.
+- **Unter 14 Punkte:** Wichtige Konzepte (Normalisierung, Atomarität, Validierung) nicht hinreichend verstanden.
+
+---
+
