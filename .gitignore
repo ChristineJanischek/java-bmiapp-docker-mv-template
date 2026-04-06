@@ -5,6 +5,10 @@
 build/
 target/
 
+# Download-Artefakte (können aus Git regeneriert werden)
+downloads/
+*.zip
+
 # Maven
 .mvn/
 mvnw
