@@ -15,6 +15,7 @@ import java.util.List;
 public class Person {
     
     // Attribute
+    private int id;
     private String vorname;
     private String nachname;
     private int alter;
@@ -34,6 +35,21 @@ public class Person {
      * @param email Die E-Mail-Adresse der Person
      */
     public Person(String vorname, String nachname, int alter, String geschlecht, String email) {
+        this(0, vorname, nachname, alter, geschlecht, email);
+    }
+
+    /**
+     * Konstruktor mit ID (für Persistenz und Ladevorgänge).
+     *
+     * @param id Eindeutige Personen-ID
+     * @param vorname Der Vorname der Person
+     * @param nachname Der Nachname der Person
+     * @param alter Das Alter der Person
+     * @param geschlecht Das Geschlecht der Person
+     * @param email Die E-Mail-Adresse der Person
+     */
+    public Person(int id, String vorname, String nachname, int alter, String geschlecht, String email) {
+        this.id = id;
         this.vorname = vorname;
         this.nachname = nachname;
         this.alter = alter;
@@ -45,6 +61,10 @@ public class Person {
     }
     
     // Getter-Methoden
+    public int getId() {
+        return id;
+    }
+
     public String getVorname() {
         return vorname;
     }
@@ -66,6 +86,10 @@ public class Person {
     }
     
     // Setter-Methoden
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setAlter(int alter) {
         this.alter = alter;
     }
@@ -236,6 +260,8 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
+            "id=" + id +
+            ", " +
                 "vorname='" + vorname + '\'' +
                 ", nachname='" + nachname + '\'' +
                 ", alter=" + alter +

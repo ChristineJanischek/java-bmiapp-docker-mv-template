@@ -15,6 +15,8 @@ import java.time.format.DateTimeFormatter;
 public class Messung {
     
     // Attribute
+    private int id;
+    private int personId;
     private double gewicht;           // in kg
     private double groesse;           // in m
     private LocalDateTime zeitstempel; // Zeitpunkt der Messung
@@ -33,6 +35,35 @@ public class Messung {
      * @throws IllegalArgumentException wenn Gewicht oder Größe ungültig sind
      */
     public Messung(double gewicht, double groesse) {
+        this(0, 0, gewicht, groesse, LocalDateTime.now());
+    }
+
+    /**
+     * Konstruktor mit IDs fuer Persistenz.
+     *
+     * @param id Eindeutige Messungs-ID
+     * @param personId Zugehoerige Personen-ID
+     * @param gewicht Das Gewicht in kg
+     * @param groesse Die Groesse in m
+     */
+    public Messung(int id, int personId, double gewicht, double groesse) {
+        this(id, personId, gewicht, groesse, LocalDateTime.now());
+    }
+
+    public Messung(double gewicht, double groesse, LocalDateTime zeitstempel) {
+        this(0, 0, gewicht, groesse, zeitstempel);
+    }
+
+    /**
+     * Vollstaendiger Konstruktor mit IDs und Zeitstempel.
+     *
+     * @param id Eindeutige Messungs-ID
+     * @param personId Zugehoerige Personen-ID
+     * @param gewicht Das Gewicht in kg
+     * @param groesse Die Groesse in m
+     * @param zeitstempel Der Zeitstempel der Messung
+     */
+    public Messung(int id, int personId, double gewicht, double groesse, LocalDateTime zeitstempel) {
         // Validierung
         if (gewicht <= 0) {
             throw new IllegalArgumentException("Gewicht muss größer als 0 sein!");
@@ -41,37 +72,12 @@ public class Messung {
             throw new IllegalArgumentException("Größe muss größer als 0 sein!");
         }
         
-        this.gewicht = gewicht;
-        this.groesse = groesse;
-        this.zeitstempel = LocalDateTime.now();
-        
-        // Bmirechner nutzen zur Berechnung
-        this.rechner = new Bmirechner();
-        this.bmi = rechner.berechne(gewicht, groesse);
-        
-        // Kategorisierung mit Bmirechner
-        rechner.interpretiere();
-        this.kategorie = rechner.getKategorie();
-    }
-    
-    /**
-     * Konstruktor mit spezifischem Zeitstempel (für Tests oder Import).
-     * 
-     * @param gewicht Das Gewicht in kg
-     * @param groesse Die Größe in m
-     * @param zeitstempel Der Zeitstempel der Messung
-     */
-    public Messung(double gewicht, double groesse, LocalDateTime zeitstempel) {
-        if (gewicht <= 0) {
-            throw new IllegalArgumentException("Gewicht muss größer als 0 sein!");
-        }
-        if (groesse <= 0) {
-            throw new IllegalArgumentException("Größe muss größer als 0 sein!");
-        }
         if (zeitstempel == null) {
             throw new IllegalArgumentException("Zeitstempel darf nicht null sein!");
         }
         
+        this.id = id;
+        this.personId = personId;
         this.gewicht = gewicht;
         this.groesse = groesse;
         this.zeitstempel = zeitstempel;
@@ -86,6 +92,14 @@ public class Messung {
     }
     
     // Getter-Methoden
+    public int getId() {
+        return id;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
     public double getGewicht() {
         return gewicht;
     }
@@ -104,6 +118,14 @@ public class Messung {
     
     public String getKategorie() {
         return kategorie;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
     
     /**
@@ -172,6 +194,9 @@ public class Messung {
     @Override
     public String toString() {
         return "Messung{" +
+            "id=" + id +
+            ", personId=" + personId +
+            ", " +
                 "gewicht=" + gewicht + " kg, " +
                 "groesse=" + groesse + " m, " +
                 "bmi=" + String.format("%.2f", bmi) + ", " +

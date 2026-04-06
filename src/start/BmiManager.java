@@ -1,5 +1,7 @@
 package start;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class BmiManager {
     // Version 4: Verwaltung von Personen und Messungen
     private Person aktuellePerson;              // Die aktuell ausgewählte Person
     private List<Person> personenListe;         // Liste aller Personen im System
+    private int naechstePersonId;
+    private int naechsteMessungId;
+    private final JsonDateiDatenbankSpeicher dateiSpeicher;
     
     /**
      * Standard-Konstruktor: Initialisiert den Manager mit einem neuen Model-Objekt.
@@ -29,6 +34,9 @@ public class BmiManager {
         this.model = new Bmirechner();
         this.personenListe = new ArrayList<>();
         this.aktuellePerson = null;
+        this.naechstePersonId = 1;
+        this.naechsteMessungId = 1;
+        this.dateiSpeicher = new JsonDateiDatenbankSpeicher();
     }
 
     /**
@@ -38,6 +46,9 @@ public class BmiManager {
         this.model = pModel;
         this.personenListe = new ArrayList<>();
         this.aktuellePerson = null;
+        this.naechstePersonId = 1;
+        this.naechsteMessungId = 1;
+        this.dateiSpeicher = new JsonDateiDatenbankSpeicher();
     }
 
     /**
@@ -100,7 +111,7 @@ public class BmiManager {
             throw new IllegalArgumentException("Ungültige E-Mail-Adresse!");
         }
         
-        Person person = new Person(vorname, nachname, alter, geschlecht, email);
+        Person person = new Person(naechstePersonId++, vorname, nachname, alter, geschlecht, email);
         personenListe.add(person);
         return person;
     }
@@ -169,7 +180,7 @@ public class BmiManager {
             throw new IllegalArgumentException("Größe muss zwischen 0 und 3.0 m liegen!");
         }
         
-        Messung messung = new Messung(gewicht, groesse);
+        Messung messung = new Messung(naechsteMessungId++, aktuellePerson.getId(), gewicht, groesse);
         aktuellePerson.addMessung(messung);
         
         return messung;
@@ -255,5 +266,49 @@ public class BmiManager {
     public void allesDatenLoeschen() {
         personenListe.clear();
         aktuellePerson = null;
+        naechstePersonId = 1;
+        naechsteMessungId = 1;
+    }
+
+    /**
+     * Speichert alle Personen- und Messungsdaten in einer JSON-Datei-Datenbank.
+     *
+     * @param ordnerPfad Zielordner fuer schema- und datendatei
+     * @throws IOException bei Schreibfehlern
+     */
+    public void speichereDaten(Path ordnerPfad) throws IOException {
+        dateiSpeicher.speichern(personenListe, ordnerPfad);
+    }
+
+    /**
+     * Laedt alle Personen- und Messungsdaten aus der JSON-Datei-Datenbank.
+     *
+     * @param ordnerPfad Quellordner fuer schema- und datendatei
+     * @throws IOException bei Lese-/Validierungsfehlern
+     */
+    public void ladeDaten(Path ordnerPfad) throws IOException {
+        List<Person> geladenePersonen = dateiSpeicher.laden(ordnerPfad);
+        this.personenListe = new ArrayList<>(geladenePersonen);
+        this.aktuellePerson = personenListe.isEmpty() ? null : personenListe.get(0);
+        aktualisiereIdZaehler();
+    }
+
+    private void aktualisiereIdZaehler() {
+        int maxPersonId = 0;
+        int maxMessungId = 0;
+
+        for (Person p : personenListe) {
+            if (p.getId() > maxPersonId) {
+                maxPersonId = p.getId();
+            }
+            for (Messung m : p.getMessungen()) {
+                if (m.getId() > maxMessungId) {
+                    maxMessungId = m.getId();
+                }
+            }
+        }
+
+        naechstePersonId = maxPersonId + 1;
+        naechsteMessungId = maxMessungId + 1;
     }
 }

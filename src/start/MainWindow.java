@@ -25,6 +25,9 @@ import javax.swing.JTextArea;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -59,6 +62,7 @@ public class MainWindow extends JFrame {
 	private JTextArea taStatistik;
 	
 	private BmiManager manager;
+	private static final Path STANDARD_DATEN_ORDNER = Paths.get("data", "bmiapp");
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -80,7 +84,7 @@ public class MainWindow extends JFrame {
 		manager = new BmiManager();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("BMI-Rechner Version 4 - mit Personen & Messungen");
+		setTitle("BMI-Rechner Version 5 - mit JSON-Dateispeicher");
 		try {
 			setIconImage(new ImageIcon(MainWindow.class.getResource("/start/images/ic_launcher.png")).getImage());
 		} catch (Exception e) {
@@ -116,7 +120,7 @@ public class MainWindow extends JFrame {
 			// Logo nicht gefunden
 		}
 
-		JLabel lbTitel = new JLabel("BMI-Rechner Version 4");
+		JLabel lbTitel = new JLabel("BMI-Rechner Version 5");
 		try {
 			lbTitel.setIcon(new ImageIcon(MainWindow.class.getResource("/start/images/ic_launcher.png")));
 		} catch (Exception e) {
@@ -305,6 +309,15 @@ public class MainWindow extends JFrame {
 		// Button unter Historie
 		JPanel historieButtonPanel = new JPanel();
 		historieButtonPanel.setBackground(Color.WHITE);
+
+		JButton btSpeichern = new JButton("Speichern");
+		btSpeichern.addActionListener(e -> speichereDaten());
+		historieButtonPanel.add(btSpeichern);
+
+		JButton btLaden = new JButton("Laden");
+		btLaden.addActionListener(e -> ladeDaten());
+		historieButtonPanel.add(btLaden);
+
 		JButton btAktualisieren = new JButton("Aktualisieren");
 		btAktualisieren.addActionListener(e -> aktualisiereAnzeige());
 		historieButtonPanel.add(btAktualisieren);
@@ -444,15 +457,55 @@ public class MainWindow extends JFrame {
 	private void aktualisierePersonenAuswahl() {
 		cbPersonAuswahl.removeAllItems();
 		List<Person> personen = manager.getAllePersonen();
+		Person aktuellePerson = manager.getAktuellePerson();
 		
 		if (personen.isEmpty()) {
 			cbPersonAuswahl.addItem("Keine Personen vorhanden");
 		} else {
+			int indexAktuellePerson = -1;
+			int index = 0;
 			for (Person p : personen) {
 				cbPersonAuswahl.addItem(p.getFullName() + " (" + p.getAlter() + " Jahre)");
+				if (aktuellePerson != null && p.getId() == aktuellePerson.getId()) {
+					indexAktuellePerson = index;
+				}
+				index++;
 			}
-			// Letzte Person auswählen
-			cbPersonAuswahl.setSelectedIndex(personen.size() - 1);
+			if (indexAktuellePerson >= 0) {
+				cbPersonAuswahl.setSelectedIndex(indexAktuellePerson);
+			} else {
+				// Standard: letzte Person auswählen
+				cbPersonAuswahl.setSelectedIndex(personen.size() - 1);
+				manager.setAktuellePerson(personen.get(personen.size() - 1));
+			}
+		}
+	}
+
+	private void speichereDaten() {
+		try {
+			manager.speichereDaten(STANDARD_DATEN_ORDNER);
+			JOptionPane.showMessageDialog(this,
+				"Daten erfolgreich gespeichert in:\n" + STANDARD_DATEN_ORDNER,
+				"Speichern erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(this,
+				"Fehler beim Speichern:\n" + e.getMessage(),
+				"Speicherfehler", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void ladeDaten() {
+		try {
+			manager.ladeDaten(STANDARD_DATEN_ORDNER);
+			aktualisierePersonenAuswahl();
+			aktualisiereAnzeige();
+			JOptionPane.showMessageDialog(this,
+				"Daten erfolgreich geladen aus:\n" + STANDARD_DATEN_ORDNER,
+				"Laden erfolgreich", JOptionPane.INFORMATION_MESSAGE);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(this,
+				"Fehler beim Laden:\n" + e.getMessage(),
+				"Ladefehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
