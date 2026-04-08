@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Datenstrukturen_2</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Datenstrukturen 2 - Queue, Stack, Sortierung</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>  <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong>  <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Queue mit ArrayDeque (4 Punkte)</h2>
+<p>Vervollstaendige den Code fuer eine Queue (FIFO):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Deque<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>queue<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayDeque<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #60a0b0; font-style: italic">// Drei Elemente einfuegen:</span>
+
+
+
+<span style="color: #60a0b0; font-style: italic">// Erstes Element entfernen:</span>
+String<span style="color: #bbbbbb"> </span>first<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>__________________;
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 2: Stack (LIFO) (4 Punkte)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Deque<span style="color: #666666">&lt;</span>Integer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>stack<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayDeque<span style="color: #666666">&lt;&gt;</span>();
+
+stack.<span style="color: #4070a0">push</span>(<span style="color: #40a070">1</span>);
+stack.<span style="color: #4070a0">push</span>(<span style="color: #40a070">2</span>);
+stack.<span style="color: #4070a0">push</span>(<span style="color: #40a070">3</span>);
+
+<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>top<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>stack.<span style="color: #4070a0">pop</span>();
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Welchen Wert hat <code>top</code>? <strong><em>_</em></strong>_____</p>
+<p>b) Was liegt danach oben auf dem Stack? <strong><em>_</em></strong>_____</p>
+<hr>
+<h2>Aufgabe 3: Sortieren mit Comparator (5 Punkte)</h2>
+<p>Sortiere eine Liste von Benutzern nach Nachname:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">User</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>vorname;
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>nachname;
+}
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">sortiere</span>(List<span style="color: #666666">&lt;</span>User<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>users)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// TODO</span>
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 4: Code-Analyse - Map Reihenfolge (5 Punkte)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>Integer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>map<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>HashMap<span style="color: #666666">&lt;&gt;</span>();
+map.<span style="color: #4070a0">put</span>(<span style="color: #4070a0">&quot;b&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>);
+map.<span style="color: #4070a0">put</span>(<span style="color: #4070a0">&quot;a&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>);
+map.<span style="color: #4070a0">put</span>(<span style="color: #4070a0">&quot;c&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>);
+
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(String<span style="color: #bbbbbb"> </span>k<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>map.<span style="color: #4070a0">keySet</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">print</span>(k<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; &quot;</span>);
+}
+</code></pre></div>
+
+<p>a) Ist die Ausgabe-Reihenfolge garantiert? <strong><em>_</em></strong>_____</p>
+<p>b) Welche Map nutzt du fuer garantierte Einfuegereihenfolge? <strong><em>_</em></strong>_____</p>
+<hr>
+<h2>Aufgabe 5: Passende Datenstruktur waehlen (4 Punkte)</h2>
+<p>1) Schnelles Entfernen am Anfang und Ende: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em><br>
+2) Sortierte Schluessel-Ausgabe: </strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em><br>
+3) Sehr schnelle Suche nach ID: </strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>______</p>
+<hr>
+<h2>Aufgabe 6: Fehlersuche (3 Punkte)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>names<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+names.<span style="color: #4070a0">add</span>(<span style="color: #4070a0">&quot;A&quot;</span>);
+names.<span style="color: #4070a0">add</span>(<span style="color: #4070a0">&quot;B&quot;</span>);
+
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(String<span style="color: #bbbbbb"> </span>n<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>names)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(n.<span style="color: #4070a0">equals</span>(<span style="color: #4070a0">&quot;A&quot;</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>names.<span style="color: #4070a0">remove</span>(n);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// FEHLER</span>
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>Warum ist das problematisch, und wie loest man es?</p>
+<hr>
+<hr>
+<p><strong>Viel Erfolg!</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

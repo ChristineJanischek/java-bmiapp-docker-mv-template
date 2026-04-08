@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Verzweigungen_1_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Verzweigungen 1 - if/else und switch - LOESUNG</h1>
+<p><strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: if/else (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">status</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>punkte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// ab 50: bestanden</span>
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// sonst: nicht bestanden</span>
+
+
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">status</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>punkte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(punkte<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">50</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;bestanden&quot;</span>;
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;nicht bestanden&quot;</span>;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Ab 50 Punkten gilt die Bedingung als wahr, sonst wird der <code>else</code>-Zweig ausgefuehrt.</p>
+<hr>
+<h2>Aufgabe 2: else-if Kette (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p>Ergaenze:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(note<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;sehr gut&quot;</span>;
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(note<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;gut&quot;</span>;
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(note<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// TODO</span>
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// TODO</span>
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(note<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;sehr gut&quot;</span>;
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(note<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;gut&quot;</span>;
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(note<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;befriedigend&quot;</span>;
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;ausreichend oder schlechter&quot;</span>;
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Die Bedingungen werden von oben nach unten geprueft; der erste passende Zweig gewinnt.</p>
+<hr>
+<h2>Aufgabe 3: switch (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">tagName</span>(String<span style="color: #bbbbbb"> </span>code)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">switch</span><span style="color: #bbbbbb"> </span>(code)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;MO&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Montag&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;DI&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Dienstag&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// TODO: MI, DO, FR</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">default</span>:<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;unbekannt&quot;</span>;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">tagName</span>(String<span style="color: #bbbbbb"> </span>code)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">switch</span><span style="color: #bbbbbb"> </span>(code)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;MO&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Montag&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;DI&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Dienstag&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;MI&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Mittwoch&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;DO&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Donnerstag&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;FR&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Freitag&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">default</span>:<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;unbekannt&quot;</span>;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p><code>switch</code> ist gut fuer mehrere feste Vergleichswerte derselben Variablen.</p>
+<hr>
+<h2>Aufgabe 4: Code-Analyse (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>x<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">10</span>;
+<span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(x<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>x<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">20</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;OK&quot;</span>);
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;NO&quot;</span>);
+}
+</code></pre></div>
+
+<p>Was wird ausgegeben? <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_____</p>
+<h3>Musterloesung</h3>
+<p>Ausgabe: <code>OK</code></p>
+<h3>Erlaeuterung</h3>
+<p>Beide Teilbedingungen sind wahr (<code>10 &gt; 5</code> und <code>10 &lt; 20</code>).</p>
+<hr>
+<h2>Aufgabe 5: Ternary (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>alter<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">17</span>;
+String<span style="color: #bbbbbb"> </span>status<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>___________________________;
+</code></pre></div>
+
+<p>Erstelle den Ausdruck fuer "volljaehrig" oder "minderjaehrig".</p>
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>status<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>(alter<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">18</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">?</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;volljaehrig&quot;</span><span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;minderjaehrig&quot;</span>;
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Der ternary Operator schreibt ein kurzes if/else als Ausdruck.</p>
+<hr>
+<h2>Aufgabe 6: Fehlersuche (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(a<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>b)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;gleich&quot;</span>);
+}
+</code></pre></div>
+
+<p>Was ist falsch und wie lautet die korrekte Version?</p>
+<hr>
+<h3>Musterloesung</h3>
+<p><code>=</code> ist Zuweisung, nicht Vergleich.</p>
+<p>Korrekt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(a<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span>b)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;gleich&quot;</span>);
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Fuer Wertvergleich von primitiven Typen wird <code>==</code> verwendet.</p>
+<hr>
+<p><strong>Viel Erfolg!</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

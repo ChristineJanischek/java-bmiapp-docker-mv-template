@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Datenstrukturen_3_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Datenstrukturen 3 - Auswahl und Gruppierung - LOESUNG</h1>
+<p><strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Datenstruktur waehlen (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p>Waehle die passende Struktur:</p>
+<p>1) Duplikate entfernen, Reihenfolge behalten: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_<br>
+2) Schnellstes contains() fuer viele IDs: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em><br>
+3) Mehrere Werte pro Schluessel (Abteilung -&gt; Mitarbeiterliste): </strong>__</p>
+<h3>Musterloesung</h3>
+<p>1) <code>LinkedHashSet</code><br>
+2) <code>HashSet</code><br>
+3) <code>Map&lt;String, List&lt;Mitarbeiter&gt;&gt;</code></p>
+<h3>Erlaeuterung</h3>
+<p><code>LinkedHashSet</code> kombiniert Eindeutigkeit und Einfuegereihenfolge. <code>HashSet</code> ist sehr schnell fuer <code>contains</code>.</p>
+<hr>
+<h2>Aufgabe 2: Maximum in Liste (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">maxWert</span>(List<span style="color: #666666">&lt;</span>Integer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>werte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// TODO</span>
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">maxWert</span>(List<span style="color: #666666">&lt;</span>Integer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>werte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(werte<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>werte.<span style="color: #4070a0">isEmpty</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>IllegalArgumentException(<span style="color: #4070a0">&quot;Liste darf nicht leer sein&quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>max<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>werte.<span style="color: #4070a0">get</span>(<span style="color: #40a070">0</span>);
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>wert<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>werte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(wert<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>max)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>max<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>wert;
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>max;
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Es wird linear durchlaufen und das aktuell groesste Element gespeichert.</p>
+<hr>
+<h2>Aufgabe 3: Gruppieren mit Map (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Mitarbeiter</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>name;
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>abteilung;
+}
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Mitarbeiter<span style="color: #666666">&gt;&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">gruppiere</span>(List<span style="color: #666666">&lt;</span>Mitarbeiter<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>liste)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Mitarbeiter<span style="color: #666666">&gt;&gt;</span><span style="color: #bbbbbb"> </span>map<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>HashMap<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// TODO: Mitarbeiter nach Abteilung gruppieren</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>map;
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Mitarbeiter<span style="color: #666666">&gt;&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">gruppiere</span>(List<span style="color: #666666">&lt;</span>Mitarbeiter<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>liste)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Mitarbeiter<span style="color: #666666">&gt;&gt;</span><span style="color: #bbbbbb"> </span>map<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>HashMap<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Mitarbeiter<span style="color: #bbbbbb"> </span>m<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>liste)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>map.<span style="color: #4070a0">computeIfAbsent</span>(m.<span style="color: #4070a0">abteilung</span>,<span style="color: #bbbbbb"> </span>k<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>()).<span style="color: #4070a0">add</span>(m);
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>map;
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p><code>computeIfAbsent</code> erstellt bei Bedarf die Liste pro Abteilung und fuegt dann den Mitarbeiter hinzu.</p>
+<hr>
+<h2>Aufgabe 4: Code-Analyse - TreeSet (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Set<span style="color: #666666">&lt;</span>Integer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>set<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>TreeSet<span style="color: #666666">&lt;&gt;</span>();
+set.<span style="color: #4070a0">add</span>(<span style="color: #40a070">5</span>);
+set.<span style="color: #4070a0">add</span>(<span style="color: #40a070">1</span>);
+set.<span style="color: #4070a0">add</span>(<span style="color: #40a070">3</span>);
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(set);
+</code></pre></div>
+
+<p>a) Welche Ausgabe erwartest du? <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_</p>
+<p>b) Warum ist die Reihenfolge so? <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_</p>
+<h3>Musterloesung</h3>
+<p>a) <code>[1, 3, 5]</code></p>
+<p>b) <code>TreeSet</code> sortiert Elemente automatisch nach natuerlicher Ordnung.</p>
+<h3>Erlaeuterung</h3>
+<p>Im Gegensatz zu <code>HashSet</code> ist die Reihenfolge bei <code>TreeSet</code> sortiert.</p>
+<hr>
+<h2>Aufgabe 5: Duplikate entfernen (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p>Vervollstaendige:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>namen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>List.<span style="color: #4070a0">of</span>(<span style="color: #4070a0">&quot;A&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;B&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;A&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;C&quot;</span>);
+
+<span style="color: #60a0b0; font-style: italic">// Entferne Duplikate:</span>
+Set<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>unique<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>________________________________;
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Set<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>unique<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>LinkedHashSet<span style="color: #666666">&lt;&gt;</span>(namen);
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p><code>LinkedHashSet</code> entfernt Duplikate und behaelt die erste Reihenfolge (<code>A, B, C</code>).</p>
+<hr>
+<h2>Aufgabe 6: Fehlersuche (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #bbbbbb"> </span>zahlen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList();
+zahlen.<span style="color: #4070a0">add</span>(<span style="color: #40a070">1</span>);
+zahlen.<span style="color: #4070a0">add</span>(<span style="color: #4070a0">&quot;zwei&quot;</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// FEHLER</span>
+</code></pre></div>
+
+<p>Was ist das Problem, und wie loest du es?</p>
+<hr>
+<h3>Musterloesung</h3>
+<p>Problem: Rohtypen (<code>List</code> ohne Generics) erlauben gemischte Typen und fuehren spaeter zu Laufzeitfehlern.</p>
+<p>Korrekt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Integer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>zahlen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+zahlen.<span style="color: #4070a0">add</span>(<span style="color: #40a070">1</span>);
+<span style="color: #60a0b0; font-style: italic">// zahlen.add(&quot;zwei&quot;); // Compilerfehler, daher sicherer</span>
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Generics sorgen fuer Typsicherheit bereits zur Compile-Zeit.</p>
+<hr>
+<p><strong>Viel Erfolg!</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

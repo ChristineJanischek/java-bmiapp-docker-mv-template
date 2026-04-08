@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Assoziationen_3N</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Assoziationen &amp; Bidirektionale Beziehungen</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Deklaration bidirektionaler Assoziationen (5 Punkte)</h2>
+<p><strong>Thema:</strong> Aufbau von Klassen mit gegenseitigen Verweisen</p>
+<p>Gegeben sind zwei Klassen <code>Arzt</code> und <code>Patient</code>. Ein Arzt kann viele Patienten haben, und jeder Patient kennt seinen Arzt (bidirektionale 1:N-Beziehung).</p>
+<p>a) Ergänze die fehlenden Attribut-Deklarationen in beiden Klassen:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Arzt</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>name;
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Attribut für die Liste aller zugeordneten Patienten:</span>
+<span style="color: #bbbbbb">    </span>_______________________________________________
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Arzt</span>(String<span style="color: #bbbbbb"> </span>name)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">name</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>name;
+<span style="color: #bbbbbb">        </span>_______________________________________________
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Patient</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>vorname;
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Attribut für den zugeordneten Arzt (Rückverweis):</span>
+<span style="color: #bbbbbb">    </span>_______________________________________________
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Patient</span>(String<span style="color: #bbbbbb"> </span>vorname)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">vorname</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>vorname;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>b) Erkläre in 1–2 Sätzen, was den Unterschied zu einer <strong>unidirektionalen</strong> Beziehung ausmacht:</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 2: Zugriffsmethoden &amp; Zuordnung (6 Punkte)</h2>
+<p><strong>Thema:</strong> Konsistente Verwaltung beider Richtungen</p>
+<p>Bei bidirektionalen Beziehungen muss beim Hinzufügen immer <strong>beide Seiten</strong> aktualisiert werden.</p>
+<p>a) Vervollständige die Methode <code>addPatient()</code> in der Klasse <code>Arzt</code>:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">addPatient</span>(Patient<span style="color: #bbbbbb"> </span>patient)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// 1. Patient zur Liste des Arztes hinzufügen:</span>
+<span style="color: #bbbbbb">    </span>_______________________________________________
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// 2. Rückverweis beim Patienten setzen:</span>
+<span style="color: #bbbbbb">    </span>_______________________________________________
+}
+</code></pre></div>
+
+<p>b) Ordne die Beschreibungen den Codeschnipseln zu. Schreibe den Buchstaben in die Klammer.</p>
+<p><strong>Beschreibungen:</strong><br>
+- <strong>(a)</strong> Greift auf den Arzt eines Patienten zu<br>
+- <strong>(b)</strong> Gibt alle Patienten eines Arztes zurück<br>
+- <strong>(c)</strong> Fügt einen Patienten hinzu und setzt den Rückverweis<br>
+- <strong>(d)</strong> Prüft, ob ein Patient bereits in der Liste ist</p>
+<table>
+<thead>
+<tr>
+<th>Codeschnipsel</th>
+<th>Buchstabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>arzt.addPatient(patient)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>patient.getArzt()</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>arzt.getPatienten()</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>arzt.getPatienten().contains(patient)</code></td>
+<td>( )</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Aufgabe 3: Code-Analyse (bidirektionale Beziehung) (8 Punkte)</h2>
+<p><strong>Thema:</strong> Nachvollziehen von Zuständen bei bidirektionalen Assoziationen</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Arzt<span style="color: #bbbbbb"> </span>arzt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Arzt(<span style="color: #4070a0">&quot;Dr. Weber&quot;</span>);
+Patient<span style="color: #bbbbbb"> </span>p1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Patient(<span style="color: #4070a0">&quot;Klaus&quot;</span>);
+Patient<span style="color: #bbbbbb"> </span>p2<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Patient(<span style="color: #4070a0">&quot;Maria&quot;</span>);
+Patient<span style="color: #bbbbbb"> </span>p3<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Patient(<span style="color: #4070a0">&quot;Stefan&quot;</span>);
+
+arzt.<span style="color: #4070a0">addPatient</span>(p1);
+arzt.<span style="color: #4070a0">addPatient</span>(p2);
+arzt.<span style="color: #4070a0">addPatient</span>(p3);
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Anzahl Patienten: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>arzt.<span style="color: #4070a0">getPatienten</span>().<span style="color: #4070a0">size</span>());
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Arzt von Klaus: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>p1.<span style="color: #4070a0">getArzt</span>().<span style="color: #4070a0">getName</span>());
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Arzt von Maria: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>p2.<span style="color: #4070a0">getArzt</span>().<span style="color: #4070a0">getName</span>());
+
+arzt.<span style="color: #4070a0">getPatienten</span>().<span style="color: #4070a0">remove</span>(p2);
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Anzahl nach Entfernen: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>arzt.<span style="color: #4070a0">getPatienten</span>().<span style="color: #4070a0">size</span>());
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was gibt die <strong>erste</strong> Ausgabe aus?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>b) Was geben die <strong>zweite</strong> und <strong>dritte</strong> Ausgabe aus?</p>
+<p>Antwort 2: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>___</p>
+<p>Antwort 3: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>___</p>
+<p>c) Was gibt die <strong>vierte</strong> Ausgabe aus?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>d) Was ist nach <code>arzt.getPatienten().remove(p2)</code> der Wert von <code>p2.getArzt()</code>?<br>
+(Beachte: nur die Arzt-Liste wurde aktualisiert, nicht der Rückverweis von p2.)</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>e) Erkläre in 1–2 Sätzen, was bei einer <strong>vollständigen</strong> bidirektionalen Entfernung zusätzlich gemacht werden müsste:</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 4: Verschachtelte Ausgabe (6 Punkte)</h2>
+<p><strong>Thema:</strong> Ausgabe aller Objekte in verschachtelten Collection-Strukturen</p>
+<p>Gegeben ist eine Liste von Ärzten, jeder mit einer Liste von Patienten:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Arzt<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>aerzte<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+Arzt<span style="color: #bbbbbb"> </span>a1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Arzt(<span style="color: #4070a0">&quot;Dr. Huber&quot;</span>);
+Arzt<span style="color: #bbbbbb"> </span>a2<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Arzt(<span style="color: #4070a0">&quot;Dr. Klein&quot;</span>);
+
+a1.<span style="color: #4070a0">addPatient</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Patient(<span style="color: #4070a0">&quot;Anna&quot;</span>));
+a1.<span style="color: #4070a0">addPatient</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Patient(<span style="color: #4070a0">&quot;Bernd&quot;</span>));
+a2.<span style="color: #4070a0">addPatient</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Patient(<span style="color: #4070a0">&quot;Clara&quot;</span>));
+
+aerzte.<span style="color: #4070a0">add</span>(a1);
+aerzte.<span style="color: #4070a0">add</span>(a2);
+
+<span style="color: #60a0b0; font-style: italic">// Ausgabe hier schreiben:</span>
+</code></pre></div>
+
+<p>a) Schreibe eine <strong>verschachtelte Schleife</strong> (Schleife in Schleife), die folgende Ausgabe erzeugt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Dr. Huber:
+  - Anna
+  - Bernd
+Dr. Klein:
+  - Clara
+</code></pre></div>
+
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Verschachtelte Schleife:</span>
+</code></pre></div>
+
+<p>b) Wie viele Schleifendurchläufe gibt es insgesamt (äußere + innere)?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Deklaration bidirektionaler Assoziationen</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>2. Zugriffsmethoden &amp; Zuordnung</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Code-Analyse</td>
+<td>8</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Verschachtelte Ausgabe</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

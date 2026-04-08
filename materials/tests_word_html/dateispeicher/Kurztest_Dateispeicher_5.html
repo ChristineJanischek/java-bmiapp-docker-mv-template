@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Dateispeicher_5</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Persistente Datenspeicherung - JSON-Datei lesen/schreiben mit Strukturtrennung</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: JSON-Datenbank schreiben - Struktur und Daten trennen (5 Punkte)</h2>
+<p><strong>Thema:</strong> Trenne Datenbankschema und Nutzdaten in zwei Dateien</p>
+<p>Ein Team speichert bisher alles in eine Datei. Das soll verbessert werden.</p>
+<p>Es sollen zwei Dateien geschrieben werden:<br>
+- <code>personen.schema.json</code> (Struktur)<br>
+- <code>personen.data.json</code> (Daten)</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">JsonDateiDatenbankWriter</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speicherePersonenDatenbank</span>(List<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>personen,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>ordner)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>schemaPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;personen.schema.json&quot;</span>);
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>datenPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;personen.data.json&quot;</span>);
+
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">createDirectories</span>(Paths.<span style="color: #4070a0">get</span>(ordner));
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// 1) Schema-JSON (Struktur) erstellen:</span>
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>schemaJson<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;&quot;&quot;</span>
+<span style="color: #4070a0">            {</span>
+<span style="color: #4070a0">              &quot;entity&quot;: &quot;person&quot;,</span>
+<span style="color: #4070a0">              &quot;version&quot;: 1,</span>
+<span style="color: #4070a0">              &quot;fields&quot;: [</span>
+<span style="color: #4070a0">                {&quot;name&quot;: &quot;id&quot;, &quot;type&quot;: &quot;int&quot;, &quot;required&quot;: true},</span>
+<span style="color: #4070a0">                {&quot;name&quot;: &quot;vorname&quot;, &quot;type&quot;: &quot;string&quot;, &quot;required&quot;: true},</span>
+<span style="color: #4070a0">                {&quot;name&quot;: &quot;nachname&quot;, &quot;type&quot;: &quot;string&quot;, &quot;required&quot;: true},</span>
+<span style="color: #4070a0">                {&quot;name&quot;: &quot;alter&quot;, &quot;type&quot;: &quot;int&quot;, &quot;required&quot;: false}</span>
+<span style="color: #4070a0">              ]</span>
+<span style="color: #4070a0">            }</span>
+<span style="color: #4070a0">            &quot;&quot;&quot;</span>;
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// 2) Daten-JSON aus personen erzeugen:</span>
+<span style="color: #bbbbbb">        </span>StringBuilder<span style="color: #bbbbbb"> </span>datenJson<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>StringBuilder();
+<span style="color: #bbbbbb">        </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;{\n  \&quot;personen\&quot;: [\n&quot;</span>);
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>personen.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>Person<span style="color: #bbbbbb"> </span>p<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>personen.<span style="color: #4070a0">get</span>(i);
+
+<span style="color: #bbbbbb">            </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;    {&quot;</span>)
+<span style="color: #bbbbbb">                     </span>.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;id\&quot;: &quot;</span>).<span style="color: #4070a0">append</span>(p.<span style="color: #4070a0">getId</span>()).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;, &quot;</span>)
+<span style="color: #bbbbbb">                     </span>.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;vorname\&quot;: \&quot;&quot;</span>).<span style="color: #4070a0">append</span>(p.<span style="color: #4070a0">getVorname</span>()).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;, &quot;</span>)
+<span style="color: #bbbbbb">                     </span>.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;nachname\&quot;: \&quot;&quot;</span>).<span style="color: #4070a0">append</span>(p.<span style="color: #4070a0">getNachname</span>()).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;, &quot;</span>)
+<span style="color: #bbbbbb">                     </span>.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;alter\&quot;: &quot;</span>).<span style="color: #4070a0">append</span>(p.<span style="color: #4070a0">getAlter</span>())
+<span style="color: #bbbbbb">                     </span>.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;}&quot;</span>);
+
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>personen.<span style="color: #4070a0">size</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;,&quot;</span>);
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">            </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>}
+
+<span style="color: #bbbbbb">        </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;  ]\n}&quot;</span>);
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// TODO: Schreibe beide Dateien mit UTF-8:</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">//  - schemaJson -&gt; schemaPfad</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">//  - datenJson  -&gt; datenPfad</span>
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>Vervollständige die Schreiblogik.</p>
+<hr>
+<h2>Aufgabe 2: JSON-Datenbank lesen und gegen Struktur prüfen (4 Punkte)</h2>
+<p><strong>Thema:</strong> Datenqualität beim Laden sicherstellen</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">JsonDateiDatenbankReader</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">ladePersonenDatenbank</span>(String<span style="color: #bbbbbb"> </span>ordner)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>schemaPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;personen.schema.json&quot;</span>);
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>datenPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;personen.data.json&quot;</span>);
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Lies beide Dateien:</span>
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>schema<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readString</span>(schemaPfad,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>daten<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readString</span>(datenPfad,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Einfache Strukturpruefung (ohne externe JSON-Library):</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(<span style="color: #666666">!</span>schema.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;\&quot;fields\&quot;&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span><span style="color: #666666">!</span>schema.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;\&quot;entity\&quot;&quot;</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>IOException(<span style="color: #4070a0">&quot;Schema-Datei ungueltig&quot;</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>}
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// TODO:</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// - pruefe, ob daten den Container &quot;personen&quot; enthaelt</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// - pruefe, ob Pflichtfelder id, vorname, nachname als Keys vorhanden sind</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// - gib vorerst eine leere Liste zurueck</span>
+
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 3: Code-Analyse - Trennung verletzt? (5 Punkte)</h2>
+<p><strong>Thema:</strong> Architekturfehler erkennen</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">FalscheJsonDb</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichern</span>(List<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>personen,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>json<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;{&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span>
+<span style="color: #bbbbbb">            </span><span style="color: #4070a0">&quot;\&quot;schema\&quot;: {\&quot;fields\&quot;: [\&quot;id\&quot;,\&quot;vorname\&quot;,\&quot;nachname\&quot;]},&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span>
+<span style="color: #bbbbbb">            </span><span style="color: #4070a0">&quot;\&quot;daten\&quot;: [&quot;</span>;
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Person<span style="color: #bbbbbb"> </span>p<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>personen)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>json<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;{\&quot;id\&quot;:&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>p.<span style="color: #4070a0">getId</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;,\&quot;vorname\&quot;:\&quot;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>p.<span style="color: #4070a0">getVorname</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span>
+<span style="color: #bbbbbb">                    </span><span style="color: #4070a0">&quot;\&quot;,\&quot;nachname\&quot;:\&quot;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>p.<span style="color: #4070a0">getNachname</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\&quot;},&quot;</span>;
+<span style="color: #bbbbbb">        </span>}
+
+<span style="color: #bbbbbb">        </span>json<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;]}&quot;</span>;
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">writeString</span>(Paths.<span style="color: #4070a0">get</span>(datei),<span style="color: #bbbbbb"> </span>json,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Nenne zwei Probleme dieses Ansatzes bezogen auf Wartbarkeit und Datenintegritaet.</p>
+<hr>
+<hr>
+<p>b) Wie sollte die Trennung von Struktur und Daten stattdessen konkret aussehen?</p>
+<hr>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 4: Fehlersuche - JSON kaputt geschrieben (5 Punkte)</h2>
+<p><strong>Thema:</strong> Typische Schreibfehler bei Dateispeicherung</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">schreibeMesswerte</span>(List<span style="color: #666666">&lt;</span>Double<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>bmiWerte,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>StringBuilder<span style="color: #bbbbbb"> </span>json<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>StringBuilder();
+<span style="color: #bbbbbb">    </span>json.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;{\&quot;messwerte\&quot;:[&quot;</span>);
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>bmiWerte.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>json.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;{\&quot;bmi\&quot;:&quot;</span>).<span style="color: #4070a0">append</span>(bmiWerte.<span style="color: #4070a0">get</span>(i)).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;}&quot;</span>);
+<span style="color: #bbbbbb">        </span>json.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;,&quot;</span>);<span style="color: #bbbbbb"> </span><span style="color: #60a0b0; font-style: italic">// Fehler?</span>
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span>json.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;]}&quot;</span>);
+<span style="color: #bbbbbb">    </span>Files.<span style="color: #4070a0">writeString</span>(Paths.<span style="color: #4070a0">get</span>(datei),<span style="color: #bbbbbb"> </span>json.<span style="color: #4070a0">toString</span>(),<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+}
+</code></pre></div>
+
+<p><strong>Aufgabe:</strong><br>
+1. Erklaere den Fehler.<br>
+2. Zeige eine korrigierte Schleife.</p>
+<hr>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 5: Best Practices fuer JSON-Datei-Datenbanken (4 Punkte)</h2>
+<p><strong>Thema:</strong> Robuste Umsetzung im Projekt</p>
+<p>Nenne vier Best Practices und begruende jeweils kurz:</p>
+<ol>
+<li>
+<hr>
+</li>
+<li>
+<hr>
+</li>
+<li>
+<hr>
+</li>
+<li>
+<hr>
+</li>
+</ol>
+<hr>
+<h2>Aufgabe 6: Kurzaufgabe - Backup vor dem Schreiben (2 Punkte)</h2>
+<p><strong>Thema:</strong> Sicherheitskopie vor Ueberschreiben</p>
+<p>Ergaenze die Methode so, dass vor dem Ueberschreiben von <code>personen.data.json</code><br>
+eine Kopie <code>personen.data.json.bak</code> erstellt wird (falls Datei existiert).</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">sicherSpeichern</span>(Path<span style="color: #bbbbbb"> </span>datenPfad,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>neuerInhalt)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// TODO:</span>
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// 1) Falls datenPfad existiert: Backup anlegen</span>
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// 2) neuen Inhalt schreiben</span>
+}
+</code></pre></div>
+
+<hr>
+<h2>Erwartungshorizont (Kurzueberblick)</h2>
+<ul>
+<li><strong>Sehr gut (22-25 Punkte):</strong> Saubere Trennung von Struktur/Daten, robuste Dateioperationen,<br>
+  korrekte Fehleranalyse und klare Best-Practice-Argumentation.</li>
+<li><strong>Gut (18-21 Punkte):</strong> Trennung verstanden, kleinere technische Ungenauigkeiten,<br>
+  aber funktional richtige Loesungen.</li>
+<li><strong>Ausreichend (13-17 Punkte):</strong> Grundidee erkennbar, Luecken bei Validierung/Fehlerfaellen.</li>
+<li><strong>Unter 13 Punkte:</strong> Wichtige Konzepte (Trennung, gueltiges JSON, Dateisicherheit) fehlen.</li>
+</ul>
+</body>
+</html>

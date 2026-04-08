@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Vererbung_3_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Vererbung in ERP-Systemen - Artikelverwaltung - LÖSUNGEN &amp; BEPUNKTUNG</h1>
+<p><strong>Dokumenttyp:</strong> Lehrerversion mit Musterlösungen und Bewertungskriterien</p>
+<hr>
+<h2>Aufgabe 1: Produkttypen in einem Lagerverwaltungssystem (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Physische und digitale Produkte</p>
+<p>In einem ERP-System gibt es verschiedene Artikeltypen. Zeichne die Vererbungshierarchie auf:</p>
+<p>Basisklasse: <strong>Artikel</strong><br>
+Unterklassen: <strong>PhysischerArtikel</strong>, <strong>DigitalesProdukt</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Artikel</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>artikelNummer;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>bezeichnung;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preis;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Artikel</span>(String<span style="color: #bbbbbb"> </span>artikelNummer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>bezeichnung,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preis)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">artikelNummer</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>artikelNummer;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">bezeichnung</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>bezeichnung;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">preis</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>preis;
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #60a0b0; font-style: italic">// Unterklasse 1:</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">PhysischerArtikel</span><span style="color: #bbbbbb"> </span>__________________<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>gewicht;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// in kg</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>lagerbestand;
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Konstruktor</span>
+}
+
+<span style="color: #60a0b0; font-style: italic">// Unterklasse 2:</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">DigitalesProdukt</span><span style="color: #bbbbbb"> </span>__________________<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>downloadLink;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>maxDownloads;
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Konstruktor</span>
+}
+</code></pre></div>
+
+<p>Erkläre, warum zwei unterschiedliche Unterklassen nötig sind:</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">PhysischerArtikel</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Artikel<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>gewicht;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>lagerbestand;
+}
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">DigitalesProdukt</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Artikel<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>downloadLink;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>maxDownloads;
+}
+</code></pre></div>
+
+<p><strong>Erklärung (2 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Physische und digitale Produkte haben unterschiedliche Attribute und 
+unterschiedliche Geschäftslogik (Versand, Lagerverwaltung, Downloads).
+Durch separate Unterklassen können diese Unterschiede abgebildet werden, 
+während gemeinsame Attribute (Artikelnummer, Preis) in der Basisklasse bleiben.
+</code></pre></div>
+
+<h3>Bewertung (4 Punkte)</h3>
+<p><strong>Hierarchie (2 Punkte):</strong><br>
+- ✓ Beide <code>extends Artikel</code> → 2 Punkte<br>
+- ✗ Falsche Vererbungsrichtung → 0 Punkte</p>
+<p><strong>Erklärung (2 Punkte):</strong><br>
+- <strong>2 Punkte:</strong> Unterschiedliche Logik + separate Attribute erwähnt<br>
+- <strong>1 Punkt:</strong> Grundidee erkannt<br>
+- <strong>0 Punkte:</strong> Falsch</p>
+<hr>
+<h2>Aufgabe 2: Konstruktoren für verschiedene Artikeltypen (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Unterschiedliche Attribute, ein super()-Aufruf</p>
+<p>Vervollständige die Konstruktoren:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">PhysischerArtikel</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Artikel<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>gewicht;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>lagerbestand;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">PhysischerArtikel</span>(String<span style="color: #bbbbbb"> </span>artikelNummer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>bezeichnung,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preis,
+<span style="color: #bbbbbb">                             </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>gewicht,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>lagerbestand)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// super() Aufruf:</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Eigene Attribute setzen:</span>
+
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">DigitalesProdukt</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Artikel<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>downloadLink;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>maxDownloads;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">DigitalesProdukt</span>(String<span style="color: #bbbbbb"> </span>artikelNummer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>bezeichnung,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preis,
+<span style="color: #bbbbbb">                            </span>String<span style="color: #bbbbbb"> </span>downloadLink,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>maxDownloads)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// super() Aufruf:</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Eigene Attribute setzen:</span>
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Bonus (+1 Punkt):</strong> Was ist der Unterschied bei der Initialisierung zwischen beiden Unterklassen?</p>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<p><strong>PhysischerArtikel:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">PhysischerArtikel</span>(String<span style="color: #bbbbbb"> </span>artikelNummer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>bezeichnung,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preis,
+<span style="color: #bbbbbb">                         </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>gewicht,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>lagerbestand)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">super</span>(artikelNummer,<span style="color: #bbbbbb"> </span>bezeichnung,<span style="color: #bbbbbb"> </span>preis);
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">gewicht</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>gewicht;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">lagerbestand</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>lagerbestand;
+}
+</code></pre></div>
+
+<p><strong>DigitalesProdukt:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">DigitalesProdukt</span>(String<span style="color: #bbbbbb"> </span>artikelNummer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>bezeichnung,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preis,
+<span style="color: #bbbbbb">                        </span>String<span style="color: #bbbbbb"> </span>downloadLink,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>maxDownloads)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">super</span>(artikelNummer,<span style="color: #bbbbbb"> </span>bezeichnung,<span style="color: #bbbbbb"> </span>preis);
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">downloadLink</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>downloadLink;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">maxDownloads</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>maxDownloads;
+}
+</code></pre></div>
+
+<h3>Bewertung (4 Punkte)</h3>
+<p><strong>Konstruktor 1 (2 Punkte):</strong><br>
+- ✓ super(artikelNummer, bezeichnung, preis) → 1 Punkt<br>
+- ✓ Attribute setzen → 1 Punkt</p>
+<p><strong>Konstruktor 2 (2 Punkte):</strong><br>
+- ✓ super(artikelNummer, bezeichnung, preis) → 1 Punkt<br>
+- ✓ Attribute setzen → 1 Punkt</p>
+<hr>
+<p><strong>Bonus-Frage (+1 Punkt):</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Physische Artikel benötigen Gewicht und Lagerbestand.
+Digitale Produkte benötigen Download-Link und maximale Downloads.
+Der super()-Aufruf ist identisch, aber die Eigenattribute unterscheiden sich.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ Unterschiedliche Attribute erkannt → +1 Punkt</p>
+<hr>
+<h2>Aufgabe 3: Versandkosten und überschriebene Methoden (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Unterschiedliche Geschäftslogik je Produkttyp</p>
+<p>In der Basisklasse gibt es:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getVersandkosten</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Basisimplementierung</span>
+}
+</code></pre></div>
+
+<p>a) Implementiere getVersandkosten() für beide Unterklassen:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// PhysischerArtikel (Versandkosten: 5€ + 0,50€ pro kg):</span>
+
+
+<span style="color: #60a0b0; font-style: italic">// DigitalesProdukt (keine Versandkosten):</span>
+</code></pre></div>
+
+<p>b) Schreibe eine Methode <code>getGesamtpreis()</code>, die Preis + Versandkosten zurückgibt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Methode für Basisklasse Artikel:</span>
+</code></pre></div>
+
+<hr>
+<h3>Musterlösung</h3>
+<p><strong>a) getVersandkosten() (3 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// PhysischerArtikel:</span>
+<span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getVersandkosten</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">5.00</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>(gewicht<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.50</span>);
+}
+
+<span style="color: #60a0b0; font-style: italic">// DigitalesProdukt:</span>
+<span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getVersandkosten</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.0</span>;
+}
+</code></pre></div>
+
+<p><strong>Bewertung (3 Punkte):</strong><br>
+- <strong>1,5 Punkte:</strong> PhysischerArtikel-Berechnung korrekt (5€ + 0,50€/kg)<br>
+- <strong>1,5 Punkte:</strong> DigitalesProdukt korrekt (0€)<br>
+- <strong>0,5 Punkte Abzug:</strong> @Override fehlt</p>
+<hr>
+<p><strong>b) getGesamtpreis() (2 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getGesamtpreis</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>preis<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>getVersandkosten();
+}
+</code></pre></div>
+
+<p><strong>Bewertung (2 Punkte):</strong><br>
+- <strong>2 Punkte:</strong> Preis + Versandkosten korrekt<br>
+- <strong>1 Punkt:</strong> Logik richtig, aber kleine Fehler</p>
+<hr>
+<h2>Aufgabe 4: Code-Analyse - Bestellabwicklung (6 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Polymorphie bei Rechnungsstellung</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Artikel<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>bestellung<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+bestellung.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Artikel(<span style="color: #4070a0">&quot;A001&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;USB-Kabel&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">10.00</span>));
+bestellung.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>PhysischerArtikel(<span style="color: #4070a0">&quot;A002&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Laptop&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">800.00</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2.5</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span>));
+bestellung.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>DigitalesProdukt(<span style="color: #4070a0">&quot;A003&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;E-Book&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">15.00</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;https://...&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">999</span>));
+
+<span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>gesamtBetrag<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Artikel<span style="color: #bbbbbb"> </span>artikel<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>bestellung)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>gesamtBetrag<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span>artikel.<span style="color: #4070a0">getGesamtpreis</span>();
+}
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Rechnungsbetrag: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>gesamtBetrag<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;€&quot;</span>);
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Berechne die Gesamtpreise für jeden Artikel (PhysischerArtikel mit Versandkosten!):</p>
+<p>Antwort:<br>
+A001 (Artikel): <strong><em>_</em></strong><strong><em>_</em>_<br>
+A002 (PhysischerArtikel): </strong><strong><em>_</em></strong>____ (+ 5€ + 2,5<em>0,50€ Versand)<br>
+A003 (DigitalesProdukt): <strong><em>_</em></strong>______<br>
+</em><em>Gesamtrechnungsbetrag: <strong><em>_</em></strong>______</em>*</p>
+<p>b) Welche Rolle spielt Polymorphie hier? Erkläre in 1-2 Sätzen:</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösungen</h3>
+<p><strong>a) Preisberechnung (4 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>A001 (Artikel): 10.00€ (keine Versandkosten)
+A002 (PhysischerArtikel): 800.00 + 5.00 + (2.5 * 0.50) = 800.00 + 5.00 + 1.25 = 806.25€
+A003 (DigitalesProdukt): 15.00€ (keine Versandkosten)
+
+Gesamtrechnungsbetrag: 10.00 + 806.25 + 15.00 = 831.25€
+</code></pre></div>
+
+<p><strong>Bewertung (4 Punkte):</strong><br>
+- <strong>1 Punkt:</strong> A001 korrekt<br>
+- <strong>2 Punkte:</strong> A002 mit Versandkosten-Berechnung korrekt<br>
+- <strong>1 Punkt:</strong> A003 korrekt<br>
+- **könnte 0,5 Punkte Abzug pro Rechenfehler)</p>
+<hr>
+<p><strong>b) Rolle der Polymorphie (2 Punkte):</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Durch Polymorphie können alle Artikel in einer Liste gespeichert werden.
+Jeder Artikel ruft seine eigene getGesamtpreis()-Methode auf - PhysischerArtikel 
+addiert Versandkosten, DigitalesProdukt nicht. Die for-Schleife muss nicht 
+zwischen Typen unterscheiden.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>2 Punkte:</strong> Polymorphie erklärt + Vereinfachung der Schleife<br>
+- <strong>1 Punkt:</strong> Grundidee erkannt</p>
+<hr>
+<h2>Aufgabe 5: Lagerverwaltung und Verfügbarkeitsprüfung (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Unterschiedliche Verfügbarkeitsprüfung nach Produkttyp</p>
+<p>Schreibe eine Methode oder Schleife, die prüft, ob ein PhysischerArtikel verfügbar ist (Lagerbestand &gt; 0):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Methode oder Schleife:</span>
+</code></pre></div>
+
+<p>Können DigitalProdukte "nicht verfügbar" sein? Begründe kurz:</p>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<p><strong>Methode/Schleife (2 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Artikel<span style="color: #bbbbbb"> </span>artikel<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>bestellung)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(artikel<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">instanceof</span><span style="color: #bbbbbb"> </span>PhysischerArtikel)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>PhysischerArtikel<span style="color: #bbbbbb"> </span>physical<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>(PhysischerArtikel)<span style="color: #bbbbbb"> </span>artikel;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(physical.<span style="color: #4070a0">getLagerbestand</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(physical.<span style="color: #4070a0">getBezeichnung</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; verfügbar&quot;</span>);
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>oder (als Methode):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">istVerfügbar</span>(PhysischerArtikel<span style="color: #bbbbbb"> </span>artikel)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>artikel.<span style="color: #4070a0">getLagerbestand</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+}
+</code></pre></div>
+
+<p><strong>Bewertung (2 Punkte):</strong><br>
+- <strong>2 Punkte:</strong> instanceof + Typecast + Lagerbestand-Prüfung<br>
+- <strong>1 Punkt:</strong> Grundkonzept erkannt</p>
+<hr>
+<p><strong>Frage DigitalProdukte (1 Punkt):</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Nein, DigitaleProdukte können (in diesem Modell) nicht &quot;nicht verfügbar&quot; sein.
+Sie haben keine Lagerbeschränkung - eine unbegrenzte Anzahl kann heruntergeladen werden
+(oder maxDownloads prüfen ist alternative Logik).
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ Richtige Begründung → 1 Punkt</p>
+<hr>
+<h2>Aufgabe 6: Fehlersuche - Automatische Verwaltung (2 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Häufige Fehler bei polymorphen Operationen</p>
+<p>Gegeben ist folgender fehlerhafter Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">reduziertLagerbestand</span>(Artikel<span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>menge)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>artikel.<span style="color: #4070a0">lagerbestand</span><span style="color: #bbbbbb"> </span><span style="color: #666666">-=</span><span style="color: #bbbbbb"> </span>menge;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER</span>
+}
+</code></pre></div>
+
+<p>Erkläre das Problem und schreibe eine korrigierte Version:</p>
+<p><strong>Problem:</strong></p>
+<hr>
+<hr>
+<p><strong>Korrigierte Version:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Besser so:</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Produkttypen-Hierarchie</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>2. Unterschiedliche Konstruktoren</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Überschriebene Geschäftslogik</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Polymorphie in Rechnungsstellung</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>5. Verfügbarkeitsprüfung</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche &amp; Korrektur</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Musterlösung</h3>
+<p><strong>Problem (1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Das Attribut &#39;lagerbestand&#39; ist protected und nur in PhysischerArtikel vorhanden.
+Der Parameter artikel ist vom Typ Artikel - man kann nicht auf 
+artkel.lagerbestand zugreifen. Außerdem: nicht alle Artikel haben einen Lagerbestand.
+</code></pre></div>
+
+<p><strong>Korrigierte Version (1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">reduziertLagerbestand</span>(PhysischerArtikel<span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>menge)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(artikel.<span style="color: #4070a0">getLagerbestand</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;=</span><span style="color: #bbbbbb"> </span>menge)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>artikel.<span style="color: #4070a0">setLagerbestand</span>(artikel.<span style="color: #4070a0">getLagerbestand</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span>menge);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>oder mit Typprüfung:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">reduziertLagerbestand</span>(Artikel<span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>menge)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(artikel<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">instanceof</span><span style="color: #bbbbbb"> </span>PhysischerArtikel)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>PhysischerArtikel<span style="color: #bbbbbb"> </span>physical<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>(PhysischerArtikel)<span style="color: #bbbbbb"> </span>artikel;
+<span style="color: #bbbbbb">        </span>physical.<span style="color: #4070a0">setLagerbestand</span>(physical.<span style="color: #4070a0">getLagerbestand</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span>menge);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>1 Punkt:</strong> Problem erklärt (Typprobleme + nicht alle Artikel)<br>
+- <strong>1 Punkt:</strong> Korrigierte Implementierung mit richtigem Typ oder instanceof</p>
+<hr>
+<h2>GESAMTBEWERTUNG</h2>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Max. Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Produkttypen-Hierarchie</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2. Unterschiedliche Konstruktoren</td>
+<td>5 (+1 Bonus)</td>
+</tr>
+<tr>
+<td>3. Überschriebene Geschäftslogik</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4. Polymorphie in Rechnungsstellung</td>
+<td>6</td>
+</tr>
+<tr>
+<td>5. Verfügbarkeitsprüfung</td>
+<td>3</td>
+</tr>
+<tr>
+<td>6. Fehlersuche &amp; Korrektur</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>GESAMT</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Bewertungsskala</h2>
+<table>
+<thead>
+<tr>
+<th>Prozent</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>90-100%</td>
+<td>1</td>
+</tr>
+<tr>
+<td>80-89%</td>
+<td>2</td>
+</tr>
+<tr>
+<td>70-79%</td>
+<td>3</td>
+</tr>
+<tr>
+<td>60-69%</td>
+<td>4</td>
+</tr>
+<tr>
+<td>50-59%</td>
+<td>5</td>
+</tr>
+<tr>
+<td>&lt; 50%</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notenschlüssel:</strong><br>
+- <strong>ab 23 Punkte:</strong> Note 1<br>
+- <strong>ab 20 Punkte:</strong> Note 2<br>
+- <strong>ab 18 Punkte:</strong> Note 3<br>
+- <strong>ab 15 Punkte:</strong> Note 4<br>
+- <strong>ab 13 Punkte:</strong> Note 5<br>
+- <strong>unter 13 Punkte:</strong> Note 6</p>
+<hr>
+<h2>Häufige Schülerfehler</h2>
+<h3>Fehler 1: Lagerbestand in Basisklasse</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Artikel</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>lagerbestand;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Nicht alle Artikel haben Lagerbestand!</span>
+}
+</code></pre></div>
+
+<p><strong>Handling:</strong> Schlechtes Design - 1 Punkt Abzug in Aufgabe 1</p>
+<h3>Fehler 2: Versandkosten-Berechnung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>gewicht<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.5</span>;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Korrekt, aber oft vergessen</span>
+<span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span>;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Gewicht-Anteil vergessen</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> 1 Punkt Abzug in Aufgabe 3a</p>
+<h3>Fehler 3: Falsche Preisberechnung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>A002: 800 + 6.25 = 806.25  // ← Falsch: 5.00 + (2.5*0.5) ≠ 6.25
+Korrekt: 5.00 + 1.25 = 6.25, also 806.25
+</code></pre></div>
+
+<p><strong>Handling:</strong> Rechenfehler → 0,5 Punkte abziehen</p>
+<h3>Fehler 4: Direkt auf lagerbestand zugreifen</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">reduziertLagerbestand</span>(Artikel<span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>menge)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>artikel.<span style="color: #4070a0">lagerbestand</span><span style="color: #bbbbbb"> </span><span style="color: #666666">-=</span><span style="color: #bbbbbb"> </span>menge;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Kompilierungsfehler!</span>
+}
+</code></pre></div>
+
+<p><strong>Handling:</strong> 0 Punkte in Aufgabe 6 (kritischer Fehler)</p>
+<hr>
+<h2>Lernziele</h2>
+<p>✓ <strong>Parallele Vererbung:</strong> Mehrere Unterklassen einer Basis<br>
+✓ <strong>Unterschiedliche Attribute:</strong> Spezialisierte Eigenschaften<br>
+✓ <strong>Überschriebene Logik:</strong> verschiedene Versandkosten<br>
+✓ <strong>Polymorphie in der Praxis:</strong> Rechnungsabwicklung<br>
+✓ <strong>Typprüfung:</strong> instanceof für spezialisierte Operationen<br>
+✓ <strong>Geschäftslogik-Design:</strong> Welche Attribute gehören wohin?  </p>
+<hr>
+<p><strong>Test erstellt:</strong> Version 1.0 (Feb 2026)<br>
+<strong>Kontext:</strong> ERP-System - Lagerverwaltung &amp; Rechnungsstellung<br>
+<strong>Schwierigkeitsgrad:</strong> Mittelschwer bis schwer<br>
+<strong>Praktische Relevanz:</strong> Sehr hoch (reale e-commerce/ERP-Szenarien)</p>
+</body>
+</html>

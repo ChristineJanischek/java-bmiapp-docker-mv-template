@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Komposition_Interface_3</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Komposition &amp; Interface - Versicherungssystem</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Interface für Versicherungsleistungen (4 Punkte)</h2>
+<p><strong>Thema:</strong> Gemeinsame Fähigkeiten verschiedener Versicherungen</p>
+<p>In einem Versicherungssystem gibt es verschiedene Versicherungstypen (Krankenversicherung, Autoversicherung, Haftpflicht). Alle können Beiträge berechnen und Schäden melden.</p>
+<p>a) Definiere ein Interface <code>Versicherung</code> mit den Methoden:<br>
+- <code>berechneBeitrag()</code> → gibt den monatlichen Beitrag zurück<br>
+- <code>meldeSchaden(double schadenshoehe)</code> → meldet einen Schaden</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Interface hier schreiben:</span>
+</code></pre></div>
+
+<p>b) Ordne zu (K = Komposition, V = Vererbung, I = Interface):</p>
+<p>Eine <code>Krankenversicherung</code> ist eine <code>Versicherung</code>. ( )<br>
+Eine <code>Police</code> hat mehrere <code>Versicherungen</code>. ( )<br>
+Eine <code>Versicherung</code> kann schadensfrei sein (zusätzliche Fähigkeit). ( )</p>
+<hr>
+<h2>Aufgabe 2: Komposition - Police mit mehreren Versicherungen (5 Punkte)</h2>
+<p><strong>Thema:</strong> Police besteht aus mehreren Versicherungsprodukten</p>
+<p>Eine Versicherungspolice kann mehrere Versicherungen enthalten (z.B. Kranken + Haftpflicht).</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Police</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>policeNummer;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Versicherung<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>versicherungen;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>Kunde<span style="color: #bbbbbb"> </span>kunde;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Komposition</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Police</span>(String<span style="color: #bbbbbb"> </span>policeNummer,<span style="color: #bbbbbb"> </span>Kunde<span style="color: #bbbbbb"> </span>kunde)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">policeNummer</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>policeNummer;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">kunde</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>kunde;
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Liste initialisieren:</span>
+
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">addVersicherung</span>(Versicherung<span style="color: #bbbbbb"> </span>v)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Versicherung hinzufügen:</span>
+
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getGesamtbeitrag</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Summe aller Beiträge berechnen:</span>
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>Vervollständige die Methoden und erkläre, warum Police Komposition nutzt:</p>
+<hr>
+<hr>
+<h2>Aufgabe 3: Interface für Schadensfreiheit (5 Punkte)</h2>
+<p><strong>Thema:</strong> Bonus für schadenfreie Jahre</p>
+<p>Nicht alle Versicherungen bieten Schadensfreiheitsrabatt. Definiere ein Interface <code>Schadensfrei</code>:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Interface Schadensfrei:</span>
+</code></pre></div>
+
+<p>Implementiere eine Klasse <code>Autoversicherung</code>, die <code>Schadensfrei</code> unterstützt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Autoversicherung</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">implements</span><span style="color: #bbbbbb"> </span>Versicherung,<span style="color: #bbbbbb"> </span>Schadensfrei<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>grundbeitrag;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>schadensfreieJahre;
+
+<span style="color: #bbbbbb">    </span><span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">berechneBeitrag</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Berechne Beitrag mit Rabatt (pro Jahr 5% Rabatt, max. 50%):</span>
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 4: Code-Analyse - Polymorphe Versicherungsverwaltung (6 Punkte)</h2>
+<p><strong>Thema:</strong> Verschiedene Versicherungen in einer Police</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Police<span style="color: #bbbbbb"> </span>police<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Police(<span style="color: #4070a0">&quot;P123&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Kunde(<span style="color: #4070a0">&quot;Max Müller&quot;</span>));
+
+police.<span style="color: #4070a0">addVersicherung</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Krankenversicherung(<span style="color: #40a070">250.00</span>));
+police.<span style="color: #4070a0">addVersicherung</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Autoversicherung(<span style="color: #40a070">180.00</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 3 schadensfreie Jahre</span>
+police.<span style="color: #4070a0">addVersicherung</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Haftpflicht(<span style="color: #40a070">80.00</span>));
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Monatlicher Gesamtbeitrag: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>police.<span style="color: #4070a0">getGesamtbeitrag</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;€&quot;</span>);
+
+<span style="color: #60a0b0; font-style: italic">// Schadensfreiheitsrabatte anzeigen:</span>
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Versicherung<span style="color: #bbbbbb"> </span>v<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>police.<span style="color: #4070a0">getVersicherungen</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(v<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">instanceof</span><span style="color: #bbbbbb"> </span>Schadensfrei)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>Schadensfrei<span style="color: #bbbbbb"> </span>sf<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>(Schadensfrei)<span style="color: #bbbbbb"> </span>v;
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Schadensfreie Jahre: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>sf.<span style="color: #4070a0">getSchadensfreieJahre</span>());
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Berechne den Gesamtbeitrag (Autoversicherung mit 5% Rabatt pro Jahr):</p>
+<p>Krankenversicherung: <strong><em>_</em></strong><strong><em>_</em>_<br>
+Autoversicherung (180€ - 15% Rabatt): </strong><strong><em>_</em></strong><strong><em>_<br>
+Haftpflicht: </em></strong><strong><em>_</em></strong>___<br>
+<strong>Gesamtbeitrag: <strong><em>_</em></strong>______</strong></p>
+<p>b) Warum wird instanceof nur bei einigen Versicherungen erfolgreich sein?</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 5: Komposition - Schadenshistorie (3 Punkte)</h2>
+<p><strong>Thema:</strong> Versicherung enthält Liste von Schäden</p>
+<p>Schreibe eine Methode, die überprüft, ob eine Versicherung in den letzten 3 Jahren schadensfrei war:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Versicherungspolice</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Schaden<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>schaeden;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">istSchadensfrei</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>jahre)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Prüfe, ob in den letzten &#39;jahre&#39; Jahren ein Schaden gemeldet wurde:</span>
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 6: Fehlersuche - Interface-Implementierung (2 Punkte)</h2>
+<p><strong>Thema:</strong> Fehlende Methodenimplementierung</p>
+<p>Gegeben ist folgender fehlerhafter Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Krankenversicherung</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">implements</span><span style="color: #bbbbbb"> </span>Versicherung<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>beitrag;
+
+<span style="color: #bbbbbb">    </span><span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">berechneBeitrag</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>beitrag;
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// meldeSchaden() fehlt!  ← FEHLER</span>
+}
+</code></pre></div>
+
+<p>a) Was ist der Fehler und warum kompiliert der Code nicht?</p>
+<hr>
+<hr>
+<p>b) Ergänze die fehlende Methode:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Fehlende Methode:</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Interface Versicherungsleistungen</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>2. Komposition - Police</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Interface Schadensfreiheit</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Polymorphe Versicherungsverwaltung</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>5. Schadenshistorie</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche Implementierung</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

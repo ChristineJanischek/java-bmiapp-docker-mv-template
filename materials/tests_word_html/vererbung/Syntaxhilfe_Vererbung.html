@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntaxhilfe_Vererbung</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Syntaxhilfe: Vererbung</h1>
+<p><strong>Ziel:</strong> Gemeinsame Eigenschaften und Verhalten in Oberklasse, Spezialisierung in Unterklasse.</p>
+<hr>
+<h2>Grundstruktur</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Fahrzeug</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>marke;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Fahrzeug</span>(String<span style="color: #bbbbbb"> </span>marke)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">marke</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>marke;
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">starte</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fahrzeug startet&quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Auto</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Fahrzeug<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>tueren;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Auto</span>(String<span style="color: #bbbbbb"> </span>marke,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>tueren)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">super</span>(marke);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Aufruf Oberklassen-Konstruktor</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">tueren</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>tueren;
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">starte</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Auto startet&quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Polymorphie</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Fahrzeug<span style="color: #bbbbbb"> </span>f<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Auto(<span style="color: #4070a0">&quot;VW&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">4</span>);
+f.<span style="color: #4070a0">starte</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ruft Auto.starte() auf</span>
+</code></pre></div>
+
+<hr>
+<h2>instanceof + Casting</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(f<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">instanceof</span><span style="color: #bbbbbb"> </span>Auto)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Auto<span style="color: #bbbbbb"> </span>a<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>(Auto)<span style="color: #bbbbbb"> </span>f;
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Zugriff auf Auto-spezifische Methoden</span>
+}
+</code></pre></div>
+
+<hr>
+<h2>Abstrakte Klasse (optional)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">abstract</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Mitarbeiter</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>name;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Mitarbeiter</span>(String<span style="color: #bbbbbb"> </span>name)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">name</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>name;
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">abstract</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">berechneGehalt</span>();
+}
+</code></pre></div>
+
+<hr>
+<h2>Tipps</h2>
+<ul>
+<li>"extends" fuer Klassenvererbung.</li>
+<li>"super(...)" ruft den Konstruktor der Oberklasse.</li>
+<li>Ueberschreiben mit @Override.</li>
+<li>Gemeinsame Logik gehoert in die Oberklasse.</li>
+</ul>
+</body>
+</html>

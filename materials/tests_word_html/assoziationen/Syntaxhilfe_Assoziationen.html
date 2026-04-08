@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntaxhilfe_Assoziationen</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Syntaxhilfe: Assoziationen (1:N)</h1>
+<p><strong>Ziel:</strong> Eine Klasse verwaltet mehrere Objekte einer anderen Klasse (z.B. Mannschaft -&gt; Spieler).</p>
+<hr>
+<h2>Grundstruktur (1:N)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">import</span><span style="color: #bbbbbb"> </span><span style="color: #0e84b5; font-weight: bold">java.util.ArrayList</span>;
+<span style="color: #007020; font-weight: bold">import</span><span style="color: #bbbbbb"> </span><span style="color: #0e84b5; font-weight: bold">java.util.List</span>;
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Mannschaft</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>name;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Spieler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>spielerListe;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Mannschaft</span>(String<span style="color: #bbbbbb"> </span>name)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">name</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>name;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">spielerListe</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">addSpieler</span>(Spieler<span style="color: #bbbbbb"> </span>spieler)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>spielerListe.<span style="color: #4070a0">add</span>(spieler);
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">removeSpieler</span>(Spieler<span style="color: #bbbbbb"> </span>spieler)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>spielerListe.<span style="color: #4070a0">remove</span>(spieler);
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Spieler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getSpieler</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>spielerListe;
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Spieler</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>name;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>nummer;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Spieler</span>(String<span style="color: #bbbbbb"> </span>name,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>nummer)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">name</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>name;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">nummer</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>nummer;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Typische Methoden</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getAnzahlSpieler</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>spielerListe.<span style="color: #4070a0">size</span>();
+}
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>Spieler<span style="color: #bbbbbb"> </span><span style="color: #06287e">findeSpieler</span>(String<span style="color: #bbbbbb"> </span>name)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Spieler<span style="color: #bbbbbb"> </span>s<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>spielerListe)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(s.<span style="color: #4070a0">getName</span>().<span style="color: #4070a0">equals</span>(name))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>s;
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span>;
+}
+</code></pre></div>
+
+<hr>
+<h2>Hinweise</h2>
+<ul>
+<li>Assoziation = "hat"-Beziehung.</li>
+<li>Liste immer im Konstruktor initialisieren.</li>
+<li>Getter kann unmodifizierbare Liste zurueckgeben:</li>
+</ul>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>Collections.<span style="color: #4070a0">unmodifiableList</span>(spielerListe);
+</code></pre></div>
+
+<hr>
+<h2>Mini-Beispiel (Nutzung)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Mannschaft<span style="color: #bbbbbb"> </span>team<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Mannschaft(<span style="color: #4070a0">&quot;Red Tigers&quot;</span>);
+team.<span style="color: #4070a0">addSpieler</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Spieler(<span style="color: #4070a0">&quot;Max&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">7</span>));
+team.<span style="color: #4070a0">addSpieler</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Spieler(<span style="color: #4070a0">&quot;Lena&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">10</span>));
+</code></pre></div>
+</body>
+</html>

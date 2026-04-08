@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Datenbank_2_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Datenbank 2 – CRUD-Operationen – LOESUNG</h1>
+<p><strong>Zeit: 30 Min | Punkte: 30</strong></p>
+<hr>
+<h2>Aufgabe 1: INSERT – Person einfügen (8 Punkte)</h2>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">personEinfuegen</span>(Connection<span style="color: #bbbbbb"> </span>conn,
+<span style="color: #bbbbbb">                            </span>String<span style="color: #bbbbbb"> </span>vorname,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>nachname,
+<span style="color: #bbbbbb">                            </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>alter,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>geschlecht)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>SQLException<span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;INSERT INTO person (vorname, nachname, alter, geschlecht) &quot;</span><span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 2 Pkt</span>
+<span style="color: #bbbbbb">               </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;VALUES (?, ?, ?, ?)&quot;</span>;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql,
+<span style="color: #bbbbbb">            </span>Statement.<span style="color: #4070a0">RETURN_GENERATED_KEYS</span>))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">                                 </span><span style="color: #60a0b0; font-style: italic">// 2 Pkt</span>
+
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span>vorname);<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">2</span>,<span style="color: #bbbbbb"> </span>nachname);<span style="color: #bbbbbb">   </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">3</span>,<span style="color: #bbbbbb"> </span>alter);<span style="color: #bbbbbb">         </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">4</span>,<span style="color: #bbbbbb"> </span>geschlecht);<span style="color: #bbbbbb"> </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();<span style="color: #bbbbbb">                                                  </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+
+<span style="color: #bbbbbb">        </span>ResultSet<span style="color: #bbbbbb"> </span>keys<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">getGeneratedKeys</span>();
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(keys.<span style="color: #4070a0">next</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>keys.<span style="color: #4070a0">getInt</span>(<span style="color: #40a070">1</span>);<span style="color: #bbbbbb">                                              </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #40a070">1</span>;
+}
+</code></pre></div>
+
+<h3>Erläuterung</h3>
+<ul>
+<li><strong>Spaltennamen</strong> im INSERT müssen mit den Tabellenspalten übereinstimmen. <code>id</code> wird weggelassen – MySQL vergibt sie automatisch (<code>AUTO_INCREMENT</code>).</li>
+<li><code>Statement.RETURN_GENERATED_KEYS</code> teilt JDBC mit, dass die automatisch generierten Schlüssel zurückgegeben werden sollen.</li>
+<li><code>pstmt.getGeneratedKeys()</code> gibt ein <code>ResultSet</code> zurück, dessen erste Spalte die neue ID enthält.</li>
+<li><code>setInt</code> für Integer-Werte, <code>setString</code> für Zeichenketten.</li>
+</ul>
+<hr>
+<h2>Aufgabe 2: UPDATE – Alter ändern (7 Punkte)</h2>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">alterAendern</span>(Connection<span style="color: #bbbbbb"> </span>conn,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>personId,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>neuesAlter)
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>SQLException<span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;UPDATE person SET alter = ? WHERE id = ?&quot;</span>;<span style="color: #bbbbbb">                   </span><span style="color: #60a0b0; font-style: italic">// 2 Pkt</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">               </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span>neuesAlter);<span style="color: #bbbbbb">                                           </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">2</span>,<span style="color: #bbbbbb"> </span>personId);<span style="color: #bbbbbb">                                             </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();<span style="color: #bbbbbb">                          </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb">                                           </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Erläuterung</h3>
+<ul>
+<li>Die Reihenfolge der <code>?</code>-Parameter entspricht ihrer Reihenfolge im SQL-String: <code>alter = ?</code> ist Parameter 1, <code>id = ?</code> ist Parameter 2.</li>
+<li><code>executeUpdate()</code> gibt die Anzahl der geänderten Zeilen zurück (<code>0</code> = kein Datensatz mit dieser ID gefunden; <code>1</code> = erfolgreich geändert).</li>
+<li><code>return betroffeneZeilen &gt; 0</code> gibt <code>true</code> zurück, wenn mindestens eine Zeile geändert wurde.</li>
+</ul>
+<hr>
+<h2>Aufgabe 3: DELETE – Person löschen (7 Punkte)</h2>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">personLoeschen</span>(Connection<span style="color: #bbbbbb"> </span>conn,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>id)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>SQLException<span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;DELETE FROM person WHERE id = ?&quot;</span>;<span style="color: #bbbbbb">                            </span><span style="color: #60a0b0; font-style: italic">// 2 Pkt</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">               </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span>id);<span style="color: #bbbbbb">                                                   </span><span style="color: #60a0b0; font-style: italic">// 2 Pkt</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();<span style="color: #bbbbbb">                          </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb">                                           </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Erläuterung</h3>
+<ul>
+<li>Das Muster ist identisch mit UPDATE: SQL-String vorbereiten, Parameter setzen, <code>executeUpdate()</code> aufrufen.</li>
+<li>Falls die Tabelle <code>messung</code> eine Fremdschlüsselbeziehung mit <code>ON DELETE CASCADE</code> hat, werden alle Messungen der gelöschten Person automatisch mitgelöscht.</li>
+<li>Ohne <code>CASCADE</code> würde der DELETE mit einem Fremdschlüssel-Fehler scheitern.</li>
+</ul>
+<hr>
+<h2>Aufgabe 4: Fehler finden (4 Punkte)</h2>
+<h3>Problem (2 Punkte)</h3>
+<p>Der Code ist anfällig für <strong>SQL-Injection</strong>!</p>
+<p>Wenn ein Angreifer als <code>eingabeId</code> den Wert <code>"1 OR 1=1"</code> eingibt, erzeugt das:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">DELETE</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">FROM</span><span style="color: #bbbbbb"> </span>person<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">WHERE</span><span style="color: #bbbbbb"> </span>id<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">OR</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span><span style="color: #666666">=</span><span style="color: #40a070">1</span>
+</code></pre></div>
+
+<p>Das löscht <strong>alle</strong> Zeilen in der Tabelle!</p>
+<h3>Korrekte Version (2 Punkte)</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">loeschen</span>(Connection<span style="color: #bbbbbb"> </span>conn,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>eingabeId)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>SQLException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;DELETE FROM person WHERE id = ?&quot;</span>;<span style="color: #bbbbbb">               </span><span style="color: #60a0b0; font-style: italic">// PreparedStatement!</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span>eingabeId);<span style="color: #bbbbbb">                            </span><span style="color: #60a0b0; font-style: italic">// sicher: kein SQL-Einbetten</span>
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Erläuterung</h3>
+<p><code>PreparedStatement</code> behandelt den eingegebenen Wert immer als reinen <strong>Datenwert</strong>, nicht als SQL-Befehlsteil. SQL-Injection wird dadurch vollständig verhindert.</p>
+<hr>
+<h2>Aufgabe 5: Wahr oder Falsch? (4 Punkte)</h2>
+<table>
+<thead>
+<tr>
+<th>Aussage</th>
+<th>Lösung</th>
+<th>Erläuterung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>executeUpdate()</code> gibt ein <code>ResultSet</code> zurück.</td>
+<td><strong>F</strong></td>
+<td>Gibt <code>int</code> zurück (Anzahl betroffener Zeilen). <code>ResultSet</code> kommt von <code>executeQuery()</code>.</td>
+</tr>
+<tr>
+<td>Bei <code>PreparedStatement</code> werden <code>?</code>-Platzhalter ab Index <strong>1</strong> gezählt.</td>
+<td><strong>W</strong></td>
+<td>Java-JDBC zählt ab 1 (nicht 0 wie Arrays!).</td>
+</tr>
+<tr>
+<td><code>Statement.RETURN_GENERATED_KEYS</code> wird benötigt, um die neue ID nach einem INSERT zu erhalten.</td>
+<td><strong>W</strong></td>
+<td>Ohne diese Konstante gibt <code>getGeneratedKeys()</code> ein leeres ResultSet zurück.</td>
+</tr>
+<tr>
+<td><code>pstmt.setString(1, eingabe)</code> schützt automatisch vor SQL-Injection.</td>
+<td><strong>W</strong></td>
+<td>Korrekter Zweck von PreparedStatement: Eingaben werden escaped, nicht als SQL interpretiert.</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

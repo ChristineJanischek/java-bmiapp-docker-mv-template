@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Assoziationen_7N_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Assoziationen &amp; ArrayList - Kurs und Personen - LÖSUNGEN &amp; BEPUNKTUNG</h1>
+<p><strong>Dokumenttyp:</strong> Lehrerversion mit Musterlösungen und Bewertungskriterien</p>
+<hr>
+<h2>Aufgabe 1: ArrayList-Deklaration (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Datenstruktur für eine Kursverwaltung</p>
+<p>Schreibe die Deklaration und Initialisierung einer ArrayList, die Person-Objekte (Kursteilnehmer) speichert.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Hier aufschreiben:</span>
+</code></pre></div>
+
+<p>Erkläre in 1-2 Sätzen, warum man hier ArrayList statt Array verwendet.</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>personen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span>();
+</code></pre></div>
+
+<p>oder</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>personen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+</code></pre></div>
+
+<p><strong>Erklärung (1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>ArrayList wird verwendet, weil die Anzahl der Kursteilnehmer nicht vorab bekannt ist 
+und sich dynamisch ändern kann (An- und Abmeldungen). Arrays haben eine feste Größe.
+</code></pre></div>
+
+<h3>Bewertung (3 Punkte)</h3>
+<p><strong>Deklaration (2 Punkte):</strong><br>
+- ✓ <code>List&lt;Person&gt; personen = new ArrayList&lt;Person&gt;();</code> → 2 Punkte<br>
+- ✓ <code>ArrayList&lt;Person&gt; personen = new ArrayList&lt;&gt;();</code> → 2 Punkte<br>
+- ~ Fehlende Generics (<code>List personen</code>) → 1 Punkt<br>
+- ✗ Array statt ArrayList → 0 Punkte</p>
+<p><strong>Erklärung (1 Punkt):</strong><br>
+- ✓ Dynamische Größe oder variable Anzahl erwähnt → 1 Punkt<br>
+- ~ Ansatz erkennbar → 0,5 Punkte<br>
+- ✗ Falsch → 0 Punkte</p>
+<hr>
+<h2>Aufgabe 2: ArrayList-Methoden (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Verwaltung von Kursteilnehmern</p>
+<p>Ordne die ArrayList-Methoden ihren Beschreibungen zu. Schreibe den Buchstaben in die Klammer.</p>
+<p><strong>Beschreibungen:</strong></p>
+<ul>
+<li><strong>(a)</strong> Gibt die Gesamtzahl der angemeldeten Personen zurück</li>
+<li><strong>(b)</strong> Meldet eine neue Person zum Kurs an</li>
+<li><strong>(c)</strong> Greift auf eine bestimmte Person zu (z. B. für Noten)</li>
+<li><strong>(d)</strong> Entfernt eine Person aus dem Kurs (z. B. Abmeldung)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Buchstabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add(Person)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>get(int index)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>remove(int index)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>size()</code></td>
+<td>( )</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>Musterlösung (Zuordnung)</h3>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Richtiger Buchstabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add(Person)</code></td>
+<td><strong>(b)</strong></td>
+</tr>
+<tr>
+<td><code>get(int index)</code></td>
+<td><strong>(c)</strong></td>
+</tr>
+<tr>
+<td><code>remove(int index)</code></td>
+<td><strong>(d)</strong></td>
+</tr>
+<tr>
+<td><code>size()</code></td>
+<td><strong>(a)</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>Bewertung (4 Punkte)</h3>
+<ul>
+<li><strong>4 Punkte:</strong> Alle 4 Zuordnungen korrekt</li>
+<li><strong>3 Punkte:</strong> 3 von 4 richtig</li>
+<li><strong>2 Punkte:</strong> 2 von 4 richtig</li>
+<li><strong>1 Punkt:</strong> 1 von 4 richtig</li>
+<li><strong>0 Punkte:</strong> Keine oder alle falsch</li>
+</ul>
+<hr>
+<h2>Aufgabe 3: Code-Analyse (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> 1:N Beziehung zwischen Kurs und Personen</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Kurs<span style="color: #bbbbbb"> </span>kurs<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Kurs(<span style="color: #4070a0">&quot;Informatik Grundlagen&quot;</span>);
+
+Person<span style="color: #bbbbbb"> </span>p1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Anna&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Schmidt&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">20</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Frau&quot;</span>);
+Person<span style="color: #bbbbbb"> </span>p2<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Max&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Müller&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">21</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Mann&quot;</span>);
+Person<span style="color: #bbbbbb"> </span>p3<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Leon&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Weber&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">20</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Mann&quot;</span>);
+
+kurs.<span style="color: #4070a0">addPerson</span>(p1);
+kurs.<span style="color: #4070a0">addPerson</span>(p2);
+kurs.<span style="color: #4070a0">addPerson</span>(p3);
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Teilnehmerzahl: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>kurs.<span style="color: #4070a0">getAnzahlPersonen</span>());
+Person<span style="color: #bbbbbb"> </span>zweiterTeilnehmer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>kurs.<span style="color: #4070a0">getPersonen</span>().<span style="color: #4070a0">get</span>(<span style="color: #40a070">1</span>);
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;2. Teilnehmer: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>zweiterTeilnehmer.<span style="color: #4070a0">getVorname</span>());
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was wird folgende Zeile als Ausgabe produzieren?  </p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Teilnehmerzahl: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>kurs.<span style="color: #4070a0">getAnzahlPersonen</span>());
+</code></pre></div>
+
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>b) Welcher Vorname wird ausgegeben bei der Zeile mit <code>get(1)</code>?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>c) Erkläre, was <code>.getPersonen().get(1)</code> macht:</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösungen</h3>
+<p><strong>a) Ausgabe (2 Punkte)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Teilnehmerzahl: 3
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ <code>3</code> oder <code>Teilnehmerzahl: 3</code> → 2 Punkte<br>
+- ✗ andere Zahl → 0 Punkte</p>
+<hr>
+<p><strong>b) Zweiter Teilnehmer (1,5 Punkte)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Max
+</code></pre></div>
+
+<p><strong>Erklärung:</strong> Index 1 ist das zweite Element: p1 (Anna, Index 0), p2 (Max, Index 1)</p>
+<p><strong>Bewertung:</strong><br>
+- ✓ <code>Max</code> oder <code>2. Teilnehmer: Max</code> → 1,5 Punkte<br>
+- ✗ anderer Name → 0 Punkte</p>
+<hr>
+<p><strong>c) Erklärung <code>.getPersonen().get(1)</code> (1,5 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>getPersonen() gibt die Liste aller angemeldeten Personen zurück.
+get(1) greift auf das Element an Index 1 zu, also die zweite Person in der Liste.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>1,5 Punkte:</strong> Beide Teile erklärt (Getter + Index-Zugriff)<br>
+- <strong>1 Punkt:</strong> Teilweise erklärt<br>
+- <strong>0,5 Punkte:</strong> Grundidee erkannt<br>
+- <strong>0 Punkte:</strong> Falsch oder nicht beantwortet</p>
+<hr>
+<h2>Aufgabe 4: Schleife &amp; Ausgabe (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Teilnehmerliste eines Kurses ausgeben</p>
+<p>Schreibe eine vollständige <strong>for-Schleife</strong> (oder for-each Schleife), die alle Personen eines Kurses ausgibt.</p>
+<p><strong>Vorgabe:</strong> Die ArrayList mit den Personen heißt <code>personen</code> und besteht aus <code>Person</code>-Objekten mit den Attributen <code>getVorname()</code>, <code>getNachname()</code> und <code>getAlter()</code>.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>personen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>kurs.<span style="color: #4070a0">getPersonen</span>();
+
+<span style="color: #60a0b0; font-style: italic">// Schleife hier schreiben:</span>
+</code></pre></div>
+
+<p>Bonus (+1 Punkt): Schreibe zusätzlich eine <code>System.out.println()</code> Zeile, die die laufende Nummer (1-basiert), Vorname, Nachname und Alter ausgibt.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Bonus-Ausgabe:</span>
+</code></pre></div>
+
+<hr>
+<h3>Musterlösungen</h3>
+<p><strong>Grundaufgabe (4 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>personen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>kurs.<span style="color: #4070a0">getPersonen</span>();
+
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Person<span style="color: #bbbbbb"> </span>person<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>personen)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(person.<span style="color: #4070a0">getVorname</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>person.<span style="color: #4070a0">getNachname</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>
+<span style="color: #bbbbbb">                       </span><span style="color: #4070a0">&quot; (&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>person.<span style="color: #4070a0">getAlter</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; Jahre)&quot;</span>);
+}
+</code></pre></div>
+
+<p>oder</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>personen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>kurs.<span style="color: #4070a0">getPersonen</span>();
+
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>personen.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Person<span style="color: #bbbbbb"> </span>p<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>personen.<span style="color: #4070a0">get</span>(i);
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(p.<span style="color: #4070a0">getVorname</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>p.<span style="color: #4070a0">getNachname</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; - Alter: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>p.<span style="color: #4070a0">getAlter</span>());
+}
+</code></pre></div>
+
+<p><strong>Bewertung (4 Punkte):</strong><br>
+- <strong>4 Punkte:</strong> Schleife korrekt, alle Personen ausgegeben mit Vorname, Nachname, Alter<br>
+- <strong>3 Punkte:</strong> Schleife funktioniert, aber unvollständige Ausgabe<br>
+- <strong>2 Punkte:</strong> Grundkonzept erkannt, syntaktische Fehler<br>
+- <strong>1 Punkt:</strong> Versuch offensichtlich, viele Fehler<br>
+- <strong>0 Punkte:</strong> Falsch oder nicht beantwortet</p>
+<hr>
+<p><strong>Bonus (+1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>personen.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>((i<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;. &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>personen.<span style="color: #4070a0">get</span>(i).<span style="color: #4070a0">getVorname</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>
+<span style="color: #bbbbbb">                       </span>personen.<span style="color: #4070a0">get</span>(i).<span style="color: #4070a0">getNachname</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; (&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>
+<span style="color: #bbbbbb">                       </span>personen.<span style="color: #4070a0">get</span>(i).<span style="color: #4070a0">getAlter</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; Jahre)&quot;</span>);
+}
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ Laufende Nummer (1-basiert) + Vorname + Nachname + Alter → +1 Punkt<br>
+- ~ Ähnliche sinnvolle Ausgabe → +1 Punkt</p>
+<hr>
+<h2>Aufgabe 5: Methode verstehen (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Methoden für 1:N Beziehungen in einem Kurs</p>
+<p>In der <code>Kurs</code>-Klasse gibt es eine Methode <code>getPersonenAnDatum(String geburtstag)</code>, die alle Personen mit einem bestimmten Geburtstag findet.</p>
+<p>a) Schreibe die <strong>Methodensignatur</strong> (ohne Implementierung):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Methodensignatur:</span>
+</code></pre></div>
+
+<p>b) Erkläre in 2-3 Sätzen, wie diese Methode funktionieren würde:</p>
+<hr>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<p><strong>a) Methodensignatur (1,5 Punkte)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getPersonenAnDatum</span>(String<span style="color: #bbbbbb"> </span>geburtstag)
+</code></pre></div>
+
+<p>oder</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getPersonenMitGeburtstag</span>(String<span style="color: #bbbbbb"> </span>geburtstag)
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ Korrekte Signatur mit List/ArrayList und String-Parameter → 1,5 Punkte<br>
+- ~ <code>void</code> statt List → 0 Punkte<br>
+- ~ Parameter nicht mitgenommen → 0 Punkte</p>
+<hr>
+<p><strong>b) Erklärung (2,5 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Die Methode iteriert durch alle Personen im Kurs und vergleicht ihren Geburtstag 
+mit dem angegebenen Parameter. Alle Personen mit dem gleichen Geburtstag werden 
+in einer neuen Liste gesammelt und zurückgegeben.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>2,5 Punkte:</strong> Iteration + Vergleich + Rückgabe erklärt<br>
+- <strong>1,5 Punkte:</strong> Grundidee erkannt, aber unvollständig<br>
+- <strong>0,5 Punkte:</strong> Ansatz sichtbar<br>
+- <strong>0 Punkte:</strong> Falsch</p>
+<hr>
+<h2>Aufgabe 6: Fehlersuche &amp; Analyse (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Häufige Fehler bei ArrayList-Nutzung in einer Kursverwaltung</p>
+<p>Gegeben ist folgender fehlerhafter Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Kurs<span style="color: #bbbbbb"> </span>kurs<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Kurs(<span style="color: #4070a0">&quot;Java Programmierung&quot;</span>);
+Person<span style="color: #bbbbbb"> </span>person<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Petra&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Klein&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">19</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Frau&quot;</span>);
+
+kurs.<span style="color: #4070a0">personen</span>.<span style="color: #4070a0">add</span>(person);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 1</span>
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(kurs.<span style="color: #4070a0">getPersonen</span>().<span style="color: #4070a0">get</span>(<span style="color: #40a070">20</span>));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 2 (bei max. 15 Personen)</span>
+</code></pre></div>
+
+<p><strong>Aufgaben:</strong></p>
+<p>a) <strong>Fehler 1:</strong> <code>kurs.personen.add(person)</code> - Was ist das Problem?</p>
+<hr>
+<hr>
+<p>b) <strong>Fehler 2:</strong> <code>kurs.getPersonen().get(20)</code> - Warum funktioniert das nicht (wenn der Kurs nur 15 Personen hat)?</p>
+<hr>
+<hr>
+<p>c) Schreibe die <strong>korrekte Version</strong> von Fehler 1:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Korrekt:</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. ArrayList-Deklaration</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>2. ArrayList-Methoden</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Code-Analyse</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Schleife &amp; Ausgabe</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>5. Methode verstehen</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Musterlösungen</h3>
+<p><strong>a) Fehler 1 - Direkter ArrayList-Zugriff (1 Punkt)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Das Attribut &#39;personen&#39; ist private und nicht von außen erreichbar. 
+Man muss die öffentliche Methode addPerson() verwenden.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ Private + getter/Methode erwähnt → 1 Punkt<br>
+- ~ Encapsulation-Verletzung → 0,5 Punkte<br>
+- ✗ Falsch → 0 Punkte</p>
+<hr>
+<p><strong>b) Fehler 2 - IndexOutOfBoundsException (1,5 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Der Index 20 existiert nicht (bei 15 Personen sind gültige Indizes 0-14).
+Zugriff auf einen nicht-existierenden Index wirft IndexOutOfBoundsException.
+Man sollte vorher mit size() oder isEmpty() prüfen.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>1,5 Punkte:</strong> IndexOutOfBoundsException + Begründung + Prüfempfehlung<br>
+- <strong>1 Punkt:</strong> Fehler erkannt, aber nicht korrekt benannt<br>
+- <strong>0,5 Punkte:</strong> Ansatz erkennbar<br>
+- <strong>0 Punkte:</strong> Falsch</p>
+<hr>
+<p><strong>c) Korrekte Version (1,5 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>kurs.<span style="color: #4070a0">addPerson</span>(person);
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ <code>kurs.addPerson(person)</code> → 1,5 Punkte<br>
+- ~ <code>kurs.getPersonen().add(person)</code> → 1 Punkt<br>
+- ✗ Falsch → 0 Punkte</p>
+<hr>
+<h2>GESAMTBEWERTUNG</h2>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Max. Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. ArrayList-Deklaration</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2. ArrayList-Methoden</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3. Code-Analyse</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4. Schleife &amp; Ausgabe</td>
+<td>5 (+1 Bonus)</td>
+</tr>
+<tr>
+<td>5. Methode verstehen</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6. Fehlersuche</td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>GESAMT</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Bewertungsskala</h2>
+<table>
+<thead>
+<tr>
+<th>Prozent</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>90-100%</td>
+<td>1</td>
+</tr>
+<tr>
+<td>80-89%</td>
+<td>2</td>
+</tr>
+<tr>
+<td>70-79%</td>
+<td>3</td>
+</tr>
+<tr>
+<td>60-69%</td>
+<td>4</td>
+</tr>
+<tr>
+<td>50-59%</td>
+<td>5</td>
+</tr>
+<tr>
+<td>&lt; 50%</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notenschlüssel:</strong><br>
+- <strong>ab 23 Punkte:</strong> Note 1<br>
+- <strong>ab 20 Punkte:</strong> Note 2<br>
+- <strong>ab 18 Punkte:</strong> Note 3<br>
+- <strong>ab 15 Punkte:</strong> Note 4<br>
+- <strong>ab 13 Punkte:</strong> Note 5<br>
+- <strong>unter 13 Punkte:</strong> Note 6</p>
+<hr>
+<h2>Häufige Fehler &amp; Wertungen</h2>
+<h3>Fehler 1: Direkter Attributzugriff (Encapsulation-Verletzung)</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>kurs.<span style="color: #4070a0">personen</span>.<span style="color: #4070a0">add</span>(...)<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← private Attribut direkt zugegriffen</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> In Aufgabe 6a 0,5 Punkte abziehen</p>
+<h3>Fehler 2: Off-by-One bei Index-Zugriff</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>personen.<span style="color: #4070a0">get</span>(<span style="color: #40a070">15</span>)<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Bei 15 Personen gültig: Index 0-14</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> In Aufgabe 3b/c klar erklärt zurückweisen</p>
+<h3>Fehler 3: Fehlende null-Prüfung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Person<span style="color: #bbbbbb"> </span>p<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>personen)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(p.<span style="color: #4070a0">getAlter</span>());
+}
+<span style="color: #60a0b0; font-style: italic">// Was wenn p == null?</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> Bonus-Punkte nur, wenn Schleife strukturell korrekt ist</p>
+<hr>
+<h2>Tipps zur schnellen Korrektur</h2>
+<ol>
+<li><strong>Aufgabe 1:</strong> ArrayList<Person> + Generics? Erklärung: "dynamisch"?</li>
+<li><strong>Aufgabe 2:</strong> 4 Zuordnungen schnell mit Musterlösung abgleichen</li>
+<li><strong>Aufgabe 3a:</strong> Zähle selbst: 3 Personen hinzugefügt</li>
+<li><strong>Aufgabe 3b:</strong> Index 1 = 2. Element = "Max"</li>
+<li><strong>Aufgabe 4:</strong> for-each oder for-Schleife? Vorenamen + Nachnamen + Alter?</li>
+<li><strong>Aufgabe 6:</strong> private + addPerson() / IndexOutOfBoundsException?</li>
+</ol>
+<hr>
+<p><strong>Test erstellt:</strong> Version 1.0 (Feb 2026)<br>
+<strong>Zielgruppe:</strong> Schüler nach Lerneinheit 1:N-Assoziationen (Kurs/Person)<br>
+<strong>Voraussetzungen:</strong> ArrayList, Generics, for-Schleifen, Kursverwaltung bekannt</p>
+</body>
+</html>

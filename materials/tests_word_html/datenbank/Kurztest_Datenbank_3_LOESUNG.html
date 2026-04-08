@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Datenbank_3_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Datenbank 3 – Projekt-Integration – LOESUNG</h1>
+<p><strong>Zeit: 35 Min | Punkte: 35</strong></p>
+<hr>
+<h2>Aufgabe 1: 1:N Beziehung – Messung speichern (8 Punkte)</h2>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">messungSpeichern</span>(Connection<span style="color: #bbbbbb"> </span>conn,
+<span style="color: #bbbbbb">                             </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>personId,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>gewicht,
+<span style="color: #bbbbbb">                             </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>groesse,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>bmi)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>SQLException<span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;INSERT INTO messung (person_id, gewicht, groesse, bmi) &quot;</span><span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// 3 Pkt</span>
+<span style="color: #bbbbbb">               </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;VALUES (?, ?, ?, ?)&quot;</span>;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql,
+<span style="color: #bbbbbb">            </span>Statement.<span style="color: #4070a0">RETURN_GENERATED_KEYS</span>))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">                                </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb">    </span>personId);<span style="color: #bbbbbb">                                          </span><span style="color: #60a0b0; font-style: italic">// je 0,5 Pkt</span>
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setDouble</span>(<span style="color: #40a070">2</span>,<span style="color: #bbbbbb"> </span>gewicht);
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setDouble</span>(<span style="color: #40a070">3</span>,<span style="color: #bbbbbb"> </span>groesse);
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setDouble</span>(<span style="color: #40a070">4</span>,<span style="color: #bbbbbb"> </span>bmi);
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();<span style="color: #bbbbbb">                                                 </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+
+<span style="color: #bbbbbb">        </span>ResultSet<span style="color: #bbbbbb"> </span>keys<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">getGeneratedKeys</span>();
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(keys.<span style="color: #4070a0">next</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>keys.<span style="color: #4070a0">getInt</span>(<span style="color: #40a070">1</span>);<span style="color: #bbbbbb">                                             </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #40a070">1</span>;
+}
+</code></pre></div>
+
+<h3>Erläuterung</h3>
+<ul>
+<li><code>person_id</code> ist der <strong>Fremdschlüssel</strong> – er verbindet die Messung mit einer Person (1:N Beziehung in der Datenbank).</li>
+<li><code>zeitstempel</code> wird weggelassen: MySQL setzt ihn automatisch auf <code>CURRENT_TIMESTAMP</code> (Default-Wert in der Tabellendefinition).</li>
+<li><code>setDouble()</code> wird für <code>DECIMAL</code>-Spalten verwendet.</li>
+</ul>
+<hr>
+<h2>Aufgabe 2: JOIN – Messungen einer Person abfragen (10 Punkte)</h2>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">messungenNachPerson</span>(Connection<span style="color: #bbbbbb"> </span>conn,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>personId)
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>SQLException<span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>ergebnisse<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// SQL mit JOIN (4 Punkte)</span>
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;&quot;&quot;</span>
+<span style="color: #4070a0">            SELECT p.vorname, p.nachname, m.gewicht, m.bmi, m.zeitstempel</span>
+<span style="color: #4070a0">            FROM   messung m</span>
+<span style="color: #4070a0">            JOIN   person p ON m.person_id = p.id</span>
+<span style="color: #4070a0">            WHERE  m.person_id = ?</span>
+<span style="color: #4070a0">            ORDER BY m.zeitstempel DESC</span>
+<span style="color: #4070a0">            &quot;&quot;&quot;</span>;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">               </span><span style="color: #60a0b0; font-style: italic">// 2 Punkte</span>
+
+<span style="color: #bbbbbb">        </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span>personId);<span style="color: #bbbbbb">                                             </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>ResultSet<span style="color: #bbbbbb"> </span>rs<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">executeQuery</span>();
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>(rs.<span style="color: #4070a0">next</span>())<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">                                                    </span><span style="color: #60a0b0; font-style: italic">// 2 Punkte</span>
+<span style="color: #bbbbbb">            </span>String<span style="color: #bbbbbb"> </span>eintrag<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>String.<span style="color: #4070a0">format</span>(<span style="color: #4070a0">&quot;%s %s | %.1f kg | BMI: %.2f | %s&quot;</span>,
+<span style="color: #bbbbbb">                </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;vorname&quot;</span>),
+<span style="color: #bbbbbb">                </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;nachname&quot;</span>),
+<span style="color: #bbbbbb">                </span>rs.<span style="color: #4070a0">getDouble</span>(<span style="color: #4070a0">&quot;gewicht&quot;</span>),
+<span style="color: #bbbbbb">                </span>rs.<span style="color: #4070a0">getDouble</span>(<span style="color: #4070a0">&quot;bmi&quot;</span>),
+<span style="color: #bbbbbb">                </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;zeitstempel&quot;</span>)
+<span style="color: #bbbbbb">            </span>);
+<span style="color: #bbbbbb">            </span>ergebnisse.<span style="color: #4070a0">add</span>(eintrag);
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>ergebnisse;<span style="color: #bbbbbb">                                                         </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+}
+</code></pre></div>
+
+<h3>Erläuterung</h3>
+<p><strong>JOIN</strong> verbindet zwei Tabellen über eine gemeinsame Spalte:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">JOIN</span><span style="color: #bbbbbb"> </span>person<span style="color: #bbbbbb"> </span>p<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">ON</span><span style="color: #bbbbbb"> </span>m.person_id<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>p.id
+</code></pre></div>
+
+<ul>
+<li><code>m.person_id</code> ist der Fremdschlüssel in <code>messung</code></li>
+<li><code>p.id</code> ist der Primärschlüssel in <code>person</code></li>
+<li><code>ON</code> beschreibt die Verknüpfungsbedingung</li>
+</ul>
+<p><code>ORDER BY m.zeitstempel DESC</code> – neueste Messung kommt zuerst.</p>
+<p><code>String.format("%.1f", wert)</code> – 1 Nachkommastelle; <code>"%.2f"</code> – 2 Nachkommastellen.</p>
+<hr>
+<h2>Aufgabe 3: Vorlage adaptieren (10 Punkte)</h2>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">BibliothekConnector</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// a) URL für bibliothek_db (2 Punkte)</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">static</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">final</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>URL<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span>
+<span style="color: #bbbbbb">        </span><span style="color: #4070a0">&quot;jdbc:mysql://localhost:3306/bibliothek_db&quot;</span>
+<span style="color: #bbbbbb">        </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;?useSSL=false&amp;serverTimezone=Europe/Berlin&quot;</span>;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">final</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>benutzer;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">final</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>passwort;
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// a) Konstruktor (im selben Bereich – keine eigenen Punkte)</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">BibliothekConnector</span>(String<span style="color: #bbbbbb"> </span>benutzer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>passwort)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">benutzer</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>benutzer;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">passwort</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>passwort;
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Hilfsmethode zum Verbinden (Übernahme aus Vorlage)</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>Connection<span style="color: #bbbbbb"> </span><span style="color: #06287e">verbinden</span>()<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>SQLException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>DriverManager.<span style="color: #4070a0">getConnection</span>(URL,<span style="color: #bbbbbb"> </span>benutzer,<span style="color: #bbbbbb"> </span>passwort);
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// b) buchEinfuegen (4 Punkte)</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">buchEinfuegen</span>(Connection<span style="color: #bbbbbb"> </span>conn,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>titel,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>autor,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>isbn)
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>SQLException<span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;INSERT INTO buch (titel, autor, isbn) VALUES (?, ?, ?)&quot;</span>;<span style="color: #bbbbbb"> </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql,
+<span style="color: #bbbbbb">                </span>Statement.<span style="color: #4070a0">RETURN_GENERATED_KEYS</span>))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">                            </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+
+<span style="color: #bbbbbb">            </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span>titel);<span style="color: #bbbbbb">                                         </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+<span style="color: #bbbbbb">            </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">2</span>,<span style="color: #bbbbbb"> </span>autor);<span style="color: #bbbbbb">                                         </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+<span style="color: #bbbbbb">            </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">3</span>,<span style="color: #bbbbbb"> </span>isbn);<span style="color: #bbbbbb">                                          </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+<span style="color: #bbbbbb">            </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();
+
+<span style="color: #bbbbbb">            </span>ResultSet<span style="color: #bbbbbb"> </span>keys<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">getGeneratedKeys</span>();
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(keys.<span style="color: #4070a0">next</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>keys.<span style="color: #4070a0">getInt</span>(<span style="color: #40a070">1</span>);<span style="color: #bbbbbb">                                         </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #40a070">1</span>;
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// c) bestandAendern (4 Punkte)</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">bestandAendern</span>(Connection<span style="color: #bbbbbb"> </span>conn,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>buchId,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>neuerBestand)
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>SQLException<span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;UPDATE buch SET bestand = ? WHERE id = ?&quot;</span>;<span style="color: #bbbbbb">              </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">          </span><span style="color: #60a0b0; font-style: italic">// 1 Pkt</span>
+
+<span style="color: #bbbbbb">            </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span>neuerBestand);<span style="color: #bbbbbb">                                    </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+<span style="color: #bbbbbb">            </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">2</span>,<span style="color: #bbbbbb"> </span>buchId);<span style="color: #bbbbbb">                                          </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+
+<span style="color: #bbbbbb">            </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();<span style="color: #bbbbbb">                     </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb">                                      </span><span style="color: #60a0b0; font-style: italic">// 0,5 Pkt</span>
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Erläuterung: Vorlage adaptieren – Checkliste</h3>
+<p>Beim Adaptieren der <code>Vorlage_DatabaseConnector.java</code> auf ein neues Projekt änderst du:</p>
+<table>
+<thead>
+<tr>
+<th>Was ändern?</th>
+<th>Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DB_NAME</code> / URL</td>
+<td><code>"bibliothek_db"</code> statt <code>"bmi_datenbank"</code></td>
+</tr>
+<tr>
+<td>Tabellennamen im SQL</td>
+<td><code>buch</code> statt <code>person</code></td>
+</tr>
+<tr>
+<td>Spaltennamen im SQL</td>
+<td><code>titel, autor, isbn</code> statt <code>vorname, nachname, ...</code></td>
+</tr>
+<tr>
+<td><code>setString()</code> / <code>setInt()</code> / <code>setDouble()</code></td>
+<td>passend zum Datentyp der Spalte</td>
+</tr>
+<tr>
+<td>Rückgabetypen</td>
+<td>passend zu deinen eigenen Klassen</td>
+</tr>
+</tbody>
+</table>
+<p>Alles andere (Verbindungsaufbau, try-with-resources, PreparedStatement-Muster) bleibt <strong>gleich</strong>!</p>
+<hr>
+<h2>Aufgabe 4: Kurzfragen (7 Punkte)</h2>
+<h3>Musterlösungen</h3>
+<p><strong>1. Was ist 3NF (Dritte Normalform)?</strong> <em>(2 Punkte)</em></p>
+<p>3NF ist eine Stufe der Datenbankmodellierung, bei der:<br>
+- Jede Tabelle nur Daten eines Themas enthält (z.B. <code>person</code> nur Personendaten, <code>messung</code> nur Messdaten).<br>
+- Keine Spalte von einer Nicht-Schlüssel-Spalte abhängt (keine transitive Abhängigkeit).</p>
+<p>Vorteil: Keine Redundanz (Daten werden nicht mehrfach gespeichert), einfachere Aktualisierung, weniger Fehleranfälligkeit.</p>
+<p><em>(1 Punkt Erklärung, 1 Punkt Vorteil)</em></p>
+<hr>
+<p><strong>2. Was ist ein Fremdschlüssel und was bewirkt ON DELETE CASCADE?</strong> <em>(2 Punkte)</em></p>
+<p>Ein <strong>Fremdschlüssel</strong> (<code>FOREIGN KEY</code>) ist eine Spalte, die auf den Primärschlüssel einer anderen Tabelle verweist und so die Verknüpfung zwischen Tabellen herstellt (z.B. <code>messung.person_id</code> → <code>person.id</code>).</p>
+<p><code>ON DELETE CASCADE</code> bedeutet: Wenn eine Person gelöscht wird, werden automatisch alle zugehörigen Messungen ebenfalls gelöscht. Verhindert verwaiste Datensätze (sog. „orphaned records").</p>
+<p><em>(1 Punkt Fremdschlüssel, 1 Punkt CASCADE)</em></p>
+<hr>
+<p><strong>3. Unterschied Statement vs. PreparedStatement:</strong> <em>(2 Punkte)</em></p>
+<p><code>Statement</code> wird für einfache SQL-Befehle ohne Parameter verwendet – der SQL-String wird direkt übergeben. <code>PreparedStatement</code> verwendet <code>?</code>-Platzhalter für Parameter, die sicher gesetzt werden; es schützt vor SQL-Injection, ist wiederverwendbar und klar strukturiert.</p>
+<p><em>(1 Punkt Statement, 1 Punkt PreparedStatement)</em></p>
+<hr>
+<p><strong>4. Was ist SQL-Injection und wie wird sie verhindert?</strong> <em>(1 Punkt)</em></p>
+<p>SQL-Injection ist ein Angriff, bei dem ein Benutzer SQL-Code als Eingabe einschleust, der vom Datenbankserver als Befehl ausgeführt wird (z.B. <code>' OR '1'='1</code>). Verhindert wird es durch <code>PreparedStatement</code> mit <code>?</code>-Platzhaltern – Eingaben werden als Datenwerte behandelt, nicht als SQL-Code.</p>
+</body>
+</html>

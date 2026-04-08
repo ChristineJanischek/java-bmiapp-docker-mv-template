@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Assoziationen_2N</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Assoziationen &amp; 1:1-Beziehungen</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Datenstrukturen im Vergleich (5 Punkte)</h2>
+<p><strong>Thema:</strong> Auswahl der richtigen Datenstruktur</p>
+<p>Fülle die folgende Tabelle aus. Schreibe in jede Zelle <strong>Ja</strong> oder <strong>Nein</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Eigenschaft</th>
+<th>Array</th>
+<th>ArrayList</th>
+<th>Einzelner Objektverweis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dynamisch erweiterbar</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Feste Größe nach Erstellung</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Geeignet für genau 1 zugeordnetes Objekt</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Benötigt Import (<code>java.util</code>)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Direkter Zugriff über <code>[index]</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Begründe in 1–2 Sätzen, warum für eine <strong>1:1-Beziehung</strong> (z. B. eine Person hat genau einen Arzt) ein einzelner Objektverweis besser geeignet ist als eine ArrayList:</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 2: Methodenzuordnung (5 Punkte)</h2>
+<p><strong>Thema:</strong> Methoden für einfache und verkettete Assoziationen</p>
+<p>Ordne die Methoden den Beschreibungen zu. Schreibe den Buchstaben in die Klammer.</p>
+<p><strong>Beschreibungen:</strong></p>
+<ul>
+<li><strong>(a)</strong> Setzt die Referenz auf ein anderes Objekt (Setter)</li>
+<li><strong>(b)</strong> Gibt das referenzierte Objekt zurück (Getter)</li>
+<li><strong>(c)</strong> Prüft, ob die Referenz gesetzt ist (nicht <code>null</code>)</li>
+<li><strong>(d)</strong> Entfernt die Verbindung durch Setzen auf <code>null</code></li>
+<li><strong>(e)</strong> Gibt den Namen des referenzierten Objekts aus</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Buchstabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getArzt()</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>setArzt(Arzt a)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>person.getArzt() != null</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>person.setArzt(null)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>person.getArzt().getName()</code></td>
+<td>( )</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Aufgabe 3: Code-Analyse (1:1-Relation) (8 Punkte)</h2>
+<p><strong>Thema:</strong> Praktische Anwendung der 1:1-Beziehung</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Arzt<span style="color: #bbbbbb"> </span>arzt1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Arzt(<span style="color: #4070a0">&quot;Dr. Müller&quot;</span>);
+Arzt<span style="color: #bbbbbb"> </span>arzt2<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Arzt(<span style="color: #4070a0">&quot;Dr. Schmidt&quot;</span>);
+
+Person<span style="color: #bbbbbb"> </span>person<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Anna&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Bauer&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">30</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Frau&quot;</span>);
+person.<span style="color: #4070a0">setArzt</span>(arzt1);
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Arzt: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>person.<span style="color: #4070a0">getArzt</span>().<span style="color: #4070a0">getName</span>());
+
+person.<span style="color: #4070a0">setArzt</span>(arzt2);
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Arzt: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>person.<span style="color: #4070a0">getArzt</span>().<span style="color: #4070a0">getName</span>());
+
+person.<span style="color: #4070a0">setArzt</span>(<span style="color: #007020; font-weight: bold">null</span>);
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Hat Arzt: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>(person.<span style="color: #4070a0">getArzt</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span>));
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was gibt die <strong>erste</strong> <code>System.out.println</code>-Zeile aus?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>b) Was gibt die <strong>zweite</strong> <code>System.out.println</code>-Zeile aus?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>c) Was gibt die <strong>dritte</strong> <code>System.out.println</code>-Zeile aus?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>d) Erkläre, was passiert, wenn man <code>person.getArzt().getName()</code> aufruft, nachdem <code>person.setArzt(null)</code> ausgeführt wurde:</p>
+<hr>
+<hr>
+<p>e) Wie viele <code>Arzt</code>-Objekte existieren nach Ausführung des Codes insgesamt noch im Speicher?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<hr>
+<h2>Aufgabe 4: Schleife mit 1:1-Assoziation (7 Punkte)</h2>
+<p><strong>Thema:</strong> Verarbeitung von Objekten mit einfachen Assoziationen</p>
+<p>Gegeben ist eine Liste von Personen. Jede Person kann einen Arzt zugeordnet haben (oder auch nicht – <code>null</code>).</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Person<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>personen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+personen.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Max&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Meier&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">25</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Mann&quot;</span>));
+personen.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Lena&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Klein&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">32</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Frau&quot;</span>));
+personen.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Tom&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Wolf&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">19</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Mann&quot;</span>));
+
+personen.<span style="color: #4070a0">get</span>(<span style="color: #40a070">0</span>).<span style="color: #4070a0">setArzt</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Arzt(<span style="color: #4070a0">&quot;Dr. Huber&quot;</span>));
+personen.<span style="color: #4070a0">get</span>(<span style="color: #40a070">2</span>).<span style="color: #4070a0">setArzt</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Arzt(<span style="color: #4070a0">&quot;Dr. Huber&quot;</span>));
+
+<span style="color: #60a0b0; font-style: italic">// Schleife hier schreiben:</span>
+</code></pre></div>
+
+<p>a) Schreibe eine <strong>for-each-Schleife</strong>, die für jede Person ausgibt, ob sie einen Arzt hat.<br>
+Beispiel-Ausgabe: <code>Max Meier - Arzt: Dr. Huber</code> oder <code>Lena Klein - kein Arzt</code></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Schleife:</span>
+</code></pre></div>
+
+<p>b) Schreibe eine <strong>Zählvariable</strong> und eine <strong>Schleife</strong>, die ermittelt, wie viele Personen <em>keinen</em> Arzt zugeordnet haben:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Zähler und Schleife:</span>
+</code></pre></div>
+
+<p>Bonus (+1 Punkt): Was könnte passieren, wenn man in der Schleife direkt <code>person.getArzt().getName()</code> aufruft, ohne vorher zu prüfen? Nenne den Fehlertyp:</p>
+<hr>
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Datenstrukturen im Vergleich</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>2. Methodenzuordnung</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Code-Analyse</td>
+<td>8</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Schleife mit 1:1-Assoziation</td>
+<td>7</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

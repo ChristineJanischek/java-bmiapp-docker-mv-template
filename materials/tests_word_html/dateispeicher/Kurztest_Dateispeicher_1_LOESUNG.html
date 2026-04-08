@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Dateispeicher_1_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Persistente Datenspeicherung - IT-Systemverwaltung - LOESUNG</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Benutzerverwaltung - CSV-Export (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Benutzerdaten in CSV-Datei speichern</p>
+<p>Als IT-Administrator sollst du Benutzerkonten in eine CSV-Datei exportieren, um sie später wiederherzustellen.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">BenutzerManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Benutzer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>benutzer;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">exportiereBenutzer</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Schreibe alle Benutzer in CSV-Format (username,email,rolle)</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Beispiel: &quot;max.mueller,max@firma.de,Admin&quot;</span>
+
+
+
+
+
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Anforderungen:</strong><br>
+- Nutze try-with-resources für automatisches Schließen<br>
+- Format: <code>username,email,rolle</code> pro Zeile<br>
+- Verwende BufferedWriter oder Files.write()</p>
+<hr>
+<h3>Musterlösung 1 (mit BufferedWriter - klassischer Ansatz):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">BenutzerManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Benutzer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>benutzer;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">exportiereBenutzer</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedWriter<span style="color: #bbbbbb"> </span>writer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>BufferedWriter(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileWriter(dateiname)))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Benutzer<span style="color: #bbbbbb"> </span>b<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>benutzer)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                </span>String<span style="color: #bbbbbb"> </span>zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>b.<span style="color: #4070a0">getUsername</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;,&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>b.<span style="color: #4070a0">getEmail</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;,&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>b.<span style="color: #4070a0">getRolle</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 2 Punkte</span>
+<span style="color: #bbbbbb">                </span>writer.<span style="color: #4070a0">write</span>(zeile);
+<span style="color: #bbbbbb">                </span>writer.<span style="color: #4070a0">newLine</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(IOException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>System.<span style="color: #4070a0">err</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler beim Exportieren: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>e.<span style="color: #4070a0">getMessage</span>());
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterlösung 2 (mit Files.write() - moderner Ansatz):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">exportiereBenutzer</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>zeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>benutzer.<span style="color: #4070a0">stream</span>()<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 2 Punkte</span>
+<span style="color: #bbbbbb">            </span>.<span style="color: #4070a0">map</span>(b<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span>b.<span style="color: #4070a0">getUsername</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;,&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>b.<span style="color: #4070a0">getEmail</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;,&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>b.<span style="color: #4070a0">getRolle</span>())
+<span style="color: #bbbbbb">            </span>.<span style="color: #4070a0">collect</span>(Collectors.<span style="color: #4070a0">toList</span>());
+
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">write</span>(Paths.<span style="color: #4070a0">get</span>(dateiname),<span style="color: #bbbbbb"> </span>zeilen);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 2 Punkte</span>
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(IOException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">err</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler beim Exportieren: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>e.<span style="color: #4070a0">getMessage</span>());
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterlösung 3 (kompakt mit StringBuilder):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">exportiereBenutzer</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(FileWriter<span style="color: #bbbbbb"> </span>writer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileWriter(dateiname))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Benutzer<span style="color: #bbbbbb"> </span>b<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>benutzer)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>writer.<span style="color: #4070a0">write</span>(String.<span style="color: #4070a0">format</span>(<span style="color: #4070a0">&quot;%s,%s,%s%n&quot;</span>,<span style="color: #bbbbbb">   </span><span style="color: #60a0b0; font-style: italic">// 2 Punkte (Format)</span>
+<span style="color: #bbbbbb">                </span>b.<span style="color: #4070a0">getUsername</span>(),<span style="color: #bbbbbb"> </span>b.<span style="color: #4070a0">getEmail</span>(),<span style="color: #bbbbbb"> </span>b.<span style="color: #4070a0">getRolle</span>()));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(IOException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>e.<span style="color: #4070a0">printStackTrace</span>();
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- try-with-resources verwendet (1 Punkt)<br>
+- Über Liste iteriert (1 Punkt)<br>
+- CSV-Format korrekt (username,email,rolle) (2 Punkte)<br>
+- Zeilen getrennt (newLine() oder \n) (1 Punkt)</p>
+<p><strong>Teilpunkte:</strong><br>
+- Grundstruktur richtig, aber kleine Fehler: 3-4 Punkte<br>
+- Nur Ansatz erkennbar: 1-2 Punkte</p>
+<hr>
+<h2>Aufgabe 2: System-Log schreiben (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Ereignisse in eine Log-Datei anhängen</p>
+<p>Schreibe eine Methode, die System-Ereignisse an eine bestehende Log-Datei <strong>anhängt</strong> (nicht überschreibt):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">SystemLogger</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">static</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">final</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>LOG_FILE<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;system.log&quot;</span>;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">logeEreignis</span>(String<span style="color: #bbbbbb"> </span>ereignis)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Hänge Ereignis mit Zeitstempel an Log-Datei an</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Format: &quot;[2026-02-25 14:30:15] Ereignis-Text&quot;</span>
+
+
+
+
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Hinweis:</strong> Nutze FileWriter mit append-Parameter oder Files.write() mit StandardOpenOption.</p>
+<hr>
+<h3>Musterlösung 1 (mit FileWriter + append):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">SystemLogger</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">static</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">final</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>LOG_FILE<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;system.log&quot;</span>;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">logeEreignis</span>(String<span style="color: #bbbbbb"> </span>ereignis)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(FileWriter<span style="color: #bbbbbb"> </span>writer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileWriter(LOG_FILE,<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">true</span>))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// true = append!  // 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>LocalDateTime<span style="color: #bbbbbb"> </span>jetzt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>LocalDateTime.<span style="color: #4070a0">now</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>DateTimeFormatter<span style="color: #bbbbbb"> </span>formatter<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>DateTimeFormatter.<span style="color: #4070a0">ofPattern</span>(<span style="color: #4070a0">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);
+<span style="color: #bbbbbb">            </span>String<span style="color: #bbbbbb"> </span>zeitstempel<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>jetzt.<span style="color: #4070a0">format</span>(formatter);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+
+<span style="color: #bbbbbb">            </span>String<span style="color: #bbbbbb"> </span>logEintrag<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;[&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>zeitstempel<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;] &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>ereignis<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\n&quot;</span>;
+<span style="color: #bbbbbb">            </span>writer.<span style="color: #4070a0">write</span>(logEintrag);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(IOException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>System.<span style="color: #4070a0">err</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler beim Schreiben des Logs: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>e.<span style="color: #4070a0">getMessage</span>());
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterlösung 2 (mit Files.write() und StandardOpenOption):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">logeEreignis</span>(String<span style="color: #bbbbbb"> </span>ereignis)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>zeitstempel<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>LocalDateTime.<span style="color: #4070a0">now</span>()<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>.<span style="color: #4070a0">format</span>(DateTimeFormatter.<span style="color: #4070a0">ofPattern</span>(<span style="color: #4070a0">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>logEintrag<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>String.<span style="color: #4070a0">format</span>(<span style="color: #4070a0">&quot;[%s] %s%n&quot;</span>,<span style="color: #bbbbbb"> </span>zeitstempel,<span style="color: #bbbbbb"> </span>ereignis);
+
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">write</span>(<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>Paths.<span style="color: #4070a0">get</span>(LOG_FILE),
+<span style="color: #bbbbbb">            </span>logEintrag.<span style="color: #4070a0">getBytes</span>(),
+<span style="color: #bbbbbb">            </span>StandardOpenOption.<span style="color: #4070a0">CREATE</span>,
+<span style="color: #bbbbbb">            </span>StandardOpenOption.<span style="color: #4070a0">APPEND</span><span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt - wichtig für Anhängen!</span>
+<span style="color: #bbbbbb">        </span>);
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(IOException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>e.<span style="color: #4070a0">printStackTrace</span>();
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterlösung 3 (mit BufferedWriter):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">logeEreignis</span>(String<span style="color: #bbbbbb"> </span>ereignis)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedWriter<span style="color: #bbbbbb"> </span>writer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>BufferedWriter(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileWriter(LOG_FILE,<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">true</span>)))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>log<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>String.<span style="color: #4070a0">format</span>(<span style="color: #4070a0">&quot;[%s] %s&quot;</span>,
+<span style="color: #bbbbbb">            </span>LocalDateTime.<span style="color: #4070a0">now</span>().<span style="color: #4070a0">format</span>(DateTimeFormatter.<span style="color: #4070a0">ofPattern</span>(<span style="color: #4070a0">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>)),
+<span style="color: #bbbbbb">            </span>ereignis);
+<span style="color: #bbbbbb">        </span>writer.<span style="color: #4070a0">write</span>(log);
+<span style="color: #bbbbbb">        </span>writer.<span style="color: #4070a0">newLine</span>();
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(IOException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>e.<span style="color: #4070a0">printStackTrace</span>();
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- Append-Modus aktiviert (true oder StandardOpenOption.APPEND) (1 Punkt)<br>
+- Zeitstempel erstellt (LocalDateTime.now()) (1 Punkt)<br>
+- Formatierung mit DateTimeFormatter (1 Punkt)<br>
+- Log-Eintrag geschrieben (1 Punkt)</p>
+<p><strong>Häufiger Fehler:</strong><br>
+- ❌ Ohne append → überschreibt Datei bei jedem Aufruf!<br>
+- ❌ Zeitstempel fehlt oder falsches Format</p>
+<hr>
+<h2>Aufgabe 3: Konfigurationsdatei lesen (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Server-Konfiguration aus Datei laden</p>
+<p>Lies eine Konfigurationsdatei im Format <code>key=value</code> und speichere die Werte in einer Map:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">KonfigManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>config;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">ladeKonfiguration</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>config<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>HashMap<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Lies Datei Zeile für Zeile</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Beispiel-Zeilen:</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// server.host=192.168.1.100</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// server.port=8080</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// database.name=users_db</span>
+
+
+
+
+
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">getWert</span>(String<span style="color: #bbbbbb"> </span>key)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>config.<span style="color: #4070a0">get</span>(key);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Anforderungen:</strong><br>
+- Ignoriere leere Zeilen und Kommentare (beginnen mit #)<br>
+- Splitte jede Zeile am <code>=</code> Zeichen</p>
+<hr>
+<h3>Musterlösung 1 (mit BufferedReader):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">KonfigManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>config;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">ladeKonfiguration</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>config<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>HashMap<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedReader<span style="color: #bbbbbb"> </span>reader<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>BufferedReader(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileReader(dateiname)))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>String<span style="color: #bbbbbb"> </span>zeile;
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>((zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>reader.<span style="color: #4070a0">readLine</span>())<span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span>)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                </span>zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">trim</span>();
+
+<span style="color: #bbbbbb">                </span><span style="color: #60a0b0; font-style: italic">// Ignoriere leere Zeilen und Kommentare  // 1 Punkt</span>
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(zeile.<span style="color: #4070a0">isEmpty</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">startsWith</span>(<span style="color: #4070a0">&quot;#&quot;</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span><span style="color: #007020; font-weight: bold">continue</span>;
+<span style="color: #bbbbbb">                </span>}
+
+<span style="color: #bbbbbb">                </span><span style="color: #60a0b0; font-style: italic">// Splitte am = Zeichen  // 1 Punkt</span>
+<span style="color: #bbbbbb">                </span>String<span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>teile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">split</span>(<span style="color: #4070a0">&quot;=&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>);
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(teile.<span style="color: #4070a0">length</span><span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span>config.<span style="color: #4070a0">put</span>(teile<span style="color: #666666">[</span><span style="color: #40a070">0</span><span style="color: #666666">]</span>.<span style="color: #4070a0">trim</span>(),<span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">1</span><span style="color: #666666">]</span>.<span style="color: #4070a0">trim</span>());<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                </span>}
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">getWert</span>(String<span style="color: #bbbbbb"> </span>key)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>config.<span style="color: #4070a0">get</span>(key);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterlösung 2 (mit Files.readAllLines()):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">ladeKonfiguration</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>config<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>HashMap<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">    </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>zeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readAllLines</span>(Paths.<span style="color: #4070a0">get</span>(dateiname));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(String<span style="color: #bbbbbb"> </span>zeile<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>zeilen)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">trim</span>();
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(zeile.<span style="color: #4070a0">isEmpty</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">startsWith</span>(<span style="color: #4070a0">&quot;#&quot;</span>))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">continue</span>;
+<span style="color: #bbbbbb">        </span>}
+
+<span style="color: #bbbbbb">        </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>gleichIndex<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">indexOf</span>(<span style="color: #4070a0">&#39;=&#39;</span>);
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(gleichIndex<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>String<span style="color: #bbbbbb"> </span>key<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">substring</span>(<span style="color: #40a070">0</span>,<span style="color: #bbbbbb"> </span>gleichIndex).<span style="color: #4070a0">trim</span>();
+<span style="color: #bbbbbb">            </span>String<span style="color: #bbbbbb"> </span>value<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">substring</span>(gleichIndex<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>).<span style="color: #4070a0">trim</span>();
+<span style="color: #bbbbbb">            </span>config.<span style="color: #4070a0">put</span>(key,<span style="color: #bbbbbb"> </span>value);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 2 Punkte</span>
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterlösung 3 (mit Stream API - elegant):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">ladeKonfiguration</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>config<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">lines</span>(Paths.<span style="color: #4070a0">get</span>(dateiname))<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">map</span>(String::trim)
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">filter</span>(line<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">!</span>line.<span style="color: #4070a0">isEmpty</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">!</span>line.<span style="color: #4070a0">startsWith</span>(<span style="color: #4070a0">&quot;#&quot;</span>))<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">filter</span>(line<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span>line.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;=&quot;</span>))<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">map</span>(line<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span>line.<span style="color: #4070a0">split</span>(<span style="color: #4070a0">&quot;=&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>))
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">collect</span>(Collectors.<span style="color: #4070a0">toMap</span>(<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 2 Punkte</span>
+<span style="color: #bbbbbb">            </span>arr<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span>arr<span style="color: #666666">[</span><span style="color: #40a070">0</span><span style="color: #666666">]</span>.<span style="color: #4070a0">trim</span>(),
+<span style="color: #bbbbbb">            </span>arr<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span>arr<span style="color: #666666">[</span><span style="color: #40a070">1</span><span style="color: #666666">]</span>.<span style="color: #4070a0">trim</span>()
+<span style="color: #bbbbbb">        </span>));
+}
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- Datei gelesen (BufferedReader oder Files) (1 Punkt)<br>
+- Zeilen iteriert (1 Punkt)<br>
+- Leere Zeilen und Kommentare ignoriert (1 Punkt)<br>
+- split("=") verwendet (1 Punkt)<br>
+- In Map gespeichert (1 Punkt)</p>
+<p><strong>Beispiel-Konfigurationsdatei:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic"># Server-Konfiguration</span>
+<span style="color: #4070a0">server.host</span><span style="color: #666666">=</span><span style="color: #4070a0">192.168.1.100</span>
+<span style="color: #4070a0">server.port</span><span style="color: #666666">=</span><span style="color: #4070a0">8080</span>
+
+<span style="color: #60a0b0; font-style: italic"># Datenbank</span>
+<span style="color: #4070a0">database.name</span><span style="color: #666666">=</span><span style="color: #4070a0">users_db</span>
+<span style="color: #4070a0">database.user</span><span style="color: #666666">=</span><span style="color: #4070a0">admin</span>
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 4: Code-Analyse - Backup-System (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Dateien kopieren für Backup</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">BackupManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">erstelleBackup</span>(String<span style="color: #bbbbbb"> </span>quellDatei,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>zielDatei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>quelle<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(quellDatei);
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>ziel<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(zielDatei);
+
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">copy</span>(quelle,<span style="color: #bbbbbb"> </span>ziel,<span style="color: #bbbbbb"> </span>StandardCopyOption.<span style="color: #4070a0">REPLACE_EXISTING</span>);
+
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Backup erstellt: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>ziel.<span style="color: #4070a0">getFileName</span>());
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">erstelleBackupMitZeitstempel</span>(String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>LocalDateTime<span style="color: #bbbbbb"> </span>jetzt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>LocalDateTime.<span style="color: #4070a0">now</span>();
+<span style="color: #bbbbbb">        </span>DateTimeFormatter<span style="color: #bbbbbb"> </span>formatter<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>DateTimeFormatter.<span style="color: #4070a0">ofPattern</span>(<span style="color: #4070a0">&quot;yyyyMMdd_HHmmss&quot;</span>);
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>zeitstempel<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>jetzt.<span style="color: #4070a0">format</span>(formatter);
+
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>backupDatei<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>datei<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;.&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>zeitstempel<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;.backup&quot;</span>;
+<span style="color: #bbbbbb">        </span>erstelleBackup(datei,<span style="color: #bbbbbb"> </span>backupDatei);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was bewirkt <code>StandardCopyOption.REPLACE_EXISTING</code>?</p>
+<hr>
+<hr>
+<p>b) Wie lautet der Backup-Dateiname für <code>users.csv</code> am 25.02.2026 um 14:30:15?</p>
+<hr>
+<p>c) Welcher Vorteil besteht bei Verwendung von <code>Path</code> statt <code>String</code> für Dateipfade?</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösung:</h3>
+<p>a) <strong>Was bewirkt <code>StandardCopyOption.REPLACE_EXISTING</code>? (2 Punkte)</strong></p>
+<p>"REPLACE_EXISTING überschreibt die Zieldatei, falls sie bereits existiert. Ohne diese Option würde Files.copy() eine FileAlreadyExistsException werfen, wenn die Backup-Datei schon vorhanden ist."</p>
+<p><strong>Kernpunkte für volle Punktzahl:</strong><br>
+- Überschreibt existierende Datei (1 Punkt)<br>
+- Verhindert Exception bei vorhandener Datei (1 Punkt)</p>
+<p><strong>Alternative Formulierung:</strong><br>
+"Wenn die Zieldatei existiert, wird sie ersetzt statt einen Fehler zu werfen."</p>
+<p>b) <strong>Backup-Dateiname am 25.02.2026 um 14:30:15? (1 Punkt)</strong></p>
+<p><code>users.csv.20260225_143015.backup</code></p>
+<p><strong>Erklärung:</strong><br>
+- Originaldatei: <code>users.csv</code><br>
+- Zeitstempel: <code>20260225_143015</code> (yyyyMMdd_HHmmss)<br>
+- Endung: <code>.backup</code></p>
+<p>c) <strong>Vorteil von Path statt String? (2 Punkte)</strong></p>
+<p>"Path ist objektorientiert und plattformunabhängig. Es behandelt automatisch unterschiedliche Dateisystem-Trennzeichen (/ unter Linux, \ unter Windows) und bietet nützliche Methoden wie getFileName(), getParent(), resolve() etc. String-Pfade müssen manuell verarbeitet werden."</p>
+<p><strong>Kernpunkte:</strong><br>
+- Plattformunabhängig (1 Punkt)<br>
+- Mehr Funktionalität / Methoden (1 Punkt)</p>
+<p><strong>Weitere Vorteile:</strong><br>
+- Typsicherheit (Path vs. String)<br>
+- Bessere Fehlerbehandlung<br>
+- Integration mit java.nio.file API</p>
+<hr>
+<h2>Aufgabe 5: CSV-Benutzer importieren (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Benutzer aus CSV-Datei einlesen</p>
+<p>Schreibe die passende Import-Methode zur Aufgabe 1:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">BenutzerManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Benutzer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>benutzer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">importiereBenutzer</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Lies CSV-Datei und erstelle Benutzer-Objekte</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Format: username,email,rolle</span>
+
+
+
+
+
+
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #60a0b0; font-style: italic">// Verwende diese Benutzer-Klasse:</span>
+<span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Benutzer</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>username;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>email;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>rolle;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Benutzer</span>(String<span style="color: #bbbbbb"> </span>username,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>email,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>rolle)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">username</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>username;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">email</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>email;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">rolle</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>rolle;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h3>Musterlösung 1 (mit BufferedReader):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">BenutzerManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Benutzer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>benutzer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">importiereBenutzer</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>benutzer.<span style="color: #4070a0">clear</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Optional: Liste leeren</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedReader<span style="color: #bbbbbb"> </span>reader<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>BufferedReader(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileReader(dateiname)))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>String<span style="color: #bbbbbb"> </span>zeile;
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>((zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>reader.<span style="color: #4070a0">readLine</span>())<span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span>)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                </span>String<span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>teile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">split</span>(<span style="color: #4070a0">&quot;,&quot;</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(teile.<span style="color: #4070a0">length</span><span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span>Benutzer<span style="color: #bbbbbb"> </span>b<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Benutzer(teile<span style="color: #666666">[</span><span style="color: #40a070">0</span><span style="color: #666666">]</span>,<span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">1</span><span style="color: #666666">]</span>,<span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">2</span><span style="color: #666666">]</span>);
+<span style="color: #bbbbbb">                    </span>benutzer.<span style="color: #4070a0">add</span>(b);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                </span>}
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterlösung 2 (mit Files.readAllLines()):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">importiereBenutzer</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>benutzer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readAllLines</span>(Paths.<span style="color: #4070a0">get</span>(dateiname))<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">stream</span>()
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">map</span>(zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">split</span>(<span style="color: #4070a0">&quot;,&quot;</span>))<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">filter</span>(teile<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span>teile.<span style="color: #4070a0">length</span><span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>)
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">map</span>(teile<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Benutzer(teile<span style="color: #666666">[</span><span style="color: #40a070">0</span><span style="color: #666666">]</span>,<span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">1</span><span style="color: #666666">]</span>,<span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">2</span><span style="color: #666666">]</span>))<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">collect</span>(Collectors.<span style="color: #4070a0">toList</span>());<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+}
+</code></pre></div>
+
+<h3>Musterlösung 3 (mit Validierung):</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">importiereBenutzer</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedReader<span style="color: #bbbbbb"> </span>reader<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>BufferedReader(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileReader(dateiname)))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>zeile;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>((zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>reader.<span style="color: #4070a0">readLine</span>())<span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">trim</span>();
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(zeile.<span style="color: #4070a0">isEmpty</span>())<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">continue</span>;
+
+<span style="color: #bbbbbb">            </span>String<span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>teile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">split</span>(<span style="color: #4070a0">&quot;,&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Limit auf 3 Teile</span>
+
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(teile.<span style="color: #4070a0">length</span><span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                </span>String<span style="color: #bbbbbb"> </span>username<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">0</span><span style="color: #666666">]</span>.<span style="color: #4070a0">trim</span>();
+<span style="color: #bbbbbb">                </span>String<span style="color: #bbbbbb"> </span>email<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">1</span><span style="color: #666666">]</span>.<span style="color: #4070a0">trim</span>();
+<span style="color: #bbbbbb">                </span>String<span style="color: #bbbbbb"> </span>rolle<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">2</span><span style="color: #666666">]</span>.<span style="color: #4070a0">trim</span>();
+
+<span style="color: #bbbbbb">                </span>benutzer.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Benutzer(username,<span style="color: #bbbbbb"> </span>email,<span style="color: #bbbbbb"> </span>rolle));
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- Datei gelesen (1 Punkt)<br>
+- Zeilen iteriert (1 Punkt)<br>
+- split(",") verwendet (1 Punkt)<br>
+- Benutzer-Objekt erstellt und zur Liste hinzugefügt (1 Punkt)</p>
+<p><strong>Beispiel CSV-Datei:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>max.mueller,max@firma.de,Admin
+anna.schmidt,anna@firma.de,User
+tom.weber,tom@firma.de,Moderator
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 6: Fehlersuche - Exception Handling (2 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Fehlerhafte Ressourcenverwaltung</p>
+<p>Finde die Fehler im folgenden Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereInventar</span>(List<span style="color: #666666">&lt;</span>Artikel<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>FileWriter<span style="color: #bbbbbb"> </span>writer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileWriter(datei);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 1</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Artikel<span style="color: #bbbbbb"> </span>a<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>artikel)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>writer.<span style="color: #4070a0">write</span>(a.<span style="color: #4070a0">getId</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;,&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>a.<span style="color: #4070a0">getName</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\n&quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span>writer.<span style="color: #4070a0">close</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 2</span>
+}
+</code></pre></div>
+
+<p>a) Welche zwei Hauptfehler enthält dieser Code?</p>
+<p><strong>Fehler 1:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong></p>
+<p><strong>Fehler 2:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong></p>
+<p>b) Schreibe den Code korrekt mit try-with-resources neu:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereInventar</span>(List<span style="color: #666666">&lt;</span>Artikel<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span>{
+
+
+
+
+
+
+}
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Benutzerverwaltung - Export</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>2. System-Log schreiben</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Konfigurationsdatei lesen</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Backup-System Analyse</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>5. CSV-Benutzer importieren</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche Exception Handling</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Wichtige Konzepte für IT-Systemverwaltung</h2>
+<h3>File I/O Best Practices:</h3>
+<ul>
+<li>✓ <strong>try-with-resources</strong> für automatisches Schließen</li>
+<li>✓ <strong>BufferedReader/Writer</strong> für effizientes Lesen/Schreiben</li>
+<li>✓ <strong>Files &amp; Path API</strong> (java.nio.file) für moderne Dateioperationen</li>
+<li>✓ <strong>Exception Handling</strong> mit IOException</li>
+</ul>
+<h3>Typische Anwendungsfälle:</h3>
+<ul>
+<li>📁 Benutzerdaten exportieren/importieren (CSV)</li>
+<li>📝 System-Logs schreiben</li>
+<li>⚙️ Konfigurationsdateien lesen</li>
+<li>💾 Backup-Funktionen</li>
+<li>📊 Inventar-Verwaltung</li>
+</ul>
+<h3>File I/O Best Practices:</h3>
+<ul>
+<li>✓ <strong>try-with-resources</strong> für automatisches Schließen</li>
+<li>✓ <strong>BufferedReader/Writer</strong> für effizientes Lesen/Schreiben</li>
+<li>✓ <strong>Files &amp; Path API</strong> (java.nio.file) für moderne Dateioperationen</li>
+<li>✓ <strong>Exception Handling</strong> mit IOException</li>
+</ul>
+<h3>Typische Anwendungsfälle:</h3>
+<ul>
+<li>📁 Benutzerdaten exportieren/importieren (CSV)</li>
+<li>📝 System-Logs schreiben</li>
+<li>⚙️ Konfigurationsdateien lesen</li>
+<li>💾 Backup-Funktionen</li>
+<li>📊 Inventar-Verwaltung</li>
+</ul>
+<p><strong>Thema:</strong> Fehlerhafte Ressourcenverwaltung</p>
+<h3>Musterlösung:</h3>
+<p>a) <strong>Welche zwei Hauptfehler? (1 Punkt - nur bei beiden richtig!)</strong></p>
+<p><strong>Fehler 1:</strong> <code>FileWriter(datei)</code> wirft IOException, die nicht behandelt wird (fehlendes try-catch oder throws)</p>
+<p><strong>Fehler 2:</strong> <code>writer.close()</code> wird bei Exception nicht ausgeführt (Resource Leak) und kann selbst IOException werfen</p>
+<p><strong>Zusätzliche Probleme:</strong><br>
+- Wenn <code>writer.write()</code> Exception wirft, wird <code>close()</code> nie aufgerufen<br>
+- Mehrere Stellen können IOException werfen</p>
+<p>b) <strong>Korrekter Code mit try-with-resources: (1 Punkt)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereInventar</span>(List<span style="color: #666666">&lt;</span>Artikel<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(FileWriter<span style="color: #bbbbbb"> </span>writer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileWriter(datei))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Automatisches close()</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Artikel<span style="color: #bbbbbb"> </span>a<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>artikel)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>writer.<span style="color: #4070a0">write</span>(a.<span style="color: #4070a0">getId</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;,&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>a.<span style="color: #4070a0">getName</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(IOException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">err</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler beim Speichern: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>e.<span style="color: #4070a0">getMessage</span>());
+<span style="color: #bbbbbb">        </span>e.<span style="color: #4070a0">printStackTrace</span>();
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Alternative (mit throws):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereInventar</span>(List<span style="color: #666666">&lt;</span>Artikel<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(FileWriter<span style="color: #bbbbbb"> </span>writer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileWriter(datei))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Artikel<span style="color: #bbbbbb"> </span>a<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>artikel)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>writer.<span style="color: #4070a0">write</span>(a.<span style="color: #4070a0">getId</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;,&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>a.<span style="color: #4070a0">getName</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Alternative (mit BufferedWriter für bessere Performance):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereInventar</span>(List<span style="color: #666666">&lt;</span>Artikel<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedWriter<span style="color: #bbbbbb"> </span>writer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>BufferedWriter(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileWriter(datei)))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Artikel<span style="color: #bbbbbb"> </span>a<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>artikel)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>writer.<span style="color: #4070a0">write</span>(a.<span style="color: #4070a0">getId</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;,&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>a.<span style="color: #4070a0">getName</span>());
+<span style="color: #bbbbbb">            </span>writer.<span style="color: #4070a0">newLine</span>();
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(IOException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>e.<span style="color: #4070a0">printStackTrace</span>();
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- Beide Fehler erkannt (1 Punkt - nur bei beiden!)<br>
+- try-with-resources korrekt angewendet (1 Punkt)</p>
+<hr>
+<h2>Bewertungsschema</h2>
+<table>
+<thead>
+<tr>
+<th>Punkte</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>25-23</td>
+<td>1 (sehr gut)</td>
+</tr>
+<tr>
+<td>22-20</td>
+<td>2 (gut)</td>
+</tr>
+<tr>
+<td>19-17</td>
+<td>3 (befriedigend)</td>
+</tr>
+<tr>
+<td>16-13</td>
+<td>4 (ausreichend)</td>
+</tr>
+<tr>
+<td>12-0</td>
+<td>5 (mangelhaft)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Häufige Fehler</h2>
+<h3>Exception Handling</h3>
+<ul>
+<li>❌ <strong>IOException nicht behandelt</strong> → Code kompiliert nicht</li>
+<li>❌ <strong>Ressourcen nicht geschlossen</strong> → Memory Leaks</li>
+<li>❌ <strong>close() vergessen</strong> → Datei bleibt geöffnet</li>
+<li>✓ <strong>try-with-resources verwenden</strong> → Automatisches Schließen</li>
+</ul>
+<h3>Datei-Modi</h3>
+<ul>
+<li>❌ <strong>FileWriter ohne append</strong> → Überschreibt Datei bei Logs!</li>
+<li>✓ <code>new FileWriter(datei, true)</code> für Anhängen</li>
+<li>✓ <code>StandardOpenOption.APPEND</code> bei Files.write()</li>
+</ul>
+<h3>CSV-Verarbeitung</h3>
+<ul>
+<li>❌ <strong>split(",") ohne Limit</strong> → Probleme bei Werten mit Kommas</li>
+<li>✓ <code>split(",", 3)</code> mit Limit für feste Anzahl Spalten</li>
+<li>✓ Validierung: <code>if (teile.length == 3)</code></li>
+</ul>
+<h3>Path vs. String</h3>
+<ul>
+<li>❌ String-Pfade mit manuellen Separatoren (/, )</li>
+<li>✓ Path-Objekte für Plattformunabhängigkeit</li>
+<li>✓ <code>Paths.get()</code> oder <code>Path.of()</code> verwenden</li>
+</ul>
+<hr>
+<h2>Didaktischer Hinweis</h2>
+<h3>Dieser Test umfasst folgende Kompetenzen:</h3>
+<p><strong>1. Grundlegende File I/O:</strong><br>
+- BufferedReader / BufferedWriter<br>
+- FileReader / FileWriter<br>
+- try-with-resources Pattern</p>
+<p><strong>2. Moderne java.nio.file API:</strong><br>
+- Files.write() / Files.readAllLines()<br>
+- Path und Paths<br>
+- StandardCopyOption / StandardOpenOption</p>
+<p><strong>3. Praktische IT-Anwendungen:</strong><br>
+- Benutzerverwaltung (CSV Export/Import)<br>
+- System-Logging (Append-Modus)<br>
+- Konfigurationsdateien (Properties-Format)<br>
+- Backup-Systeme (Dateien kopieren)</p>
+<p><strong>4. Best Practices:</strong><br>
+- Exception Handling<br>
+- Ressourcenverwaltung<br>
+- Dateiformat-Validierung</p>
+<h3>Erwartungshorizont:</h3>
+<p><strong>Note 1 (sehr gut):</strong><br>
+- Verwendet moderne APIs (Files, Path)<br>
+- try-with-resources korrekt angewendet<br>
+- Fehlerbehandlung vollständig<br>
+- Code ist robust und validiert Eingaben</p>
+<p><strong>Note 2-3 (gut - befriedigend):</strong><br>
+- Grundfunktionalität vorhanden<br>
+- Klassische APIs (BufferedReader/Writer)<br>
+- Exception Handling vorhanden<br>
+- Kleinere Fehler in Details</p>
+<p><strong>Note 4 (ausreichend):</strong><br>
+- Ansätze erkennbar<br>
+- Grundstruktur korrekt<br>
+- Fehler in Exception Handling oder Logik<br>
+- Funktioniert mit Einschränkungen</p>
+<h3>Typische Stolpersteine:</h3>
+<ol>
+<li><strong>Resource Leaks:</strong> Vergessen, Streams zu schließen</li>
+<li><strong>IOException nicht behandelt:</strong> Code kompiliert nicht</li>
+<li><strong>Append vs. Overwrite:</strong> Log-Dateien werden überschrieben</li>
+<li><strong>CSV-Parsing:</strong> split() ohne Validierung</li>
+<li><strong>Encoding-Probleme:</strong> Umlaute in Dateien (UTF-8 vs. ISO-8859-1)</li>
+</ol>
+<h3>Weiterführende Themen:</h3>
+<ul>
+<li>Serialisierung (ObjectOutputStream)</li>
+<li>JSON/XML-Verarbeitung (Jackson, JAXB)</li>
+<li>Datenbank-Persistenz (JDBC, JPA)</li>
+<li>Properties-Dateien (java.util.Properties)</li>
+<li>NIO.2 Datei-Watcher (WatchService)</li>
+</ul>
+<hr>
+<h2>Praxisbezug: IT-Systemverwaltung</h2>
+<p>Diese Aufgaben simulieren reale Szenarien in der IT-Administration:</p>
+<h3>🔐 Benutzerverwaltung (Aufgabe 1 &amp; 5)</h3>
+<ul>
+<li>Export/Import von Benutzerkonten</li>
+<li>Backup vor Systemupdates</li>
+<li>Migration zwischen Systemen</li>
+</ul>
+<h3>📝 System-Logging (Aufgabe 2)</h3>
+<ul>
+<li>Ereignisse protokollieren</li>
+<li>Fehleranalyse</li>
+<li>Compliance / Audit-Trails</li>
+</ul>
+<h3>⚙️ Konfigurationsmanagement (Aufgabe 3)</h3>
+<ul>
+<li>Server-Einstellungen speichern</li>
+<li>Automatisierte Deployments</li>
+<li>Infrastructure as Code</li>
+</ul>
+<h3>💾 Backup &amp; Recovery (Aufgabe 4)</h3>
+<ul>
+<li>Automatische Backups mit Zeitstempel</li>
+<li>Versionierung von Konfigurationen</li>
+<li>Disaster Recovery</li>
+</ul>
+<p><strong>Realwelt-Tools mit ähnlichen Konzepten:</strong><br>
+- Apache Commons CSV<br>
+- Log4j / SLF4J (Logging)<br>
+- Spring Configuration Properties<br>
+- Ansible / Terraform (Config Management)</p>
+</body>
+</html>

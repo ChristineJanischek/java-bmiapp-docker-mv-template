@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Vererbung_4_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Vererbung in ERP-Systemen - Zahlungssysteme - LÖSUNGEN &amp; BEPUNKTUNG</h1>
+<p><strong>Dokumenttyp:</strong> Lehrerversion mit Musterlösungen und Bewertungskriterien</p>
+<hr>
+<h2>Aufgabe 1: Zahlungsmethoden in einem E-Commerce-System (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Unterschiedliche Zahlungsarten mit gemeinsamen Attributes</p>
+<p>In einem E-Commerce-System gibt es eine Zahlungs-Hierarchie mit unterschiedlichen Gebührenmodellen:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Zahlung</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>zahlungsId;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>betrag;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>status;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// &quot;AUSSTEHEND&quot;, &quot;BEZAHLT&quot;, &quot;ABGELEHNT&quot;</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Zahlung</span>(String<span style="color: #bbbbbb"> </span>zahlungsId,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>betrag)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">zahlungsId</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zahlungsId;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">betrag</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>betrag;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">status</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;AUSSTEHEND&quot;</span>;
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #60a0b0; font-style: italic">// Unterklasse 1: Banküberweisung (1,5% Gebühren, max. 3€)</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Bankueberweisung</span><span style="color: #bbbbbb"> </span>__________________<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>iban;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>bic;
+}
+
+<span style="color: #60a0b0; font-style: italic">// Unterklasse 2: Kreditkarte (2,5% Gebühren)</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Kreditkarte</span><span style="color: #bbbbbb"> </span>__________________<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>kartennummer;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>gueltigBis;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// &quot;MM/YY&quot;</span>
+}
+
+<span style="color: #60a0b0; font-style: italic">// Unterklasse 3: PayPal (2,9% + 0,30€)</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">PayPal</span><span style="color: #bbbbbb"> </span>__________________<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>email;
+}
+</code></pre></div>
+
+<p>Erkläre, waarum alle drei Klassen von Zahlung erben, obwohl sie unterschiedliche Gebühren haben:</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Bankueberweisung</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Zahlung<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"> </span>}
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Kreditkarte</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Zahlung<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"> </span>}
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">PayPal</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Zahlung<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"> </span>}
+</code></pre></div>
+
+<p><strong>Erklärung (2 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Alle Zahlungsarten teilen grundlegende Eigenschaften:
+Zahlungs-ID, Betrag, Status. Jede Zahlungsart hat aber unterschiedliche Gebührenmodelle,
+die durch Überschreiben von getGebuehren() implementiert werden.
+Dadurch kann Code wiederverwendet und polymorphe Verarbeitung ermöglicht werden.
+</code></pre></div>
+
+<h3>Bewertung (4 Punkte)</h3>
+<p><strong>Hierarchie (2 Punkte):</strong><br>
+- ✓ Alle drei <code>extends Zahlung</code> → 2 Punkte<br>
+- ✗ Falsche Vererbung → 0 Punkte</p>
+<p><strong>Erklärung (2 Punkte):</strong><br>
+- <strong>2 Punkte:</strong> Gemeinsame Attribute + unterschiedliche Gebühren + Polymorphie<br>
+- <strong>1 Punkt:</strong> Grundidee erkannt<br>
+- <strong>0 Punkte:</strong> Falsch</p>
+<hr>
+<h2>Aufgabe 2: Konstruktoren mit unterschiedlichen Parametern (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> super() mit variierenden Unterklassen-Attributen</p>
+<p>Vervollständige die Konstruktoren:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Bankueberweisung</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Zahlung<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>iban;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>bic;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Bankueberweisung</span>(String<span style="color: #bbbbbb"> </span>zahlungsId,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>betrag,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>iban,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>bic)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// super() Aufruf:</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Eigene Attribute:</span>
+
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Kreditkarte</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Zahlung<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>kartennummer;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>gueltigBis;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Kreditkarte</span>(String<span style="color: #bbbbbb"> </span>zahlungsId,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>betrag,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>kartennummer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>gueltigBis)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// super() Aufruf:</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Eigene Attribute (mit Validierung):</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">kartennummer</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>kartennummer.<span style="color: #4070a0">substring</span>(kartennummer.<span style="color: #4070a0">length</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">4</span>);
+
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">PayPal</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Zahlung<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>email;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">PayPal</span>(String<span style="color: #bbbbbb"> </span>zahlungsId,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>betrag,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>email)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// super() Aufruf:</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Eigene Attribute:</span>
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h3>Musterlösung</h3>
+<p><strong>Banküberweisung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Bankueberweisung</span>(String<span style="color: #bbbbbb"> </span>zahlungsId,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>betrag,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>iban,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>bic)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">super</span>(zahlungsId,<span style="color: #bbbbbb"> </span>betrag);
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">iban</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>iban;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">bic</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>bic;
+}
+</code></pre></div>
+
+<p><strong>Kreditkarte:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Kreditkarte</span>(String<span style="color: #bbbbbb"> </span>zahlungsId,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>betrag,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>kartennummer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>gueltigBis)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">super</span>(zahlungsId,<span style="color: #bbbbbb"> </span>betrag);
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">kartennummer</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>kartennummer.<span style="color: #4070a0">substring</span>(kartennummer.<span style="color: #4070a0">length</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">4</span>);
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">gueltigBis</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>gueltigBis;
+}
+</code></pre></div>
+
+<p><strong>PayPal:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">PayPal</span>(String<span style="color: #bbbbbb"> </span>zahlungsId,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>betrag,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>email)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">super</span>(zahlungsId,<span style="color: #bbbbbb"> </span>betrag);
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">email</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>email;
+}
+</code></pre></div>
+
+<h3>Bewertung (5 Punkte)</h3>
+<p><strong>Jeder Konstruktor (1,5 Punkte):</strong><br>
+- ✓ super(zahlungsId, betrag) korrekt → 1 Punkt<br>
+- ✓ Eigene Attribute gesetzt → 0,5 Punkte</p>
+<p><strong>Masking bei Kreditkarte (0,5 Punkte):</strong><br>
+- ✓ kartennummer wird gekürzt → +0,5 Punkte Bonus</p>
+<hr>
+<h2>Aufgabe 3: Gebührenberechnung durch Überschreiben (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Polymorphe Gebührenlogik</p>
+<p>In der Basisklasse:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getGebuehren</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.0</span>;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Standardgebühren</span>
+}
+</code></pre></div>
+
+<p>a) Implementiere getGebuehren() für alle drei Zahlungsarten:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Bankueberweisung (1,5%, max. 3€):</span>
+
+
+<span style="color: #60a0b0; font-style: italic">// Kreditkarte (2,5%):</span>
+
+
+<span style="color: #60a0b0; font-style: italic">// PayPal (2,9% + 0,30€):</span>
+</code></pre></div>
+
+<p>b) Schreibe eine Methode <code>getZahlbetrag()</code>, die Betrag + Gebühren zurückgibt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Methode:</span>
+</code></pre></div>
+
+<hr>
+<h3>Musterlösung</h3>
+<p><strong>a) getGebuehren() (3 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Bankueberweisung (1,5%, max. 3€):</span>
+<span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getGebuehren</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>gebuehr<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>betrag<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.015</span>;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>Math.<span style="color: #4070a0">min</span>(gebuehr,<span style="color: #bbbbbb"> </span><span style="color: #40a070">3.0</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Maximum 3€</span>
+}
+
+<span style="color: #60a0b0; font-style: italic">// Kreditkarte (2,5%):</span>
+<span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getGebuehren</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>betrag<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.025</span>;
+}
+
+<span style="color: #60a0b0; font-style: italic">// PayPal (2,9% + 0,30€):</span>
+<span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getGebuehren</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>(betrag<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.029</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.30</span>;
+}
+</code></pre></div>
+
+<p><strong>Bewertung (3 Punkte):</strong><br>
+- <strong>1 Punkt:</strong> Banküberweisung mit Math.min() oder max()-Logik<br>
+- <strong>1 Punkt:</strong> Kreditkarte mit 2,5% korrekt<br>
+- <strong>1 Punkt:</strong> PayPal mit 2,9% + 0,30€ korrekt</p>
+<hr>
+<p><strong>b) getZahlbetrag() (2 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getZahlbetrag</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>betrag<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>getGebuehren();
+}
+</code></pre></div>
+
+<p><strong>Bewertung (2 Punkte):</strong><br>
+- <strong>2 Punkte:</strong> Betrag + Gebühren korrekt<br>
+- <strong>1 Punkt:</strong> Logik richtig, aber kleine Fehler</p>
+<hr>
+<h2>Aufgabe 4: Code-Analyse - Rechnungsabschluss (6 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Polymorphie bei der Finanzabrechnung</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Zahlung<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>zahlungen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+zahlungen.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Bankueberweisung(<span style="color: #4070a0">&quot;Z001&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1000</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;DE21500...&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;DRESDEFF&quot;</span>));
+zahlungen.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Kreditkarte(<span style="color: #4070a0">&quot;Z002&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">500</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;4532123456789999&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;12/25&quot;</span>));
+zahlungen.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>PayPal(<span style="color: #4070a0">&quot;Z003&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">200</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;user@example.com&quot;</span>));
+
+<span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>gesamtGebühren<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Zahlung<span style="color: #bbbbbb"> </span>z<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>zahlungen)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>gesamtGebühren<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span>z.<span style="color: #4070a0">getGebuehren</span>();
+}
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Gesamte Transaktionsgebühren: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>gesamtGebühren<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;€&quot;</span>);
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Berechne die Gebühren für jede Zahlungsart:</p>
+<p>Antwort:<br>
+Z001 (Banküberweisung 1000€): <strong><em>_</em></strong><strong><em>_</em>_ (1,5%, max. 3€)<br>
+Z002 (Kreditkarte 500€): </strong><strong><em>_</em></strong><strong><em>_ (2,5%)<br>
+Z003 (PayPal 200€): </em></strong><strong><em>_</em></strong>___ (2,9% + 0,30€)<br>
+<strong>Gesamtgebühren: <strong><em>_</em></strong>______</strong></p>
+<p>b) Warum ist Polymorphie hier besonders wertvoll für ein Zahlungssystem?</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösungen</h3>
+<p><strong>a) Gebührenberechnung (4 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Z001 (Banküberweisung 1000€): 1000 * 0.015 = 15€, max. 3€ → 3€
+Z002 (Kreditkarte 500€): 500 * 0.025 = 12,50€
+Z003 (PayPal 200€): (200 * 0.029) + 0,30 = 5,80 + 0,30 = 6,10€
+
+Gesamtgebühren: 3 + 12,50 + 6,10 = 21,60€
+</code></pre></div>
+
+<p><strong>Bewertung (4 Punkte):</strong><br>
+- <strong>1 Punkt:</strong> Z001 korrekt (mit max. 3€-Regel)<br>
+- <strong>1 Punkt:</strong> Z002 korrekt<br>
+- <strong>1 Punkt:</strong> Z003 korrekt (mit Festbetrag)<br>
+- <strong>1 Punkt:</strong> Summe korrekt</p>
+<p><strong>Häufige Fehler:</strong><br>
+- Banküberweisung: 15€ statt 3€ (max.-Regel übersehen) → -1 Punkt<br>
+- PayPal: 5,80€ statt 6,10€ (Festbetrag vergessen) → -1 Punkt</p>
+<hr>
+<p><strong>b) Wert der Polymorphie (2 Punkte):</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Polymorphie ermöglicht es, verschiedene Zahlungsarten in einer List zu speichern
+und einheitlich zu verarbeiten, ohne den Typ zu prüfen.
+Die getGebuehren()-Methode wird automatisch korrekt aufgerufen.
+Neue Zahlungsarten können hinzugefügt werden, ohne bestehenden Code zu ändern (Open-Closed-Prinzip).
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>2 Punkte:</strong> Polymorphie-Wert erklärt + Erweiterbarkeit<br>
+- <strong>1 Punkt:</strong> Grundidee erkannt</p>
+<hr>
+<h2>Aufgabe 5: Zahlungsstatus und Transaktionslogik (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Typgebundene Operationen</p>
+<p>Schreibe eine Methode <code>verarbeiteZahlung()</code>, die eine Zahlung verarbeitet und den Status aktualisiert:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">verarbeiteZahlung</span>(Zahlung<span style="color: #bbbbbb"> </span>zahlung)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Prüfe Zahlungsart und verarbeite entsprechend</span>
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// (z.B. Banküberweisung braucht längeres Verarbeiten)</span>
+
+
+
+}
+</code></pre></div>
+
+<hr>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">verarbeiteZahlung</span>(Zahlung<span style="color: #bbbbbb"> </span>zahlung)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(zahlung<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">instanceof</span><span style="color: #bbbbbb"> </span>Bankueberweisung)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Banküberweisung wird verarbeitet... (2-3 Tage)&quot;</span>);
+<span style="color: #bbbbbb">        </span>zahlung.<span style="color: #4070a0">setStatus</span>(<span style="color: #4070a0">&quot;VERARBEITUNG&quot;</span>);
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(zahlung<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">instanceof</span><span style="color: #bbbbbb"> </span>Kreditkarte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Kreditkarte wird validiert...&quot;</span>);
+<span style="color: #bbbbbb">        </span>zahlung.<span style="color: #4070a0">setStatus</span>(<span style="color: #4070a0">&quot;VALIDIERUNG&quot;</span>);
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(zahlung<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">instanceof</span><span style="color: #bbbbbb"> </span>PayPal)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;PayPal-Zahlungsanforderung wird gesendet...&quot;</span>);
+<span style="color: #bbbbbb">        </span>zahlung.<span style="color: #4070a0">setStatus</span>(<span style="color: #4070a0">&quot;AUSSTEHENDE_BESTÄTIGUNG&quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>oder eleganter mit Strategy-Pattern:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">verarbeiteZahlung</span>(Zahlung<span style="color: #bbbbbb"> </span>zahlung)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>zahlung.<span style="color: #4070a0">verarbeite</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Jede Klasse implementiert ihre Logik</span>
+}
+</code></pre></div>
+
+<h3>Bewertung (3 Punkte)</h3>
+<ul>
+<li><strong>3 Punkte:</strong> instanceof mit unterschiedlicher Behandlung + Status-Update</li>
+<li><strong>2 Punkte:</strong> Grundkonzept erkannt, aber unvollständig</li>
+<li><strong>1 Punkt:</strong> Ansatz vorhanden</li>
+</ul>
+<hr>
+<h2>Aufgabe 6: Fehlersuche - Sicherheit (2 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Häufige Sicherheitsfehler bei Zahlungsdaten</p>
+<p>Gegeben ist folgender fehlerhafter Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">zeigeKartendaten</span>(Kreditkarte<span style="color: #bbbbbb"> </span>karte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Kartennummer: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>karte.<span style="color: #4070a0">kartennummer</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← SICHERHEITSFEHLER</span>
+}
+</code></pre></div>
+
+<p>Erkläre das Sicherheitsproblem und schreibe eine sichere Version:</p>
+<p><strong>Sicherheitsproblem:</strong></p>
+<hr>
+<hr>
+<p><strong>Sichere Methode:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Besser so (maskieren):</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Zahlungsmethoden-Hierarchie</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>2. Unterschiedliche Konstruktoren</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Gebührenberechnung (Überschreiben)</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Polymorphie in Finanzabrechnung</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>5. Transaktionslogik</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche &amp; Sicherheit</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Musterlösung</h3>
+<p><strong>Sicherheitsproblem (1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Die vollständige Kartennummer wird ausgegeben/geloggt.
+Das ist ein Sicherheitsrisiko und verstößt gegen Zahlungsstandards (PCI-DSS).
+Kartendaten sollten niemals vollständig sichtbar sein - höchstens die letzten 4 Ziffern.
+</code></pre></div>
+
+<p><strong>Sichere Methode (1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">getMaskedKartennummer</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>masked<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;****&quot;</span>;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(kartennummer<span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>kartennummer.<span style="color: #4070a0">length</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">4</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>masked<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span>kartennummer.<span style="color: #4070a0">substring</span>(kartennummer.<span style="color: #4070a0">length</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">4</span>);
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>masked;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Ausgabe: **** 9999</span>
+}
+</code></pre></div>
+
+<p>oder:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">zeigeKartendaten</span>(Kreditkarte<span style="color: #bbbbbb"> </span>karte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Kartennummer: ****&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>karte.<span style="color: #4070a0">getLastFourDigits</span>());
+}
+</code></pre></div>
+
+<h3>Bewertung (2 Punkte)</h3>
+<p><strong>Sicherheitsproblem:</strong><br>
+- ✓ PCI-DSS oder Zahlungsstandards erwähnt → 1 Punkt<br>
+- ✓ "Daten sollten nicht sichtbar sein" → 1 Punkt</p>
+<p><strong>Sichere Implementierung:</strong><br>
+- ✓ Masking (****) + letzte 4 Ziffern → 1 Punkt</p>
+<hr>
+<h2>GESAMTBEWERTUNG</h2>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Max. Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Zahlungsmethoden-Hierarchie</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2. Unterschiedliche Konstruktoren</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3. Gebührenberechnung</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4. Polymorphie in Finanzabrechnung</td>
+<td>6</td>
+</tr>
+<tr>
+<td>5. Transaktionslogik</td>
+<td>3</td>
+</tr>
+<tr>
+<td>6. Fehlersuche &amp; Sicherheit</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>GESAMT</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Bewertungsskala</h2>
+<table>
+<thead>
+<tr>
+<th>Prozent</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>90-100%</td>
+<td>1</td>
+</tr>
+<tr>
+<td>80-89%</td>
+<td>2</td>
+</tr>
+<tr>
+<td>70-79%</td>
+<td>3</td>
+</tr>
+<tr>
+<td>60-69%</td>
+<td>4</td>
+</tr>
+<tr>
+<td>50-59%</td>
+<td>5</td>
+</tr>
+<tr>
+<td>&lt; 50%</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notenschlüssel:</strong><br>
+- <strong>ab 23 Punkte:</strong> Note 1<br>
+- <strong>ab 20 Punkte:</strong> Note 2<br>
+- <strong>ab 18 Punkte:</strong> Note 3<br>
+- <strong>ab 15 Punkte:</strong> Note 4<br>
+- <strong>ab 13 Punkte:</strong> Note 5<br>
+- <strong>unter 13 Punkte:</strong> Note 6</p>
+<hr>
+<h2>Häufige Schülerfehler</h2>
+<h3>Fehler 1: Banküberweisung-Gebühren falsch</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>betrag<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.015</span>;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Vergisst das 3€-Maximum!</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> -1 Punkt in Aufgabe 3a/4a</p>
+<h3>Fehler 2: PayPal-Festbetrag vergessen</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>betrag<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.029</span>;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← 0,30€ vergessen!</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> -1 Punkt in Aufgabe 3a/4a</p>
+<h3>Fehler 3: Kartennummer nicht maskieren</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">kartennummer</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>kartennummer;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Volle Nummer gespeichert!</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> -0,5 Punkte in Aufgabe 2, -1 Punkt in Aufgabe 6</p>
+<h3>Fehler 4: Keine Typprüfung bei spezialisierter Logik</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">verarbeiteZahlung</span>(Zahlung<span style="color: #bbbbbb"> </span>zahlung)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Keine instanceof-Prüfung</span>
+}
+</code></pre></div>
+
+<p><strong>Handling:</strong> 1 Punkt Abzug in Aufgabe 5</p>
+<hr>
+<h2>Lernziele</h2>
+<p>✓ <strong>Mehrere Unterklassen:</strong> Parallele Spezialisierung<br>
+✓ <strong>Gebührenlogik:</strong> Unterschiedliche mathematische Berechnungen<br>
+✓ <strong>Polymorphe Zusammenfassung:</strong> Einheitliche Verarbeitung verschiedener Typen<br>
+✓ <strong>Finanzielle Genauigkeit:</strong> Math.min(), Dezimalzahlen<br>
+✓ <strong>Sicherheit:</strong> Datenmasking, PCI-DSS-Konzepte<br>
+✓ <strong>Praktisches ERP-Szenario:</strong> Zahlungsabwicklung in echten Systemen  </p>
+<hr>
+<p><strong>Test erstellt:</strong> Version 1.0 (Feb 2026)<br>
+<strong>Kontext:</strong> ERP-System - E-Commerce Zahlungsabwicklung<br>
+<strong>Schwierigkeitsgrad:</strong> Mittelschwer bis schwer<br>
+<strong>Praktische Relevanz:</strong> Sehr hoch (kritisches Banking/FinTech-Szenario)<br>
+<strong>Sicherheitsfokus:</strong> Ja (Kartendaten, PCI-DSS)</p>
+</body>
+</html>

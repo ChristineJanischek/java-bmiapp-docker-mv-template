@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Dateispeicher_1</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Persistente Datenspeicherung - IT-Systemverwaltung</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Benutzerverwaltung - CSV-Export (5 Punkte)</h2>
+<p><strong>Thema:</strong> Benutzerdaten in CSV-Datei speichern</p>
+<p>Als IT-Administrator sollst du Benutzerkonten in eine CSV-Datei exportieren, um sie später wiederherzustellen.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">BenutzerManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Benutzer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>benutzer;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">exportiereBenutzer</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Schreibe alle Benutzer in CSV-Format (username,email,rolle)</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Beispiel: &quot;max.mueller,max@firma.de,Admin&quot;</span>
+
+
+
+
+
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Anforderungen:</strong><br>
+- Nutze try-with-resources für automatisches Schließen<br>
+- Format: <code>username,email,rolle</code> pro Zeile<br>
+- Verwende BufferedWriter oder Files.write()</p>
+<hr>
+<h2>Aufgabe 2: System-Log schreiben (4 Punkte)</h2>
+<p><strong>Thema:</strong> Ereignisse in eine Log-Datei anhängen</p>
+<p>Schreibe eine Methode, die System-Ereignisse an eine bestehende Log-Datei <strong>anhängt</strong> (nicht überschreibt):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">SystemLogger</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">static</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">final</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>LOG_FILE<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;system.log&quot;</span>;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">logeEreignis</span>(String<span style="color: #bbbbbb"> </span>ereignis)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Hänge Ereignis mit Zeitstempel an Log-Datei an</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Format: &quot;[2026-02-25 14:30:15] Ereignis-Text&quot;</span>
+
+
+
+
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Hinweis:</strong> Nutze FileWriter mit append-Parameter oder Files.write() mit StandardOpenOption.</p>
+<hr>
+<h2>Aufgabe 3: Konfigurationsdatei lesen (5 Punkte)</h2>
+<p><strong>Thema:</strong> Server-Konfiguration aus Datei laden</p>
+<p>Lies eine Konfigurationsdatei im Format <code>key=value</code> und speichere die Werte in einer Map:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">KonfigManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>config;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">ladeKonfiguration</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>config<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>HashMap<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Lies Datei Zeile für Zeile</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Beispiel-Zeilen:</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// server.host=192.168.1.100</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// server.port=8080</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// database.name=users_db</span>
+
+
+
+
+
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">getWert</span>(String<span style="color: #bbbbbb"> </span>key)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>config.<span style="color: #4070a0">get</span>(key);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Anforderungen:</strong><br>
+- Ignoriere leere Zeilen und Kommentare (beginnen mit #)<br>
+- Splitte jede Zeile am <code>=</code> Zeichen</p>
+<hr>
+<h2>Aufgabe 4: Code-Analyse - Backup-System (5 Punkte)</h2>
+<p><strong>Thema:</strong> Dateien kopieren für Backup</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">BackupManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">erstelleBackup</span>(String<span style="color: #bbbbbb"> </span>quellDatei,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>zielDatei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>quelle<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(quellDatei);
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>ziel<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(zielDatei);
+
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">copy</span>(quelle,<span style="color: #bbbbbb"> </span>ziel,<span style="color: #bbbbbb"> </span>StandardCopyOption.<span style="color: #4070a0">REPLACE_EXISTING</span>);
+
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Backup erstellt: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>ziel.<span style="color: #4070a0">getFileName</span>());
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">erstelleBackupMitZeitstempel</span>(String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>LocalDateTime<span style="color: #bbbbbb"> </span>jetzt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>LocalDateTime.<span style="color: #4070a0">now</span>();
+<span style="color: #bbbbbb">        </span>DateTimeFormatter<span style="color: #bbbbbb"> </span>formatter<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>DateTimeFormatter.<span style="color: #4070a0">ofPattern</span>(<span style="color: #4070a0">&quot;yyyyMMdd_HHmmss&quot;</span>);
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>zeitstempel<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>jetzt.<span style="color: #4070a0">format</span>(formatter);
+
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>backupDatei<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>datei<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;.&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>zeitstempel<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;.backup&quot;</span>;
+<span style="color: #bbbbbb">        </span>erstelleBackup(datei,<span style="color: #bbbbbb"> </span>backupDatei);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was bewirkt <code>StandardCopyOption.REPLACE_EXISTING</code>?</p>
+<hr>
+<hr>
+<p>b) Wie lautet der Backup-Dateiname für <code>users.csv</code> am 25.02.2026 um 14:30:15?</p>
+<hr>
+<p>c) Welcher Vorteil besteht bei Verwendung von <code>Path</code> statt <code>String</code> für Dateipfade?</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 5: CSV-Benutzer importieren (4 Punkte)</h2>
+<p><strong>Thema:</strong> Benutzer aus CSV-Datei einlesen</p>
+<p>Schreibe die passende Import-Methode zur Aufgabe 1:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">BenutzerManager</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Benutzer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>benutzer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">importiereBenutzer</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Lies CSV-Datei und erstelle Benutzer-Objekte</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Format: username,email,rolle</span>
+
+
+
+
+
+
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #60a0b0; font-style: italic">// Verwende diese Benutzer-Klasse:</span>
+<span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Benutzer</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>username;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>email;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>rolle;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Benutzer</span>(String<span style="color: #bbbbbb"> </span>username,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>email,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>rolle)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">username</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>username;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">email</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>email;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">rolle</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>rolle;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 6: Fehlersuche - Exception Handling (2 Punkte)</h2>
+<p><strong>Thema:</strong> Fehlerhafte Ressourcenverwaltung</p>
+<p>Finde die Fehler im folgenden Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereInventar</span>(List<span style="color: #666666">&lt;</span>Artikel<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>FileWriter<span style="color: #bbbbbb"> </span>writer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileWriter(datei);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 1</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Artikel<span style="color: #bbbbbb"> </span>a<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>artikel)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>writer.<span style="color: #4070a0">write</span>(a.<span style="color: #4070a0">getId</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;,&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>a.<span style="color: #4070a0">getName</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\n&quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span>writer.<span style="color: #4070a0">close</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 2</span>
+}
+</code></pre></div>
+
+<p>a) Welche zwei Hauptfehler enthält dieser Code?</p>
+<p><strong>Fehler 1:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong></p>
+<p><strong>Fehler 2:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong></p>
+<p>b) Schreibe den Code korrekt mit try-with-resources neu:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereInventar</span>(List<span style="color: #666666">&lt;</span>Artikel<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>artikel,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span>{
+
+
+
+
+
+
+}
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Benutzerverwaltung - Export</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>2. System-Log schreiben</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Konfigurationsdatei lesen</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Backup-System Analyse</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>5. CSV-Benutzer importieren</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche Exception Handling</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Wichtige Konzepte für IT-Systemverwaltung</h2>
+<h3>File I/O Best Practices:</h3>
+<ul>
+<li>✓ <strong>try-with-resources</strong> für automatisches Schließen</li>
+<li>✓ <strong>BufferedReader/Writer</strong> für effizientes Lesen/Schreiben</li>
+<li>✓ <strong>Files &amp; Path API</strong> (java.nio.file) für moderne Dateioperationen</li>
+<li>✓ <strong>Exception Handling</strong> mit IOException</li>
+</ul>
+<h3>Typische Anwendungsfälle:</h3>
+<ul>
+<li>📁 Benutzerdaten exportieren/importieren (CSV)</li>
+<li>📝 System-Logs schreiben</li>
+<li>⚙️ Konfigurationsdateien lesen</li>
+<li>💾 Backup-Funktionen</li>
+<li>📊 Inventar-Verwaltung</li>
+</ul>
+</body>
+</html>

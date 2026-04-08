@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Schleifen_3_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Schleifen 3 - Arrays und Muster - LOESUNG</h1>
+<p><strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Gerade Zahlen summieren (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">summeGerade</span>(<span style="color: #902000">int</span><span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>arr)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// TODO</span>
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">summeGerade</span>(<span style="color: #902000">int</span><span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>arr)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>summe<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>wert<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>arr)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(wert<span style="color: #bbbbbb"> </span><span style="color: #666666">%</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span><span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>summe<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span>wert;
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>summe;
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Nur gerade Zahlen (<code>wert % 2 == 0</code>) werden aufsummiert.</p>
+<hr>
+<h2>Aufgabe 2: Multiplikationstabelle (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p>Erzeuge eine 3x3 Tabelle (1..3):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>1 2 3
+2 4 6
+3 6 9
+</code></pre></div>
+
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// TODO</span>
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>j<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>;<span style="color: #bbbbbb"> </span>j<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>;<span style="color: #bbbbbb"> </span>j<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">print</span>((i<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span>j)<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; &quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>();
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Jede Tabellenzelle ist das Produkt aus Zeile (<code>i</code>) und Spalte (<code>j</code>).</p>
+<hr>
+<h2>Aufgabe 3: do-while mit Abbruchwort (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p>Schreibe eine Schleife, die Eingaben sammelt, bis der Benutzer "stop" eingibt.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Scanner<span style="color: #bbbbbb"> </span>sc<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Scanner(System.<span style="color: #4070a0">in</span>);
+String<span style="color: #bbbbbb"> </span>input;
+<span style="color: #60a0b0; font-style: italic">// TODO</span>
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Scanner<span style="color: #bbbbbb"> </span>sc<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Scanner(System.<span style="color: #4070a0">in</span>);
+String<span style="color: #bbbbbb"> </span>input;
+
+<span style="color: #007020; font-weight: bold">do</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>input<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>sc.<span style="color: #4070a0">nextLine</span>();
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(<span style="color: #666666">!</span>input.<span style="color: #4070a0">equalsIgnoreCase</span>(<span style="color: #4070a0">&quot;stop&quot;</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Eingabe: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>input);
+<span style="color: #bbbbbb">    </span>}
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>(<span style="color: #666666">!</span>input.<span style="color: #4070a0">equalsIgnoreCase</span>(<span style="color: #4070a0">&quot;stop&quot;</span>));
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Die Schleife wird mindestens einmal ausgefuehrt. Bei <code>stop</code> endet sie.</p>
+<hr>
+<h2>Aufgabe 4: Code-Analyse (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #902000">int</span><span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>a<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>{<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>};
+<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>sum<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;=</span><span style="color: #bbbbbb"> </span>a.<span style="color: #4070a0">length</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>sum<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span>a<span style="color: #666666">[</span>i<span style="color: #666666">]</span>;
+}
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(sum);
+</code></pre></div>
+
+<p>a) Was passiert? <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>___</p>
+<p>b) Korrigiere die Schleife. <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong></p>
+<h3>Musterloesung</h3>
+<p>a) Es entsteht eine <code>ArrayIndexOutOfBoundsException</code>, weil bei <code>i == a.length</code> auf ein ungueltiges Indexelement zugegriffen wird.</p>
+<p>b) Korrektur:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>a.<span style="color: #4070a0">length</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>sum<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span>a<span style="color: #666666">[</span>i<span style="color: #666666">]</span>;
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Gueltige Array-Indizes reichen von <code>0</code> bis <code>a.length - 1</code>.</p>
+<hr>
+<h2>Aufgabe 5: Indexierte Ausgabe (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>liste<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>List.<span style="color: #4070a0">of</span>(<span style="color: #4070a0">&quot;A&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;B&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;C&quot;</span>);
+<span style="color: #60a0b0; font-style: italic">// Gib Index und Wert aus (0:A, 1:B, 2:C)</span>
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>liste.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(i<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;:&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>liste.<span style="color: #4070a0">get</span>(i));
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Ein klassischer <code>for</code>-Loop ist sinnvoll, wenn Index und Wert benoetigt werden.</p>
+<hr>
+<h2>Aufgabe 6: Fehlersuche (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">10</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(i);
+}
+</code></pre></div>
+
+<p>Was ist hier falsch, wenn gewuenscht ist: 10 bis 1?</p>
+<hr>
+<h3>Musterloesung</h3>
+<p>Die Richtung ist falsch: <code>i++</code> erhoeht statt zu verringern.</p>
+<p>Korrekt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">10</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #666666">--</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(i);
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Fuer eine Countdown-Schleife muss der Zaehler dekrementiert werden.</p>
+<hr>
+<p><strong>Viel Erfolg!</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

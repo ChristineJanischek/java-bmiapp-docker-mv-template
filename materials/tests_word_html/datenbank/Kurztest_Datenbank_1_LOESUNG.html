@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Datenbank_1_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Datenbank 1 – Verbindung aufbauen – LOESUNG</h1>
+<p><strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: JDBC-Verbindung (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p>Vervollständige die Methode. Die Verbindung soll automatisch geschlossen werden.</p>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">verbindungTesten</span>(String<span style="color: #bbbbbb"> </span>url,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>user,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>pw)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(Connection<span style="color: #bbbbbb"> </span>conn<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>DriverManager.<span style="color: #4070a0">getConnection</span>(url,<span style="color: #bbbbbb"> </span>user,<span style="color: #bbbbbb"> </span>pw))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">   </span><span style="color: #60a0b0; font-style: italic">// ← 5 Punkte</span>
+
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Verbindung hergestellt!&quot;</span>);
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">true</span>;
+
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(SQLException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">err</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>e.<span style="color: #4070a0">getMessage</span>());
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">false</span>;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Erläuterung</h3>
+<p><code>try (Connection conn = ...)</code> ist die <strong>try-with-resources</strong>-Syntax. Das <code>Connection</code>-Objekt implementiert <code>AutoCloseable</code>, daher wird <code>conn.close()</code> am Ende des Blocks automatisch aufgerufen – auch wenn eine Exception auftritt.</p>
+<p><strong>Punktevergabe:</strong><br>
+- <code>Connection conn = DriverManager.getConnection(...)</code> korrekt: 3 Punkte<br>
+- try-with-resources (Klammern um den Ausdruck): 2 Punkte</p>
+<hr>
+<h2>Aufgabe 2: URL zusammensetzen (4 Punkte)</h2>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>url<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;jdbc:mysql://localhost:3306/schule_db&quot;</span>;
+</code></pre></div>
+
+<h3>Erläuterung</h3>
+<p>Das JDBC-URL-Format für MySQL:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>jdbc:mysql://&lt;HOST&gt;:&lt;PORT&gt;/&lt;DATENBANKNAME&gt;
+</code></pre></div>
+
+<p>Optionale Parameter können mit <code>?</code> angehängt werden:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #4070a0">&quot;jdbc:mysql://localhost:3306/schule_db?useSSL=false&amp;serverTimezone=Europe/Berlin&quot;</span>
+</code></pre></div>
+
+<p><strong>Punktevergabe:</strong><br>
+- <code>jdbc:mysql://</code> korrekt: 1 Punkt<br>
+- Host und Port korrekt: 1 Punkt<br>
+- Datenbankname korrekt: 1 Punkt<br>
+- Gesamtformat korrekt: 1 Punkt</p>
+<hr>
+<h2>Aufgabe 3: Verbindung nutzen – SELECT (6 Punkte)</h2>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;SELECT id, vorname, nachname FROM person&quot;</span>;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← 2 Punkte</span>
+
+<span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(Statement<span style="color: #bbbbbb"> </span>stmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">createStatement</span>();<span style="color: #bbbbbb">              </span><span style="color: #60a0b0; font-style: italic">// ← 1 Punkt</span>
+<span style="color: #bbbbbb">     </span>ResultSet<span style="color: #bbbbbb"> </span>rs<span style="color: #bbbbbb">   </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>stmt.<span style="color: #4070a0">executeQuery</span>(sql))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">           </span><span style="color: #60a0b0; font-style: italic">// ← 1 Punkt</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>(rs.<span style="color: #4070a0">next</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(
+<span style="color: #bbbbbb">            </span>rs.<span style="color: #4070a0">getInt</span>(<span style="color: #4070a0">&quot;id&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; | &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb">                     </span><span style="color: #60a0b0; font-style: italic">// ← 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;vorname&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span>
+<span style="color: #bbbbbb">            </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;nachname&quot;</span>)<span style="color: #bbbbbb">                       </span><span style="color: #60a0b0; font-style: italic">// ← 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Erläuterung</h3>
+<ul>
+<li><code>conn.createStatement()</code> erzeugt ein Statement-Objekt für einfache SQL-Befehle ohne Parameter.</li>
+<li><code>stmt.executeQuery(sql)</code> führt den SELECT aus und gibt ein <code>ResultSet</code> zurück.</li>
+<li><code>rs.next()</code> wandert zeilenweise durch das Ergebnis – gibt <code>false</code> zurück wenn keine Zeilen mehr vorhanden.</li>
+<li><code>rs.getInt("id")</code> und <code>rs.getString("vorname")</code> lesen Spaltenwerte nach Namen.</li>
+</ul>
+<hr>
+<h2>Aufgabe 4: Fehleranalyse (5 Punkte)</h2>
+<h3>Fehlerhafte Code</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Connection<span style="color: #bbbbbb"> </span>conn<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>DriverManager.<span style="color: #4070a0">getConnection</span>(<span style="color: #4070a0">&quot;localhost:3306/db&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;root&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;pw&quot;</span>);
+Statement<span style="color: #bbbbbb"> </span>stmt<span style="color: #bbbbbb">  </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">createStatement</span>;
+ResultSet<span style="color: #bbbbbb"> </span>rs<span style="color: #bbbbbb">    </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>stmt.<span style="color: #4070a0">executeUpdate</span>(<span style="color: #4070a0">&quot;SELECT * FROM person&quot;</span>);
+</code></pre></div>
+
+<h3>Musterlösung</h3>
+<p><strong>Fehler 1</strong> (2 Punkte): Die JDBC-URL ist ungültig – fehlendes <code>jdbc:mysql://</code>  </p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Falsch:</span>
+<span style="color: #4070a0">&quot;localhost:3306/db&quot;</span>
+<span style="color: #60a0b0; font-style: italic">// Richtig:</span>
+<span style="color: #4070a0">&quot;jdbc:mysql://localhost:3306/db&quot;</span>
+</code></pre></div>
+
+<p><strong>Fehler 2</strong> (1 Punkt): <code>createStatement</code> ist eine Methode und braucht <code>()</code>:  </p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Falsch:</span>
+conn.<span style="color: #4070a0">createStatement</span>
+<span style="color: #60a0b0; font-style: italic">// Richtig:</span>
+conn.<span style="color: #4070a0">createStatement</span>()
+</code></pre></div>
+
+<p><strong>Fehler 3</strong> (2 Punkte): <code>executeUpdate()</code> ist für INSERT/UPDATE/DELETE und gibt <code>int</code> zurück, nicht <code>ResultSet</code>. Für SELECT muss <code>executeQuery()</code> verwendet werden:  </p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Falsch:</span>
+ResultSet<span style="color: #bbbbbb"> </span>rs<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>stmt.<span style="color: #4070a0">executeUpdate</span>(<span style="color: #4070a0">&quot;SELECT ...&quot;</span>);
+<span style="color: #60a0b0; font-style: italic">// Richtig:</span>
+ResultSet<span style="color: #bbbbbb"> </span>rs<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>stmt.<span style="color: #4070a0">executeQuery</span>(<span style="color: #4070a0">&quot;SELECT ...&quot;</span>);
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 5: Kurzfragen (5 Punkte)</h2>
+<h3>Musterlösungen</h3>
+<p><strong>1. Was bedeutet <code>try-with-resources</code>?</strong><br>
+Ressourcen, die <code>AutoCloseable</code> implementieren (z.B. <code>Connection</code>, <code>Statement</code>, <code>ResultSet</code>), werden am Ende des try-Blocks automatisch geschlossen – auch bei Ausnahmen. Verhindert Ressourcen-Lecks.<br>
+<em>(1 Punkt)</em></p>
+<p><strong>2. Was gibt <code>executeQuery()</code> zurück?</strong><br>
+Ein <code>ResultSet</code>-Objekt mit den Ergebniszeilen einer SELECT-Abfrage.<br>
+<em>(1 Punkt)</em></p>
+<p><strong>3. Was gibt <code>executeUpdate()</code> zurück?</strong><br>
+Eine <code>int</code>-Zahl: die Anzahl der betroffenen Zeilen (z.B. 1 bei einem erfolgreichen INSERT).<br>
+<em>(1 Punkt)</em></p>
+<p><strong>4. Warum darf man Passwörter nicht im Quellcode speichern?</strong><br>
+Der Quellcode wird in Repositories (z.B. GitHub) hochgeladen und ist dann öffentlich lesbar. Außerdem schwer zu ändern ohne neuen Build. Besser: Konfigurationsdatei (außerhalb des Repos) oder Umgebungsvariablen.<br>
+<em>(1 Punkt)</em></p>
+<p><strong>5. Welche Maven-Abhängigkeit wird für MySQL benötigt?</strong>  </p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #062873; font-weight: bold">&lt;dependency&gt;</span>
+<span style="color: #bbbbbb">    </span><span style="color: #062873; font-weight: bold">&lt;groupId&gt;</span>com.mysql<span style="color: #062873; font-weight: bold">&lt;/groupId&gt;</span>
+<span style="color: #bbbbbb">    </span><span style="color: #062873; font-weight: bold">&lt;artifactId&gt;</span>mysql-connector-j<span style="color: #062873; font-weight: bold">&lt;/artifactId&gt;</span>
+<span style="color: #bbbbbb">    </span><span style="color: #062873; font-weight: bold">&lt;version&gt;</span>8.3.0<span style="color: #062873; font-weight: bold">&lt;/version&gt;</span>
+<span style="color: #062873; font-weight: bold">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+<p><em>(1 Punkt)</em></p>
+</body>
+</html>

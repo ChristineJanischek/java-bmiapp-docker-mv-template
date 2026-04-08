@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Vererbung_1</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Vererbung in Java</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Vererbungssyntax (4 Punkte)</h2>
+<p><strong>Thema:</strong> Grundlagen der Vererbung</p>
+<p>Gegeben ist eine Oberklasse <code>Fahrzeug</code> und eine Unterklasse <code>Auto</code>.</p>
+<p>a) Ergänze die Klassendefinition, damit <code>Auto</code> von <code>Fahrzeug</code> erbt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Fahrzeug</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>marke;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">protected</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>baujahr;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Fahrzeug</span>(String<span style="color: #bbbbbb"> </span>marke,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>baujahr)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">marke</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>marke;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">baujahr</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>baujahr;
+<span style="color: #bbbbbb">    </span>}
+}
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Auto</span><span style="color: #bbbbbb"> </span>__________________<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>anzahlTueren;
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Konstruktor hier</span>
+}
+</code></pre></div>
+
+<p>b) Erkläre in 1-2 Sätzen, was das Schlüsselwort <code>protected</code> bedeutet:</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 2: Konstruktor mit super() (5 Punkte)</h2>
+<p><strong>Thema:</strong> Aufruf des Oberkonstruktors</p>
+<p>Vervollständige den Konstruktor der Klasse <code>Auto</code>, sodass die Attribute der Oberklasse <code>Fahrzeug</code> korrekt initialisiert werden:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Auto</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Fahrzeug<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>anzahlTueren;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Auto</span>(String<span style="color: #bbbbbb"> </span>marke,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>baujahr,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>anzahlTueren)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Hier den super()-Aufruf ergänzen:</span>
+
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Hier das eigene Attribut setzen:</span>
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>Erkläre in 1-2 Sätzen, warum <code>super()</code> als erste Anweisung im Konstruktor stehen muss:</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 3: Methoden überschreiben (5 Punkte)</h2>
+<p><strong>Thema:</strong> Überschreiben (Override) von Methoden</p>
+<p>Gegeben ist folgende Methode in der Oberklasse <code>Fahrzeug</code>:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">getBeschreibung</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Fahrzeug: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>marke<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; (&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>baujahr<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;)&quot;</span>;
+}
+</code></pre></div>
+
+<p>a) Schreibe eine überschriebene Version dieser Methode für die Klasse <code>Auto</code>, die zusätzlich die Anzahl der Türen ausgibt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Überschriebene Methode:</span>
+</code></pre></div>
+
+<p>b) Ordne die Begriffe den Beschreibungen zu. Schreibe den Buchstaben in die Klammer.</p>
+<p><strong>Beschreibungen:</strong><br>
+- <strong>(a)</strong> Annotation, die das Überschreiben einer Methode kennzeichnet<br>
+- <strong>(b)</strong> Aufruf der Methode aus der Oberklasse<br>
+- <strong>(c)</strong> Methode in Unterklasse ersetzt die Methode der Oberklasse<br>
+- <strong>(d)</strong> Methode hat gleichen Namen aber andere Parameter</p>
+<table>
+<thead>
+<tr>
+<th>Begriff</th>
+<th>Buchstabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@Override</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>super.methode()</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td>Überschreiben</td>
+<td>( )</td>
+</tr>
+<tr>
+<td>Überladen</td>
+<td>( )</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Aufgabe 4: Code-Analyse (5 Punkte)</h2>
+<p><strong>Thema:</strong> Polymorphie und Methodenaufruf</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Fahrzeug<span style="color: #bbbbbb"> </span>f1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Fahrzeug(<span style="color: #4070a0">&quot;Mercedes&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2020</span>);
+Auto<span style="color: #bbbbbb"> </span>a1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Auto(<span style="color: #4070a0">&quot;BMW&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2022</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">4</span>);
+Fahrzeug<span style="color: #bbbbbb"> </span>f2<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Auto(<span style="color: #4070a0">&quot;Audi&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2023</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>);
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(f1.<span style="color: #4070a0">getBeschreibung</span>());
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(a1.<span style="color: #4070a0">getBeschreibung</span>());
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(f2.<span style="color: #4070a0">getBeschreibung</span>());
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was gibt die <strong>erste</strong> <code>System.out.println</code>-Zeile aus?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>b) Was gibt die <strong>zweite</strong> <code>System.out.println</code>-Zeile aus (Auto überschreibt getBeschreibung)?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>c) Was gibt die <strong>dritte</strong> <code>System.out.println</code>-Zeile aus? Welche Methode wird aufgerufen?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<hr>
+<p>d) Erkläre in 1-2 Sätzen, warum bei <code>f2</code> die Methode von <code>Auto</code> aufgerufen wird, obwohl der Typ <code>Fahrzeug</code> ist:</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 5: instanceof und Typprüfung (3 Punkte)</h2>
+<p><strong>Thema:</strong> Prüfung von Objekttypen</p>
+<p>Gegeben ist eine Liste von Fahrzeugen:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Fahrzeug<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>fahrzeuge<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+fahrzeuge.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Fahrzeug(<span style="color: #4070a0">&quot;VW&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2019</span>));
+fahrzeuge.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Auto(<span style="color: #4070a0">&quot;Ford&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2021</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span>));
+fahrzeuge.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Auto(<span style="color: #4070a0">&quot;Opel&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2020</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>));
+</code></pre></div>
+
+<p>Schreibe eine <strong>for-Schleife</strong>, die durch alle Fahrzeuge iteriert und nur die Autos ausgibt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Schleife hier schreiben (mit instanceof-Prüfung):</span>
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 6: Fehlersuche &amp; Analyse (3 Punkte)</h2>
+<p><strong>Thema:</strong> Häufige Fehler bei Vererbung</p>
+<p>Gegeben ist folgender fehlerhafter Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Motorrad</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">extends</span><span style="color: #bbbbbb"> </span>Fahrzeug<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>hubraum;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Motorrad</span>(String<span style="color: #bbbbbb"> </span>marke,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>baujahr,<span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>hubraum)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">marke</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>marke;<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 1</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">baujahr</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>baujahr;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">hubraum</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>hubraum;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Aufgaben:</strong></p>
+<p>a) <strong>Fehler 1:</strong> Was ist das Problem mit der Initialisierung ohne <code>super()</code>?</p>
+<hr>
+<hr>
+<p>b) Schreibe die <strong>korrekte Version</strong> des Konstruktors:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Korrekt:</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Vererbungssyntax</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>2. Konstruktor mit super()</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Methoden überschreiben</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Code-Analyse (Polymorphie)</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>5. instanceof und Typprüfung</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

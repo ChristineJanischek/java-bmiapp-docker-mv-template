@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Verzweigungen_3_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Verzweigungen 3 - Bedingungen und Validierung - LOESUNG</h1>
+<p><strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: De-Morgan (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p>Vereinfache die Bedingung mit De-Morgan:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(<span style="color: #666666">!</span>(a<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>b<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// ...</span>
+}
+</code></pre></div>
+
+<p>Schreibe eine aequivalente Bedingung ohne Negation:</p>
+<hr>
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(a<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>b<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// ...</span>
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>De-Morgan: <code>!(X &amp;&amp; Y)</code> wird zu <code>(!X || !Y)</code>.</p>
+<hr>
+<h2>Aufgabe 2: Preislogik (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">preis</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>menge,<span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span>premium)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// premium: 10% Rabatt</span>
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// menge &gt;= 100: 5% Rabatt</span>
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Rabatte addieren sich</span>
+
+
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">preis</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>menge,<span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span>premium)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>basis<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>menge<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">10.0</span>;
+<span style="color: #bbbbbb">    </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>rabatt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.0</span>;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(premium)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>rabatt<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.10</span>;
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(menge<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">100</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>rabatt<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.05</span>;
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>basis<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span>(<span style="color: #40a070">1</span><span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span>rabatt);
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Beide Rabatte werden aufaddiert und dann einmal auf den Basispreis angewendet.</p>
+<hr>
+<h2>Aufgabe 3: Validierung (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">gueltigeId</span>(String<span style="color: #bbbbbb"> </span>id)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// gueltig: 3..10 Zeichen, beginnt mit &quot;ID-&quot;</span>
+
+
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">gueltigeId</span>(String<span style="color: #bbbbbb"> </span>id)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>id<span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span>
+<span style="color: #bbbbbb">        </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>id.<span style="color: #4070a0">startsWith</span>(<span style="color: #4070a0">&quot;ID-&quot;</span>)
+<span style="color: #bbbbbb">        </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>id.<span style="color: #4070a0">length</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>
+<span style="color: #bbbbbb">        </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>id.<span style="color: #4070a0">length</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">10</span>;
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Null-Check verhindert Fehler, danach werden Praefix und Laenge geprueft.</p>
+<hr>
+<h2>Aufgabe 4: Code-Analyse (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>x<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">7</span>;
+<span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(x<span style="color: #bbbbbb"> </span><span style="color: #666666">%</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span><span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;gerade&quot;</span>);
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(x<span style="color: #bbbbbb"> </span><span style="color: #666666">%</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span><span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;durch 3 teilbar&quot;</span>);
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;sonst&quot;</span>);
+}
+</code></pre></div>
+
+<p>Was wird ausgegeben? <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_____</p>
+<h3>Musterloesung</h3>
+<p>Ausgabe: <code>sonst</code></p>
+<h3>Erlaeuterung</h3>
+<p><code>7</code> ist weder durch <code>2</code> noch durch <code>3</code> ohne Rest teilbar.</p>
+<hr>
+<h2>Aufgabe 5: Guard Clause (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">sendeMail</span>(String<span style="color: #bbbbbb"> </span>mail)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Wenn mail ungueltig -&gt; return</span>
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// gueltig wenn enthaelt &quot;@&quot; und &quot;.&quot;</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// TODO</span>
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Sende Mail&quot;</span>);
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">sendeMail</span>(String<span style="color: #bbbbbb"> </span>mail)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(mail<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span><span style="color: #666666">!</span>mail.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;@&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span><span style="color: #666666">!</span>mail.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;.&quot;</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span>;
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Sende Mail&quot;</span>);
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Ungueltige Eingaben werden frueh beendet, nur gueltige Mails werden weiterverarbeitet.</p>
+<hr>
+<h2>Aufgabe 6: Fehlersuche (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(a<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>b<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>c<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;alle positiv&quot;</span>);
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(a<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>b<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>c<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;mindestens zwei positiv&quot;</span>);
+}
+</code></pre></div>
+
+<p>Warum ist die zweite Bedingung fehlerhaft? <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_____</p>
+<h3>Musterloesung</h3>
+<p>Durch Operator-Prioritaet bedeutet die zweite Bedingung: <code>(a &gt; 0 &amp;&amp; b &gt; 0) || c &gt; 0</code>. Damit reicht schon <code>c &gt; 0</code> alleine, obwohl „mindestens zwei“ gefordert ist.</p>
+<p>Korrekt z. B.:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>((a<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>b<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>(a<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>c<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>(b<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>c<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;mindestens zwei positiv&quot;</span>);
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Die Logik muss explizit alle Kombinationen von jeweils zwei positiven Werten abdecken.</p>
+<hr>
+<p><strong>Viel Erfolg!</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

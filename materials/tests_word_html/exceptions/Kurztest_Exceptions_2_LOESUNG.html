@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Exceptions_2_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Exceptions 2 - Ressourcen und Weitergabe - LOESUNG</h1>
+<p><strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: try-with-resources (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p>Vervollstaendige:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">zeilenZaehlen</span>(String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>count<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// TODO: try-with-resources</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>count;
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">zeilenZaehlen</span>(String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>count<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedReader<span style="color: #bbbbbb"> </span>reader<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">newBufferedReader</span>(Paths.<span style="color: #4070a0">get</span>(datei)))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>(reader.<span style="color: #4070a0">readLine</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>count<span style="color: #666666">++</span>;
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>count;
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Die Ressource wird automatisch geschlossen, auch wenn ein Fehler auftritt.</p>
+<hr>
+<h2>Aufgabe 2: Multi-catch (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>x<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Integer.<span style="color: #4070a0">parseInt</span>(input);
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>y<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">10</span><span style="color: #bbbbbb"> </span><span style="color: #666666">/</span><span style="color: #bbbbbb"> </span>x;
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(NumberFormatException<span style="color: #bbbbbb"> </span><span style="color: #666666">|</span><span style="color: #bbbbbb"> </span>ArithmeticException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler&quot;</span>);
+}
+</code></pre></div>
+
+<p>Welche zwei Fehler werden hier abgefangen?</p>
+<p>1) <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><br>
+2) <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong></p>
+<h3>Musterloesung</h3>
+<p>1) <code>NumberFormatException</code> bei ungueltiger Zahl in <code>input</code><br>
+2) <code>ArithmeticException</code> bei Division durch 0</p>
+<h3>Erlaeuterung</h3>
+<p>Multi-catch fasst mehrere passende Exception-Typen in einem Block zusammen.</p>
+<hr>
+<h2>Aufgabe 3: Exception weitergeben (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichere</span>(String<span style="color: #bbbbbb"> </span>pfad,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>text)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// TODO: text in Datei schreiben</span>
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichere</span>(String<span style="color: #bbbbbb"> </span>pfad,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>text)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Files.<span style="color: #4070a0">writeString</span>(Paths.<span style="color: #4070a0">get</span>(pfad),<span style="color: #bbbbbb"> </span>text);
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Die Methode delegiert das Schreiben und gibt moegliche <code>IOException</code> weiter.</p>
+<hr>
+<h2>Aufgabe 4: RuntimeException (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">pruefeRolle</span>(String<span style="color: #bbbbbb"> </span>rolle)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(rolle<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>rolle.<span style="color: #4070a0">isBlank</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// TODO: RuntimeException werfen</span>
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">pruefeRolle</span>(String<span style="color: #bbbbbb"> </span>rolle)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(rolle<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>rolle.<span style="color: #4070a0">isBlank</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>IllegalArgumentException(<span style="color: #4070a0">&quot;Rolle darf nicht leer sein&quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p><code>IllegalArgumentException</code> ist passend fuer ungueltige Methodenparameter.</p>
+<hr>
+<h2>Aufgabe 5: finally und return (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">test</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>;
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">finally</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>Welche Rueckgabe liefert die Methode? <strong><em>_</em></strong>_____</p>
+<h3>Musterloesung</h3>
+<p>Rueckgabe: <code>2</code></p>
+<h3>Erlaeuterung</h3>
+<p>Ein <code>return</code> im <code>finally</code> ueberschreibt den <code>return</code> aus <code>try</code> (in der Praxis vermeiden).</p>
+<hr>
+<h2>Aufgabe 6: Fehlersuche (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">lese</span>(String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedReader<span style="color: #bbbbbb"> </span>r<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>BufferedReader(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileReader(datei)))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>r.<span style="color: #4070a0">readLine</span>();
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(IOException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span>e;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// FEHLER</span>
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>Was ist falsch und wie behebst du es?</p>
+<hr>
+<h3>Musterloesung</h3>
+<p>Fehler: <code>IOException</code> wird als checked Exception erneut geworfen, aber die Methode deklariert kein <code>throws IOException</code>.</p>
+<p>Korrekturmoeglichkeiten:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">lese</span>(String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedReader<span style="color: #bbbbbb"> </span>r<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>BufferedReader(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileReader(datei)))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>r.<span style="color: #4070a0">readLine</span>();
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>oder in RuntimeException umwandeln.</p>
+<h3>Erlaeuterung</h3>
+<p>Checked Exceptions muessen entweder behandelt oder in der Signatur deklariert werden.</p>
+<hr>
+<p><strong>Viel Erfolg!</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

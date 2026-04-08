@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Dateispeicher_7_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: JSON-Datenspeicherung für Schülernoten – Normalisierung und Datenkonsistenz</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: JSON-Noten-Datenbank mit mehreren Entitäten (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Speicherung von Schülern und ihren Noten mit Trennung</p>
+<p>Ein Schulportal soll Schüler und ihre Noten (mit Fächern) speichern.<br>
+Es sollen zwei Dateien geschrieben werden:<br>
+- <code>noten.schema.json</code> (Struktur mit Fächerliste und Notenskala)<br>
+- <code>noten.data.json</code> (Schüler und ihre Noten)</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">JsonNotenDatenbankWriter</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereNotenDatenbank</span>(List<span style="color: #666666">&lt;</span>Schueler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>schueler,<span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>faecher,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>ordner)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>schemaPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;noten.schema.json&quot;</span>);
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>datenPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;noten.data.json&quot;</span>);
+
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">createDirectories</span>(Paths.<span style="color: #4070a0">get</span>(ordner));
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// 1) Schema-JSON mit Fächerliste und Notenskala:</span>
+<span style="color: #bbbbbb">        </span>StringBuilder<span style="color: #bbbbbb"> </span>schemaJson<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>StringBuilder();
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;{\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;  \&quot;entity\&quot;: \&quot;schueler\&quot;,\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;  \&quot;version\&quot;: 1,\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;  \&quot;notenskala\&quot;: \&quot;1.0-6.0 (1=sehr gut, 6=ungenuegend)\&quot;,\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;  \&quot;faecher\&quot;: [&quot;</span>);
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>faecher.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;&quot;</span>).<span style="color: #4070a0">append</span>(faecher.<span style="color: #4070a0">get</span>(i)).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;&quot;</span>);
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>faecher.<span style="color: #4070a0">size</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;, &quot;</span>);
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;],\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;  \&quot;fields\&quot;: [\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;    {\&quot;name\&quot;: \&quot;id\&quot;, \&quot;type\&quot;: \&quot;int\&quot;, \&quot;required\&quot;: true},\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;    {\&quot;name\&quot;: \&quot;name\&quot;, \&quot;type\&quot;: \&quot;string\&quot;, \&quot;required\&quot;: true},\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;    {\&quot;name\&quot;: \&quot;klasse\&quot;, \&quot;type\&quot;: \&quot;string\&quot;, \&quot;required\&quot;: true}\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;  ]\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>schemaJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;}\n&quot;</span>);
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// 2) Daten-JSON mit Schülern und Noten:</span>
+<span style="color: #bbbbbb">        </span>StringBuilder<span style="color: #bbbbbb"> </span>datenJson<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>StringBuilder();
+<span style="color: #bbbbbb">        </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;{\n  \&quot;schueler\&quot;: [\n&quot;</span>);
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>schueler.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>Schueler<span style="color: #bbbbbb"> </span>s<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>schueler.<span style="color: #4070a0">get</span>(i);
+
+<span style="color: #bbbbbb">            </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;    {\n&quot;</span>);
+<span style="color: #bbbbbb">            </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;      \&quot;id\&quot;: &quot;</span>).<span style="color: #4070a0">append</span>(s.<span style="color: #4070a0">getId</span>()).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;,\n&quot;</span>);
+<span style="color: #bbbbbb">            </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;      \&quot;name\&quot;: \&quot;&quot;</span>).<span style="color: #4070a0">append</span>(s.<span style="color: #4070a0">getName</span>()).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;,\n&quot;</span>);
+<span style="color: #bbbbbb">            </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;      \&quot;klasse\&quot;: \&quot;&quot;</span>).<span style="color: #4070a0">append</span>(s.<span style="color: #4070a0">getKlasse</span>()).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;,\n&quot;</span>);
+<span style="color: #bbbbbb">            </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;      \&quot;noten\&quot;: {\n&quot;</span>);
+
+<span style="color: #bbbbbb">            </span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>Double<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>noten<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>s.<span style="color: #4070a0">getNoten</span>();
+<span style="color: #bbbbbb">            </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>fachCount<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(String<span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>noten.<span style="color: #4070a0">keySet</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;        \&quot;&quot;</span>).<span style="color: #4070a0">append</span>(fach).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;: &quot;</span>).<span style="color: #4070a0">append</span>(noten.<span style="color: #4070a0">get</span>(fach));
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(fachCount<span style="color: #666666">++</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>noten.<span style="color: #4070a0">size</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;,&quot;</span>);
+<span style="color: #bbbbbb">                </span>}
+<span style="color: #bbbbbb">                </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\n&quot;</span>);
+<span style="color: #bbbbbb">            </span>}
+
+<span style="color: #bbbbbb">            </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;      }\n&quot;</span>);
+<span style="color: #bbbbbb">            </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;    }&quot;</span>);
+
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>schueler.<span style="color: #4070a0">size</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;,&quot;</span>);
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">            </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\n&quot;</span>);
+<span style="color: #bbbbbb">        </span>}
+
+<span style="color: #bbbbbb">        </span>datenJson.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;  ]\n}&quot;</span>);
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// TODO: Schreibe beide Dateien mit atomarer Sicherheit:</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">//  1) Erstelle temporäre Dateien (schema.tmp, noten.tmp)</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">//  2) Schreibe in Temporäre Dateien</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">//  3) Bei Erfolg: rename (atomic) in echte Zieldateien</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">//  4) Bei Fehler: Lösche Temporäre Dateien und werfe Exception</span>
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>Vervollständige die Schreiblogik mit <strong>atomarem Schreiben</strong> über temporäre Dateien.</p>
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereNotenDatenbank</span>(List<span style="color: #666666">&lt;</span>Schueler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>schueler,<span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>faecher,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>ordner)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Path<span style="color: #bbbbbb"> </span>schemaPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;noten.schema.json&quot;</span>);
+<span style="color: #bbbbbb">    </span>Path<span style="color: #bbbbbb"> </span>datenPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;noten.data.json&quot;</span>);
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Beide Dateien wie oben definiert</span>
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>schemaJson<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #60a0b0; font-style: italic">/* ... */</span>;
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>datenJson<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #60a0b0; font-style: italic">/* ... */</span>;
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Atomares Schreiben mit temp-Dateien</span>
+<span style="color: #bbbbbb">    </span>Path<span style="color: #bbbbbb"> </span>schemaTmp<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(schemaPfad.<span style="color: #4070a0">toString</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;.tmp&quot;</span>);
+<span style="color: #bbbbbb">    </span>Path<span style="color: #bbbbbb"> </span>datenTmp<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(datenPfad.<span style="color: #4070a0">toString</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;.tmp&quot;</span>);
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Schreibe in temp-Dateien</span>
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">writeString</span>(schemaTmp,<span style="color: #bbbbbb"> </span>schemaJson,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">writeString</span>(datenTmp,<span style="color: #bbbbbb"> </span>datenJson,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Atomic rename (nur bei Erfolg)</span>
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">move</span>(schemaTmp,<span style="color: #bbbbbb"> </span>schemaPfad,<span style="color: #bbbbbb"> </span>StandardCopyOption.<span style="color: #4070a0">ATOMIC_MOVE</span>,<span style="color: #bbbbbb"> </span>StandardCopyOption.<span style="color: #4070a0">REPLACE_EXISTING</span>);
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">move</span>(datenTmp,<span style="color: #bbbbbb"> </span>datenPfad,<span style="color: #bbbbbb"> </span>StandardCopyOption.<span style="color: #4070a0">ATOMIC_MOVE</span>,<span style="color: #bbbbbb"> </span>StandardCopyOption.<span style="color: #4070a0">REPLACE_EXISTING</span>);
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(IOException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Aufräumen bei Fehler</span>
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">deleteIfExists</span>(schemaTmp);
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">deleteIfExists</span>(datenTmp);
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span>e;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 2: JSON-Noten lesen und Konsistenzprüfung (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Gewährleisten, dass alle Schülernoten den Fächern entsprechen</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">JsonNotenDatenbankReader</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Schueler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">ladeNotenDatenbank</span>(String<span style="color: #bbbbbb"> </span>ordner)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException,<span style="color: #bbbbbb"> </span>IllegalArgumentException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>schemaPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;noten.schema.json&quot;</span>);
+<span style="color: #bbbbbb">        </span>Path<span style="color: #bbbbbb"> </span>datenPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;noten.data.json&quot;</span>);
+
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>schema<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readString</span>(schemaPfad,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 0.5 Punkte</span>
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>daten<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readString</span>(datenPfad,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// 0.5 Punkte</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Extrahiere Fächerliste aus Schema</span>
+<span style="color: #bbbbbb">        </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>erlaubteFaecher<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>extractFaecher(schema);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 0.5 Punkte</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// TODO:</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// - Prüfe, dass Daten den Container &quot;schueler&quot; enthaelt (0.5 Punkte)</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// - Prüfe beim Laden: Jedes Fach eines Schülers muss in erlaubteFaecher enthalten sein (1 Punkt)</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">//   Falls nicht: werfe IllegalArgumentException</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// - Prüfe: Jede Note liegt zwischen 1.0 und 6.0 (1 Punkt)</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// - Gib die validierte List&lt;Schueler&gt; zurück (1 Punkt)</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Placeholder</span>
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">extractFaecher</span>(String<span style="color: #bbbbbb"> </span>schema)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Extrahiert Fächerliste zwischen &quot;faecher&quot;: [ ... ]</span>
+<span style="color: #bbbbbb">        </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>result<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+<span style="color: #bbbbbb">        </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>start<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>schema.<span style="color: #4070a0">indexOf</span>(<span style="color: #4070a0">&quot;\&quot;faecher\&quot;:&quot;</span>);
+<span style="color: #bbbbbb">        </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>end<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>schema.<span style="color: #4070a0">indexOf</span>(<span style="color: #4070a0">&quot;]&quot;</span>,<span style="color: #bbbbbb"> </span>start);
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>fachStr<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>schema.<span style="color: #4070a0">substring</span>(start,<span style="color: #bbbbbb"> </span>end);
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Vereinfachtes Parsing (in echtem Code: echten JSON-Parser verwenden)</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// ...</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>result;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Schueler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">ladeNotenDatenbank</span>(String<span style="color: #bbbbbb"> </span>ordner)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException,<span style="color: #bbbbbb"> </span>IllegalArgumentException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Path<span style="color: #bbbbbb"> </span>schemaPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;noten.schema.json&quot;</span>);
+<span style="color: #bbbbbb">    </span>Path<span style="color: #bbbbbb"> </span>datenPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(ordner,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;noten.data.json&quot;</span>);
+
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>schema<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readString</span>(schemaPfad,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>daten<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readString</span>(datenPfad,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+
+<span style="color: #bbbbbb">    </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>erlaubteFaecher<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>extractFaecher(schema);
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Prüfe Datencontainer</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(<span style="color: #666666">!</span>daten.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;\&quot;schueler\&quot;&quot;</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>IOException(<span style="color: #4070a0">&quot;Daten-Datei ungueltig: Container &#39;schueler&#39; fehlt&quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span>List<span style="color: #666666">&lt;</span>Schueler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>result<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Extrahiere und validiere Schüler</span>
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// (Vereinfachtes Parsing):</span>
+<span style="color: #bbbbbb">    </span>String<span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>entries<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>daten.<span style="color: #4070a0">split</span>(<span style="color: #4070a0">&quot;\&quot;id\&quot;:&quot;</span>);
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>entries.<span style="color: #4070a0">length</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>entry<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>entries<span style="color: #666666">[</span>i<span style="color: #666666">]</span>;
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Extrahiere Fächer und Noten</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(String<span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>erlaubteFaecher)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(entry.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;\&quot;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\&quot;&quot;</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>note<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>extractDouble(entry,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\&quot;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\&quot;: &quot;</span>);
+
+<span style="color: #bbbbbb">                </span><span style="color: #60a0b0; font-style: italic">// Validierung</span>
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(note<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1.0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>note<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">6.0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>IllegalArgumentException(
+<span style="color: #bbbbbb">                        </span><span style="color: #4070a0">&quot;Note &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>note<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; fuer Fach &#39;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;&#39; liegt außerhalb [1.0, 6.0]&quot;</span>
+<span style="color: #bbbbbb">                    </span>);
+<span style="color: #bbbbbb">                </span>}
+
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(<span style="color: #666666">!</span>erlaubteFaecher.<span style="color: #4070a0">contains</span>(fach))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>IllegalArgumentException(
+<span style="color: #bbbbbb">                        </span><span style="color: #4070a0">&quot;Fach &#39;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;&#39; nicht in Fächerliste enthalten&quot;</span>
+<span style="color: #bbbbbb">                    </span>);
+<span style="color: #bbbbbb">                </span>}
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+
+<span style="color: #bbbbbb">        </span>result.<span style="color: #4070a0">add</span>(<span style="color: #60a0b0; font-style: italic">/* erstelle Schueler-Objekt */</span>);
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>result;
+}
+
+<span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">extractFaecher</span>(String<span style="color: #bbbbbb"> </span>schema)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>result<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>start<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>schema.<span style="color: #4070a0">indexOf</span>(<span style="color: #4070a0">&quot;\&quot;faecher\&quot;: [&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">12</span>;
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>end<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>schema.<span style="color: #4070a0">indexOf</span>(<span style="color: #4070a0">&quot;]&quot;</span>,<span style="color: #bbbbbb"> </span>start);
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>fachStr<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>schema.<span style="color: #4070a0">substring</span>(start,<span style="color: #bbbbbb"> </span>end);
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(String<span style="color: #bbbbbb"> </span>part<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>fachStr.<span style="color: #4070a0">split</span>(<span style="color: #4070a0">&quot;,&quot;</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>result.<span style="color: #4070a0">add</span>(part.<span style="color: #4070a0">trim</span>().<span style="color: #4070a0">replace</span>(<span style="color: #4070a0">&quot;\&quot;&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;&quot;</span>));
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>result;
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 3: Datenmodellierungs-Fehler erkennen (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Erfassung von Änderungsproblemen</p>
+<p>Gegeben ist folgende fehlerhafte Datenstruktur ohne Normalisierung:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>{
+<span style="color: #bbbbbb">  </span><span style="color: #062873; font-weight: bold">&quot;schueler_mit_faecher&quot;</span>:<span style="color: #bbbbbb"> </span>[
+<span style="color: #bbbbbb">    </span>{
+<span style="color: #bbbbbb">      </span><span style="color: #062873; font-weight: bold">&quot;schueler_id&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;schueler_name&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Anna&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;klasse&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;10a&quot;</span>,
+<span style="color: #bbbbbb">      </span><span style="color: #062873; font-weight: bold">&quot;faecher&quot;</span>:<span style="color: #bbbbbb"> </span>[
+<span style="color: #bbbbbb">        </span>{<span style="color: #062873; font-weight: bold">&quot;id&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">101</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;name&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Deutsch&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;note&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">2.0</span>},
+<span style="color: #bbbbbb">        </span>{<span style="color: #062873; font-weight: bold">&quot;id&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">102</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;name&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Mathe&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;note&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">1.5</span>},
+<span style="color: #bbbbbb">        </span>{<span style="color: #062873; font-weight: bold">&quot;id&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">103</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;name&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Englisch&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;note&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">2.5</span>}
+<span style="color: #bbbbbb">      </span>]
+<span style="color: #bbbbbb">    </span>},
+<span style="color: #bbbbbb">    </span>{
+<span style="color: #bbbbbb">      </span><span style="color: #062873; font-weight: bold">&quot;schueler_id&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;schueler_name&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Ben&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;klasse&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;10a&quot;</span>,
+<span style="color: #bbbbbb">      </span><span style="color: #062873; font-weight: bold">&quot;faecher&quot;</span>:<span style="color: #bbbbbb"> </span>[
+<span style="color: #bbbbbb">        </span>{<span style="color: #062873; font-weight: bold">&quot;id&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">101</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;name&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Deutsch&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;note&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">3.0</span>},
+<span style="color: #bbbbbb">        </span>{<span style="color: #062873; font-weight: bold">&quot;id&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">102</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;name&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Mathe&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;note&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">2.0</span>},
+<span style="color: #bbbbbb">        </span>{<span style="color: #062873; font-weight: bold">&quot;id&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">103</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;name&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Englisch&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #062873; font-weight: bold">&quot;note&quot;</span>:<span style="color: #bbbbbb"> </span><span style="color: #40a070">2.5</span>}
+<span style="color: #bbbbbb">      </span>]
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">  </span>]
+}
+</code></pre></div>
+
+<p><strong>Aufgabe:</strong></p>
+<p>a) Identifiziere <strong>zwei Redundanzen</strong> in dieser Struktur.</p>
+<hr>
+<hr>
+<p>b) Beschreibe eine <strong>Anomalie</strong>, die auftreten kann, wenn der Fachname "Englisch" → "English" geändert wird.</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterloesung</h3>
+<p><strong>a) Zwei Redundanzen:</strong></p>
+<ol>
+<li>
+<p><strong>Fach-Name-Redundanz:</strong> Der Name "Deutsch", "Mathe", "Englisch" ist für jeden Schüler wiederholt.<br>
+   Besser: Definiere Fächer einmal im Schema.</p>
+</li>
+<li>
+<p><strong>Fach-ID-Redundanz:</strong> Die <code>id</code> (101, 102, 103) ist ebenfalls für jeden Schüler identisch.<br>
+   Besser: IDs als Referenz im Schema führen.</p>
+</li>
+</ol>
+<p><strong>b) Anomalie (Update-Anomalie):</strong><br>
+Wenn "Englisch" → "English" geändert werden soll, müsste diese Änderung bei <strong>beiden</strong> Schülern (und allen anderen Schülern) durchgeführt werden. Wird sie vergessen, entsteht eine Inkonsistenz. In einer normalisierten Struktur würde nur ein Fach-Record aktualisiert.</p>
+<hr>
+<h2>Aufgabe 4: Transaktionale Sicherheit – Fehlerhafte Implementierung (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Konsistenz bei gleichzeitigen Änderungen verhindern</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">UnsichereNotenAenderung</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">addNoteZuSchueler</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>schuelerID,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>fach,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>note,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>dateiPfad)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>daten<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readString</span>(Paths.<span style="color: #4070a0">get</span>(dateiPfad),<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Ändere Daten in-memory</span>
+<span style="color: #bbbbbb">        </span>daten<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>daten.<span style="color: #4070a0">replace</span>(
+<span style="color: #bbbbbb">            </span><span style="color: #4070a0">&quot;\&quot;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\&quot;: 0.0&quot;</span>,<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Platzhalter für neue Note</span>
+<span style="color: #bbbbbb">            </span><span style="color: #4070a0">&quot;\&quot;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\&quot;: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>note<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Neue Note eintragen</span>
+<span style="color: #bbbbbb">        </span>);
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Schreibe direkt zurück (UNSICHER!)</span>
+<span style="color: #bbbbbb">        </span>Files.<span style="color: #4070a0">writeString</span>(Paths.<span style="color: #4070a0">get</span>(dateiPfad),<span style="color: #bbbbbb"> </span>daten,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Aufgaben:</strong></p>
+<p>a) Beschreibe das <strong>Sicherheitsproblem</strong> dieser Implementierung (Szenario: zwei Prozesse ändern gleichzeitig).</p>
+<hr>
+<hr>
+<hr>
+<p>b) Skizziere eine <strong>sichere Lösung</strong>.</p>
+<hr>
+<hr>
+<hr>
+<p>c) Welche Dateioperationen brauchst du dafür? (Stichwort: atomic operations)</p>
+<hr>
+<hr>
+<h3>Musterloesung</h3>
+<p><strong>a) Sicherheitsproblem (Race Condition):</strong><br>
+Wenn zwei Prozesse <strong>gleichzeitig</strong> die gleiche Notendatei modifizieren:<br>
+1. Prozess A liest Datei → "Noten: {...}"<br>
+2. Prozess B liest Datei → "Noten: {...}"<br>
+3. Prozess A ändert in-memory und schreibt zurück<br>
+4. Prozess B ändert in-memory und schreibt zurück (überschreibt A's Änderungen!)</p>
+<p>Resultat: <strong>Änderung von Prozess A ist verloren.</strong> → Lost Update Problem.</p>
+<p><strong>b) Sichere Lösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">addNoteZuSchueler</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>schuelerID,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>fach,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>note,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>dateiPfad)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// 1) Schreibe in temporäre Datei</span>
+<span style="color: #bbbbbb">    </span>Path<span style="color: #bbbbbb"> </span>tmp<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(dateiPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;.tmp&quot;</span>);
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>daten<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readString</span>(Paths.<span style="color: #4070a0">get</span>(dateiPfad),<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+<span style="color: #bbbbbb">    </span>String<span style="color: #bbbbbb"> </span>geaendert<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>daten.<span style="color: #4070a0">replace</span>(<span style="color: #4070a0">&quot;\&quot;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\&quot;: 0.0&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\&quot;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;\&quot;: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>note);
+<span style="color: #bbbbbb">    </span>Files.<span style="color: #4070a0">writeString</span>(tmp,<span style="color: #bbbbbb"> </span>geaendert,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// 2) Atomarer Swap</span>
+<span style="color: #bbbbbb">    </span>Files.<span style="color: #4070a0">move</span>(tmp,<span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(dateiPfad),<span style="color: #bbbbbb"> </span>StandardCopyOption.<span style="color: #4070a0">ATOMIC_MOVE</span>,<span style="color: #bbbbbb"> </span>StandardCopyOption.<span style="color: #4070a0">REPLACE_EXISTING</span>);
+}
+</code></pre></div>
+
+<p><strong>c) Dateioperationen:</strong><br>
+- <code>Files.move()</code> mit <code>StandardCopyOption.ATOMIC_MOVE</code><br>
+- Temp-Dateien für isolierte Schreiboperation<br>
+- Kein direktes Überschreiben -&gt; kein Zustand mit halbgeschriebener Datei</p>
+<hr>
+<h2>Aufgabe 5: Best Practices bei Schulnotenverwaltung (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Robustheit und Nachvollziehbarkeit</p>
+<p>Nenne drei Best Practices für die Verwaltung von Schülernoten in JSON-Dateien:</p>
+<ol>
+<li>
+<hr>
+</li>
+<li>
+<hr>
+</li>
+<li>
+<hr>
+</li>
+</ol>
+<h3>Musterloesung</h3>
+<ol>
+<li><strong>Unveränderliches Audit-Log:</strong> Speichere Änderungen in einer separaten Log-Datei (Wer? Wann? Alte/Neue Note?), um Nachvollziehbarkeit zu gewährleisten.</li>
+<li><strong>Validierung vor Speichern:</strong> Prüfe Noten im Wertebereich [1.0, 6.0] und unbekannte Fächer ab, bevor in die Datei geschrieben wird.</li>
+<li><strong>Konsistenzsprüfung beim Laden:</strong> Prüfe, dass alle Schüler die gleichen Fächer haben (oder mindestens nur zulässige Fächer).</li>
+</ol>
+<hr>
+<h2>Aufgabe 6: Fehlerhafte Noten-Validierung (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Eingabevalidierung</p>
+<p>Ein Programm speichert Noten wie folgt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Schueler<span style="color: #bbbbbb"> </span>s<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>schueler)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(String<span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>faecher)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>Double<span style="color: #bbbbbb"> </span>note<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>scanner.<span style="color: #4070a0">nextDouble</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Benutzer gibt Note ein</span>
+<span style="color: #bbbbbb">        </span>s.<span style="color: #4070a0">addNote</span>(fach,<span style="color: #bbbbbb"> </span>note);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Keine Validierung!</span>
+<span style="color: #bbbbbb">        </span>datenbank.<span style="color: #4070a0">speichern</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Speichert sofort</span>
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Aufgabe:</strong></p>
+<p>a) Welche <strong>ungültigen Eingaben</strong> könnten zu Problemen führen?</p>
+<hr>
+<hr>
+<p>b) Wie sollte die Validierung aussehen (Pseudocode)?</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterloesung</h3>
+<p><strong>a) Ungültige Eingaben:</strong><br>
+- Negative Noten oder Noten &gt; 6.0<br>
+- Noten außerhalb des 0.5-Schrittbereichs (z.B. 2.3 statt 2.0 oder 2.5)<br>
+- NaN, Infinity(bei Benutzer-Double-Eingaben)<br>
+- Leere/unbekannte Fachbezeichnungen</p>
+<p><strong>b) Validierungscode:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Schueler<span style="color: #bbbbbb"> </span>s<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>schueler)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(String<span style="color: #bbbbbb"> </span>fach<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>faecher)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span>valid<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">false</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>(<span style="color: #666666">!</span>valid)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                </span>Double<span style="color: #bbbbbb"> </span>note<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>scanner.<span style="color: #4070a0">nextDouble</span>();
+
+<span style="color: #bbbbbb">                </span><span style="color: #60a0b0; font-style: italic">// Validierung</span>
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(note<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1.0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>note<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">6.0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler: Note muss zwischen 1.0 und 6.0 liegen!&quot;</span>);
+<span style="color: #bbbbbb">                    </span><span style="color: #007020; font-weight: bold">continue</span>;
+<span style="color: #bbbbbb">                </span>}
+
+<span style="color: #bbbbbb">                </span><span style="color: #60a0b0; font-style: italic">// Prüfe, ob Noten nur 0.5-Schritte sind (optional)</span>
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>((note<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">%</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span><span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler: Nur Noten wie 1.0, 1.5, 2.0, 2.5 erlaubt!&quot;</span>);
+<span style="color: #bbbbbb">                    </span><span style="color: #007020; font-weight: bold">continue</span>;
+<span style="color: #bbbbbb">                </span>}
+
+<span style="color: #bbbbbb">                </span>s.<span style="color: #4070a0">addNote</span>(fach,<span style="color: #bbbbbb"> </span>note);
+<span style="color: #bbbbbb">                </span>valid<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">true</span>;
+<span style="color: #bbbbbb">            </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(InputMismatchException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler: Bitte geben Sie eine Dezimalzahl ein!&quot;</span>);
+<span style="color: #bbbbbb">                </span>scanner.<span style="color: #4070a0">nextLine</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Clear buffer</span>
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span>datenbank.<span style="color: #4070a0">speichern</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Speichert nach vollständiger Validierung</span>
+}
+</code></pre></div>
+
+<p><strong>Wichtig:</strong> Speichern erst <strong>nach</strong> vollständiger Validierung, nicht nach jeder Eingabe!</p>
+<hr>
+<h2>Erwartungshorizont (Kurzüberblick)</h2>
+<ul>
+<li><strong>Sehr gut (23-25 Punkte):</strong> Atomares Schreiben verstanden, Konsistenzprüfung sauber, Anomalien und Normalisierung klar analysiert.</li>
+<li><strong>Gut (19-22 Punkte):</strong> Trennung und Validierung grundsätzlich richtig, kleinere Lücken bei Redundanzanalyse oder Fehlerbehandlung.</li>
+<li><strong>Ausreichend (14-18 Punkte):</strong> Grundideen erkannt, aber Lücken bei transaktionaler Sicherheit oder vollständiger Konsistenzprüfung.</li>
+<li><strong>Unter 14 Punkte:</strong> Wichtige Konzepte (Normalisierung, Atomarität, Validierung) nicht hinreichend verstanden.</li>
+</ul>
+<hr>
+</body>
+</html>

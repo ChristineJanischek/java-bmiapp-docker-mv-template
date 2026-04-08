@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntaxhilfe_Datenbank</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Syntaxhilfe: Datenbank-Verbindung mit Java (JDBC + MySQL)</h1>
+<p><strong>Ziel:</strong> MySQL-Datenbank aus Java heraus verbinden und CRUD-Operationen durchführen.</p>
+<hr>
+<h2>1. JDBC-Verbindung aufbauen</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">import</span><span style="color: #bbbbbb"> </span><span style="color: #0e84b5; font-weight: bold">java.sql.*</span>;
+
+String<span style="color: #bbbbbb"> </span>url<span style="color: #bbbbbb">  </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;jdbc:mysql://localhost:3306/meine_datenbank&quot;</span>;
+String<span style="color: #bbbbbb"> </span>user<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;root&quot;</span>;
+String<span style="color: #bbbbbb"> </span>pw<span style="color: #bbbbbb">   </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;mein_passwort&quot;</span>;
+
+<span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(Connection<span style="color: #bbbbbb"> </span>conn<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>DriverManager.<span style="color: #4070a0">getConnection</span>(url,<span style="color: #bbbbbb"> </span>user,<span style="color: #bbbbbb"> </span>pw))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Verbindung hergestellt!&quot;</span>);
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(SQLException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">err</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>e.<span style="color: #4070a0">getMessage</span>());
+}
+</code></pre></div>
+
+<blockquote>
+<p><strong>try-with-resources</strong> schließt die Verbindung automatisch – kein <code>conn.close()</code> nötig!</p>
+</blockquote>
+<hr>
+<h2>2. Einfache Abfrage (SELECT)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;SELECT id, vorname, nachname FROM person&quot;</span>;
+
+<span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(Statement<span style="color: #bbbbbb"> </span>stmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">createStatement</span>();
+<span style="color: #bbbbbb">     </span>ResultSet<span style="color: #bbbbbb"> </span>rs<span style="color: #bbbbbb">   </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>stmt.<span style="color: #4070a0">executeQuery</span>(sql))<span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>(rs.<span style="color: #4070a0">next</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #902000">int</span><span style="color: #bbbbbb">    </span>id<span style="color: #bbbbbb">      </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>rs.<span style="color: #4070a0">getInt</span>(<span style="color: #4070a0">&quot;id&quot;</span>);
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>vorname<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;vorname&quot;</span>);
+<span style="color: #bbbbbb">        </span>String<span style="color: #bbbbbb"> </span>nachname<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;nachname&quot;</span>);
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(id<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; | &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>vorname<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>nachname);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>3. PreparedStatement – PFLICHT bei Benutzereingaben!</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// ✅ SICHER – verhindert SQL-Injection</span>
+String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;SELECT * FROM person WHERE nachname = ?&quot;</span>;
+
+<span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Mustermann&quot;</span>);<span style="color: #bbbbbb">       </span><span style="color: #60a0b0; font-style: italic">// ? wird ersetzt</span>
+<span style="color: #bbbbbb">    </span>ResultSet<span style="color: #bbbbbb"> </span>rs<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">executeQuery</span>();
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>(rs.<span style="color: #4070a0">next</span>())<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"> </span><span style="color: #60a0b0; font-style: italic">/* ... */</span><span style="color: #bbbbbb"> </span>}
+}
+</code></pre></div>
+
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// ❌ UNSICHER – NIEMALS so!</span>
+String<span style="color: #bbbbbb"> </span>name<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>eingabe;
+Statement<span style="color: #bbbbbb"> </span>stmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">createStatement</span>();
+stmt.<span style="color: #4070a0">executeQuery</span>(<span style="color: #4070a0">&quot;SELECT * FROM person WHERE nachname = &#39;&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>name<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;&#39;&quot;</span>);
+</code></pre></div>
+
+<hr>
+<h2>4. INSERT – Datensatz einfügen</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;INSERT INTO person (vorname, nachname, alter, geschlecht) VALUES (?, ?, ?, ?)&quot;</span>;
+
+<span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Anna&quot;</span>);
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">2</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Schmidt&quot;</span>);
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">3</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">28</span>);
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">4</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Frau&quot;</span>);
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Eingefügt: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; Zeile(n)&quot;</span>);
+}
+</code></pre></div>
+
+<hr>
+<h2>5. UPDATE – Datensatz ändern</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;UPDATE person SET alter = ? WHERE id = ?&quot;</span>;
+
+<span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">30</span>);
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">2</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span>);
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Geändert: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; Zeile(n)&quot;</span>);
+}
+</code></pre></div>
+
+<hr>
+<h2>6. DELETE – Datensatz löschen</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;DELETE FROM person WHERE id = ?&quot;</span>;
+
+<span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span>);
+<span style="color: #bbbbbb">    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Gelöscht: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>betroffeneZeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; Zeile(n)&quot;</span>);
+}
+</code></pre></div>
+
+<hr>
+<h2>7. Auto-generierte ID nach INSERT lesen</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;INSERT INTO person (vorname, nachname) VALUES (?, ?)&quot;</span>;
+
+<span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql,
+<span style="color: #bbbbbb">        </span>Statement.<span style="color: #4070a0">RETURN_GENERATED_KEYS</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Max&quot;</span>);
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setString</span>(<span style="color: #40a070">2</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Muster&quot;</span>);
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">executeUpdate</span>();
+
+<span style="color: #bbbbbb">    </span>ResultSet<span style="color: #bbbbbb"> </span>keys<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">getGeneratedKeys</span>();
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(keys.<span style="color: #4070a0">next</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>neueId<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>keys.<span style="color: #4070a0">getInt</span>(<span style="color: #40a070">1</span>);
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Neue ID: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>neueId);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>8. JOIN – Tabellen verknüpfen</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Alle Messungen einer Person abfragen (1:N Beziehung)</span>
+String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;&quot;&quot;</span>
+<span style="color: #4070a0">    SELECT p.vorname, p.nachname, m.gewicht, m.groesse, m.bmi</span>
+<span style="color: #4070a0">    FROM   person p</span>
+<span style="color: #4070a0">    JOIN   messung m ON m.person_id = p.id</span>
+<span style="color: #4070a0">    WHERE  p.id = ?</span>
+<span style="color: #4070a0">    ORDER BY m.zeitstempel DESC</span>
+<span style="color: #4070a0">    &quot;&quot;&quot;</span>;
+
+<span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PreparedStatement<span style="color: #bbbbbb"> </span>pstmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">prepareStatement</span>(sql))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>pstmt.<span style="color: #4070a0">setInt</span>(<span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span>personId);
+<span style="color: #bbbbbb">    </span>ResultSet<span style="color: #bbbbbb"> </span>rs<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>pstmt.<span style="color: #4070a0">executeQuery</span>();
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>(rs.<span style="color: #4070a0">next</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">printf</span>(<span style="color: #4070a0">&quot;%s %s – BMI: %.2f%n&quot;</span>,
+<span style="color: #bbbbbb">            </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;vorname&quot;</span>),
+<span style="color: #bbbbbb">            </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;nachname&quot;</span>),
+<span style="color: #bbbbbb">            </span>rs.<span style="color: #4070a0">getDouble</span>(<span style="color: #4070a0">&quot;bmi&quot;</span>));
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>9. Maven-Abhängigkeit (pom.xml)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">&lt;!-- MySQL JDBC-Treiber --&gt;</span>
+<span style="color: #062873; font-weight: bold">&lt;dependency&gt;</span>
+<span style="color: #bbbbbb">    </span><span style="color: #062873; font-weight: bold">&lt;groupId&gt;</span>com.mysql<span style="color: #062873; font-weight: bold">&lt;/groupId&gt;</span>
+<span style="color: #bbbbbb">    </span><span style="color: #062873; font-weight: bold">&lt;artifactId&gt;</span>mysql-connector-j<span style="color: #062873; font-weight: bold">&lt;/artifactId&gt;</span>
+<span style="color: #bbbbbb">    </span><span style="color: #062873; font-weight: bold">&lt;version&gt;</span>8.3.0<span style="color: #062873; font-weight: bold">&lt;/version&gt;</span>
+<span style="color: #062873; font-weight: bold">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+<hr>
+<h2>10. Datenbankschema BMI-Rechner (3NF-Beispiel)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">-- Tabelle: person</span>
+<span style="color: #007020; font-weight: bold">CREATE</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">TABLE</span><span style="color: #bbbbbb"> </span>person<span style="color: #bbbbbb"> </span>(
+<span style="color: #bbbbbb">    </span>id<span style="color: #bbbbbb">        </span><span style="color: #007020">INT</span><span style="color: #bbbbbb"> </span>AUTO_INCREMENT<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">PRIMARY</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">KEY</span>,
+<span style="color: #bbbbbb">    </span>vorname<span style="color: #bbbbbb">   </span><span style="color: #007020">VARCHAR</span>(<span style="color: #40a070">100</span>)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>,
+<span style="color: #bbbbbb">    </span>nachname<span style="color: #bbbbbb">  </span><span style="color: #007020">VARCHAR</span>(<span style="color: #40a070">100</span>)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>,
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">alter</span><span style="color: #bbbbbb">     </span><span style="color: #007020">INT</span><span style="color: #bbbbbb">          </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>,
+<span style="color: #bbbbbb">    </span>geschlecht<span style="color: #bbbbbb"> </span>ENUM(<span style="color: #4070a0">&#39;Mann&#39;</span>,<span style="color: #4070a0">&#39;Frau&#39;</span>,<span style="color: #4070a0">&#39;Divers&#39;</span>)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>
+);
+
+<span style="color: #60a0b0; font-style: italic">-- Tabelle: messung (1:N zu person)</span>
+<span style="color: #007020; font-weight: bold">CREATE</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">TABLE</span><span style="color: #bbbbbb"> </span>messung<span style="color: #bbbbbb"> </span>(
+<span style="color: #bbbbbb">    </span>id<span style="color: #bbbbbb">         </span><span style="color: #007020">INT</span><span style="color: #bbbbbb"> </span>AUTO_INCREMENT<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">PRIMARY</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">KEY</span>,
+<span style="color: #bbbbbb">    </span>person_id<span style="color: #bbbbbb">  </span><span style="color: #007020">INT</span><span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>,
+<span style="color: #bbbbbb">    </span>gewicht<span style="color: #bbbbbb">    </span><span style="color: #007020">DECIMAL</span>(<span style="color: #40a070">5</span>,<span style="color: #40a070">2</span>)<span style="color: #bbbbbb">   </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>,
+<span style="color: #bbbbbb">    </span>groesse<span style="color: #bbbbbb">    </span><span style="color: #007020">DECIMAL</span>(<span style="color: #40a070">4</span>,<span style="color: #40a070">2</span>)<span style="color: #bbbbbb">   </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>,
+<span style="color: #bbbbbb">    </span>bmi<span style="color: #bbbbbb">        </span><span style="color: #007020">DECIMAL</span>(<span style="color: #40a070">5</span>,<span style="color: #40a070">2</span>)<span style="color: #bbbbbb">   </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>,
+<span style="color: #bbbbbb">    </span>zeitstempel<span style="color: #bbbbbb"> </span>DATETIME<span style="color: #bbbbbb">      </span><span style="color: #007020; font-weight: bold">DEFAULT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">CURRENT_TIMESTAMP</span>,
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">FOREIGN</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">KEY</span><span style="color: #bbbbbb"> </span>(person_id)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">REFERENCES</span><span style="color: #bbbbbb"> </span>person(id)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">ON</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">DELETE</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">CASCADE</span>
+);
+
+<span style="color: #60a0b0; font-style: italic">-- Tabelle: arzt</span>
+<span style="color: #007020; font-weight: bold">CREATE</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">TABLE</span><span style="color: #bbbbbb"> </span>arzt<span style="color: #bbbbbb"> </span>(
+<span style="color: #bbbbbb">    </span>id<span style="color: #bbbbbb">             </span><span style="color: #007020">INT</span><span style="color: #bbbbbb"> </span>AUTO_INCREMENT<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">PRIMARY</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">KEY</span>,
+<span style="color: #bbbbbb">    </span>name<span style="color: #bbbbbb">           </span><span style="color: #007020">VARCHAR</span>(<span style="color: #40a070">100</span>)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>,
+<span style="color: #bbbbbb">    </span>spezialisierung<span style="color: #bbbbbb"> </span><span style="color: #007020">VARCHAR</span>(<span style="color: #40a070">100</span>)
+);
+
+<span style="color: #60a0b0; font-style: italic">-- Bridge-Tabelle: behandlung (M:N zwischen arzt und person)</span>
+<span style="color: #007020; font-weight: bold">CREATE</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">TABLE</span><span style="color: #bbbbbb"> </span>behandlung<span style="color: #bbbbbb"> </span>(
+<span style="color: #bbbbbb">    </span>id<span style="color: #bbbbbb">           </span><span style="color: #007020">INT</span><span style="color: #bbbbbb"> </span>AUTO_INCREMENT<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">PRIMARY</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">KEY</span>,
+<span style="color: #bbbbbb">    </span>arzt_id<span style="color: #bbbbbb">      </span><span style="color: #007020">INT</span><span style="color: #bbbbbb">          </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>,
+<span style="color: #bbbbbb">    </span>person_id<span style="color: #bbbbbb">    </span><span style="color: #007020">INT</span><span style="color: #bbbbbb">          </span><span style="color: #007020; font-weight: bold">NOT</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">NULL</span>,
+<span style="color: #bbbbbb">    </span>diagnose<span style="color: #bbbbbb">     </span><span style="color: #007020">VARCHAR</span>(<span style="color: #40a070">255</span>),
+<span style="color: #bbbbbb">    </span>beginn_datum<span style="color: #bbbbbb"> </span><span style="color: #007020">DATE</span><span style="color: #bbbbbb">         </span><span style="color: #007020; font-weight: bold">DEFAULT</span><span style="color: #bbbbbb"> </span>(<span style="color: #007020; font-weight: bold">CURRENT_DATE</span>),
+<span style="color: #bbbbbb">    </span>status<span style="color: #bbbbbb">       </span>ENUM(<span style="color: #4070a0">&#39;Aktiv&#39;</span>,<span style="color: #4070a0">&#39;Abgeschlossen&#39;</span>,<span style="color: #4070a0">&#39;Pausiert&#39;</span>)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">DEFAULT</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&#39;Aktiv&#39;</span>,
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">FOREIGN</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">KEY</span><span style="color: #bbbbbb"> </span>(arzt_id)<span style="color: #bbbbbb">   </span><span style="color: #007020; font-weight: bold">REFERENCES</span><span style="color: #bbbbbb"> </span>arzt(id),
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">FOREIGN</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">KEY</span><span style="color: #bbbbbb"> </span>(person_id)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">REFERENCES</span><span style="color: #bbbbbb"> </span>person(id)
+);
+</code></pre></div>
+
+<hr>
+<h2>Tipps &amp; Merksätze</h2>
+<table>
+<thead>
+<tr>
+<th>Thema</th>
+<th>Merksatz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PreparedStatement</strong></td>
+<td>Pflicht bei Benutzereingaben – verhindert SQL-Injection</td>
+</tr>
+<tr>
+<td><strong>try-with-resources</strong></td>
+<td>Verbindung/Statement/ResultSet werden automatisch geschlossen</td>
+</tr>
+<tr>
+<td><strong>executeQuery()</strong></td>
+<td>Für SELECT – gibt <code>ResultSet</code> zurück</td>
+</tr>
+<tr>
+<td><strong>executeUpdate()</strong></td>
+<td>Für INSERT, UPDATE, DELETE – gibt Anzahl betroffener Zeilen zurück</td>
+</tr>
+<tr>
+<td><strong>rs.next()</strong></td>
+<td>Iteriert über Ergebniszeilen – <code>true</code> solange Zeilen vorhanden</td>
+</tr>
+<tr>
+<td><strong>Passwort</strong></td>
+<td>Niemals im Quellcode – nutze Konfigurationsdateien oder Umgebungsvariablen</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

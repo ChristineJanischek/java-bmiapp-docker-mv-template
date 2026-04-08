@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntaxhilfe_Kurztest_Dateispeicher_5</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Syntaxhilfe: Kurztest Dateispeicher 5 (JSON-Struktur + JSON-Daten)</h1>
+<p><strong>Ziel:</strong> JSON-Dateien als kleine Datenbank nutzen und dabei Struktur und Daten sauber trennen.</p>
+<hr>
+<h2>1) Grundprinzip</h2>
+<ul>
+<li><code>personen.schema.json</code> = Struktur (Felder, Typen, Pflichtfelder)</li>
+<li><code>personen.data.json</code> = Daten (konkrete Eintraege)</li>
+</ul>
+<p><strong>Vorteile:</strong> weniger Redundanz, bessere Wartbarkeit, einfachere Validierung, leichtere Erweiterbarkeit.</p>
+<hr>
+<h2>2) Schema schreiben</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>schemaJson<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;&quot;&quot;</span>
+<span style="color: #4070a0">{</span>
+<span style="color: #4070a0">  &quot;entity&quot;: &quot;person&quot;,</span>
+<span style="color: #4070a0">  &quot;version&quot;: 1,</span>
+<span style="color: #4070a0">  &quot;fields&quot;: [</span>
+<span style="color: #4070a0">    {&quot;name&quot;:&quot;id&quot;,&quot;type&quot;:&quot;int&quot;,&quot;required&quot;:true},</span>
+<span style="color: #4070a0">    {&quot;name&quot;:&quot;vorname&quot;,&quot;type&quot;:&quot;string&quot;,&quot;required&quot;:true},</span>
+<span style="color: #4070a0">    {&quot;name&quot;:&quot;nachname&quot;,&quot;type&quot;:&quot;string&quot;,&quot;required&quot;:true},</span>
+<span style="color: #4070a0">    {&quot;name&quot;:&quot;alter&quot;,&quot;type&quot;:&quot;int&quot;,&quot;required&quot;:false}</span>
+<span style="color: #4070a0">  ]</span>
+<span style="color: #4070a0">}</span>
+<span style="color: #4070a0">&quot;&quot;&quot;</span>;
+
+Files.<span style="color: #4070a0">writeString</span>(Paths.<span style="color: #4070a0">get</span>(<span style="color: #4070a0">&quot;personen.schema.json&quot;</span>),<span style="color: #bbbbbb"> </span>schemaJson,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+</code></pre></div>
+
+<hr>
+<h2>3) Daten schreiben (ohne Trailing-Komma)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>StringBuilder<span style="color: #bbbbbb"> </span>daten<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>StringBuilder();
+daten.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;{\n  \&quot;personen\&quot;: [\n&quot;</span>);
+
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>personen.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Person<span style="color: #bbbbbb"> </span>p<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>personen.<span style="color: #4070a0">get</span>(i);
+
+<span style="color: #bbbbbb">    </span>daten.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;    {&quot;</span>)
+<span style="color: #bbbbbb">         </span>.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;id\&quot;: &quot;</span>).<span style="color: #4070a0">append</span>(p.<span style="color: #4070a0">getId</span>()).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;, &quot;</span>)
+<span style="color: #bbbbbb">         </span>.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;vorname\&quot;: \&quot;&quot;</span>).<span style="color: #4070a0">append</span>(p.<span style="color: #4070a0">getVorname</span>()).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;, &quot;</span>)
+<span style="color: #bbbbbb">         </span>.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;nachname\&quot;: \&quot;&quot;</span>).<span style="color: #4070a0">append</span>(p.<span style="color: #4070a0">getNachname</span>()).<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;, &quot;</span>)
+<span style="color: #bbbbbb">         </span>.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\&quot;alter\&quot;: &quot;</span>).<span style="color: #4070a0">append</span>(p.<span style="color: #4070a0">getAlter</span>())
+<span style="color: #bbbbbb">         </span>.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;}&quot;</span>);
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>personen.<span style="color: #4070a0">size</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>daten.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;,&quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span>daten.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;\n&quot;</span>);
+}
+
+daten.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;  ]\n}&quot;</span>);
+Files.<span style="color: #4070a0">writeString</span>(Paths.<span style="color: #4070a0">get</span>(<span style="color: #4070a0">&quot;personen.data.json&quot;</span>),<span style="color: #bbbbbb"> </span>daten.<span style="color: #4070a0">toString</span>(),<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+</code></pre></div>
+
+<hr>
+<h2>4) Minimal validieren beim Lesen</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>schema<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readString</span>(Paths.<span style="color: #4070a0">get</span>(<span style="color: #4070a0">&quot;personen.schema.json&quot;</span>),<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+String<span style="color: #bbbbbb"> </span>daten<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readString</span>(Paths.<span style="color: #4070a0">get</span>(<span style="color: #4070a0">&quot;personen.data.json&quot;</span>),<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+
+<span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(<span style="color: #666666">!</span>schema.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;\&quot;entity\&quot;&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span><span style="color: #666666">!</span>schema.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;\&quot;fields\&quot;&quot;</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>IOException(<span style="color: #4070a0">&quot;Schema ungueltig&quot;</span>);
+}
+
+<span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(<span style="color: #666666">!</span>daten.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;\&quot;personen\&quot;&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span>
+<span style="color: #bbbbbb">    </span><span style="color: #666666">!</span>daten.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;\&quot;id\&quot;&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span>
+<span style="color: #bbbbbb">    </span><span style="color: #666666">!</span>daten.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;\&quot;vorname\&quot;&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span>
+<span style="color: #bbbbbb">    </span><span style="color: #666666">!</span>daten.<span style="color: #4070a0">contains</span>(<span style="color: #4070a0">&quot;\&quot;nachname\&quot;&quot;</span>))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>IOException(<span style="color: #4070a0">&quot;Daten ungueltig&quot;</span>);
+}
+</code></pre></div>
+
+<hr>
+<h2>5) Sicher speichern (Backup + atomar)</h2>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Path<span style="color: #bbbbbb"> </span>datenPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(<span style="color: #4070a0">&quot;personen.data.json&quot;</span>);
+
+<span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(Files.<span style="color: #4070a0">exists</span>(datenPfad))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Files.<span style="color: #4070a0">copy</span>(
+<span style="color: #bbbbbb">        </span>datenPfad,
+<span style="color: #bbbbbb">        </span>Paths.<span style="color: #4070a0">get</span>(<span style="color: #4070a0">&quot;personen.data.json.bak&quot;</span>),
+<span style="color: #bbbbbb">        </span>StandardCopyOption.<span style="color: #4070a0">REPLACE_EXISTING</span>
+<span style="color: #bbbbbb">    </span>);
+}
+
+Path<span style="color: #bbbbbb"> </span>tmpPfad<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(<span style="color: #4070a0">&quot;personen.data.json.tmp&quot;</span>);
+Files.<span style="color: #4070a0">writeString</span>(tmpPfad,<span style="color: #bbbbbb"> </span>neuerInhalt,<span style="color: #bbbbbb"> </span>StandardCharsets.<span style="color: #4070a0">UTF_8</span>);
+Files.<span style="color: #4070a0">move</span>(
+<span style="color: #bbbbbb">    </span>tmpPfad,
+<span style="color: #bbbbbb">    </span>datenPfad,
+<span style="color: #bbbbbb">    </span>StandardCopyOption.<span style="color: #4070a0">REPLACE_EXISTING</span>,
+<span style="color: #bbbbbb">    </span>StandardCopyOption.<span style="color: #4070a0">ATOMIC_MOVE</span>
+);
+</code></pre></div>
+
+<hr>
+<h2>6) Typische Fehler</h2>
+<ul>
+<li>Struktur und Daten in einer Datei vermischt</li>
+<li>Komma hinter letztem Element (ungueltiges JSON)</li>
+<li>Zeichenkodierung nicht explizit (Sonderzeichen-Probleme)</li>
+<li>Keine Validierung beim Laden</li>
+<li>Kein Backup vor Ueberschreiben</li>
+</ul>
+<hr>
+<h2>7) Schnell-Checkliste</h2>
+<ul>
+<li>Zwei Dateien vorhanden (<code>schema</code>, <code>data</code>)</li>
+<li>UTF-8 explizit gesetzt</li>
+<li>Kein Trailing-Komma</li>
+<li>Pflichtfelder geprueft (<code>id</code>, <code>vorname</code>, <code>nachname</code>)</li>
+<li>Backup und atomisches Schreiben vorhanden</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Assoziationen_6N_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Assoziationen &amp; ArrayList - Mannschaft und Spieler - LÖSUNGEN &amp; BEPUNKTUNG</h1>
+<p><strong>Dokumenttyp:</strong> Lehrerversion mit Musterlösungen und Bewertungskriterien</p>
+<hr>
+<h2>Aufgabe 1: ArrayList-Deklaration (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Datenstruktur für eine Fußball-Mannschaft</p>
+<p>Schreibe die Deklaration und Initialisierung einer ArrayList, die Spieler-Objekte speichert.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Hier aufschreiben:</span>
+</code></pre></div>
+
+<p>Erkläre in 1-2 Sätzen, warum man hier ArrayList statt Array verwendet.</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Spieler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>spieler<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;</span>Spieler<span style="color: #666666">&gt;</span>();
+</code></pre></div>
+
+<p>oder</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;</span>Spieler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>spieler<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+</code></pre></div>
+
+<p><strong>Erklärung (1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>ArrayList wird verwendet, weil die Anzahl der Spieler nicht bekannt ist und sich 
+dynamisch ändern kann (Verletzungen, Transfers, etc.). Arrays haben eine feste Größe.
+</code></pre></div>
+
+<h3>Bewertung (3 Punkte)</h3>
+<p><strong>Deklaration (2 Punkte):</strong><br>
+- ✓ <code>List&lt;Spieler&gt; spieler = new ArrayList&lt;Spieler&gt;();</code> → 2 Punkte<br>
+- ✓ <code>ArrayList&lt;Spieler&gt; spieler = new ArrayList&lt;&gt;();</code> → 2 Punkte<br>
+- ~ Fehlende Generics → 1 Punkt<br>
+- ✗ Array statt ArrayList → 0 Punkte</p>
+<p><strong>Erklärung (1 Punkt):</strong><br>
+- ✓ Dynamische Größe oder flexible Anzahl erwähnt → 1 Punkt<br>
+- ~ Ansatz erkennbar → 0,5 Punkte<br>
+- ✗ Falsch → 0 Punkte</p>
+<hr>
+<h2>Aufgabe 2: ArrayList-Methoden (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Verwaltung von Spielern in einer Mannschaft</p>
+<p>Ordne die ArrayList-Methoden ihren Beschreibungen zu. Schreibe den Buchstaben in die Klammer.</p>
+<p><strong>Beschreibungen:</strong></p>
+<ul>
+<li><strong>(a)</strong> Gibt die Gesamtzahl der Spieler zurück</li>
+<li><strong>(b)</strong> Registriert einen neuen Spieler in der Mannschaft</li>
+<li><strong>(c)</strong> Greift auf einen Spieler an einer bestimmten Position zu</li>
+<li><strong>(d)</strong> Entfernt einen Spieler aus der Mannschaft (z. B. bei Verletzung)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Buchstabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add(Spieler)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>get(int index)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>remove(int index)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>size()</code></td>
+<td>( )</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>Musterlösung (Zuordnung)</h3>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Richtiger Buchstabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add(Spieler)</code></td>
+<td><strong>(b)</strong></td>
+</tr>
+<tr>
+<td><code>get(int index)</code></td>
+<td><strong>(c)</strong></td>
+</tr>
+<tr>
+<td><code>remove(int index)</code></td>
+<td><strong>(d)</strong></td>
+</tr>
+<tr>
+<td><code>size()</code></td>
+<td><strong>(a)</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>Bewertung (4 Punkte)</h3>
+<ul>
+<li><strong>4 Punkte:</strong> Alle 4 Zuordnungen korrekt</li>
+<li><strong>3 Punkte:</strong> 3 von 4 richtig</li>
+<li><strong>2 Punkte:</strong> 2 von 4 richtig</li>
+<li><strong>1 Punkt:</strong> 1 von 4 richtig</li>
+<li><strong>0 Punkte:</strong> Keine oder alle falsch</li>
+</ul>
+<hr>
+<h2>Aufgabe 3: Code-Analyse (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> 1:N Beziehung zwischen Mannschaft und Spielern</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Mannschaft<span style="color: #bbbbbb"> </span>mannschaft<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Mannschaft(<span style="color: #4070a0">&quot;FC Bayern&quot;</span>);
+
+Spieler<span style="color: #bbbbbb"> </span>s1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Spieler(<span style="color: #4070a0">&quot;Müller&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">9</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Stürmer&quot;</span>);
+Spieler<span style="color: #bbbbbb"> </span>s2<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Spieler(<span style="color: #4070a0">&quot;Neuer&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Torwart&quot;</span>);
+Spieler<span style="color: #bbbbbb"> </span>s3<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Spieler(<span style="color: #4070a0">&quot;Kimmich&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">32</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Abwehr&quot;</span>);
+
+mannschaft.<span style="color: #4070a0">addSpieler</span>(s1);
+mannschaft.<span style="color: #4070a0">addSpieler</span>(s2);
+mannschaft.<span style="color: #4070a0">addSpieler</span>(s3);
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Spieler im Kader: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>mannschaft.<span style="color: #4070a0">getAnzahlSpieler</span>());
+Spieler<span style="color: #bbbbbb"> </span>ersterSpieler<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>mannschaft.<span style="color: #4070a0">getSpieler</span>().<span style="color: #4070a0">get</span>(<span style="color: #40a070">0</span>);
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Spieler 1: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>ersterSpieler.<span style="color: #4070a0">getName</span>());
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was wird folgende Zeile als Ausgabe produzieren?  </p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Spieler im Kader: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>mannschaft.<span style="color: #4070a0">getAnzahlSpieler</span>());
+</code></pre></div>
+
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>b) Welcher Name wird ausgegeben bei der Zeile mit <code>get(0)</code>?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>c) Erkläre, was <code>.getSpieler().get(0)</code> macht:</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösungen</h3>
+<p><strong>a) Ausgabe (2 Punkte)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Spieler im Kader: 3
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ <code>3</code> oder <code>Spieler im Kader: 3</code> → 2 Punkte<br>
+- ✗ andere Zahl → 0 Punkte</p>
+<hr>
+<p><strong>b) Erster Spieler (1,5 Punkte)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Müller
+</code></pre></div>
+
+<p><strong>Erklärung:</strong> Index 0 ist das erste Element: s1 = "Müller"</p>
+<p><strong>Bewertung:</strong><br>
+- ✓ <code>Müller</code> oder <code>Spieler 1: Müller</code> → 1,5 Punkte<br>
+- ✗ anderer Name → 0 Punkte</p>
+<hr>
+<p><strong>c) Erklärung <code>.getSpieler().get(0)</code> (1,5 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>getSpieler() gibt die Liste aller Spieler zurück. 
+get(0) greift auf das Element an Index 0 zu, also den ersten Spieler in der Liste.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>1,5 Punkte:</strong> Beide Teile erklärt (Getter + Index-Zugriff)<br>
+- <strong>1 Punkt:</strong> Teilweise erklärt<br>
+- <strong>0,5 Punkte:</strong> Grundidee erkannt<br>
+- <strong>0 Punkte:</strong> Falsch oder nicht beantwortet</p>
+<hr>
+<h2>Aufgabe 4: Schleife &amp; Ausgabe (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Kompletter Spielerkader ausgeben</p>
+<p>Schreibe eine vollständige <strong>for-Schleife</strong> (oder for-each Schleife), die alle Spieler einer Mannschaft ausgibt.</p>
+<p><strong>Vorgabe:</strong> Die ArrayList mit den Spielern heißt <code>spieler</code> und besteht aus <code>Spieler</code>-Objekten mit den Attributen <code>getName()</code>, <code>getNummer()</code> und <code>getPosition()</code>.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Spieler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>spieler<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>mannschaft.<span style="color: #4070a0">getSpieler</span>();
+
+<span style="color: #60a0b0; font-style: italic">// Schleife hier schreiben:</span>
+</code></pre></div>
+
+<p>Bonus (+1 Punkt): Schreibe zusätzlich eine <code>System.out.println()</code> Zeile, die die Nummer, Name und Position ausgibt.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Bonus-Ausgabe:</span>
+</code></pre></div>
+
+<hr>
+<h3>Musterlösungen</h3>
+<p><strong>Grundaufgabe (4 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Spieler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>spieler<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>mannschaft.<span style="color: #4070a0">getSpieler</span>();
+
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Spieler<span style="color: #bbbbbb"> </span>s<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>spieler)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(s.<span style="color: #4070a0">getName</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; - &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>s.<span style="color: #4070a0">getPosition</span>());
+}
+</code></pre></div>
+
+<p>oder</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Spieler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>spieler<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>mannschaft.<span style="color: #4070a0">getSpieler</span>();
+
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>spieler.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Spieler<span style="color: #bbbbbb"> </span>s<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>spieler.<span style="color: #4070a0">get</span>(i);
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(s.<span style="color: #4070a0">getName</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; - &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>s.<span style="color: #4070a0">getPosition</span>());
+}
+</code></pre></div>
+
+<p><strong>Bewertung (4 Punkte):</strong><br>
+- <strong>4 Punkte:</strong> Schleife korrekt, alle Spieler ausgegeben mit Name und Position<br>
+- <strong>3 Punkte:</strong> Schleife funktioniert, aber unvollständige Ausgabe<br>
+- <strong>2 Punkte:</strong> Grundkonzept erkannt, syntaktische Fehler<br>
+- <strong>1 Punkt:</strong> Versuch offensichtlich, viele Fehler<br>
+- <strong>0 Punkte:</strong> Falsch oder nicht beantwortet</p>
+<hr>
+<p><strong>Bonus (+1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>spieler.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(spieler.<span style="color: #4070a0">get</span>(i).<span style="color: #4070a0">getNummer</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;. &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>
+<span style="color: #bbbbbb">                       </span>spieler.<span style="color: #4070a0">get</span>(i).<span style="color: #4070a0">getName</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; (&quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>
+<span style="color: #bbbbbb">                       </span>spieler.<span style="color: #4070a0">get</span>(i).<span style="color: #4070a0">getPosition</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;)&quot;</span>);
+}
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ Nummer + Name + Position ausgegeben → +1 Punkt<br>
+- ~ Ähnliche sinnvolle Ausgabe → +1 Punkt</p>
+<hr>
+<h2>Aufgabe 5: Methode verstehen (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Methoden für 1:N Beziehungen in einer Mannschaft</p>
+<p>In der <code>Mannschaft</code>-Klasse gibt es eine Methode <code>getSpielerMitPosition(String position)</code>, die alle Spieler einer bestimmten Position zurückgibt.</p>
+<p>a) Schreibe die <strong>Methodensignatur</strong> (ohne Implementierung):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Methodensignatur:</span>
+</code></pre></div>
+
+<p>b) Erkläre in 2-3 Sätzen, wie diese Methode funktionieren würde:</p>
+<hr>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<p><strong>a) Methodensignatur (1,5 Punkte)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Spieler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getSpielerMitPosition</span>(String<span style="color: #bbbbbb"> </span>position)
+</code></pre></div>
+
+<p>oder</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;</span>Spieler<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getSpielerMitPosition</span>(String<span style="color: #bbbbbb"> </span>position)
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ Korrekte Signatur mit List/ArrayList und Parameter → 1,5 Punkte<br>
+- ~ <code>void</code> statt List → 0 Punkte<br>
+- ~ Parameter fehlt → 0 Punkte</p>
+<hr>
+<p><strong>b) Erklärung (2,5 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Die Methode iteriert durch alle Spieler und prüft, ob ihre Position dem 
+angegebenen Parameter entspricht. Alle passenden Spieler werden in einer 
+neuen Liste gesammelt und zurückgegeben.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>2,5 Punkte:</strong> Iteration + Vergleich + Rückgabe erklärt<br>
+- <strong>1,5 Punkte:</strong> Grundidee erkannt, aber unvollständig<br>
+- <strong>0,5 Punkte:</strong> Ansatz sichtbar<br>
+- <strong>0 Punkte:</strong> Falsch</p>
+<hr>
+<h2>Aufgabe 6: Fehlersuche &amp; Analyse (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Häufige Fehler bei ArrayList-Nutzung in einer Mannschaft</p>
+<p>Gegeben ist folgender fehlerhafter Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Mannschaft<span style="color: #bbbbbb"> </span>mannschaft<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Mannschaft(<span style="color: #4070a0">&quot;FC Dortmund&quot;</span>);
+Spieler<span style="color: #bbbbbb"> </span>s1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Spieler(<span style="color: #4070a0">&quot;Haaland&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">9</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Stürmer&quot;</span>);
+
+mannschaft.<span style="color: #4070a0">spieler</span>.<span style="color: #4070a0">add</span>(s1);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 1</span>
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(mannschaft.<span style="color: #4070a0">getSpieler</span>().<span style="color: #4070a0">get</span>(<span style="color: #40a070">15</span>));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 2</span>
+</code></pre></div>
+
+<p><strong>Aufgaben:</strong></p>
+<p>a) <strong>Fehler 1:</strong> <code>mannschaft.spieler.add(s1)</code> - Was ist das Problem?</p>
+<hr>
+<hr>
+<p>b) <strong>Fehler 2:</strong> <code>mannschaft.getSpieler().get(15)</code> - Warum funktioniert das nicht (wenn die Mannschaft nur 11 Spieler hat)?</p>
+<hr>
+<hr>
+<p>c) Schreibe die <strong>korrekte Version</strong> von Fehler 1:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Korrekt:</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. ArrayList-Deklaration</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>2. ArrayList-Methoden</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Code-Analyse</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Schleife &amp; Ausgabe</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>5. Methode verstehen</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Musterlösungen</h3>
+<p><strong>a) Fehler 1 - Direkter ArrayList-Zugriff (1 Punkt)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Das Attribut &#39;spieler&#39; ist private und nicht von außen erreichbar. 
+Man muss die öffentliche Methode addSpieler() verwenden.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ Private + getter/Methode erwähnt → 1 Punkt<br>
+- ~ Encapsulation-Verletzung → 0,5 Punkte<br>
+- ✗ Falsch → 0 Punkte</p>
+<hr>
+<p><strong>b) Fehler 2 - IndexOutOfBoundsException (1,5 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Der Index 15 existiert nicht (bei 11 Spielern sind gültige Indizes 0-10). 
+Zugriff auf einen nicht-existierenden Index wirft IndexOutOfBoundsException.
+Man sollte vorher mit size() oder isEmpty() prüfen.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>1,5 Punkte:</strong> IndexOutOfBoundsException + Begründung + Prüfempfehlung<br>
+- <strong>1 Punkt:</strong> Fehler erkannt, aber nicht korrekt benannt<br>
+- <strong>0,5 Punkte:</strong> Ansatz erkennbar<br>
+- <strong>0 Punkte:</strong> Falsch</p>
+<hr>
+<p><strong>c) Korrekte Version (1,5 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>mannschaft.<span style="color: #4070a0">addSpieler</span>(s1);
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- ✓ <code>mannschaft.addSpieler(s1)</code> → 1,5 Punkte<br>
+- ~ <code>mannschaft.getSpieler().add(s1)</code> → 1 Punkt<br>
+- ✗ Falsch → 0 Punkte</p>
+<hr>
+<h2>GESAMTBEWERTUNG</h2>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Max. Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. ArrayList-Deklaration</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2. ArrayList-Methoden</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3. Code-Analyse</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4. Schleife &amp; Ausgabe</td>
+<td>5 (+1 Bonus)</td>
+</tr>
+<tr>
+<td>5. Methode verstehen</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6. Fehlersuche</td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>GESAMT</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Bewertungsskala</h2>
+<table>
+<thead>
+<tr>
+<th>Prozent</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>90-100%</td>
+<td>1</td>
+</tr>
+<tr>
+<td>80-89%</td>
+<td>2</td>
+</tr>
+<tr>
+<td>70-79%</td>
+<td>3</td>
+</tr>
+<tr>
+<td>60-69%</td>
+<td>4</td>
+</tr>
+<tr>
+<td>50-59%</td>
+<td>5</td>
+</tr>
+<tr>
+<td>&lt; 50%</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notenschlüssel:</strong><br>
+- <strong>ab 23 Punkte:</strong> Note 1<br>
+- <strong>ab 20 Punkte:</strong> Note 2<br>
+- <strong>ab 18 Punkte:</strong> Note 3<br>
+- <strong>ab 15 Punkte:</strong> Note 4<br>
+- <strong>ab 13 Punkte:</strong> Note 5<br>
+- <strong>unter 13 Punkte:</strong> Note 6</p>
+<hr>
+<p><strong>Test erstellt:</strong> Version 1.0 (Feb 2026)<br>
+<strong>Zielgruppe:</strong> Schüler nach Lerneinheit 1:N-Assoziationen (Mannschaft/Spieler)<br>
+<strong>Voraussetzungen:</strong> ArrayList, Generics, for-Schleifen, Objektverwaltung bekannt</p>
+</body>
+</html>

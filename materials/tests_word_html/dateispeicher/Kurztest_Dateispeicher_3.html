@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Dateispeicher_3</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Persistente Datenspeicherung - Datenmigration &amp; Validierung</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Benutzerdaten migrieren CSV → JSON (5 Punkte)</h2>
+<p><strong>Thema:</strong> Datenformat konvertieren beim Systemwechsel</p>
+<p>Ein altes System speichert Benutzer als CSV, das neue System braucht JSON:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">DataMigration</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">migriereCsvZuJson</span>(String<span style="color: #bbbbbb"> </span>csvDatei,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>jsonDatei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Lese CSV-Datei:</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// username,email,abteilung</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// mueller,mueller@firma.de,IT</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// schmidt,schmidt@firma.de,Vertrieb</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Schreibe ins JSON-Format:</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// {&quot;users&quot;:[{&quot;username&quot;:&quot;mueller&quot;,&quot;email&quot;:&quot;mueller@firma.de&quot;,&quot;abteilung&quot;:&quot;IT&quot;}, ...]}</span>
+
+<span style="color: #bbbbbb">        </span>List<span style="color: #666666">&lt;</span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>String<span style="color: #666666">&gt;&gt;</span><span style="color: #bbbbbb"> </span>benutzer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedReader<span style="color: #bbbbbb"> </span>reader<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>BufferedReader(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileReader(csvDatei)))<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>String<span style="color: #bbbbbb"> </span>zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>reader.<span style="color: #4070a0">readLine</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Header</span>
+
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>((zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>reader.<span style="color: #4070a0">readLine</span>())<span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span>)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                </span>String<span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>teile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">split</span>(<span style="color: #4070a0">&quot;,&quot;</span>);
+
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(teile.<span style="color: #4070a0">length</span><span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>benutzer_map<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>LinkedHashMap<span style="color: #666666">&lt;&gt;</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                    </span>benutzer_map.<span style="color: #4070a0">put</span>(<span style="color: #4070a0">&quot;username&quot;</span>,<span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">0</span><span style="color: #666666">]</span>);
+<span style="color: #bbbbbb">                    </span>benutzer_map.<span style="color: #4070a0">put</span>(<span style="color: #4070a0">&quot;email&quot;</span>,<span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">1</span><span style="color: #666666">]</span>);
+<span style="color: #bbbbbb">                    </span>benutzer_map.<span style="color: #4070a0">put</span>(<span style="color: #4070a0">&quot;abteilung&quot;</span>,<span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">2</span><span style="color: #666666">]</span>);
+<span style="color: #bbbbbb">                    </span>benutzer.<span style="color: #4070a0">add</span>(benutzer_map);
+<span style="color: #bbbbbb">                </span>}
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Schreibe JSON:</span>
+<span style="color: #bbbbbb">        </span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Map<span style="color: #666666">&lt;</span>String,<span style="color: #bbbbbb"> </span>String<span style="color: #666666">&gt;&gt;&gt;</span><span style="color: #bbbbbb"> </span>root<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>LinkedHashMap<span style="color: #666666">&lt;&gt;</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">        </span>root.<span style="color: #4070a0">put</span>(<span style="color: #4070a0">&quot;users&quot;</span>,<span style="color: #bbbbbb"> </span>benutzer);
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Konvertiere zu JSON-String und schreibe Datei:</span>
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>Vervollständige die JSON-Schreiblogik (pseudo-JSON ohne externe Library):</p>
+<hr>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 2: Eingaber-Validierung beim Einlesen (4 Punkte)</h2>
+<p><strong>Thema:</strong> Fehlerhafte Daten erkennen und sammeln</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">DataValidator</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>String<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>fehlerhafte_zeilen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Inventar<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">validiereInventar</span>(String<span style="color: #bbbbbb"> </span>csvDatei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>List<span style="color: #666666">&lt;</span>Inventar<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>artikel<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+<span style="color: #bbbbbb">        </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>zeilenNummer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(BufferedReader<span style="color: #bbbbbb"> </span>reader<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>BufferedReader(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileReader(csvDatei)))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>String<span style="color: #bbbbbb"> </span>zeile;
+<span style="color: #bbbbbb">            </span>reader.<span style="color: #4070a0">readLine</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Header überspringen</span>
+
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>((zeile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>reader.<span style="color: #4070a0">readLine</span>())<span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span>)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                </span>zeilenNummer<span style="color: #666666">++</span>;
+<span style="color: #bbbbbb">                </span>String<span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>teile<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>zeile.<span style="color: #4070a0">split</span>(<span style="color: #4070a0">&quot;,&quot;</span>);
+
+<span style="color: #bbbbbb">                </span><span style="color: #60a0b0; font-style: italic">// Validiere Format: id,name,menge,preis  // 1 Punkt</span>
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(teile.<span style="color: #4070a0">length</span><span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">4</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span>fehlerhafte_zeilen.<span style="color: #4070a0">add</span>(<span style="color: #4070a0">&quot;Zeile &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>zeilenNummer<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;: Falsche Feldanzahl&quot;</span>);
+<span style="color: #bbbbbb">                    </span><span style="color: #007020; font-weight: bold">continue</span>;
+<span style="color: #bbbbbb">                </span>}
+
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>id<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Integer.<span style="color: #4070a0">parseInt</span>(teile<span style="color: #666666">[</span><span style="color: #40a070">0</span><span style="color: #666666">]</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                    </span>String<span style="color: #bbbbbb"> </span>name<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>teile<span style="color: #666666">[</span><span style="color: #40a070">1</span><span style="color: #666666">]</span>;
+<span style="color: #bbbbbb">                    </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>menge<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Integer.<span style="color: #4070a0">parseInt</span>(teile<span style="color: #666666">[</span><span style="color: #40a070">2</span><span style="color: #666666">]</span>);
+<span style="color: #bbbbbb">                    </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preis<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Double.<span style="color: #4070a0">parseDouble</span>(teile<span style="color: #666666">[</span><span style="color: #40a070">3</span><span style="color: #666666">]</span>);
+
+<span style="color: #bbbbbb">                    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(menge<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>preis<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                        </span>fehlerhafte_zeilen.<span style="color: #4070a0">add</span>(<span style="color: #4070a0">&quot;Zeile &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>zeilenNummer<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;: Negative Werte&quot;</span>);
+<span style="color: #bbbbbb">                        </span><span style="color: #007020; font-weight: bold">continue</span>;
+<span style="color: #bbbbbb">                    </span>}
+
+<span style="color: #bbbbbb">                    </span>artikel.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Inventar(id,<span style="color: #bbbbbb"> </span>name,<span style="color: #bbbbbb"> </span>menge,<span style="color: #bbbbbb"> </span>preis));
+
+<span style="color: #bbbbbb">                </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(NumberFormatException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span>fehlerhafte_zeilen.<span style="color: #4070a0">add</span>(<span style="color: #4070a0">&quot;Zeile &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>zeilenNummer<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>e.<span style="color: #4070a0">getMessage</span>());
+<span style="color: #bbbbbb">                </span>}
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>artikel;
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">schreibeFehler</span>(String<span style="color: #bbbbbb"> </span>ausgabeDatei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Schreibe alle gesammelten Fehler in separate Datei:</span>
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 3: Datei-Vergleich mit Checksumme (5 Punkte)</h2>
+<p><strong>Thema:</strong> Integrität von Dateien überprüfen</p>
+<p>Schreibe eine Methode, die Checksummen (Hash) zur Verifizierung nutzt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">import</span><span style="color: #bbbbbb"> </span><span style="color: #0e84b5; font-weight: bold">java.security.MessageDigest</span>;
+
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">FileIntegrity</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">berechneChecksum</span>(String<span style="color: #bbbbbb"> </span>dateiname)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Berechne SHA-256 Checksum einer Datei</span>
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Nutze Files.readAllBytes() um Inhalt zu lesen</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span><span style="color: #902000">byte</span><span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>dateiInhalt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Files.<span style="color: #4070a0">readAllBytes</span>(Paths.<span style="color: #4070a0">get</span>(dateiname));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span>MessageDigest<span style="color: #bbbbbb"> </span>digest<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>MessageDigest.<span style="color: #4070a0">getInstance</span>(<span style="color: #4070a0">&quot;SHA-256&quot;</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span><span style="color: #902000">byte</span><span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>hashBytes<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>digest.<span style="color: #4070a0">digest</span>(dateiInhalt);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+
+<span style="color: #bbbbbb">            </span><span style="color: #60a0b0; font-style: italic">// Konvertiere Bytes zu Hex-String:</span>
+<span style="color: #bbbbbb">            </span>StringBuilder<span style="color: #bbbbbb"> </span>hexString<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>StringBuilder();
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">byte</span><span style="color: #bbbbbb"> </span>b<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>hashBytes)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                </span>String<span style="color: #bbbbbb"> </span>hex<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Integer.<span style="color: #4070a0">toHexString</span>(<span style="color: #40a070">0xff</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;</span><span style="color: #bbbbbb"> </span>b);
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(hex.<span style="color: #4070a0">length</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>)<span style="color: #bbbbbb"> </span>hexString.<span style="color: #4070a0">append</span>(<span style="color: #4070a0">&quot;0&quot;</span>);
+<span style="color: #bbbbbb">                </span>hexString.<span style="color: #4070a0">append</span>(hex);
+<span style="color: #bbbbbb">            </span>}
+
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>hexString.<span style="color: #4070a0">toString</span>();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+
+<span style="color: #bbbbbb">        </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(Exception<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>IOException(<span style="color: #4070a0">&quot;Checksum-Fehler: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>e.<span style="color: #4070a0">getMessage</span>());
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">istBackupKorrekt</span>(String<span style="color: #bbbbbb"> </span>quelle,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>backup)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Vergleiche Checksummen:</span>
+
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 4: Code-Analyse - Datenexport mit Fehlertoleranz (5 Punkte)</h2>
+<p><strong>Thema:</strong> Robuste Datenbearbeitung trotz fehlenhafter Einträge</p>
+<p>Gegeben ist dieser Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">RobustExporter</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">exportiereBenutzer</span>(List<span style="color: #666666">&lt;</span>Benutzer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>benutzer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(PrintWriter<span style="color: #bbbbbb"> </span>writer<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>PrintWriter(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>FileWriter(datei)))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>writer.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;id,username,email,status&quot;</span>);
+
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Benutzer<span style="color: #bbbbbb"> </span>b<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>benutzer)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// A: Schleife</span>
+<span style="color: #bbbbbb">                </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(b.<span style="color: #4070a0">getEmail</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">!=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">!</span>b.<span style="color: #4070a0">getEmail</span>().<span style="color: #4070a0">isEmpty</span>())<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// B: Validierung</span>
+<span style="color: #bbbbbb">                    </span>writer.<span style="color: #4070a0">println</span>(String.<span style="color: #4070a0">format</span>(<span style="color: #4070a0">&quot;%d,%s,%s,%s&quot;</span>,
+<span style="color: #bbbbbb">                        </span>b.<span style="color: #4070a0">getId</span>(),
+<span style="color: #bbbbbb">                        </span>b.<span style="color: #4070a0">getUsername</span>(),
+<span style="color: #bbbbbb">                        </span>b.<span style="color: #4070a0">getEmail</span>(),
+<span style="color: #bbbbbb">                        </span>b.<span style="color: #4070a0">istAktiv</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">?</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;ACTIVE&quot;</span><span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;INACTIVE&quot;</span>));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// C: Format</span>
+<span style="color: #bbbbbb">                </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                    </span>System.<span style="color: #4070a0">err</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Benutzer &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>b.<span style="color: #4070a0">getUsername</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; hat keine Email&quot;</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// D: Fehlerlog</span>
+<span style="color: #bbbbbb">                </span>}
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was zeigt Zeile D (Fehlerlog) auf System.err?</p>
+<hr>
+<p>b) Welche Benutzer werden <strong>nicht</strong> in die CSV-Datei geschrieben?</p>
+<ul>
+<li>❏ Benutzer mit leerer Email</li>
+<li>❏ Benutzer mit null als Email</li>
+<li>❏ Inaktive Benutzer</li>
+<li>❏ Alle der obigen</li>
+</ul>
+<p>c) Ist dieser Ansatz für große Datenmengen geeignet (z.B. 1 Mio. Benutzer)? Erkläre:</p>
+<hr>
+<hr>
+<p>d) Wie könnte man fehlende Werte besser verarbeiten?</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 5: Logdatei-Archivierung (4 Punkte)</h2>
+<p><strong>Thema:</strong> Alte Logs komprimieren und verschieben</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">LogArchiver</span><span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">archiviereLogs</span>(String<span style="color: #bbbbbb"> </span>logVerzeichnis,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>archivVerzeichnis)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>LocalDate<span style="color: #bbbbbb"> </span>heute<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>LocalDate.<span style="color: #4070a0">now</span>();
+<span style="color: #bbbbbb">        </span>LocalDate<span style="color: #bbbbbb"> </span>grenzDatum<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>heute.<span style="color: #4070a0">minusDays</span>(<span style="color: #40a070">30</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Älter als 30 Tage</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// 1. Finde alle .log Dateien im Verzeichnis:</span>
+<span style="color: #bbbbbb">        </span>File<span style="color: #bbbbbb"> </span>logDir<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>File(logVerzeichnis);
+<span style="color: #bbbbbb">        </span>File<span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>logDateien<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>logDir.<span style="color: #4070a0">listFiles</span>((dir,<span style="color: #bbbbbb"> </span>name)<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span>name.<span style="color: #4070a0">endsWith</span>(<span style="color: #4070a0">&quot;.log&quot;</span>));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(logDateien<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">throw</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>IOException(<span style="color: #4070a0">&quot;Verzeichnis nicht gefunden&quot;</span>);
+<span style="color: #bbbbbb">        </span>}
+
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(File<span style="color: #bbbbbb"> </span>logDatei<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>logDateien)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">            </span><span style="color: #60a0b0; font-style: italic">// 2. Prüfe Änderungsdatum:</span>
+<span style="color: #bbbbbb">            </span>LocalDate<span style="color: #bbbbbb"> </span>letzteAenderung<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Instant.<span style="color: #4070a0">ofEpochMilli</span>(logDatei.<span style="color: #4070a0">lastModified</span>())<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+<span style="color: #bbbbbb">                </span>.<span style="color: #4070a0">atZone</span>(ZoneId.<span style="color: #4070a0">systemDefault</span>())
+<span style="color: #bbbbbb">                </span>.<span style="color: #4070a0">toLocalDate</span>();
+
+<span style="color: #bbbbbb">            </span><span style="color: #60a0b0; font-style: italic">// 3. Verschiebe alte Logs ins Archiv:</span>
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(letzteAenderung.<span style="color: #4070a0">isBefore</span>(grenzDatum))<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">                </span>Path<span style="color: #bbbbbb"> </span>quelle<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>logDatei.<span style="color: #4070a0">toPath</span>();
+<span style="color: #bbbbbb">                </span>Path<span style="color: #bbbbbb"> </span>ziel<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>Paths.<span style="color: #4070a0">get</span>(archivVerzeichnis,<span style="color: #bbbbbb"> </span>logDatei.<span style="color: #4070a0">getName</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;.archived&quot;</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 1 Punkt</span>
+
+<span style="color: #bbbbbb">                </span>Files.<span style="color: #4070a0">move</span>(quelle,<span style="color: #bbbbbb"> </span>ziel,<span style="color: #bbbbbb"> </span>StandardCopyOption.<span style="color: #4070a0">REPLACE_EXISTING</span>);
+<span style="color: #bbbbbb">            </span>}
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 6: Fehlersuche - Encoding-Problem (2 Punkte)</h2>
+<p><strong>Thema:</strong> Umlaute und Sonderzeichen richtig speichern</p>
+<p>Gegeben ist fehlerhafter Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereBenutzerId</span>(List<span style="color: #666666">&lt;</span>Benutzer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>benutzer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Files.<span style="color: #4070a0">write</span>(Paths.<span style="color: #4070a0">get</span>(datei),<span style="color: #bbbbbb">              </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER!</span>
+<span style="color: #bbbbbb">        </span>benutzer.<span style="color: #4070a0">stream</span>()
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">map</span>(b<span style="color: #bbbbbb"> </span><span style="color: #666666">-&gt;</span><span style="color: #bbbbbb"> </span>b.<span style="color: #4070a0">getName</span>())
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">collect</span>(Collectors.<span style="color: #4070a0">joining</span>(<span style="color: #4070a0">&quot;\n&quot;</span>))
+<span style="color: #bbbbbb">        </span>.<span style="color: #4070a0">getBytes</span>());
+}
+</code></pre></div>
+
+<p><strong>Problem:</strong> Eine Benutzerin heißt "Müller", wird aber als "M?ller" gespeichert.</p>
+<p>a) Wo liegt das Encoding-Problem?</p>
+<hr>
+<hr>
+<p>b) Schreibe den Code korrekt:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">speichereBenutzerId</span>(List<span style="color: #666666">&lt;</span>Benutzer<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>benutzer,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>datei)<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">throws</span><span style="color: #bbbbbb"> </span>IOException<span style="color: #bbbbbb"> </span>{
+
+
+
+}
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Datenmigration CSV→JSON</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>2. Eingabe-Validierung</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Datei-Integrität mit Checksum</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Robuster Datenexport</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>5. Logdatei-Archivierung</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche Encoding</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Praxiskontext: Datenmigration &amp; Validierung</h2>
+<h3>🔄 Systemwechsel &amp; Migration (Aufgabe 1)</h3>
+<ul>
+<li>Altes System → neues System</li>
+<li>Format-Konvertierungen (CSV, JSON, XML)</li>
+<li>Batch-Processing großer Datenmengen</li>
+</ul>
+<h3>✅ Datenqualität (Aufgabe 2)</h3>
+<ul>
+<li>Eingabe-Validierung</li>
+<li>Fehlerberichte</li>
+<li>Exception Handling ohne Programmabsturz</li>
+</ul>
+<h3>🔒 Datenintegrität (Aufgabe 3)</h3>
+<ul>
+<li>Checksum / Hash-Vergleich</li>
+<li>Corruptibility Detection</li>
+<li>Backup-Verifizierung</li>
+</ul>
+<h3>📦 Datenmigration (Aufgabe 4)</h3>
+<ul>
+<li>Fehlertolerante Datenverarbeitung</li>
+<li>Partial Success Szenarien</li>
+<li>Audit Logging</li>
+</ul>
+<h3>📋 Archivierung (Aufgabe 5)</h3>
+<ul>
+<li>Automatische Log-Verwaltung</li>
+<li>Retention Policies</li>
+<li>Storage-Optimierung</li>
+</ul>
+<p><strong>Real-World Tools:</strong><br>
+- Apache Kafka (Datenmigration)<br>
+- Great Expectations (Datenvalidierung)<br>
+- OpenSSL / md5sum (Checksummen)<br>
+- Logrotate (Log-Archivierung)</p>
+</body>
+</html>

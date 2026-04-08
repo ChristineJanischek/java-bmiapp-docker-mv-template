@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Datenbank_1</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Datenbank 1 – Verbindung aufbauen</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>  <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong>  <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<blockquote>
+<p><strong>Erlaubte Hilfsmittel:</strong> Syntaxhilfe_Datenbank.md<br>
+<strong>Voraussetzung:</strong> MySQL-Datenbank <code>bmi_datenbank</code> läuft lokal (localhost:3306)</p>
+</blockquote>
+<hr>
+<h2>Aufgabe 1: JDBC-Verbindung (5 Punkte)</h2>
+<p>Vervollständige die Methode. Die Verbindung soll automatisch geschlossen werden:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">verbindungTesten</span>(String<span style="color: #bbbbbb"> </span>url,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>user,<span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>pw)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(______________________________________)<span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Verbindung hergestellt!&quot;</span>);
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">true</span>;
+
+<span style="color: #bbbbbb">    </span>}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">catch</span><span style="color: #bbbbbb"> </span>(SQLException<span style="color: #bbbbbb"> </span>e)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">err</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Fehler: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>e.<span style="color: #4070a0">getMessage</span>());
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">false</span>;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 2: URL zusammensetzen (4 Punkte)</h2>
+<p>Schreibe die korrekte JDBC-URL für folgende Daten:</p>
+<table>
+<thead>
+<tr>
+<th>Angabe</th>
+<th>Wert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host</td>
+<td><code>localhost</code></td>
+</tr>
+<tr>
+<td>Port</td>
+<td><code>3306</code></td>
+</tr>
+<tr>
+<td>Datenbankname</td>
+<td><code>schule_db</code></td>
+</tr>
+</tbody>
+</table>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>url<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;____________________________________&quot;</span>;
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 3: Verbindung nutzen – SELECT (6 Punkte)</h2>
+<p>Gegeben ist eine offene <code>Connection conn</code>. Schreibe den Code, um alle Zeilen der Tabelle <code>person</code> auszulesen und auf der Konsole auszugeben (Spalten: <code>id</code>, <code>vorname</code>, <code>nachname</code>):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// SQL-Abfrage formulieren</span>
+String<span style="color: #bbbbbb"> </span>sql<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;________________________________&quot;</span>;
+
+<span style="color: #007020; font-weight: bold">try</span><span style="color: #bbbbbb"> </span>(Statement<span style="color: #bbbbbb"> </span>stmt<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>____________________;
+<span style="color: #bbbbbb">     </span>ResultSet<span style="color: #bbbbbb"> </span>rs<span style="color: #bbbbbb">   </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>____________________)<span style="color: #bbbbbb"> </span>{
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>(rs.<span style="color: #4070a0">next</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(
+<span style="color: #bbbbbb">            </span>rs.<span style="color: #4070a0">getInt</span>(<span style="color: #4070a0">&quot;___&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; | &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span>
+<span style="color: #bbbbbb">            </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;_______&quot;</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span>
+<span style="color: #bbbbbb">            </span>rs.<span style="color: #4070a0">getString</span>(<span style="color: #4070a0">&quot;________&quot;</span>)
+<span style="color: #bbbbbb">        </span>);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 4: Fehleranalyse (5 Punkte)</h2>
+<p>Der folgende Code enthält <strong>drei Fehler</strong>. Benenne und korrigiere jeden Fehler:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Connection<span style="color: #bbbbbb"> </span>conn<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>DriverManager.<span style="color: #4070a0">getConnection</span>(<span style="color: #4070a0">&quot;localhost:3306/db&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;root&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;pw&quot;</span>);
+Statement<span style="color: #bbbbbb"> </span>stmt<span style="color: #bbbbbb">  </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>conn.<span style="color: #4070a0">createStatement</span>;
+ResultSet<span style="color: #bbbbbb"> </span>rs<span style="color: #bbbbbb">    </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>stmt.<span style="color: #4070a0">executeUpdate</span>(<span style="color: #4070a0">&quot;SELECT * FROM person&quot;</span>);
+</code></pre></div>
+
+<p><strong>Fehler 1:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_____</p>
+<p><strong>Fehler 2:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_____</p>
+<p><strong>Fehler 3:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_____</p>
+<hr>
+<h2>Aufgabe 5: Kurzfragen (5 Punkte, je 1 Punkt)</h2>
+<ol>
+<li>Was bedeutet <code>try-with-resources</code> und warum ist es bei Datenbankverbindungen wichtig?</li>
+</ol>
+<hr>
+<ol start="2">
+<li>Was gibt <code>executeQuery()</code> zurück?</li>
+</ol>
+<hr>
+<ol start="3">
+<li>Was gibt <code>executeUpdate()</code> zurück?</li>
+</ol>
+<hr>
+<ol start="4">
+<li>Warum darf man Zugangsdaten (Passwort) nicht direkt im Quellcode speichern?</li>
+</ol>
+<hr>
+<ol start="5">
+<li>Welche Maven-Abhängigkeit wird für MySQL in Java benötigt?</li>
+</ol>
+<hr>
+</body>
+</html>

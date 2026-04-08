@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Komposition_Interface_2_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Komposition &amp; Interface - Buchungssystem - LÖSUNGEN &amp; BEPUNKTUNG</h1>
+<p><strong>Dokumenttyp:</strong> Lehrerversion mit Musterlösungen und Bewertungskriterien</p>
+<hr>
+<h2>Aufgabe 1: Interface für Buchbarkeit (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Gemeinsame Fähigkeiten definieren</p>
+<p>In einem Buchungssystem gibt es verschiedene Unterkünfte (Hotel, Ferienwohnung, Hostel). Alle sind buchbar.</p>
+<p>a) Definiere ein Interface <code>Buchbar</code> mit den Methoden:<br>
+- <code>berechnePreis(int anzahlNaechte)</code> → gibt den Gesamtpreis zurück<br>
+- <code>istVerfuegbar(LocalDate von, LocalDate bis)</code> → prüft Verfügbarkeit</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Interface hier schreiben:</span>
+</code></pre></div>
+
+<p>b) Erkläre, warum ein Interface hier besser ist als eine Oberklasse <code>Unterkunft</code>:</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<p><strong>a) Interface Definition (2 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">interface</span> <span style="color: #0e84b5; font-weight: bold">Buchbar</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">berechnePreis</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>anzahlNaechte);
+<span style="color: #bbbbbb">    </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">istVerfuegbar</span>(LocalDate<span style="color: #bbbbbb"> </span>von,<span style="color: #bbbbbb"> </span>LocalDate<span style="color: #bbbbbb"> </span>bis);
+}
+</code></pre></div>
+
+<p><strong>b) Erklärung (2 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Ein Interface erlaubt es, verschiedene Unterkunftstypen ohne gemeinsame
+Oberklasse zu vereinen. Hotels, Ferienwohnungen und Hostels können
+unterschiedlich implementiert sein, teilen aber die Buchbarkeit.
+</code></pre></div>
+
+<h3>Bewertung (4 Punkte)</h3>
+<ul>
+<li><strong>2 Punkte:</strong> Interface mit beiden Methoden korrekt</li>
+<li><strong>2 Punkte:</strong> Erklärung sinnvoll (Flexibilität ohne Vererbung)</li>
+</ul>
+<hr>
+<h2>Aufgabe 2: Komposition - Hotel mit Ausstattung (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Hotel besteht aus Services</p>
+<p>Ein Hotel hat verschiedene Services: Frühstück, Parkplatz, Pool.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Hotel</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">implements</span><span style="color: #bbbbbb"> </span>Buchbar<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span>name;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preisProNacht;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>Fruehstueck<span style="color: #bbbbbb"> </span>fruehstueck;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Komposition</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>Parkplatz<span style="color: #bbbbbb"> </span>parkplatz;<span style="color: #bbbbbb">      </span><span style="color: #60a0b0; font-style: italic">// Komposition</span>
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Hotel</span>(String<span style="color: #bbbbbb"> </span>name,<span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preisProNacht)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">name</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>name;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">preisProNacht</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>preisProNacht;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">fruehstueck</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Fruehstueck(<span style="color: #40a070">15.00</span>);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 15€ pro Tag</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">parkplatz</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Parkplatz(<span style="color: #40a070">10.00</span>);<span style="color: #bbbbbb">      </span><span style="color: #60a0b0; font-style: italic">// 10€ pro Tag</span>
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">berechnePreis</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>anzahlNaechte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Berechne Gesamtpreis (Zimmer + Frühstück + Parkplatz):</span>
+
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>Vervollständige die Methode <code>berechnePreis()</code>. Erkläre, warum Komposition hier sinnvoll ist:</p>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">berechnePreis</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>anzahlNaechte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>zimmerPreis<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>preisProNacht<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span>anzahlNaechte;
+<span style="color: #bbbbbb">    </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>fruehstueckPreis<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>fruehstueck.<span style="color: #4070a0">getPreis</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span>anzahlNaechte;
+<span style="color: #bbbbbb">    </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>parkplatzPreis<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>parkplatz.<span style="color: #4070a0">getPreis</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span>anzahlNaechte;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>zimmerPreis<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>fruehstueckPreis<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>parkplatzPreis;
+}
+</code></pre></div>
+
+<p><strong>Erklärung (1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Komposition ist sinnvoll, weil Services austauschbar sind (z. B. verschiedene
+Frühstücksarten) und ein Hotel aus verschiedenen Komponenten besteht.
+</code></pre></div>
+
+<h3>Bewertung (5 Punkte)</h3>
+<ul>
+<li><strong>4 Punkte:</strong> Preisberechnung korrekt (Zimmer + Services)</li>
+<li><strong>1 Punkt:</strong> Erklärung sinnvoll</li>
+</ul>
+<hr>
+<h2>Aufgabe 3: Interface für Stornierbarkeit (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Verschiedene Stornierungsbedingungen</p>
+<p>Nicht alle Unterkünfte sind gleich stornierbar. Definiere ein Interface <code>Stornierbar</code>:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Interface Stornierbar:</span>
+</code></pre></div>
+
+<p>Implementiere <code>Stornierbar</code> für eine Klasse <code>Ferienwohnung</code> mit 50% Gebühr:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Ferienwohnung</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">implements</span><span style="color: #bbbbbb"> </span>Buchbar,<span style="color: #bbbbbb"> </span>Stornierbar<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preis;
+
+<span style="color: #bbbbbb">    </span><span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">berechneStorniertungsgebuehr</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>tageVorAnreise)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Weniger als 7 Tage: 50% Gebühr, sonst kostenlos</span>
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h3>Musterlösung</h3>
+<p><strong>Interface (2 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">interface</span> <span style="color: #0e84b5; font-weight: bold">Stornierbar</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">berechneStorniertungsgebuehr</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>tageVorAnreise);
+}
+</code></pre></div>
+
+<p><strong>Implementierung (3 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Ferienwohnung</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">implements</span><span style="color: #bbbbbb"> </span>Buchbar,<span style="color: #bbbbbb"> </span>Stornierbar<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>preis;
+
+<span style="color: #bbbbbb">    </span><span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">berechneStorniertungsgebuehr</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>tageVorAnreise)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(tageVorAnreise<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">7</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>preis<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.5</span>;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// 50% Gebühr</span>
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0.0</span>;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Kostenlos stornierbar</span>
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Bewertung (5 Punkte)</h3>
+<ul>
+<li><strong>2 Punkte:</strong> Interface korrekt</li>
+<li><strong>3 Punkte:</strong> Implementierung mit Bedingung korrekt</li>
+</ul>
+<hr>
+<h2>Aufgabe 4: Code-Analyse - Polymorphe Buchungsliste (6 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Verschiedene Unterkünfte in einer Liste</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Buchbar<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>unterkünfte<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+
+unterkünfte.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Hotel(<span style="color: #4070a0">&quot;Maritim&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">120</span>));
+unterkünfte.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Ferienwohnung(<span style="color: #4070a0">&quot;Bergblick&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">80</span>));
+unterkünfte.<span style="color: #4070a0">add</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Hostel(<span style="color: #4070a0">&quot;Backpacker&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">30</span>));
+
+<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>naechte<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>;
+<span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>gesamtkosten<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Buchbar<span style="color: #bbbbbb"> </span>u<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>unterkünfte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>gesamtkosten<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span>u.<span style="color: #4070a0">berechnePreis</span>(naechte);
+}
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Gesamtkosten für &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>naechte<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot; Nächte: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>gesamtkosten<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;€&quot;</span>);
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Berechne die Gesamtkosten (Hotel: 120€/Nacht + 25€ Services, Ferienwohnung: 80€/Nacht, Hostel: 30€/Nacht):</p>
+<p>Hotel (3 Nächte): <strong><em>_</em></strong><strong><em>_</em>_<br>
+Ferienwohnung (3 Nächte): </strong><strong><em>_</em></strong><strong><em>_<br>
+Hostel (3 Nächte): </em></strong><strong><em>_</em></strong>___<br>
+<strong>Gesamtkosten: <strong><em>_</em></strong>______</strong></p>
+<p>b) Warum können verschiedene Unterkunftstypen in einer Liste gespeichert werden?</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösungen</h3>
+<p><strong>a) Preisberechnung (4 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Hotel (3 Nächte): (120 + 15 + 10) * 3 = 145 * 3 = 435€
+Ferienwohnung (3 Nächte): 80 * 3 = 240€
+Hostel (3 Nächte): 30 * 3 = 90€
+
+Gesamtkosten: 435 + 240 + 90 = 765€
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>1,5 Punkte:</strong> Hotel korrekt (mit Services)<br>
+- <strong>1 Punkt:</strong> Ferienwohnung korrekt<br>
+- <strong>1 Punkt:</strong> Hostel korrekt<br>
+- <strong>0,5 Punkte:</strong> Summe korrekt</p>
+<hr>
+<p><strong>b) Erklärung Polymorphie (2 Punkte):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Alle Unterkünfte implementieren das Interface Buchbar.
+Dadurch können sie polymorph in einer List&lt;Buchbar&gt; gespeichert werden.
+Jede ruft ihre eigene berechnePreis()-Implementierung auf.
+</code></pre></div>
+
+<p><strong>Bewertung:</strong><br>
+- <strong>2 Punkte:</strong> Interface + Polymorphie erklärt<br>
+- <strong>1 Punkt:</strong> Grundidee erkannt</p>
+<hr>
+<h2>Aufgabe 5: Komposition - Buchung mit mehreren Unterkünften (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Buchung besteht aus mehreren Positionen</p>
+<p>Schreibe eine Klasse <code>Buchung</code>, die mehrere <code>Buchbar</code>-Objekte verwaltet:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Buchung</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Buchbar<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>unterkünfte;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>anzahlNaechte;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Buchung</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>anzahlNaechte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Konstruktor:</span>
+
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">addUnterkunft</span>(Buchbar<span style="color: #bbbbbb"> </span>u)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Unterkunft hinzufügen:</span>
+
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getGesamtpreis</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// Gesamtpreis aller Unterkünfte berechnen:</span>
+
+
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">class</span> <span style="color: #0e84b5; font-weight: bold">Buchung</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span>List<span style="color: #666666">&lt;</span>Buchbar<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>unterkünfte;
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">private</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>anzahlNaechte;
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">Buchung</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>anzahlNaechte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">anzahlNaechte</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>anzahlNaechte;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">this</span>.<span style="color: #4070a0">unterkünfte</span><span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">addUnterkunft</span>(Buchbar<span style="color: #bbbbbb"> </span>u)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>unterkünfte.<span style="color: #4070a0">add</span>(u);
+<span style="color: #bbbbbb">    </span>}
+
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getGesamtpreis</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span>summe<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Buchbar<span style="color: #bbbbbb"> </span>u<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>unterkünfte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">            </span>summe<span style="color: #bbbbbb"> </span><span style="color: #666666">+=</span><span style="color: #bbbbbb"> </span>u.<span style="color: #4070a0">berechnePreis</span>(anzahlNaechte);
+<span style="color: #bbbbbb">        </span>}
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>summe;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Bewertung (3 Punkte)</h3>
+<ul>
+<li><strong>1 Punkt:</strong> Konstruktor mit Initialisierung</li>
+<li><strong>0,5 Punkte:</strong> addUnterkunft korrekt</li>
+<li><strong>1,5 Punkte:</strong> getGesamtpreis mit Schleife korrekt</li>
+</ul>
+<hr>
+<h2>Aufgabe 6: Fehlersuche - Typprüfung (2 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Instanceof bei Interfaces</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Buchbar<span style="color: #bbbbbb"> </span>u<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>unterkünfte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(u.<span style="color: #4070a0">istStornierbar</span>())<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER</span>
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Kann storniert werden&quot;</span>);
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>a) Was ist der Fehler?</p>
+<hr>
+<p>b) Schreibe die korrekte Version mit <code>instanceof</code>:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Korrekt:</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Interface für Buchbarkeit</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>2. Komposition - Hotel mit Services</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Interface Stornierbarkeit</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Polymorphe Buchungsliste</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>5. Buchung mit mehreren Unterkünften</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche instanceof</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Musterlösung</h3>
+<p><strong>a) Fehler (1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Buchbar hat keine Methode istStornierbar().
+Nur Klassen, die Stornierbar implementieren, haben diese Fähigkeit.
+</code></pre></div>
+
+<p><strong>b) Korrekte Version (1 Punkt):</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Buchbar<span style="color: #bbbbbb"> </span>u<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>unterkünfte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(u<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">instanceof</span><span style="color: #bbbbbb"> </span>Stornierbar)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>Stornierbar<span style="color: #bbbbbb"> </span>s<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>(Stornierbar)<span style="color: #bbbbbb"> </span>u;
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Stornierungsgebühr: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>s.<span style="color: #4070a0">berechneStorniertungsgebuehr</span>(<span style="color: #40a070">7</span>));
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<p>oder mit Pattern Matching (Java 16+):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Buchbar<span style="color: #bbbbbb"> </span>u<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>unterkünfte)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(u<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">instanceof</span><span style="color: #bbbbbb"> </span>Stornierbar<span style="color: #bbbbbb"> </span>s)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Stornierungsgebühr: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>s.<span style="color: #4070a0">berechneStorniertungsgebuehr</span>(<span style="color: #40a070">7</span>));
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<hr>
+<h2>GESAMTBEWERTUNG</h2>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Max. Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Interface für Buchbarkeit</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2. Komposition - Hotel mit Services</td>
+<td>5</td>
+</tr>
+<tr>
+<td>3. Interface Stornierbarkeit</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4. Polymorphe Buchungsliste</td>
+<td>6</td>
+</tr>
+<tr>
+<td>5. Buchung mit mehreren Unterkünften</td>
+<td>3</td>
+</tr>
+<tr>
+<td>6. Fehlersuche instanceof</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>GESAMT</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Bewertungsskala</h2>
+<table>
+<thead>
+<tr>
+<th>Prozent</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>90-100%</td>
+<td>1</td>
+</tr>
+<tr>
+<td>80-89%</td>
+<td>2</td>
+</tr>
+<tr>
+<td>70-79%</td>
+<td>3</td>
+</tr>
+<tr>
+<td>60-69%</td>
+<td>4</td>
+</tr>
+<tr>
+<td>50-59%</td>
+<td>5</td>
+</tr>
+<tr>
+<td>&lt; 50%</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notenschlüssel:</strong><br>
+- <strong>ab 23 Punkte:</strong> Note 1<br>
+- <strong>ab 20 Punkte:</strong> Note 2<br>
+- <strong>ab 18 Punkte:</strong> Note 3<br>
+- <strong>ab 15 Punkte:</strong> Note 4<br>
+- <strong>ab 13 Punkte:</strong> Note 5<br>
+- <strong>unter 13 Punkte:</strong> Note 6</p>
+<hr>
+<h2>Häufige Fehler</h2>
+<h3>Fehler 1: Interface mit Implementierung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">interface</span> <span style="color: #0e84b5; font-weight: bold">Buchbar</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">berechnePreis</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>n)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>}<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Falsch</span>
+}
+</code></pre></div>
+
+<p><strong>Handling:</strong> 1 Punkt Abzug in Aufgabe 1</p>
+<h3>Fehler 2: Services-Preise vergessen</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>preisProNacht<span style="color: #bbbbbb"> </span><span style="color: #666666">*</span><span style="color: #bbbbbb"> </span>anzahlNaechte;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Frühstück/Parkplatz fehlt</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> 2 Punkte Abzug in Aufgabe 2</p>
+<h3>Fehler 3: Keine instanceof-Prüfung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Stornierbar<span style="color: #bbbbbb"> </span>s<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>(Stornierbar)<span style="color: #bbbbbb"> </span>u;<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Ohne Prüfung = ClassCastException!</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> 0 Punkte in Aufgabe 6</p>
+<hr>
+<h2>Lernziele</h2>
+<p>✓ <strong>Interface als Vertrag:</strong> Gemeinsame Fähigkeiten definieren<br>
+✓ <strong>Komposition in Geschäftslogik:</strong> Hotel mit Services<br>
+✓ <strong>Multiple Interfaces:</strong> Buchbar + Stornierbar<br>
+✓ <strong>Polymorphie mit Interfaces:</strong> Unterschiedliche Unterkünfte einheitlich verarbeiten<br>
+✓ <strong>Typprüfung:</strong> instanceof bei Interfaces  </p>
+<hr>
+<p><strong>Test erstellt:</strong> Version 1.0 (Feb 2026)<br>
+<strong>Kontext:</strong> Buchungssystem für Unterkünfte<br>
+<strong>Schwierigkeitsgrad:</strong> Mittel<br>
+<strong>Praktische Relevanz:</strong> Sehr hoch (Booking.com, Airbnb, etc.)</p>
+</body>
+</html>

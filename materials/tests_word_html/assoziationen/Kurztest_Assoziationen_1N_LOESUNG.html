@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Assoziationen_1N_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Assoziationen &amp; ArrayList (1:N Beziehung) - LÖSUNGEN &amp; BEPUNKTUNG</h1>
+<p><strong>Dokumenttyp:</strong> Lehrerversion mit Musterlösungen und Bewertungskriterien</p>
+<hr>
+<h2>Aufgabe 1: ArrayList-Deklaration (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Datenstruktur verstehen</p>
+<p>Schreibe die Deklaration und Initialisierung einer ArrayList, die Messung-Objekte speichert.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Hier aufschreiben:</span>
+</code></pre></div>
+
+<p>Erkläre in 1-2 Sätzen, warum man hier ArrayList statt Array verwendet.</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Messung<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>messungen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;</span>Messung<span style="color: #666666">&gt;</span>();
+
+<span style="color: #60a0b0; font-style: italic">// Oder die moderne Variante:</span>
+List<span style="color: #666666">&lt;</span>Messung<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>messungen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList<span style="color: #666666">&lt;&gt;</span>();
+</code></pre></div>
+
+<h3>Erklärung</h3>
+<p>ArrayList wird verwendet, da die Anzahl der Messungen vorher nicht bekannt ist. Arrays haben eine feste Größe, ArrayList passt sich dynamisch an.</p>
+<h3>Bewertung (3 Punkte)</h3>
+<ul>
+<li><strong>3 Punkte:</strong> Korrekte Deklaration mit <code>List&lt;Messung&gt;</code> UND <code>new ArrayList&lt;&gt;()</code> sowie sinnvolle Erklärung</li>
+<li><strong>2 Punkte:</strong> ArrayList ist deklariert/initialisiert, aber:</li>
+<li>Nur ArrayList ohne Interface, ODER</li>
+<li>Erklärung ist unvollständig</li>
+<li><strong>1 Punkt:</strong> Ansatz erkennbar, aber gravierendes Problem (z.B. <code>ArrayList messung</code> oder falsche Deklaration)</li>
+<li><strong>0 Punkte:</strong> Nicht beantwortet oder völlig falsch</li>
+</ul>
+<p><strong>Häufige Schülerfehler:</strong><br>
+- <code>ArrayList&lt;Messung&gt; messungen = new ArrayList&lt;Messung&gt;();</code> ✓ (akzeptieren)<br>
+- <code>List messungen = new ArrayList();</code> (Punkt abziehen wegen fehlender Generics)<br>
+- <code>Messung[] messungen = new ArrayList();</code> ✗ (falsch - nicht als Lösung akzeptieren)</p>
+<hr>
+<h2>Aufgabe 2: ArrayList-Methoden (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Zugriff auf Listenelemente</p>
+<p>Ordne die ArrayList-Methoden ihren Beschreibungen zu. Schreibe den Buchstaben in die Klammer.</p>
+<p><strong>Beschreibungen:</strong></p>
+<ul>
+<li><strong>(a)</strong> Gibt die Anzahl der Elemente zurück</li>
+<li><strong>(b)</strong> Fügt ein Element am Ende hinzu</li>
+<li><strong>(c)</strong> Gibt das Element an Position index zurück</li>
+<li><strong>(d)</strong> Entfernt das Element an Position index</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Buchstabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add(Object)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>get(int index)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>remove(int index)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>size()</code></td>
+<td>( )</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>Musterlösung (Zuordnung)</h3>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Richtiger Buchstabe</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add(Object)</code></td>
+<td><strong>(b)</strong></td>
+<td>Fügt ein Element am Ende hinzu</td>
+</tr>
+<tr>
+<td><code>get(int index)</code></td>
+<td><strong>(c)</strong></td>
+<td>Gibt das Element an Position index zurück</td>
+</tr>
+<tr>
+<td><code>remove(int index)</code></td>
+<td><strong>(d)</strong></td>
+<td>Entfernt das Element an Position index</td>
+</tr>
+<tr>
+<td><code>size()</code></td>
+<td><strong>(a)</strong></td>
+<td>Gibt die Anzahl der Elemente zurück</td>
+</tr>
+</tbody>
+</table>
+<h3>Bewertung (4 Punkte)</h3>
+<ul>
+<li><strong>4 Punkte:</strong> Alle 4 Zuordnungen korrekt</li>
+<li><strong>3 Punkte:</strong> 3 von 4 richtig</li>
+<li><strong>2 Punkte:</strong> 2 von 4 richtig</li>
+<li><strong>1 Punkt:</strong> 1 von 4 richtig</li>
+<li><strong>0 Punkte:</strong> Keine oder alle falsch</li>
+</ul>
+<p><strong>Lösung in Kurzform für schnelle Korrektur:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>add → Einfügen
+get → Lesen
+remove → Löschen
+size → Anzahl
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 3: Code-Analyse (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Praktische Anwendung der 1:N Beziehung</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Person<span style="color: #bbbbbb"> </span>person<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Anna&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Schmidt&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">28</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Frau&quot;</span>);
+
+Messung<span style="color: #bbbbbb"> </span>m1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Messung(<span style="color: #40a070">65.0</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1.70</span>);
+Messung<span style="color: #bbbbbb"> </span>m2<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Messung(<span style="color: #40a070">67.0</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1.70</span>);
+Messung<span style="color: #bbbbbb"> </span>m3<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Messung(<span style="color: #40a070">64.0</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1.70</span>);
+
+person.<span style="color: #4070a0">addMessung</span>(m1);
+person.<span style="color: #4070a0">addMessung</span>(m2);
+person.<span style="color: #4070a0">addMessung</span>(m3);
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Anzahl Messungen: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>person.<span style="color: #4070a0">getAnzahlMessungen</span>());
+Messung<span style="color: #bbbbbb"> </span>letzteMessung<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>person.<span style="color: #4070a0">getMessungen</span>().<span style="color: #4070a0">get</span>(<span style="color: #40a070">2</span>);
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Gewicht letzte Messung: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>letzteMessung.<span style="color: #4070a0">getGewicht</span>());
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was wird folgende Zeile als Ausgabe produzieren?  </p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Anzahl Messungen: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>person.<span style="color: #4070a0">getAnzahlMessungen</span>());
+</code></pre></div>
+
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>b) Welches Gewicht wird ausgegeben bei der Zeile mit <code>get(2)</code>?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>c) Erkläre, was <code>.getMessungen().get(2)</code> macht:</p>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösungen</h3>
+<p><strong>a) Ausgabe der Anzahl Messungen (1 Punkt)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Anzahl Messungen: 3
+</code></pre></div>
+
+<p><strong>Bewertung (1 Punkt):</strong><br>
+- ✓ Akzeptabel: <code>3</code>, <code>Anzahl Messungen: 3</code>, <code>3 Messungen</code><br>
+- ✗ Falsch: Andere Zahlen, oder komplette falsche Erklärung</p>
+<hr>
+<p><strong>b) Welches Gewicht bei get(2)? (1,5 Punkte)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>64.0
+</code></pre></div>
+
+<p><strong>Erklärung:</strong> Index 2 bedeutet das 3. Element (0-indexierung: 0=m1, 1=m2, 2=m3).<br>
+m3 hat 64.0 kg.</p>
+<p><strong>Bewertung (1,5 Punkte):</strong><br>
+- ✓ <code>64.0</code> oder <code>64</code> → 1,5 Punkte<br>
+- ✓ <code>64.0 kg</code> → 1,5 Punkte<br>
+- ~ <code>m3</code> oder nur Erklärung ohne Zahl → 0,5 Punkte<br>
+- ✗ <code>67.0</code> oder <code>65.0</code> → 0 Punkte (falsche Indexierung)</p>
+<hr>
+<p><strong>c) Erklärung getMessungen().get(2) (2,5 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>getMessungen() gibt die ArrayList aller Messungen zurück.
+.get(2) greift auf das Element mit Index 2 zu (das 3. Element).
+Zusammen wird die dritte Messung (m3) der Person zurückgegeben.
+</code></pre></div>
+
+<p><strong>Bewertung (2,5 Punkte):</strong><br>
+- <strong>2,5 Punkte:</strong> Beide Teile (getMessungen + get(2)) erklärt, Index/Position auch erwähnt<br>
+- <strong>2 Punkte:</strong> Grundsätzliche Idee richtig, aber unvollständig oder leicht unklar<br>
+- <strong>1 Punkt:</strong> Nur teilweise richtig (z.B. nur getMessungen erklärt)<br>
+- <strong>0 Punkte:</strong> Falsch oder nicht beantwortet</p>
+<hr>
+<h3>Subtotale Aufgabe 3: max. 5 Punkte</h3>
+<ul>
+<li>a) 1 Punkt</li>
+<li>b) 1,5 Punkte</li>
+<li>c) 2,5 Punkte</li>
+</ul>
+<hr>
+<h2>Aufgabe 4: Schleife &amp; Ausgabe (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Alle Elemente einer ArrayList verarbeiten und ausgeben</p>
+<p>Schreibe eine vollständige <strong>for-Schleife</strong> (oder for-each Schleife), die alle Messungen einer Person ausgibt.</p>
+<p><strong>Vorgabe:</strong> Die ArrayList mit den Messungen heißt <code>messungen</code> und besteht aus <code>Messung</code>-Objekten.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Messung<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>messungen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>person.<span style="color: #4070a0">getMessungen</span>();
+
+<span style="color: #60a0b0; font-style: italic">// Schleife hier schreiben:</span>
+</code></pre></div>
+
+<p>Bonus (+1 Punkt): Schreibe zusätzlich eine <code>System.out.println()</code> Zeile, die den Index (Nummer) und das Gewicht ausgibt.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Bonus-Ausgabe:</span>
+</code></pre></div>
+
+<hr>
+<h3>Musterlösungen</h3>
+<p><strong>Option 1: for-Schleife (empfohlen)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>messungen.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Messung<span style="color: #bbbbbb"> </span>messung<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>messungen.<span style="color: #4070a0">get</span>(i);
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Gewicht: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>messung.<span style="color: #4070a0">getGewicht</span>());
+}
+</code></pre></div>
+
+<p><strong>Option 2: for-each Schleife (auch gut)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(Messung<span style="color: #bbbbbb"> </span>messung<span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span>messungen)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Gewicht: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>messung.<span style="color: #4070a0">getGewicht</span>());
+}
+</code></pre></div>
+
+<p><strong>Option 3: while-Schleife (auch akzeptabel)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+<span style="color: #007020; font-weight: bold">while</span><span style="color: #bbbbbb"> </span>(i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>messungen.<span style="color: #4070a0">size</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>Messung<span style="color: #bbbbbb"> </span>messung<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>messungen.<span style="color: #4070a0">get</span>(i);
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Gewicht: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>messung.<span style="color: #4070a0">getGewicht</span>());
+<span style="color: #bbbbbb">    </span>i<span style="color: #666666">++</span>;
+}
+</code></pre></div>
+
+<h3>Bewertung Hauptaufgabe (4 Punkte)</h3>
+<ul>
+<li><strong>4 Punkte:</strong> </li>
+<li>Schleife iteriert über alle Elemente korrekt</li>
+<li>Zugriff mit get() oder for-each</li>
+<li>
+<p>Ausgabe mit Gewicht und sinnvoll strukturiert</p>
+</li>
+<li>
+<p><strong>3 Punkte:</strong></p>
+</li>
+<li>
+<p>Schleife funktioniert grundsätzlich, aber:</p>
+<ul>
+<li>Kleine Fehler (z.B. off-by-one Error, aber logisch erkennbar)</li>
+<li>Oder: getGewicht() vergessen, aber Konzept verstanden</li>
+</ul>
+</li>
+<li>
+<p><strong>2 Punkte:</strong></p>
+</li>
+<li>
+<p>Schelfen-Konzept erkannt, aber:</p>
+<ul>
+<li>Syntax-Fehler</li>
+<li>Oder: unvollständige Implementierung</li>
+</ul>
+</li>
+<li>
+<p><strong>1 Punkt:</strong> Grundidee vorhanden, aber viele Fehler</p>
+</li>
+<li><strong>0 Punkte:</strong> Nicht beantwortet oder völlig falsch</li>
+</ul>
+<h3>Bewertung Bonus (max. +1 Punkt)</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>((i<span style="color: #666666">+</span><span style="color: #40a070">1</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;. Messung - Gewicht: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>messung.<span style="color: #4070a0">getGewicht</span>());
+</code></pre></div>
+
+<p><strong>Bonus-Kriterien:</strong><br>
+- ✓ <strong>+1 Punkt:</strong> Augabe mit Index/Nummer und Gewicht kombiniert<br>
+- ✓ <strong>+0,5 Punkte:</strong> Nur teilweise (z.B. nur Index ohne Gewicht)<br>
+- ✗ <strong>+0 Punkte:</strong> Unkorrekt oder vergessen</p>
+<hr>
+<h2>Aufgabe 5: Methode verstehen (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Methoden für 1:N Beziehungen</p>
+<p>In der <code>Person</code>-Klasse gibt es eine Methode <code>getDurchschnittsBmi()</code>.</p>
+<p>a) Schreibe die <strong>Methodensignatur</strong> (ohne Implementierung):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Methodensignatur:</span>
+</code></pre></div>
+
+<p>b) Erkläre in 2-3 Sätzen, wie diese Methode funktionieren würde:</p>
+<hr>
+<hr>
+<hr>
+<hr>
+<h3>Musterlösung</h3>
+<p><strong>a) Methodensignatur (1 Punkt)</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">double</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">getDurchschnittsBmi</span>()
+</code></pre></div>
+
+<p><strong>Erklärung:</strong> <br>
+- <code>public</code>: Die Methode ist von außen erreichbar<br>
+- <code>double</code>: Rückgabewert ist eine Dezimalzahl (BMI)<br>
+- <code>getDurchschnittsBmi</code>: Aussagekräftiger Name mit Getter-Konvention<br>
+- <code>()</code>: Keine Parameter nötig (Daten sind in der ArrayList vorhanden)</p>
+<p><strong>Bewertung (1 Punkt):</strong><br>
+- ✓ <code>public double getDurchschnittsBmi()</code> → 1 Punkt<br>
+- ✓ <code>double getDurchschnittsBmi()</code> (public nicht geschrieben) → 0,5 Punkte<br>
+- ✗ <code>void getDurchschnittsBmi()</code> → 0 Punkte (falscher Rückgabewert)<br>
+- ✗ <code>double durchschnittsBmi</code> → 0 Punkte (ist Methode nicht erkannt)</p>
+<hr>
+<p><strong>b) Erklärung (3 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Die Methode iteriert über alle Messungen der ArrayList.
+Sie addiert alle BMI-Werte auf und teilt sie durch die Anzahl der Messungen.
+Das Ergebnis ist der durchschnittliche BMI der Person über alle Messzeitpunkte.
+</code></pre></div>
+
+<p><strong>Bewertung (3 Punkte):</strong><br>
+- <strong>3 Punkte:</strong> <br>
+  - Iteration über ListView erkannt<br>
+  - Summe/Addition erwähnt<br>
+  - Division durch Anzahl erwähnt<br>
+  - Oder: Logischer Algorithmus beschrieben</p>
+<ul>
+<li><strong>2 Punkte:</strong></li>
+<li>
+<p>Grundidee richtig, aber:</p>
+<ul>
+<li>Nicht alle Schritte erklären, oder</li>
+<li>Etwas unklar formuliert</li>
+</ul>
+</li>
+<li>
+<p><strong>1 Punkt:</strong> Grundidee vorhanden, aber mangelhaft</p>
+</li>
+<li><strong>0 Punkte:</strong> Falsch oder nicht beantwortet</li>
+</ul>
+<hr>
+<h3>Subtotale Aufgabe 5: max. 4 Punkte</h3>
+<hr>
+<h2>Aufgabe 6: Fehlersuche &amp; Analyse (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p><strong>Thema:</strong> Häufige Fehler bei ArrayList-Nutzung</p>
+<p>Gegeben ist folgender fehlerhafter Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Person<span style="color: #bbbbbb"> </span>person<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Max&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Müller&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">35</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Mann&quot;</span>);
+Messung<span style="color: #bbbbbb"> </span>m1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Messung(<span style="color: #40a070">80.0</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1.80</span>);
+
+person.<span style="color: #4070a0">messungen</span>.<span style="color: #4070a0">add</span>(m1);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 1</span>
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(person.<span style="color: #4070a0">getMessungen</span>().<span style="color: #4070a0">get</span>(<span style="color: #40a070">5</span>));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 2</span>
+</code></pre></div>
+
+<p><strong>Aufgaben:</strong></p>
+<p>a) <strong>Fehler 1:</strong> <code>person.messungen.add(m1)</code> - Was ist das Problem?</p>
+<hr>
+<hr>
+<p>b) <strong>Fehler 2:</strong> <code>person.getMessungen().get(5)</code> - Warum funktioniert das nicht?</p>
+<hr>
+<hr>
+<p>c) Schreibe die <strong>korrekte Version</strong> von Fehler 1:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Korrekt:</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. ArrayList-Deklaration</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>2. ArrayList-Methoden</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Code-Analyse</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Schleife &amp; Ausgabe</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>5. Methode verstehen</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Musterlösungen</h3>
+<p><strong>a) Fehler 1: person.messungen.add(m1) (1,5 Punkte)</strong></p>
+<p><strong>Problem:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Das Attribut &#39;messungen&#39; ist private und nicht direkt von außen erreichbar.
+Man muss die öffentliche Methode addMessung() verwenden.
+</code></pre></div>
+
+<p><strong>Bewertung (1,5 Punkte):</strong><br>
+- ✓ <code>private ist nicht von außen erreichbar</code> → 1,5 Punkte<br>
+- ✓ <code>Muss Getter/Setter oder Methode addMessung() verwenden</code> → 1,5 Punkte<br>
+- ✓ <code>Kapselung/Sichtbarkeitsproblem erkannt</code> → 1,5 Punkte<br>
+- ~ <code>ArrayList nicht direkt nutzbar</code> → 0,5 Punkte (ungenau, aber Ansatz erkannt)<br>
+- ✗ <code>ArrayList hat keine messungen</code> → 0 Punkte (falsch)</p>
+<hr>
+<p><strong>b) Fehler 2: person.getMessungen().get(5) (1 Punkt)</strong></p>
+<p><strong>Problem:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Es gibt nur 1 Messung (m1), die beim Index 0 ist.
+Index 5 existiert nicht → IndexOutOfBoundsException.
+Man darf nur auf Index 0 zugreifen oder vorher prüfen.
+</code></pre></div>
+
+<p><strong>Bewertung (1 Punkt):</strong><br>
+- ✓ <code>Index 5 existiert nicht / zu groß</code> → 1 Punkt<br>
+- ✓ <code>In Java nur 0-1 vorhanden, aber 5 angefordert</code> → 1 Punkt<br>
+- ✓ <code>IndexOutOfBoundsException</code> → 1 Punkt<br>
+- ~ <code>Zu viele Elemente</code> → 0,5 Punkte (ungenau)<br>
+- ✗ <code>ArrayList ist zu klein</code> → keine Punkte (Schreibweise ist vage)</p>
+<hr>
+<p><strong>c) Korrekte Version von Fehler 1 (1,5 Punkte)</strong></p>
+<p><strong>Musterlösung:</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>person.<span style="color: #4070a0">addMessung</span>(m1);
+</code></pre></div>
+
+<p><strong>Bewertung (1,5 Punkte):</strong><br>
+- ✓ <code>person.addMessung(m1);</code> → 1,5 Punkte<br>
+- ✓ <code>person.getMessungen().add(m1);</code> (auch akzeptabel) → 1,5 Punkte<br>
+- ~ <code>person.messungen = m1;</code> (wenn private gewesen wäre, aber trotzdem unkorrekt) → 0 Punkte<br>
+- ✗ <code>person.add(m1);</code> → 0 Punkte (falsch)</p>
+<hr>
+<h3>Subtotale Aufgabe 6: max. 4 Punkte</h3>
+<ul>
+<li>a) 1,5 Punkte</li>
+<li>b) 1 Punkt</li>
+<li>c) 1,5 Punkte</li>
+</ul>
+<hr>
+<h2>GESAMTBEWERTUNG</h2>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Max. Punkte</th>
+<th>Gewichtung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. ArrayList-Deklaration</td>
+<td>3</td>
+<td>12%</td>
+</tr>
+<tr>
+<td>2. ArrayList-Methoden</td>
+<td>4</td>
+<td>16%</td>
+</tr>
+<tr>
+<td>3. Code-Analyse</td>
+<td>5</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>4. Schleife &amp; Ausgabe</td>
+<td>5</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>5. Methode verstehen</td>
+<td>4</td>
+<td>16%</td>
+</tr>
+<tr>
+<td>6. Fehlersuche</td>
+<td>4</td>
+<td>16%</td>
+</tr>
+<tr>
+<td><strong>GESAMT</strong></td>
+<td><strong>25</strong></td>
+<td><strong>100%</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Bewertungsskala</h2>
+<table>
+<thead>
+<tr>
+<th>Prozent</th>
+<th>Note</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>90-100%</td>
+<td>1</td>
+<td>Sehr gut</td>
+</tr>
+<tr>
+<td>80-89%</td>
+<td>2</td>
+<td>Gut</td>
+</tr>
+<tr>
+<td>70-79%</td>
+<td>3</td>
+<td>Befriedigend</td>
+</tr>
+<tr>
+<td>60-69%</td>
+<td>4</td>
+<td>Ausreichend</td>
+</tr>
+<tr>
+<td>50-59%</td>
+<td>5</td>
+<td>Mangelhaft</td>
+</tr>
+<tr>
+<td>&lt; 50%</td>
+<td>6</td>
+<td>Ungenügend</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notenschlüssel für diesen Test:</strong><br>
+- <strong>ab 23 Punkte (92%):</strong> Note 1<br>
+- <strong>ab 20 Punkte (80%):</strong> Note 2<br>
+- <strong>ab 18 Punkte (72%):</strong> Note 3<br>
+- <strong>ab 15 Punkte (60%):</strong> Note 4<br>
+- <strong>ab 13 Punkte (52%):</strong> Note 5<br>
+- <strong>unter 13 Punkte:</strong> Note 6</p>
+<hr>
+<h2>Läufige Schülerfehler &amp; Wertungen</h2>
+<h3>Fehler 1: ArrayList ohne Generics</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>ArrayList<span style="color: #bbbbbb"> </span>messungen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>ArrayList();<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Ohne &lt;Messung&gt;</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> Punkt abziehen, kann aber akzeptiert werden mit Note -0,5 Punkte</p>
+<h3>Fehler 2: Array statt ArrayList</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Messung<span style="color: #666666">[]</span><span style="color: #bbbbbb"> </span>messungen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Messung<span style="color: #666666">[</span><span style="color: #40a070">10</span><span style="color: #666666">]</span>;
+</code></pre></div>
+
+<p><strong>Handling:</strong> Nicht als Lösung für ArrayList-Aufgaben akzeptieren → 0 Punkte für die Aufgabe</p>
+<h3>Fehler 3: get(index) vergessen</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>messungen.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(messungen);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← Ganze Liste, nicht einzelnes Element</span>
+}
+</code></pre></div>
+
+<p><strong>Handling:</strong> 1 Punkt abziehen (Konzept da, aber Umsetzung falsch)</p>
+<h3>Fehler 4: Off-by-One Error</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;=</span><span style="color: #bbbbbb"> </span>messungen.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// Startet bei 1 statt 0</span>
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(messungen.<span style="color: #4070a0">get</span>(i));<span style="color: #bbbbbb">      </span><span style="color: #60a0b0; font-style: italic">// ← Index zu groß</span>
+</code></pre></div>
+
+<p><strong>Handling:</strong> 1 Punkt abziehen (Code funktioniert nicht)</p>
+<h3>Fehler 5: Falsches Index-Verständnis</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>&quot;Index 2 ist die 2. Messung&quot; ← FALSCH, ist die 3. (0-basiert)
+</code></pre></div>
+
+<p><strong>Handling:</strong> Concept falsch verstanden → weniger Punkte (0,5)</p>
+<hr>
+<h2>Tipps zur schnellen Korrektur</h2>
+<h3>Korrektur-Workflow (ca. 2-3 Min pro Test)</h3>
+<ol>
+<li><strong>Aufgabe 1:</strong> Schneller Check - ArrayList mit <Messung>? JA (+3) NEIN (→ 0-2)</li>
+<li><strong>Aufgabe 2:</strong> 4 Zuordnungen zählen - schnell verifizierbar</li>
+<li><strong>Aufgabe 3a-b:</strong> Nur Zahlen: <code>3</code> und <code>64.0</code> prüfen</li>
+<li><strong>Aufgabe 3c:</strong> Stichwort "Assoziation" oder "get" + "Index" → Punkt gegeben</li>
+<li><strong>Aufgabe 4:</strong> Schleife läuft? <code>.get()</code> oder <code>for-each</code>? Ausgabe sinnvoll?</li>
+<li><strong>Aufgabe 5a:</strong> Nur Methodensignatur prüfen (public double ...)</li>
+<li><strong>Aufgabe 5b:</strong> Stichwörter: "Iteration", "Summe", "Division" erkennen</li>
+<li><strong>Aufgabe 6a:</strong> Stichwort "private" oder "addMessung-Methode" → Punkt</li>
+<li><strong>Aufgabe 6b:</strong> Stichwort "Index 5 illegal" oder "zu groß" → Punkt</li>
+<li><strong>Aufgabe 6c:</strong> Nur <code>person.addMessung(m1)</code> prüfen</li>
+</ol>
+<h3>Checklisten für Korrektor</h3>
+<h4>Aufgabe 1 Kurzcheck:</h4>
+<ul>
+<li>[ ] <code>List&lt;Messung&gt;</code> oder <code>ArrayList&lt;Messung&gt;</code>?</li>
+<li>[ ] <code>new ArrayList&lt;&gt;()</code>?</li>
+<li>[ ] Erklärung erkennbar?</li>
+</ul>
+<h4>Aufgabe 4 Kurzcheck:</h4>
+<ul>
+<li>[ ] Schleife über <code>.size()</code> oder <code>for-each</code>?</li>
+<li>[ ] <code>.get(i)</code> verwendet?</li>
+<li>[ ] <code>System.out.println()</code> mit Gewicht?</li>
+<li>[ ] Bonus: Index/Nummer ausgegeben?</li>
+</ul>
+<p><strong>Geschätzte Korrektur:</strong> ~2:30 Min pro Test × Klassengröße</p>
+<hr>
+<h2>Differenzierungsvorschläge für Lehrer</h2>
+<h3>Zusatzaufgaben für schnelle Schüler (+5 Bonuspunkte)</h3>
+<p><strong>Aufgabe Z1: Filterung</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Schreibe Code (Pseudocode ist OK), der nur Messungen mit 
+Kategorie &quot;Normalgewicht&quot; ausgibt.
+</code></pre></div>
+
+<p><strong>Aufgabe Z2: Fehlerbehandlung</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Wie kann man verhindern, dass get(100) einen Fehler verursacht?
+Schreibe eine Sicherheitsabfrage.
+</code></pre></div>
+
+<p><strong>Aufgabe Z3: M:N Beziehung</strong></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Erkläre in 2-3 Sätzen, wie eine M:N Beziehung (Ärzte ↔ Patienten) 
+mit zwei ArrayLists funktioniert.
+</code></pre></div>
+
+<h3>Vereinfachte Version für schwäche Schüler (Basis 15 Punkte)</h3>
+<p>Entferne Aufgaben 5 und 6, konzentriere dich auf:<br>
+- Deklaration (Aufgabe 1)<br>
+- Methoden (Aufgabe 2)<br>
+- Praktische Nutzung (Aufgaben 3 &amp; 4)</p>
+<hr>
+<h2>Tipps für die nächste Testversion</h2>
+<ol>
+<li><strong>Code-Modus:</strong> Schüler dürfen auf Papier Pseudocode schreiben</li>
+<li><strong>Multiple Choice:</strong> Für Aufgabe 2 &amp; 3 noch einfacher korrigierbar</li>
+<li><strong>Halboffene Fragen:</strong> Mit Auswahl-Elementen (Zahl + Text)</li>
+<li><strong>Testdauer:</strong> Kann auf 20 Min reduziert werden mit Vereinfachung</li>
+<li><strong>Gewichtung:</strong> Java-Klassen mehr Gewicht, weniger Theorie</li>
+</ol>
+<hr>
+<p><strong>Test erstellt:</strong> Version 1.0 (Feb 2026)<br>
+<strong>Zielgruppe:</strong> Schüler nach Lerneinheit Version 3+ Assoziationen<br>
+<strong>Voraussetzungen:</strong> ArrayList, 1:N Beziehungen, Person/Messung-Klassen bekannt</p>
+</body>
+</html>

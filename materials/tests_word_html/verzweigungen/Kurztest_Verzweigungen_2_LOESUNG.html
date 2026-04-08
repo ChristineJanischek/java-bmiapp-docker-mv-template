@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Verzweigungen_2_LOESUNG</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Verzweigungen 2 - Logik und Guard Clauses - LOESUNG</h1>
+<p><strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Bereichspruefung (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">istGueltig</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>alter)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// gueltig: 0..120</span>
+
+
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">istGueltig</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>alter)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>alter<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>alter<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">120</span>;
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Nur Werte innerhalb des Intervalls inklusive Grenzen sind gueltig.</p>
+<hr>
+<h2>Aufgabe 2: Guard Clause (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p>Vervollstaendige:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">verarbeite</span>(String<span style="color: #bbbbbb"> </span>input)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// Wenn input null oder leer -&gt; sofort return</span>
+
+
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(input.<span style="color: #4070a0">trim</span>());
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">void</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">verarbeite</span>(String<span style="color: #bbbbbb"> </span>input)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(input<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">null</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>input.<span style="color: #4070a0">isBlank</span>())<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span>;
+<span style="color: #bbbbbb">    </span>}
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(input.<span style="color: #4070a0">trim</span>());
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Guard Clauses beenden ungueltige Faelle frueh und reduzieren Verschachtelung.</p>
+<hr>
+<h2>Aufgabe 3: switch mit Fall-Through (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">gruppe</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>note)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">switch</span><span style="color: #bbbbbb"> </span>(note)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>:
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>:
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;gut&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>:
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;mittel&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #60a0b0; font-style: italic">// TODO: 4 und 5 -&gt; &quot;schwach&quot;</span>
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">default</span>:
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;ungueltig&quot;</span>;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span>String<span style="color: #bbbbbb"> </span><span style="color: #06287e">gruppe</span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>note)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">switch</span><span style="color: #bbbbbb"> </span>(note)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>:
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">2</span>:
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;gut&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">3</span>:
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;mittel&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">4</span>:
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">case</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span>:
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;schwach&quot;</span>;
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">default</span>:
+<span style="color: #bbbbbb">            </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;ungueltig&quot;</span>;
+<span style="color: #bbbbbb">    </span>}
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Mehrere <code>case</code>-Labels ohne Code dazwischen nutzen bewusst Fall-Through.</p>
+<hr>
+<h2>Aufgabe 4: Code-Analyse (5 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span>admin<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">false</span>;
+<span style="color: #902000">boolean</span><span style="color: #bbbbbb"> </span>aktiv<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">true</span>;
+
+<span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(admin<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>aktiv)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Zugriff&quot;</span>);
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Kein Zugriff&quot;</span>);
+}
+</code></pre></div>
+
+<p>Was wird ausgegeben? <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_____</p>
+<h3>Musterloesung</h3>
+<p>Ausgabe: <code>Zugriff</code></p>
+<h3>Erlaeuterung</h3>
+<p>Bei <code>||</code> reicht eine wahre Teilbedingung; <code>aktiv</code> ist <code>true</code>.</p>
+<hr>
+<h2>Aufgabe 5: Ternary vs if (4 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<p>Schreibe als if/else:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>r<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>(x<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">?</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;positiv&quot;</span><span style="color: #bbbbbb"> </span>:<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;nicht positiv&quot;</span>;
+</code></pre></div>
+
+<h3>Musterloesung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>String<span style="color: #bbbbbb"> </span>r;
+<span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(x<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>r<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;positiv&quot;</span>;
+}<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">else</span><span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span>r<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;nicht positiv&quot;</span>;
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Funktional identisch zum ternary Ausdruck, aber laenger ausgeschrieben.</p>
+<hr>
+<h2>Aufgabe 6: Fehlersuche (3 Punkte)</h2>
+<h3>Aufgabenstellung</h3>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(x<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>x<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">10</span><span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>x<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">20</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// ...</span>
+}
+</code></pre></div>
+
+<p>Warum kann die Prioritaet hier problematisch sein, und wie machst du es eindeutig?</p>
+<hr>
+<h3>Musterloesung</h3>
+<p>Ohne Klammern ist die Lesbarkeit schlecht; <code>&amp;&amp;</code> wird zwar vor <code>||</code> ausgewertet, aber das ist fehleranfaellig.</p>
+<p>Eindeutig z. B.:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>((x<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">5</span><span style="color: #bbbbbb"> </span><span style="color: #666666">&amp;&amp;</span><span style="color: #bbbbbb"> </span>x<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">10</span>)<span style="color: #bbbbbb"> </span><span style="color: #666666">||</span><span style="color: #bbbbbb"> </span>x<span style="color: #bbbbbb"> </span><span style="color: #666666">==</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">20</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #60a0b0; font-style: italic">// ...</span>
+}
+</code></pre></div>
+
+<h3>Erlaeuterung</h3>
+<p>Klammern dokumentieren die gewollte Logik explizit und verhindern Missverstaendnisse.</p>
+<hr>
+<p><strong>Viel Erfolg!</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

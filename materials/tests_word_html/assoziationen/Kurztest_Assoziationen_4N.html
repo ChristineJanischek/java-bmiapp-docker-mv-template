@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Assoziationen_4N</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Assoziationen &amp; ArrayList – Erweiterte 1:N-Szenarien</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: Sortierung in einer ArrayList (5 Punkte)</h2>
+<p><strong>Thema:</strong> Erweiterte Funktionen – Sortieren von Objekten</p>
+<p>Gegeben ist eine ArrayList mit Messung-Objekten. Jede Messung hat ein Attribut <code>gewicht</code> (double).</p>
+<p>a) Ergänze die Lücken, um die Messungen <strong>aufsteigend nach Gewicht</strong> zu sortieren:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Messung<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>messungen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>person.<span style="color: #4070a0">getMessungen</span>();
+
+Collections.<span style="color: #4070a0">sort</span>(messungen,<span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Comparator<span style="color: #666666">&lt;</span>Messung<span style="color: #666666">&gt;</span>()<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #555555; font-weight: bold">@Override</span>
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">public</span><span style="color: #bbbbbb"> </span><span style="color: #902000">int</span><span style="color: #bbbbbb"> </span><span style="color: #06287e">compare</span>(Messung<span style="color: #bbbbbb"> </span>m1,<span style="color: #bbbbbb"> </span>Messung<span style="color: #bbbbbb"> </span>m2)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span><span style="color: #007020; font-weight: bold">return</span><span style="color: #bbbbbb"> </span>_______________________________________________
+<span style="color: #bbbbbb">    </span>}
+});
+</code></pre></div>
+
+<p>b) Was muss zusätzlich importiert werden, damit <code>Collections</code> und <code>Comparator</code> verwendet werden können?</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #007020; font-weight: bold">import</span><span style="color: #bbbbbb"> </span><span style="color: #0e84b5; font-weight: bold">_______________________________________________</span>
+<span style="color: #007020; font-weight: bold">import</span><span style="color: #bbbbbb"> </span><span style="color: #0e84b5; font-weight: bold">_______________________________________________</span>
+</code></pre></div>
+
+<p>c) Erkläre in 1 Satz, was <code>compare()</code> zurückgeben muss, damit m1 <strong>vor</strong> m2 einsortiert wird:</p>
+<hr>
+<hr>
+<h2>Aufgabe 2: ArrayList-API – Methoden <code>contains</code> und <code>subList</code> (6 Punkte)</h2>
+<p><strong>Thema:</strong> Vertiefung der API-Methoden</p>
+<p>Ordne die Methodenaufrufe den Beschreibungen zu. Schreibe den Buchstaben in die Klammer.</p>
+<p><strong>Beschreibungen:</strong><br>
+- <strong>(a)</strong> Gibt <code>true</code> zurück, wenn das Objekt in der Liste vorhanden ist<br>
+- <strong>(b)</strong> Gibt eine Teilliste von Index 1 bis 3 (exklusiv) zurück<br>
+- <strong>(c)</strong> Ersetzt das Element an Index 2 durch ein neues Objekt<br>
+- <strong>(d)</strong> Gibt den Index des ersten Vorkommens zurück (oder -1)<br>
+- <strong>(e)</strong> Fügt ein Element an einer bestimmten Position ein<br>
+- <strong>(f)</strong> Prüft, ob die Liste leer ist</p>
+<table>
+<thead>
+<tr>
+<th>Methodenaufruf</th>
+<th>Buchstabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>messungen.contains(m1)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>messungen.subList(1, 3)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>messungen.set(2, neueMessung)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>messungen.indexOf(m1)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>messungen.add(1, neueMessung)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>messungen.isEmpty()</code></td>
+<td>( )</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Aufgabe 3: Komplexe Code-Analyse (Iteration &amp; Modifikation) (8 Punkte)</h2>
+<p><strong>Thema:</strong> Zugriffen und Manipulationen in einer ArrayList</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Person<span style="color: #bbbbbb"> </span>person<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Anna&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Bauer&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">30</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Frau&quot;</span>);
+
+person.<span style="color: #4070a0">addMessung</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Messung(<span style="color: #40a070">80.0</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1.70</span>));
+person.<span style="color: #4070a0">addMessung</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Messung(<span style="color: #40a070">75.0</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1.70</span>));
+person.<span style="color: #4070a0">addMessung</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Messung(<span style="color: #40a070">90.0</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1.70</span>));
+person.<span style="color: #4070a0">addMessung</span>(<span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Messung(<span style="color: #40a070">72.0</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">1.70</span>));
+
+List<span style="color: #666666">&lt;</span>Messung<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>messungen<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>person.<span style="color: #4070a0">getMessungen</span>();
+
+<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>count<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;
+<span style="color: #007020; font-weight: bold">for</span><span style="color: #bbbbbb"> </span>(<span style="color: #902000">int</span><span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">0</span>;<span style="color: #bbbbbb"> </span>i<span style="color: #bbbbbb"> </span><span style="color: #666666">&lt;</span><span style="color: #bbbbbb"> </span>messungen.<span style="color: #4070a0">size</span>();<span style="color: #bbbbbb"> </span>i<span style="color: #666666">++</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">    </span><span style="color: #007020; font-weight: bold">if</span><span style="color: #bbbbbb"> </span>(messungen.<span style="color: #4070a0">get</span>(i).<span style="color: #4070a0">getGewicht</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">77.0</span>)<span style="color: #bbbbbb"> </span>{
+<span style="color: #bbbbbb">        </span>count<span style="color: #666666">++</span>;
+<span style="color: #bbbbbb">    </span>}
+}
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Anzahl über 77 kg: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>count);
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Erste Messung: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>messungen.<span style="color: #4070a0">get</span>(<span style="color: #40a070">0</span>).<span style="color: #4070a0">getGewicht</span>());
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Letzte Messung: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>messungen.<span style="color: #4070a0">get</span>(messungen.<span style="color: #4070a0">size</span>()<span style="color: #bbbbbb"> </span><span style="color: #666666">-</span><span style="color: #bbbbbb"> </span><span style="color: #40a070">1</span>).<span style="color: #4070a0">getGewicht</span>());
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was gibt die <strong>erste</strong> Ausgabezeile aus?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>b) Was gibt die <strong>zweite</strong> Ausgabezeile aus?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>c) Was gibt die <strong>dritte</strong> Ausgabezeile aus?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>d) Erkläre, warum <code>messungen.get(messungen.size() - 1)</code> das <strong>letzte</strong> Element zurückgibt:</p>
+<hr>
+<hr>
+<p>e) Was würde passieren, wenn die ArrayList leer wäre und <code>messungen.get(0)</code> aufgerufen wird?</p>
+<hr>
+<hr>
+<h2>Aufgabe 4: Dynamische Testdaten mit for-Schleife (6 Punkte)</h2>
+<p><strong>Thema:</strong> Generierung und Ausgabe von Testdaten</p>
+<p>a) Schreibe eine <strong>for-Schleife</strong>, die 5 Messung-Objekte erstellt und sie einer Person hinzufügt.<br>
+Die Gewichte sollen 60.0, 62.0, 64.0, 66.0, 68.0 betragen (jeweils +2.0 pro Iteration).<br>
+Die Größe beträgt immer 1.75.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Person<span style="color: #bbbbbb"> </span>person<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Person(<span style="color: #4070a0">&quot;Test&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Person&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">25</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Mann&quot;</span>);
+
+<span style="color: #60a0b0; font-style: italic">// for-Schleife hier schreiben:</span>
+</code></pre></div>
+
+<p>b) Schreibe anschließend eine <strong>for-Schleife</strong>, die alle Messungen mit ihrer <strong>Nummer</strong> (1-basiert) und ihrem <strong>Gewicht</strong> ausgibt.<br>
+Beispiel-Ausgabe: <code>Messung 1: 60.0 kg</code></p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Ausgabeschleife:</span>
+</code></pre></div>
+
+<p>c) Wie viele <code>Messung</code>-Objekte wurden insgesamt erstellt?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Sortierung in einer ArrayList</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>2. ArrayList-API (contains, subList)</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Komplexe Code-Analyse</td>
+<td>8</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Dynamische Testdaten</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

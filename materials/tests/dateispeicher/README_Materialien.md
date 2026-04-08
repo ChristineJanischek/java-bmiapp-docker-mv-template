@@ -134,6 +134,37 @@ Falls Du Fehler findest oder Anmerkungen hast:
 - Öffne ein Issue im Repository
 - Oder füge einen Kommentar in die Test-Dateien ein
 
+### 11. Word Copy-Paste (1:1) fuer alle Testdateien
+
+Damit Formatierung beim Einfuegen in Word moeglichst unveraendert bleibt, gibt es einen HTML-Export fuer alle Test-Markdown-Dateien.
+
+1. Abhaengigkeiten installieren:
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Export starten:
+
+```bash
+python scripts/export_tests_to_word_html.py
+```
+
+3. Ergebnis:
+- Exportierte Dateien liegen unter `materials/tests_word_html/`
+- Struktur entspricht `materials/tests/`
+- Jede `.md`-Datei wird als `.html` erzeugt
+
+4. In Word uebernehmen:
+- HTML-Datei im Browser oeffnen
+- Gesamten Inhalt markieren und kopieren
+- In Word einfuegen
+
+Hinweis:
+- Diese HTML-Dateien sind auf Word-freundliche Formatierung ausgelegt (Ueberschriften, Listen, Tabellen, Codebloecke).
+- Codebloecke enthalten Syntax-Highlighting (farbige Hervorhebung) fuer bessere Lesbarkeit im Unterricht.
+- Fuer beste Ergebnisse in Word bitte "Quellformatierung beibehalten" beim Einfuegen waehlen.
+
 ---
 
 **Viel Erfolg beim Unterricht!**

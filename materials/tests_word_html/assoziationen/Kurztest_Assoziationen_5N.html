@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurztest_Assoziationen_5N</title>
+  <style>
+    body {
+      margin: 2.2cm;
+      font-family: Calibri, "Segoe UI", Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #111;
+      background: #fff;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1.1em;
+      margin-bottom: 0.45em;
+      line-height: 1.2;
+      page-break-after: avoid;
+    }
+    h1 { font-size: 19pt; }
+    h2 { font-size: 15pt; }
+    h3 { font-size: 13pt; }
+    p { margin: 0.45em 0; }
+    ul, ol { margin: 0.4em 0 0.7em 1.2em; }
+    li { margin: 0.2em 0; }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+      border: 1px solid #d8dde6;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f8fafc;
+      margin: 0.7em 0;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 10pt;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.8em 0;
+      font-size: 10.5pt;
+    }
+    th, td {
+      border: 1px solid #bfc7d5;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #eef3fb;
+      text-align: left;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #c6ccd6;
+      margin: 1.1em 0;
+    }
+    blockquote {
+      margin: 0.8em 0;
+      padding: 0.2em 0.8em;
+      border-left: 3px solid #b9c4d8;
+      color: #334155;
+      background: #f8fafc;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+<h1>Kurztest: Assoziationen &amp; ArrayList - Bücherei und Bücher (1:N Beziehung)</h1>
+<p><strong>Klasse:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Datum:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong>Zeit: 25 Min | Punkte: 25</strong></p>
+<hr>
+<h2>Aufgabe 1: ArrayList-Deklaration (3 Punkte)</h2>
+<p><strong>Thema:</strong> Datenstruktur für eine Buchsammlung</p>
+<p>Schreibe die Deklaration und Initialisierung einer ArrayList, die Buch-Objekte speichert.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Hier aufschreiben:</span>
+</code></pre></div>
+
+<p>Erkläre in 1-2 Sätzen, warum man hier ArrayList statt Array verwendet.</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 2: ArrayList-Methoden (4 Punkte)</h2>
+<p><strong>Thema:</strong> Verwaltung von Büchern in einer Bücherei</p>
+<p>Ordne die ArrayList-Methoden ihren Beschreibungen zu. Schreibe den Buchstabe in die Klammer.</p>
+<p><strong>Beschreibungen:</strong></p>
+<ul>
+<li><strong>(a)</strong> Gibt die Gesamtzahl der Bücher zurück</li>
+<li><strong>(b)</strong> Fügt ein Buch zur Sammlung hinzu</li>
+<li><strong>(c)</strong> Greift auf ein Buch an einer bestimmten Position zu</li>
+<li><strong>(d)</strong> Entfernt ein Buch aus der Sammlung (z. B. aussortierte Bücher)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Methode</th>
+<th>Buchstabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add(Buch)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>get(int index)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>remove(int index)</code></td>
+<td>( )</td>
+</tr>
+<tr>
+<td><code>size()</code></td>
+<td>( )</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Aufgabe 3: Code-Analyse (5 Punkte)</h2>
+<p><strong>Thema:</strong> 1:N Beziehung zwischen Bücherei und Büchern</p>
+<p>Gegeben ist folgender Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Buecherei<span style="color: #bbbbbb"> </span>buecherei<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Buecherei(<span style="color: #4070a0">&quot;Stadtbücherei&quot;</span>);
+
+Buch<span style="color: #bbbbbb"> </span>b1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Buch(<span style="color: #4070a0">&quot;Der Hobbit&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;J.R.R. Tolkien&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2024</span>);
+Buch<span style="color: #bbbbbb"> </span>b2<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Buch(<span style="color: #4070a0">&quot;1984&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;George Orwell&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2023</span>);
+Buch<span style="color: #bbbbbb"> </span>b3<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Buch(<span style="color: #4070a0">&quot;Herr der Ringe&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;J.R.R. Tolkien&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2024</span>);
+
+buecherei.<span style="color: #4070a0">addBuch</span>(b1);
+buecherei.<span style="color: #4070a0">addBuch</span>(b2);
+buecherei.<span style="color: #4070a0">addBuch</span>(b3);
+
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Bücher im Bestand: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>buecherei.<span style="color: #4070a0">getAnzahlBuecher</span>());
+Buch<span style="color: #bbbbbb"> </span>zweitesBuch<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>buecherei.<span style="color: #4070a0">getBuecher</span>().<span style="color: #4070a0">get</span>(<span style="color: #40a070">1</span>);
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Zweites Buch: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>zweitesBuch.<span style="color: #4070a0">getTitel</span>());
+</code></pre></div>
+
+<p><strong>Fragen:</strong></p>
+<p>a) Was wird folgende Zeile als Ausgabe produzieren?  </p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(<span style="color: #4070a0">&quot;Bücher im Bestand: &quot;</span><span style="color: #bbbbbb"> </span><span style="color: #666666">+</span><span style="color: #bbbbbb"> </span>buecherei.<span style="color: #4070a0">getAnzahlBuecher</span>());
+</code></pre></div>
+
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>b) Welcher Titel wird ausgegeben bei der Zeile mit <code>get(1)</code>?</p>
+<p>Antwort: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong>____</p>
+<p>c) Erkläre, was <code>.getBuecher().get(1)</code> macht:</p>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 4: Schleife &amp; Ausgabe (5 Punkte)</h2>
+<p><strong>Thema:</strong> Katalog aller Bücher anzeigen</p>
+<p>Schreibe eine vollständige <strong>for-Schleife</strong> (oder for-each Schleife), die alle Bücher einer Bücherei ausgibt.</p>
+<p><strong>Vorgabe:</strong> Die ArrayList mit den Büchern heißt <code>buecher</code> und besteht aus <code>Buch</code>-Objekten mit den Attributen <code>getTitel()</code> und <code>getAutor()</code>.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>List<span style="color: #666666">&lt;</span>Buch<span style="color: #666666">&gt;</span><span style="color: #bbbbbb"> </span>buecher<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span>buecherei.<span style="color: #4070a0">getBuecher</span>();
+
+<span style="color: #60a0b0; font-style: italic">// Schleife hier schreiben:</span>
+</code></pre></div>
+
+<p>Bonus (+1 Punkt): Schreibe zusätzlich eine <code>System.out.println()</code> Zeile, die die laufende Nummer (1, 2, 3...), Titel und Autor ausgibt.</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Bonus-Ausgabe:</span>
+</code></pre></div>
+
+<hr>
+<h2>Aufgabe 5: Methode verstehen (4 Punkte)</h2>
+<p><strong>Thema:</strong> Methoden für 1:N Beziehungen in einer Bücherei</p>
+<p>In der <code>Buecherei</code>-Klasse gibt es eine Methode <code>getAutorHaeufigkeit(String autor)</code>, die zählt, wie viele Bücher eines bestimmten Autors vorhanden sind.</p>
+<p>a) Schreibe die <strong>Methodensignatur</strong> (ohne Implementierung):</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Methodensignatur:</span>
+</code></pre></div>
+
+<p>b) Erkläre in 2-3 Sätzen, wie diese Methode funktionieren würde:</p>
+<hr>
+<hr>
+<hr>
+<hr>
+<h2>Aufgabe 6: Fehlersuche &amp; Analyse (4 Punkte)</h2>
+<p><strong>Thema:</strong> Häufige Fehler bei ArrayList-Nutzung in einer Bücherei</p>
+<p>Gegeben ist folgender fehlerhafter Code:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code>Buecherei<span style="color: #bbbbbb"> </span>buecherei<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Buecherei(<span style="color: #4070a0">&quot;Bücherei XYZ&quot;</span>);
+Buch<span style="color: #bbbbbb"> </span>b1<span style="color: #bbbbbb"> </span><span style="color: #666666">=</span><span style="color: #bbbbbb"> </span><span style="color: #007020; font-weight: bold">new</span><span style="color: #bbbbbb"> </span>Buch(<span style="color: #4070a0">&quot;Faust&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #4070a0">&quot;Goethe&quot;</span>,<span style="color: #bbbbbb"> </span><span style="color: #40a070">2024</span>);
+
+buecherei.<span style="color: #4070a0">buecher</span>.<span style="color: #4070a0">add</span>(b1);<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 1</span>
+System.<span style="color: #4070a0">out</span>.<span style="color: #4070a0">println</span>(buecherei.<span style="color: #4070a0">getBuecher</span>().<span style="color: #4070a0">get</span>(<span style="color: #40a070">10</span>));<span style="color: #bbbbbb">  </span><span style="color: #60a0b0; font-style: italic">// ← FEHLER 2</span>
+</code></pre></div>
+
+<p><strong>Aufgaben:</strong></p>
+<p>a) <strong>Fehler 1:</strong> <code>buecherei.buecher.add(b1)</code> - Was ist das Problem?</p>
+<hr>
+<hr>
+<p>b) <strong>Fehler 2:</strong> <code>buecherei.getBuecher().get(10)</code> - Warum funktioniert das nicht (wenn die Bücherei nur 3 Bücher hat)?</p>
+<hr>
+<hr>
+<p>c) Schreibe die <strong>korrekte Version</strong> von Fehler 1:</p>
+<div class="codehilite" style="background: #f0f0f0"><pre style="line-height: 125%;"><span></span><code><span style="color: #60a0b0; font-style: italic">// Korrekt:</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Viel Erfolg! ✓</strong></p>
+<p><em>Tabelle zur Eigenkontrolle (für den Schüler):</em></p>
+<table>
+<thead>
+<tr>
+<th>Aufgabe</th>
+<th>Punkte</th>
+<th>✓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. ArrayList-Deklaration</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>2. ArrayList-Methoden</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>3. Code-Analyse</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>4. Schleife &amp; Ausgabe</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>5. Methode verstehen</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>6. Fehlersuche</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Gesamt</strong></td>
+<td><strong>25</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
