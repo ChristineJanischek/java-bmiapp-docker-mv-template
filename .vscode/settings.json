@@ -2,6 +2,5 @@
   // Öffnet automatisch die README beim Start des Workspace
   "workbench.startupEditor": "readme",
   "java.configuration.updateBuildConfiguration": "interactive",
-  "python-envs.defaultEnvManager": "ms-python.python:system",
-  "python-envs.pythonProjects": []
+  "python-envs.defaultEnvManager": "ms-python.python:system"
 }

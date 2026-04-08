@@ -1,7 +1,10 @@
 /workspaces/java-bmiapp-docker-mv-template/src/start/BmiManager.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/Bmirechner.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/DatabaseConnector.java
+/workspaces/java-bmiapp-docker-mv-template/src/start/InputValidator.java
+/workspaces/java-bmiapp-docker-mv-template/src/start/JsonDateiDatenbankSpeicher.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/Main.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/MainWindow.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/Messung.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/Person.java
+/workspaces/java-bmiapp-docker-mv-template/src/start/SecureLogger.java

@@ -1,8 +1,11 @@
 start/Bmirechner.class
-start/Messung.class
-start/MainWindow$1.class
 start/Person.class
-start/Main.class
 start/MainWindow.class
 start/DatabaseConnector.class
+start/Messung.class
+start/MainWindow$1.class
+start/Main.class
+start/JsonDateiDatenbankSpeicher.class
+start/SecureLogger.class
+start/InputValidator.class
 start/BmiManager.class

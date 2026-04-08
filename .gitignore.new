@@ -1,0 +1,22 @@
+# Binäre Artefakte und Downloads (können aus Git regeneriert werden)
+downloads/
+*.zip
+
+# Maven
+target/
+*.jar
+*.war
+
+# IDEs
+.idea/
+.eclipse/
+.vscode/settings.json
+
+# Build Ausgaben
+build/
+dist/
+
+# Temp
+*.tmp
+*.bak
+*.swp
