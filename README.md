@@ -249,6 +249,7 @@ python scripts/batch_grade_projects.py \
 Batch-Ausgabe:
 - pro ZIP: `.docx`, `.md`, `.html`
 - Gesamtliste: `bewertung_uebersicht.csv` und `bewertung_uebersicht.md`
+- Rangliste: `bewertung_rangliste.csv` und `bewertung_rangliste.md` (beste Note zuerst)
 - Laufstatistik: `bewertung_laufbericht.md` und `bewertung_laufhistorie.csv` (wird pro Lauf fortgeschrieben)
 
 ### Standardprozess fuer wiederkehrende Bewertungen

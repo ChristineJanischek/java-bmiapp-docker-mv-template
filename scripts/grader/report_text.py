@@ -47,6 +47,41 @@ def _score_formula_text(total: float, maximum: float, grade: float) -> str:
     )
 
 
+def _build_action_todos(outcome: GradingOutcome) -> list[str]:
+    todos: list[str] = []
+    failed = [result for result in outcome.results if not result.passed]
+
+    for result in failed:
+        rule_id = result.rule.id
+        if rule_id.startswith("F"):
+            todos.append("Formales ueberarbeiten: Syntax pruefen, Architektur klarer strukturieren und Testbarkeit sicherstellen (main-Methode oder Testklasse).")
+        elif rule_id.startswith("FU"):
+            todos.append("Funktionalitaet nachbessern: GUI-Interaktionen, Verzweigungen und Schleifen mit realistischen Testfaellen pruefen.")
+        elif rule_id.startswith("D"):
+            todos.append("Dokumentation ergaenzen: Klassenkommentare und nachvollziehbare Inline-Hinweise zu zentralen Logikschritten ergaenzen.")
+        elif rule_id.startswith("K"):
+            todos.append("Kapselung verbessern: Attribute konsequent private halten und kontrollierte Zugriffsmethoden anbieten.")
+        elif rule_id.startswith("T"):
+            todos.append("Testumgebung erweitern: Main.java als Testtreiber ausbauen oder Test.java/*Test.java mit vergleichbaren Pruefungen anlegen.")
+        elif rule_id.startswith("I"):
+            todos.append("Projektstruktur staerken: MVC-Rollen klarer trennen und fachliche Klassen sauber modularisieren.")
+
+    # Duplikate in stabiler Reihenfolge entfernen
+    deduped: list[str] = []
+    for item in todos:
+        if item not in deduped:
+            deduped.append(item)
+
+    if not deduped:
+        deduped = [
+            "Qualitaet halten: bestehende Struktur beibehalten und nur gezielte Codeverbesserungen mit kleinen Commits vornehmen.",
+            "Zusatztests ergaenzen: mindestens einen weiteren Testfall je Kernfunktion dokumentieren und nachvollziehbar ausfuehren.",
+        ]
+
+    deduped.append("Deadline Juni-Abgabe: Alle offenen Punkte bis spaetestens 30.06.2026 abschliessen und final pruefen.")
+    return deduped
+
+
 def build_markdown_report(
     outcome: GradingOutcome,
     student_name: str,
@@ -97,6 +132,12 @@ def build_markdown_report(
         lines.append(f"- Anmerkung: {result.note}")
         lines.append("")
 
+    lines.append("## Handlungsempfehlung (Juni-Abgabe)")
+    lines.append("")
+    for todo in _build_action_todos(outcome):
+        lines.append(f"- [ ] {todo}")
+    lines.append("")
+
     lines.append("## Bemerkung")
     lines.append("")
     lines.append(teacher_note or "Keine zusaetzliche Bemerkung.")
@@ -127,12 +168,13 @@ def markdown_to_html(markdown_text: str, title: str) -> str:
   <title>{escape(title)}</title>
   <style>
     body {{
-      margin: 2cm;
+            margin: 1.5cm;
       font-family: Calibri, 'Segoe UI', Arial, sans-serif;
       font-size: 11pt;
       color: #111;
       line-height: 1.35;
       background: #fff;
+            max-width: 180mm;
     }}
     h1 {{
       font-size: 19pt;
@@ -155,20 +197,28 @@ def markdown_to_html(markdown_text: str, title: str) -> str:
       width: 100%;
       margin: 0.6em 0 1em 0;
       font-size: 10.5pt;
+            table-layout: fixed;
     }}
     th, td {{
       border: 1px solid #9ca9ba;
       padding: 6px 8px;
       vertical-align: top;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            hyphens: auto;
     }}
     th {{
       background: #e8eef7;
       text-align: left;
     }}
+        th:nth-child(1), td:nth-child(1) {{ width: 38%; }}
+        th:nth-child(2), td:nth-child(2) {{ width: 14%; }}
+        th:nth-child(3), td:nth-child(3) {{ width: 14%; }}
+        th:nth-child(4), td:nth-child(4) {{ width: 34%; }}
     ul {{ margin-top: 0.3em; }}
     hr {{ border: 0; border-top: 1px solid #c8d0dd; margin: 1.1em 0; }}
     @media print {{
-      body {{ margin: 1.4cm; }}
+            body {{ margin: 1.2cm; max-width: none; }}
       h1, h2, h3 {{ page-break-after: avoid; }}
       table {{ page-break-inside: auto; }}
       tr {{ page-break-inside: avoid; page-break-after: auto; }}

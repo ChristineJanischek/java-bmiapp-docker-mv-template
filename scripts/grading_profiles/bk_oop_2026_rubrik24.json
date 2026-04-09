@@ -9,23 +9,89 @@
   "rules": [
     {
       "id": "F1",
-      "title": "Formales: auswertbares Java-Projekt vorhanden",
-      "description": "ZIP enthaelt ein auswertbares Java-Projekt mit mehreren Quellcodedateien.",
+      "title": "Formales: Syntax, Fehlerfreiheit, Architektur und Testbarkeit",
+      "description": "Projekt weist eine syntaktisch plausible Java-Struktur auf, zeigt Architekturmerkmale und ist grundsaetzlich testbar.",
       "points": 2,
-      "kind": "min_files_glob",
+      "kind": "all_of",
       "config": {
-        "glob": "**/*.java",
-        "min_count": 5
+        "rules": [
+          {
+            "title": "Ausreichend Java-Dateien vorhanden",
+            "kind": "min_files_glob",
+            "config": {
+              "glob": "**/*.java",
+              "min_count": 5
+            }
+          },
+          {
+            "title": "Syntaktische Grundstruktur vorhanden",
+            "kind": "all_of",
+            "config": {
+              "rules": [
+                {
+                  "title": "Paketdeklaration gefunden",
+                  "kind": "contains_regex",
+                  "config": {
+                    "regex": "package\\s+[a-zA-Z_][a-zA-Z0-9_]*\\s*;"
+                  }
+                },
+                {
+                  "title": "Klassendeklaration gefunden",
+                  "kind": "contains_regex",
+                  "config": {
+                    "regex": "class\\s+[A-Z][A-Za-z0-9_]*"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "title": "Architekturhinweis vorhanden",
+            "kind": "contains_regex",
+            "config": {
+              "regex": "class\\s+.*Controller|class\\s+.*Window|class\\s+.*View|class\\s+.*Manager"
+            }
+          },
+          {
+            "title": "Projekt ist testbar (Main oder Tests vorhanden)",
+            "kind": "any_of",
+            "config": {
+              "rules": [
+                {
+                  "title": "main()-Methode vorhanden",
+                  "kind": "contains_regex",
+                  "config": {
+                    "regex": "public\\s+static\\s+void\\s+main\\s*\\("
+                  }
+                },
+                {
+                  "title": "Testklasse vorhanden",
+                  "kind": "file_exists",
+                  "config": {
+                    "glob": "**/*Test.java"
+                  }
+                },
+                {
+                  "title": "Test.java vorhanden",
+                  "kind": "file_exists",
+                  "config": {
+                    "glob": "**/Test.java"
+                  }
+                }
+              ]
+            }
+          }
+        ]
       }
     },
     {
       "id": "F2",
       "title": "Formales: Einstiegspunkt vorhanden",
-      "description": "Main-Klasse als Projektstart ist vorhanden.",
+      "description": "Ein gueltiger Einstiegspunkt ueber public static void main(...) ist vorhanden (z. B. in Main.java oder MainWindow.java).",
       "points": 2,
-      "kind": "file_exists",
+      "kind": "contains_regex",
       "config": {
-        "glob": "**/Main.java"
+        "regex": "public\\s+static\\s+void\\s+main\\s*\\("
       }
     },
     {
@@ -114,11 +180,59 @@
     {
       "id": "T1",
       "title": "Testumgebung: Unit-Tests vorhanden",
-      "description": "Testklasse ist vorhanden.",
+      "description": "Entweder Main.java mit main()-Methode und testartigem Pruefcode ODER Test.java/*Test.java mit gleichwertigem Inhalt ist vorhanden.",
       "points": 2,
-      "kind": "file_exists",
+      "kind": "any_of",
       "config": {
-        "glob": "**/*Test.java"
+        "rules": [
+          {
+            "title": "Main.java mit main() und Testcode",
+            "kind": "all_of",
+            "config": {
+              "rules": [
+                {
+                  "title": "Main.java vorhanden",
+                  "kind": "file_exists",
+                  "config": {
+                    "glob": "**/Main.java"
+                  }
+                },
+                {
+                  "title": "main()-Methode in Main.java",
+                  "kind": "contains_regex",
+                  "config": {
+                    "target_glob": "Main.java",
+                    "regex": "public\\s+static\\s+void\\s+main\\s*\\("
+                  }
+                },
+                {
+                  "title": "Testartiger Code in Main.java",
+                  "kind": "contains_regex",
+                  "config": {
+                    "target_glob": "Main.java",
+                    "regex": "new\\s+[A-Z][A-Za-z0-9_]*\\s*\\(|assert|System\\.out\\.print|\\.[a-zA-Z_][a-zA-Z0-9_]*\\s*\\("
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "title": "Testklasse vorhanden und genutzt",
+            "kind": "contains_regex",
+            "config": {
+              "target_glob": "*Test.java",
+              "regex": "class\\s+[A-Za-z0-9_]*Test|@Test|public\\s+static\\s+void\\s+main\\s*\\(|assert"
+            }
+          },
+          {
+            "title": "Klasse Test.java vorhanden und genutzt",
+            "kind": "contains_regex",
+            "config": {
+              "target_glob": "Test.java",
+              "regex": "class\\s+Test|public\\s+static\\s+void\\s+main\\s*\\(|assert|new\\s+[A-Z][A-Za-z0-9_]*\\s*\\("
+            }
+          }
+        ]
       }
     },
     {

@@ -34,6 +34,10 @@ def _detect_source_root(extract_dir: Path, expected_root: str) -> Path:
 
 def _student_name_from_zip(zip_path: Path) -> str:
     name = zip_path.stem
+    # Remove optional archive timestamp prefix: YYYYMMDD_HHMMSS_
+    parts = name.split("_", 2)
+    if len(parts) == 3 and len(parts[0]) == 8 and len(parts[1]) == 6 and parts[0].isdigit() and parts[1].isdigit():
+        name = parts[2]
     for prefix in ("schueler_", "projekt_", "abgabe_"):
         if name.lower().startswith(prefix):
             name = name[len(prefix):]
@@ -108,6 +112,67 @@ def _write_summary(out_dir: Path, rows: list[dict]) -> None:
     for row in rows:
         md_lines.append(f"| {row['student']} | {row['points']} | {row['grade']} | {row['status']} |")
     (out_dir / "bewertung_uebersicht.md").write_text("\n".join(md_lines) + "\n", encoding="utf-8")
+
+
+def _write_ranking(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
+    ranked: list[dict] = []
+    for row in rows:
+        if row["status"] != "ok":
+            continue
+        try:
+            grade_value = float(row["grade"])
+            achieved, maximum = row["points"].split("/")
+            achieved_value = float(achieved)
+            max_value = float(maximum)
+            ratio = (achieved_value / max_value) if max_value > 0 else 0.0
+        except (ValueError, ZeroDivisionError):
+            continue
+        ranked.append(
+            {
+                **row,
+                "grade_value": grade_value,
+                "ratio": ratio,
+                "achieved_value": achieved_value,
+            }
+        )
+
+    ranked.sort(key=lambda item: (item["grade_value"], -item["achieved_value"], item["student"].lower()))
+
+    ranking_csv = out_dir / "bewertung_rangliste.csv"
+    with ranking_csv.open("w", newline="", encoding="utf-8") as fp:
+        writer = csv.DictWriter(
+            fp,
+            fieldnames=["rang", "student", "points", "grade", "punkte_prozent", "status"],
+        )
+        writer.writeheader()
+        for idx, row in enumerate(ranked, start=1):
+            writer.writerow(
+                {
+                    "rang": idx,
+                    "student": row["student"],
+                    "points": row["points"],
+                    "grade": row["grade"],
+                    "punkte_prozent": f"{row['ratio'] * 100.0:.2f}",
+                    "status": row["status"],
+                }
+            )
+
+    ranking_md = out_dir / "bewertung_rangliste.md"
+    lines = [
+        "# Bewertungs-Rangliste",
+        "",
+        "| Rang | Schueler/in | Punkte | Note | Punktequote |",
+        "|---:|---|---:|---:|---:|",
+    ]
+    for idx, row in enumerate(ranked, start=1):
+        lines.append(
+            f"| {idx} | {row['student']} | {row['points']} | {row['grade']} | {row['ratio'] * 100.0:.2f}% |"
+        )
+    if not ranked:
+        lines.append("| - | Keine erfolgreichen Bewertungen | - | - | - |")
+    ranking_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    return ranking_csv, ranking_md
 
 
 def _write_run_statistics(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
@@ -227,12 +292,15 @@ def main() -> int:
         rows.append(row)
 
     _write_summary(out_dir, rows)
+    ranking_csv, ranking_md = _write_ranking(out_dir, rows)
     history_csv, run_md = _write_run_statistics(out_dir, rows)
 
     ok_count = sum(1 for row in rows if row["status"] == "ok")
     print(f"Batch abgeschlossen: {ok_count}/{len(rows)} erfolgreich")
     print(f"Ausgabeordner: {out_dir}")
     print(f"Uebersicht: {out_dir / 'bewertung_uebersicht.csv'}")
+    print(f"Rangliste: {ranking_csv}")
+    print(f"Rangliste (MD): {ranking_md}")
     print(f"Laufhistorie: {history_csv}")
     print(f"Laufbericht: {run_md}")
     return 0

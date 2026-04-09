@@ -9,12 +9,12 @@
   "rules": [
     {
       "id": "O001",
-      "title": "Main-Klasse vorhanden",
-      "description": "Ein Einstiegspunkt mit Main.java ist vorhanden.",
+      "title": "Einstiegspunkt vorhanden",
+      "description": "Ein gueltiger Einstiegspunkt ueber public static void main(...) ist vorhanden (z. B. in Main.java oder MainWindow.java).",
       "points": 3,
-      "kind": "file_exists",
+      "kind": "contains_regex",
       "config": {
-        "glob": "**/Main.java"
+        "regex": "public\\s+static\\s+void\\s+main\\s*\\("
       }
     },
     {
