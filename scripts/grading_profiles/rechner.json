@@ -1,0 +1,71 @@
+{
+  "profile_name": "BMI Rechner (Version 1-3)",
+  "project_type": "rechner",
+  "expected_root": "src",
+  "grade_scale": {
+    "best": 1.0,
+    "worst": 6.0
+  },
+  "rules": [
+    {
+      "id": "R001",
+      "title": "Model-Klasse vorhanden",
+      "description": "Klasse Bmirechner ist im Projekt enthalten.",
+      "points": 4,
+      "kind": "file_exists",
+      "config": {
+        "glob": "**/Bmirechner.java"
+      }
+    },
+    {
+      "id": "R002",
+      "title": "Controller-Klasse vorhanden",
+      "description": "Klasse BmiManager ist vorhanden.",
+      "points": 3,
+      "kind": "file_exists",
+      "config": {
+        "glob": "**/BmiManager.java"
+      }
+    },
+    {
+      "id": "R003",
+      "title": "GUI-Klasse vorhanden",
+      "description": "Klasse MainWindow ist vorhanden.",
+      "points": 3,
+      "kind": "file_exists",
+      "config": {
+        "glob": "**/MainWindow.java"
+      }
+    },
+    {
+      "id": "R004",
+      "title": "BMI-Berechnung implementiert",
+      "description": "Formel BMI = gewicht / (groesse*groesse) wird verwendet.",
+      "points": 6,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "gewicht\\s*/\\s*\\(?\\s*groesse\\s*\\*\\s*groesse\\s*\\)?"
+      }
+    },
+    {
+      "id": "R005",
+      "title": "Eingabevalidierung vorhanden",
+      "description": "Projekt nutzt eine Validierung oder InputValidator.",
+      "points": 5,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "InputValidator|validate|IllegalArgumentException"
+      }
+    },
+    {
+      "id": "R006",
+      "title": "Unsichere Exit-Aufrufe vermeiden",
+      "description": "System.exit im Projektcode sollte vermieden werden.",
+      "points": 4,
+      "kind": "not_contains_regex",
+      "config": {
+        "regex": "System\\.exit\\s*\\("
+      }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "profile_name": "Automat (Zustandslogik)",
+  "project_type": "automat",
+  "expected_root": "src",
+  "grade_scale": {
+    "best": 1.0,
+    "worst": 6.0
+  },
+  "rules": [
+    {
+      "id": "A001",
+      "title": "Automat-Kernklasse vorhanden",
+      "description": "Es gibt mindestens eine Klasse mit Name Automat oder State.",
+      "points": 5,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "class\\s+(Automat|State|Zustand)"
+      }
+    },
+    {
+      "id": "A002",
+      "title": "Zustandswechsel umgesetzt",
+      "description": "Methoden fuer Transitionen oder Zustandswechsel sind vorhanden.",
+      "points": 6,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "transition|naechsterZustand|wechsel|setState"
+      }
+    },
+    {
+      "id": "A003",
+      "title": "switch oder State-Pattern genutzt",
+      "description": "Steuerlogik wird klar ueber switch/case oder State-Objekte umgesetzt.",
+      "points": 5,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "switch\\s*\\(|case\\s+|implements\\s+State"
+      }
+    },
+    {
+      "id": "A004",
+      "title": "Tests vorhanden",
+      "description": "Mindestens eine Testklasse ist im Projekt enthalten.",
+      "points": 4,
+      "kind": "file_exists",
+      "config": {
+        "glob": "**/*Test.java"
+      }
+    },
+    {
+      "id": "A005",
+      "title": "Unsichere Exit-Aufrufe vermeiden",
+      "description": "System.exit im Projektcode sollte vermieden werden.",
+      "points": 5,
+      "kind": "not_contains_regex",
+      "config": {
+        "regex": "System\\.exit\\s*\\("
+      }
+    }
+  ]
+}

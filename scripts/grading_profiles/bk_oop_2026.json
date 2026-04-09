@@ -1,0 +1,111 @@
+{
+  "profile_name": "BK OOP Projekte 2026",
+  "project_type": "oop",
+  "expected_root": "src",
+  "grade_scale": {
+    "best": 1.0,
+    "worst": 6.0
+  },
+  "rules": [
+    {
+      "id": "O001",
+      "title": "Main-Klasse vorhanden",
+      "description": "Ein Einstiegspunkt mit Main.java ist vorhanden.",
+      "points": 3,
+      "kind": "file_exists",
+      "config": {
+        "glob": "**/Main.java"
+      }
+    },
+    {
+      "id": "O002",
+      "title": "Mehrere OOP-Klassen",
+      "description": "Es sind verschiedene Klassen fuer das Domänenmodell vorhanden.",
+      "points": 3,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "class\\s+[A-Z][A-Za-z0-9_]*"
+      }
+    },
+    {
+      "id": "O003",
+      "title": "Kapselung umgesetzt",
+      "description": "Private Attribute werden genutzt.",
+      "points": 4,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "private\\s+[A-Za-z0-9_<>\\[\\]]+\\s+[a-zA-Z_][a-zA-Z0-9_]*\\s*[;=]"
+      }
+    },
+    {
+      "id": "O004",
+      "title": "Getter/Methodenschnittstellen",
+      "description": "Zugriff auf Daten erfolgt ueber Methoden.",
+      "points": 3,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "public\\s+[A-Za-z0-9_<>\\[\\]]+\\s+get[A-Z][A-Za-z0-9_]*\\s*\\("
+      }
+    },
+    {
+      "id": "O005",
+      "title": "Kontrollstrukturen und Validierung",
+      "description": "if/else oder vergleichbare Plausibilitätspruefungen sind implementiert.",
+      "points": 4,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "if\\s*\\(|throw\\s+new\\s+Exception|IllegalArgumentException"
+      }
+    },
+    {
+      "id": "O006",
+      "title": "Fehlerbehandlung vorhanden",
+      "description": "try/catch oder vergleichbare Fehlerbehandlung ist enthalten.",
+      "points": 3,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "try\\s*\\{|catch\\s*\\("
+      }
+    },
+    {
+      "id": "O007",
+      "title": "Containerklassen genutzt",
+      "description": "List/ArrayList oder aehnliche Datenstrukturen werden verwendet.",
+      "points": 3,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "List<|ArrayList<|Map<|Set<"
+      }
+    },
+    {
+      "id": "O008",
+      "title": "Sortierung/Comparable genutzt",
+      "description": "Collections.sort oder compareTo fuer eine Rangfolge ist vorhanden.",
+      "points": 3,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "Collections\\.sort|compareTo\\s*\\("
+      }
+    },
+    {
+      "id": "O009",
+      "title": "GUI-Ereignissteuerung vorhanden",
+      "description": "Controller/Listener-Logik ist eingebunden.",
+      "points": 2,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "addActionListener|ActionListener"
+      }
+    },
+    {
+      "id": "O010",
+      "title": "Keine harten Prozessabbrueche",
+      "description": "System.exit soll im Projektcode vermieden werden.",
+      "points": 2,
+      "kind": "not_contains_regex",
+      "config": {
+        "regex": "System\\.exit\\s*\\("
+      }
+    }
+  ]
+}

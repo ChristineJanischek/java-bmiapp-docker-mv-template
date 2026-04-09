@@ -1,0 +1,156 @@
+{
+  "profile_name": "BK OOP 2026 Rubrik (24 Punkte)",
+  "project_type": "oop-rubrik24",
+  "expected_root": "src",
+  "grade_scale": {
+    "best": 1.0,
+    "worst": 6.0
+  },
+  "rules": [
+    {
+      "id": "F1",
+      "title": "Formales: auswertbares Java-Projekt vorhanden",
+      "description": "ZIP enthaelt ein auswertbares Java-Projekt mit mehreren Quellcodedateien.",
+      "points": 2,
+      "kind": "min_files_glob",
+      "config": {
+        "glob": "**/*.java",
+        "min_count": 5
+      }
+    },
+    {
+      "id": "F2",
+      "title": "Formales: Einstiegspunkt vorhanden",
+      "description": "Main-Klasse als Projektstart ist vorhanden.",
+      "points": 2,
+      "kind": "file_exists",
+      "config": {
+        "glob": "**/Main.java"
+      }
+    },
+    {
+      "id": "FU1",
+      "title": "Funktionalitaet: GUI-Klasse vorhanden",
+      "description": "Projekt enthaelt GUI/View-Klassen.",
+      "points": 1,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "class\\s+.*(Window|View|Frame)"
+      }
+    },
+    {
+      "id": "FU2",
+      "title": "Funktionalitaet: Ereignissteuerung",
+      "description": "Schaltflaechen/Event-Listener sind angebunden.",
+      "points": 1,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "addActionListener|ActionListener"
+      }
+    },
+    {
+      "id": "FU3",
+      "title": "Funktionalitaet: Berechnungen/Pruefungen",
+      "description": "Eingaben werden geprueft (z. B. if/throw).",
+      "points": 1,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "if\\s*\\(|throw\\s+new\\s+Exception|IllegalArgumentException"
+      }
+    },
+    {
+      "id": "FU4",
+      "title": "Funktionalitaet: Schleifen/Verarbeitung",
+      "description": "Schleifen fuer Datenverarbeitung sind enthalten.",
+      "points": 1,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "for\\s*\\(|while\\s*\\("
+      }
+    },
+    {
+      "id": "D1",
+      "title": "Dokumentation: Klassenkommentare",
+      "description": "Javadoc/Blockkommentare sind vorhanden.",
+      "points": 2,
+      "kind": "min_occurrences_regex",
+      "config": {
+        "regex": "/\\*\\*|/\\*",
+        "min_count": 4
+      }
+    },
+    {
+      "id": "D2",
+      "title": "Dokumentation: Inline-Kommentare",
+      "description": "Inline-Kommentare erklaeren Logikschritte.",
+      "points": 2,
+      "kind": "min_occurrences_regex",
+      "config": {
+        "regex": "//",
+        "min_count": 8
+      }
+    },
+    {
+      "id": "K1",
+      "title": "Kapselung: private Attribute",
+      "description": "Attribute sind gekapselt (private).",
+      "points": 2,
+      "kind": "min_occurrences_regex",
+      "config": {
+        "regex": "private\\s+[A-Za-z0-9_<>\\[\\]]+\\s+[a-zA-Z_][a-zA-Z0-9_]*\\s*[;=]",
+        "min_count": 5
+      }
+    },
+    {
+      "id": "K2",
+      "title": "Kapselung: kontrollierter Zugriff",
+      "description": "Getter/Methodenschnittstellen fuer Zugriff vorhanden.",
+      "points": 2,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "public\\s+[A-Za-z0-9_<>\\[\\]]+\\s+get[A-Z][A-Za-z0-9_]*\\s*\\("
+      }
+    },
+    {
+      "id": "T1",
+      "title": "Testumgebung: Unit-Tests vorhanden",
+      "description": "Testklasse ist vorhanden.",
+      "points": 2,
+      "kind": "file_exists",
+      "config": {
+        "glob": "**/*Test.java"
+      }
+    },
+    {
+      "id": "T2",
+      "title": "Testumgebung: Fehlerbehandlung",
+      "description": "Fehlerfaelle werden abgefangen (try/catch).",
+      "points": 2,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "try\\s*\\{|catch\\s*\\("
+      }
+    },
+    {
+      "id": "I1",
+      "title": "Individualisierung: MVC-Struktur",
+      "description": "Controller/View-Struktur oder vergleichbare Trennung ist erkennbar.",
+      "points": 2,
+      "kind": "contains_regex",
+      "config": {
+        "regex": "class\\s+.*Controller|class\\s+.*Window|class\\s+.*View"
+      }
+    },
+    {
+      "id": "I2",
+      "title": "Individualisierung: Erweiterte OOP-Struktur",
+      "description": "Mehrere fachliche Klassen fuer eigenes Projektkonzept vorhanden.",
+      "points": 2,
+      "kind": "min_files_glob",
+      "config": {
+        "glob": "**/*.java",
+        "min_count": 7
+      }
+    }
+  ]
+}

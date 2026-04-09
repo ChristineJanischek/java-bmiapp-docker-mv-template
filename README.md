@@ -200,6 +200,98 @@ Details: [docs/GUI_DEVELOPMENT/GUI_DOCKER.md](docs/GUI_DEVELOPMENT/GUI_DOCKER.md
 
 ---
 
+## 🤖 Automatische Projektbewertung (ZIP + DOCX)
+
+Fuer die automatisierte Erstbewertung von Schuelerprojekten steht ein CLI-Modul bereit:
+
+- Eingabe 1: ZIP-Datei mit dem Schuelerprojekt (inkl. `src`)
+- Eingabe 2: DOCX-Bewertungsbogen (wird als Vorlage verwendet)
+- Eingabe 3: Bewertungsprofil (`rechner` oder `automat`)
+- Ausgabe: Neuer DOCX-Bogen plus automatische `.md` und `.html` Version mit rubriknaher Tabellenansicht
+
+### Schnellstart
+
+```bash
+python scripts/grade_java_project.py \
+	--zip /pfad/zum/schuelerprojekt.zip \
+	--profile scripts/grading_profiles/rechner.json \
+	--rubric-docx materials/quiz_kapselung.docx \
+	--out downloads/bewertung_schueler.docx \
+	--student "Max Mustermann" \
+	--teacher-note "Automatische Vorbewertung - bitte manuell final pruefen."
+
+# Optional: eigene Dateinamen fuer MD/HTML explizit setzen
+python scripts/grade_java_project.py \
+	--zip /pfad/zum/schuelerprojekt.zip \
+	--profile scripts/grading_profiles/bk_oop_2026_rubrik24.json \
+	--rubric-docx downloads/BK_Bewertung_Projekte_OOP_2026.docx \
+	--out downloads/BK_Bewertung_Max.docx \
+	--out-md downloads/BK_Bewertung_Max.md \
+	--out-html downloads/BK_Bewertung_Max.html \
+	--student "Max Mustermann"
+```
+
+Standardverhalten: Wenn `--out-md` oder `--out-html` nicht gesetzt ist, werden sie automatisch aus `--out` abgeleitet (gleicher Dateiname, andere Endung).
+
+### Serienroutine fuer viele Bewertungen (Batch)
+
+Bei mehreren Projekten (z. B. Klassenstapel) koennen alle ZIP-Dateien in einem Ordner in einem Lauf bewertet werden:
+
+```bash
+python scripts/batch_grade_projects.py \
+	--zip-dir downloads/eingang \
+	--profile scripts/grading_profiles/bk_oop_2026_rubrik24.json \
+	--rubric-docx downloads/BK_Bewertung_Projekte_OOP_2026.docx \
+	--out-dir downloads/batch_bewertungen \
+	--teacher-note "Automatische Erstbewertung, final manuell pruefen."
+```
+
+Batch-Ausgabe:
+- pro ZIP: `.docx`, `.md`, `.html`
+- Gesamtliste: `bewertung_uebersicht.csv` und `bewertung_uebersicht.md`
+- Laufstatistik: `bewertung_laufbericht.md` und `bewertung_laufhistorie.csv` (wird pro Lauf fortgeschrieben)
+
+### Standardprozess fuer wiederkehrende Bewertungen
+
+Empfohlene Ordnerstruktur:
+- `downloads/eingang` fuer neue Schueler-ZIPs
+- `downloads/boegen` fuer den aktuellen Bewertungsbogen
+- `downloads/batch_bewertungen` fuer erzeugte Ergebnisse
+- `downloads/archiv` fuer bereits verarbeitete ZIPs
+
+Ein-Klick-Ausfuehrung:
+
+```bash
+./scripts/run_bk_batch.sh
+```
+
+Das Skript nutzt standardmaessig:
+- Profil: `scripts/grading_profiles/bk_oop_2026_rubrik24.json`
+- Bewertungsbogen: `downloads/boegen/BK_Bewertung_Projekte_OOP_2026.docx`
+
+Optional mit Parametern:
+
+```bash
+./scripts/run_bk_batch.sh \
+	downloads/eingang \
+	downloads/boegen/BK_Bewertung_Projekte_OOP_2026.docx \
+	scripts/grading_profiles/bk_oop_2026_rubrik24.json \
+	downloads/batch_bewertungen \
+	downloads/archiv \
+	"Automatische Erstbewertung, final manuell pruefen."
+```
+
+### Verfuegbare Profile
+
+- `scripts/grading_profiles/rechner.json`
+- `scripts/grading_profiles/automat.json`
+- `scripts/grading_profiles/bk_oop_2026.json`
+- `scripts/grading_profiles/bk_oop_2026_rubrik24.json` (kalibriert auf 24-Punkte-Rubrik)
+
+Hinweis: Die lineare Note wird aus den Profil-Einstellungen (`grade_scale`) berechnet und kann dort angepasst werden.
+
+---
+
 ## 📋 Checklisten nach Version
 
 ### ✅ Version 0 (main) – Grundlagen
