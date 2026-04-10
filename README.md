@@ -200,14 +200,14 @@ Details: [docs/GUI_DEVELOPMENT/GUI_DOCKER.md](docs/GUI_DEVELOPMENT/GUI_DOCKER.md
 
 ---
 
-## 🤖 Automatische Projektkorrekturhilfe (ZIP + DOCX)
+## 🤖 KI-Korrekturhilfe-Feedback-App (KIFeed-App) (ZIP + DOCX)
 
-Fuer die automatisierte Erstkorrekturhilfe von Schuelerprojekten steht ein CLI-Modul bereit:
+Fuer die automatisierte KI-Korrekturhilfe-Feedback-App (KIFeed-App) von Schuelerprojekten steht ein CLI-Modul bereit:
 
 - Eingabe 1: ZIP-Datei mit dem Schuelerprojekt (inkl. `src`)
-- Eingabe 2: DOCX-Korrekturhilfe (wird als Vorlage verwendet)
-- Eingabe 3: Korrekturhilfe-Profil (`rechner` oder `automat`)
-- Ausgabe: Neue DOCX-Korrekturhilfe plus automatische `.md` und `.html` Version mit rubriknaher Tabellenansicht
+- Eingabe 2: DOCX-Vorlage der KIFeed-App (wird als Vorlage verwendet)
+- Eingabe 3: KIFeed-App-Profil (`rechner` oder `automat`)
+- Ausgabe: Neue DOCX-Ausgabe der KIFeed-App plus automatische `.md` und `.html` Version mit rubriknaher Tabellenansicht
 
 ### Schnellstart
 
@@ -218,7 +218,7 @@ python scripts/grade_java_project.py \
 	--rubric-docx materials/quiz_kapselung.docx \
 	--out downloads/korrekturhilfe_schueler.docx \
 	--student "Max Mustermann" \
-	--teacher-note "Automatische Korrekturhilfe - bitte manuell final pruefen."
+	--teacher-note "Automatische KI-Korrekturhilfe-Feedback-App (KIFeed-App) - bitte manuell final pruefen."
 
 # Optional: eigene Dateinamen fuer MD/HTML explizit setzen
 python scripts/grade_java_project.py \
@@ -233,7 +233,7 @@ python scripts/grade_java_project.py \
 
 Standardverhalten: Wenn `--out-md` oder `--out-html` nicht gesetzt ist, werden sie automatisch aus `--out` abgeleitet (gleicher Dateiname, andere Endung).
 
-### Serienroutine fuer viele Korrekturhilfen (Batch)
+### Serienroutine fuer viele KIFeed-App-Laeufe (Batch)
 
 Bei mehreren Projekten (z. B. Klassenstapel) koennen alle ZIP-Dateien in einem Ordner in einem Lauf verarbeitet werden:
 
@@ -243,7 +243,7 @@ python scripts/batch_grade_projects.py \
 	--profile scripts/grading_profiles/bk_oop_2026_rubrik24.json \
 	--rubric-docx downloads/BK_Korrekturhilfe_Projekte_OOP_2026.docx \
 	--out-dir downloads/batch_korrekturhilfen \
-	--teacher-note "Automatische Erstkorrekturhilfe, final manuell pruefen."
+	--teacher-note "Automatische KIFeed-App, final manuell pruefen."
 ```
 
 Batch-Ausgabe:
@@ -252,11 +252,11 @@ Batch-Ausgabe:
 - Rangliste: `korrekturhilfe_rangliste.csv` und `korrekturhilfe_rangliste.md` (beste Note zuerst)
 - Laufstatistik: `korrekturhilfe_laufbericht.md` und `korrekturhilfe_laufhistorie.csv` (wird pro Lauf fortgeschrieben)
 
-### Standardprozess fuer wiederkehrende Korrekturhilfen
+### Standardprozess fuer wiederkehrende KIFeed-App-Laeufe
 
 Empfohlene Ordnerstruktur:
 - `downloads/eingang` fuer neue Schueler-ZIPs
-- `downloads/boegen` fuer die aktuelle Korrekturhilfe-Vorlage
+- `downloads/boegen` fuer die aktuelle KIFeed-App-Vorlage
 - `downloads/batch_korrekturhilfen` fuer erzeugte Ergebnisse
 - `downloads/archiv` fuer bereits verarbeitete ZIPs
 
@@ -268,7 +268,7 @@ Ein-Klick-Ausfuehrung:
 
 Das Skript nutzt standardmaessig:
 - Profil: `scripts/grading_profiles/bk_oop_2026_rubrik24.json`
-- Korrekturhilfe: `downloads/boegen/BK_Korrekturhilfe_Projekte_OOP_2026.docx`
+- KIFeed-App-Vorlage: `downloads/boegen/BK_Korrekturhilfe_Projekte_OOP_2026.docx`
 
 Optional mit Parametern:
 
@@ -279,7 +279,7 @@ Optional mit Parametern:
 	scripts/grading_profiles/bk_oop_2026_rubrik24.json \
 	downloads/batch_korrekturhilfen \
 	downloads/archiv \
-	"Automatische Erstkorrekturhilfe, final manuell pruefen."
+	"Automatische KIFeed-App, final manuell pruefen."
 ```
 
 ### Verfuegbare Profile

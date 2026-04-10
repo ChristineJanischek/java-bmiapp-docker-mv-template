@@ -18,13 +18,13 @@ def parse_args() -> RunConfig:
     parser = argparse.ArgumentParser(
         description=(
             "Analysiert ein hochgeladenes Java-Projekt (ZIP mit src) "
-            "und erzeugt eine ausgefuellte DOCX-Korrekturhilfe."
+            "und erzeugt eine ausgefuellte DOCX der KI-Korrekturhilfe-Feedback-App (KIFeed-App)."
         )
     )
     parser.add_argument("--zip", required=True, help="Pfad zur ZIP-Datei (Schuelerprojekt)")
-    parser.add_argument("--profile", required=True, help="Pfad zum Korrekturhilfe-Profil (JSON)")
-    parser.add_argument("--rubric-docx", required=True, help="Pfad zur DOCX-Korrekturhilfe")
-    parser.add_argument("--out", required=True, help="Ausgabepfad fuer die DOCX-Korrekturhilfe")
+    parser.add_argument("--profile", required=True, help="Pfad zum KIFeed-App-Profil (JSON)")
+    parser.add_argument("--rubric-docx", required=True, help="Pfad zur DOCX-Vorlage der KIFeed-App")
+    parser.add_argument("--out", required=True, help="Ausgabepfad fuer die DOCX-Ausgabe der KIFeed-App")
     parser.add_argument("--out-md", default=None, help="Optionaler Ausgabepfad fuer Markdown")
     parser.add_argument("--out-html", default=None, help="Optionaler Ausgabepfad fuer HTML")
     parser.add_argument("--student", required=True, help="Name des Schuelers/der Schuelerin")
@@ -106,7 +106,7 @@ def main() -> int:
             html_output_path=cfg.output_html_path,
         )
 
-    print("Korrekturhilfe erstellt")
+    print("KIFeed-App-Ausgabe erstellt")
     print(f"Schueler/in: {cfg.student_name}")
     print(f"Punkte: {total_points:.2f}/{max_points:.2f}")
     print(f"Note (linear): {grade}")

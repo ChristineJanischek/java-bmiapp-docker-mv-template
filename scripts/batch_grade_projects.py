@@ -108,7 +108,7 @@ def _write_summary(out_dir: Path, rows: list[dict]) -> None:
         writer.writeheader()
         writer.writerows(rows)
 
-    md_lines = ["# Korrekturhilfe-Uebersicht", "", "| Schueler/in | Punkte | Note | Status |", "|---|---:|---:|---|"]
+    md_lines = ["# KIFeed-App-Uebersicht", "", "| Schueler/in | Punkte | Note | Status |", "|---|---:|---:|---|"]
     for row in rows:
         md_lines.append(f"| {row['student']} | {row['points']} | {row['grade']} | {row['status']} |")
     (out_dir / "korrekturhilfe_uebersicht.md").write_text("\n".join(md_lines) + "\n", encoding="utf-8")
@@ -159,7 +159,7 @@ def _write_ranking(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
 
     ranking_md = out_dir / "korrekturhilfe_rangliste.md"
     lines = [
-        "# Korrekturhilfe-Rangliste",
+        "# KIFeed-App-Rangliste",
         "",
         "| Rang | Schueler/in | Punkte | Note | Punktequote |",
         "|---:|---|---:|---:|---:|",
@@ -232,7 +232,7 @@ def _write_run_statistics(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
 
     run_md = out_dir / "korrekturhilfe_laufbericht.md"
     lines = [
-        "# Korrekturhilfe-Laufbericht",
+        "# KIFeed-App-Laufbericht",
         "",
         f"- Zeitpunkt: {timestamp}",
         f"- Gesamtanzahl Projekte: {total}",
@@ -254,10 +254,10 @@ def _write_run_statistics(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Batch-Korrekturhilfe fuer mehrere Schuelerprojekte (ZIP).")
+    parser = argparse.ArgumentParser(description="Batch der KI-Korrekturhilfe-Feedback-App (KIFeed-App) fuer mehrere Schuelerprojekte (ZIP).")
     parser.add_argument("--zip-dir", required=True, help="Ordner mit ZIP-Dateien")
-    parser.add_argument("--profile", required=True, help="Pfad zum Korrekturhilfe-Profil (JSON)")
-    parser.add_argument("--rubric-docx", required=True, help="Pfad zur DOCX-Korrekturhilfe")
+    parser.add_argument("--profile", required=True, help="Pfad zum KIFeed-App-Profil (JSON)")
+    parser.add_argument("--rubric-docx", required=True, help="Pfad zur DOCX-Vorlage der KIFeed-App")
     parser.add_argument("--out-dir", required=True, help="Ausgabeordner")
     parser.add_argument("--teacher-note", default=None, help="Optionale Bemerkung fuer alle Berichte")
     args = parser.parse_args()

@@ -54,7 +54,7 @@ def build_markdown_report(
     teacher_note: str | None,
 ) -> str:
     lines: list[str] = []
-    lines.append("# Korrekturhilfe Projekt OOP")
+    lines.append("# KI-Korrekturhilfe-Feedback-App (KIFeed-App) - Projekt OOP")
     lines.append("")
     lines.append(f"- Datum: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     lines.append(f"- Schueler/in: {student_name}")
@@ -72,7 +72,7 @@ def build_markdown_report(
     for result in outcome.results:
         grouped.setdefault(_group_for_rule(result.rule.id), []).append(result)
 
-    lines.append("## Korrekturhilfe-Raster")
+    lines.append("## KIFeed-App-Raster")
     lines.append("")
     for group_name, items in grouped.items():
         lines.append(f"### {group_name}")
@@ -226,7 +226,7 @@ def write_markdown_and_html_report(
         student_name=student_name,
         teacher_note=teacher_note,
     )
-    html_text = markdown_to_html(markdown_text, "Korrekturhilfe Projekt OOP")
+    html_text = markdown_to_html(markdown_text, "KI-Korrekturhilfe-Feedback-App (KIFeed-App) - Projekt OOP")
 
     markdown_output_path.write_text(markdown_text, encoding="utf-8")
     html_output_path.write_text(html_text, encoding="utf-8")
