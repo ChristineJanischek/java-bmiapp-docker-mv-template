@@ -200,14 +200,14 @@ Details: [docs/GUI_DEVELOPMENT/GUI_DOCKER.md](docs/GUI_DEVELOPMENT/GUI_DOCKER.md
 
 ---
 
-## 🤖 Automatische Projektbewertung (ZIP + DOCX)
+## 🤖 Automatische Projektkorrekturhilfe (ZIP + DOCX)
 
-Fuer die automatisierte Erstbewertung von Schuelerprojekten steht ein CLI-Modul bereit:
+Fuer die automatisierte Erstkorrekturhilfe von Schuelerprojekten steht ein CLI-Modul bereit:
 
 - Eingabe 1: ZIP-Datei mit dem Schuelerprojekt (inkl. `src`)
-- Eingabe 2: DOCX-Bewertungsbogen (wird als Vorlage verwendet)
-- Eingabe 3: Bewertungsprofil (`rechner` oder `automat`)
-- Ausgabe: Neuer DOCX-Bogen plus automatische `.md` und `.html` Version mit rubriknaher Tabellenansicht
+- Eingabe 2: DOCX-Korrekturhilfe (wird als Vorlage verwendet)
+- Eingabe 3: Korrekturhilfe-Profil (`rechner` oder `automat`)
+- Ausgabe: Neue DOCX-Korrekturhilfe plus automatische `.md` und `.html` Version mit rubriknaher Tabellenansicht
 
 ### Schnellstart
 
@@ -216,48 +216,48 @@ python scripts/grade_java_project.py \
 	--zip /pfad/zum/schuelerprojekt.zip \
 	--profile scripts/grading_profiles/rechner.json \
 	--rubric-docx materials/quiz_kapselung.docx \
-	--out downloads/bewertung_schueler.docx \
+	--out downloads/korrekturhilfe_schueler.docx \
 	--student "Max Mustermann" \
-	--teacher-note "Automatische Vorbewertung - bitte manuell final pruefen."
+	--teacher-note "Automatische Korrekturhilfe - bitte manuell final pruefen."
 
 # Optional: eigene Dateinamen fuer MD/HTML explizit setzen
 python scripts/grade_java_project.py \
 	--zip /pfad/zum/schuelerprojekt.zip \
 	--profile scripts/grading_profiles/bk_oop_2026_rubrik24.json \
-	--rubric-docx downloads/BK_Bewertung_Projekte_OOP_2026.docx \
-	--out downloads/BK_Bewertung_Max.docx \
-	--out-md downloads/BK_Bewertung_Max.md \
-	--out-html downloads/BK_Bewertung_Max.html \
+	--rubric-docx downloads/BK_Korrekturhilfe_Projekte_OOP_2026.docx \
+	--out downloads/BK_Korrekturhilfe_Max.docx \
+	--out-md downloads/BK_Korrekturhilfe_Max.md \
+	--out-html downloads/BK_Korrekturhilfe_Max.html \
 	--student "Max Mustermann"
 ```
 
 Standardverhalten: Wenn `--out-md` oder `--out-html` nicht gesetzt ist, werden sie automatisch aus `--out` abgeleitet (gleicher Dateiname, andere Endung).
 
-### Serienroutine fuer viele Bewertungen (Batch)
+### Serienroutine fuer viele Korrekturhilfen (Batch)
 
-Bei mehreren Projekten (z. B. Klassenstapel) koennen alle ZIP-Dateien in einem Ordner in einem Lauf bewertet werden:
+Bei mehreren Projekten (z. B. Klassenstapel) koennen alle ZIP-Dateien in einem Ordner in einem Lauf verarbeitet werden:
 
 ```bash
 python scripts/batch_grade_projects.py \
 	--zip-dir downloads/eingang \
 	--profile scripts/grading_profiles/bk_oop_2026_rubrik24.json \
-	--rubric-docx downloads/BK_Bewertung_Projekte_OOP_2026.docx \
-	--out-dir downloads/batch_bewertungen \
-	--teacher-note "Automatische Erstbewertung, final manuell pruefen."
+	--rubric-docx downloads/BK_Korrekturhilfe_Projekte_OOP_2026.docx \
+	--out-dir downloads/batch_korrekturhilfen \
+	--teacher-note "Automatische Erstkorrekturhilfe, final manuell pruefen."
 ```
 
 Batch-Ausgabe:
 - pro ZIP: `.docx`, `.md`, `.html`
-- Gesamtliste: `bewertung_uebersicht.csv` und `bewertung_uebersicht.md`
-- Rangliste: `bewertung_rangliste.csv` und `bewertung_rangliste.md` (beste Note zuerst)
-- Laufstatistik: `bewertung_laufbericht.md` und `bewertung_laufhistorie.csv` (wird pro Lauf fortgeschrieben)
+- Gesamtliste: `korrekturhilfe_uebersicht.csv` und `korrekturhilfe_uebersicht.md`
+- Rangliste: `korrekturhilfe_rangliste.csv` und `korrekturhilfe_rangliste.md` (beste Note zuerst)
+- Laufstatistik: `korrekturhilfe_laufbericht.md` und `korrekturhilfe_laufhistorie.csv` (wird pro Lauf fortgeschrieben)
 
-### Standardprozess fuer wiederkehrende Bewertungen
+### Standardprozess fuer wiederkehrende Korrekturhilfen
 
 Empfohlene Ordnerstruktur:
 - `downloads/eingang` fuer neue Schueler-ZIPs
-- `downloads/boegen` fuer den aktuellen Bewertungsbogen
-- `downloads/batch_bewertungen` fuer erzeugte Ergebnisse
+- `downloads/boegen` fuer die aktuelle Korrekturhilfe-Vorlage
+- `downloads/batch_korrekturhilfen` fuer erzeugte Ergebnisse
 - `downloads/archiv` fuer bereits verarbeitete ZIPs
 
 Ein-Klick-Ausfuehrung:
@@ -268,18 +268,18 @@ Ein-Klick-Ausfuehrung:
 
 Das Skript nutzt standardmaessig:
 - Profil: `scripts/grading_profiles/bk_oop_2026_rubrik24.json`
-- Bewertungsbogen: `downloads/boegen/BK_Bewertung_Projekte_OOP_2026.docx`
+- Korrekturhilfe: `downloads/boegen/BK_Korrekturhilfe_Projekte_OOP_2026.docx`
 
 Optional mit Parametern:
 
 ```bash
 ./scripts/run_bk_batch.sh \
 	downloads/eingang \
-	downloads/boegen/BK_Bewertung_Projekte_OOP_2026.docx \
+	downloads/boegen/BK_Korrekturhilfe_Projekte_OOP_2026.docx \
 	scripts/grading_profiles/bk_oop_2026_rubrik24.json \
-	downloads/batch_bewertungen \
+	downloads/batch_korrekturhilfen \
 	downloads/archiv \
-	"Automatische Erstbewertung, final manuell pruefen."
+	"Automatische Erstkorrekturhilfe, final manuell pruefen."
 ```
 
 ### Verfuegbare Profile

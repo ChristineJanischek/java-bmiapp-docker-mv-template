@@ -26,7 +26,7 @@ def write_report_docx(
     document = Document(str(source_docx_path))
 
     document.add_page_break()
-    _add_heading(document, "Automatischer Bewertungsreport")
+    _add_heading(document, "Automatische Korrekturhilfe")
 
     meta = document.add_paragraph()
     meta.add_run("Datum: ").bold = True
@@ -42,7 +42,7 @@ def write_report_docx(
     score.add_run("\nNote (linear): ").bold = True
     score.add_run(str(outcome.grade))
 
-    _add_heading(document, "Regelbasierte Einzelbewertung")
+    _add_heading(document, "Regelbasierte Korrekturhilfe")
     for result in outcome.results:
         status = "OK" if result.passed else "FEHLT"
         p = document.add_paragraph()

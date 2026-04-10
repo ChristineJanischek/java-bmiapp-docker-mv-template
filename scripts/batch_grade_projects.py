@@ -57,9 +57,9 @@ def _grade_single(zip_path: Path, profile, rubric_docx: Path, out_dir: Path, tea
 
         student_name = _student_name_from_zip(zip_path)
         safe_name = student_name.lower().replace(" ", "_")
-        out_docx = out_dir / f"bewertung_{safe_name}.docx"
-        out_md = out_dir / f"bewertung_{safe_name}.md"
-        out_html = out_dir / f"bewertung_{safe_name}.html"
+        out_docx = out_dir / f"korrekturhilfe_{safe_name}.docx"
+        out_md = out_dir / f"korrekturhilfe_{safe_name}.md"
+        out_html = out_dir / f"korrekturhilfe_{safe_name}.html"
 
         outcome = GradingOutcome(
             profile=profile,
@@ -99,7 +99,7 @@ def _grade_single(zip_path: Path, profile, rubric_docx: Path, out_dir: Path, tea
 
 
 def _write_summary(out_dir: Path, rows: list[dict]) -> None:
-    csv_path = out_dir / "bewertung_uebersicht.csv"
+    csv_path = out_dir / "korrekturhilfe_uebersicht.csv"
     with csv_path.open("w", newline="", encoding="utf-8") as fp:
         writer = csv.DictWriter(
             fp,
@@ -108,10 +108,10 @@ def _write_summary(out_dir: Path, rows: list[dict]) -> None:
         writer.writeheader()
         writer.writerows(rows)
 
-    md_lines = ["# Bewertungsuebersicht", "", "| Schueler/in | Punkte | Note | Status |", "|---|---:|---:|---|"]
+    md_lines = ["# Korrekturhilfe-Uebersicht", "", "| Schueler/in | Punkte | Note | Status |", "|---|---:|---:|---|"]
     for row in rows:
         md_lines.append(f"| {row['student']} | {row['points']} | {row['grade']} | {row['status']} |")
-    (out_dir / "bewertung_uebersicht.md").write_text("\n".join(md_lines) + "\n", encoding="utf-8")
+    (out_dir / "korrekturhilfe_uebersicht.md").write_text("\n".join(md_lines) + "\n", encoding="utf-8")
 
 
 def _write_ranking(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
@@ -138,7 +138,7 @@ def _write_ranking(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
 
     ranked.sort(key=lambda item: (item["grade_value"], -item["achieved_value"], item["student"].lower()))
 
-    ranking_csv = out_dir / "bewertung_rangliste.csv"
+    ranking_csv = out_dir / "korrekturhilfe_rangliste.csv"
     with ranking_csv.open("w", newline="", encoding="utf-8") as fp:
         writer = csv.DictWriter(
             fp,
@@ -157,9 +157,9 @@ def _write_ranking(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
                 }
             )
 
-    ranking_md = out_dir / "bewertung_rangliste.md"
+    ranking_md = out_dir / "korrekturhilfe_rangliste.md"
     lines = [
-        "# Bewertungs-Rangliste",
+        "# Korrekturhilfe-Rangliste",
         "",
         "| Rang | Schueler/in | Punkte | Note | Punktequote |",
         "|---:|---|---:|---:|---:|",
@@ -199,7 +199,7 @@ def _write_run_statistics(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
     worst_grade = max(grades) if grades else 0.0
     avg_points_percent = (sum(point_ratios) / len(point_ratios) * 100.0) if point_ratios else 0.0
 
-    history_csv = out_dir / "bewertung_laufhistorie.csv"
+    history_csv = out_dir / "korrekturhilfe_laufhistorie.csv"
     file_exists = history_csv.exists()
     with history_csv.open("a", newline="", encoding="utf-8") as fp:
         writer = csv.DictWriter(
@@ -230,13 +230,13 @@ def _write_run_statistics(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
             }
         )
 
-    run_md = out_dir / "bewertung_laufbericht.md"
+    run_md = out_dir / "korrekturhilfe_laufbericht.md"
     lines = [
-        "# Bewertungs-Laufbericht",
+        "# Korrekturhilfe-Laufbericht",
         "",
         f"- Zeitpunkt: {timestamp}",
         f"- Gesamtanzahl Projekte: {total}",
-        f"- Erfolgreich bewertet: {success_count}",
+        f"- Erfolgreich erstellt: {success_count}",
         f"- Fehlerhaft: {error_count}",
         f"- Durchschnittsnote: {avg_grade:.2f}",
         f"- Beste Note: {best_grade:.2f}",
@@ -245,8 +245,8 @@ def _write_run_statistics(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
         "",
         "## Hinweise",
         "",
-        "- Diese Kennzahlen beziehen sich nur auf erfolgreich bewertete Projekte.",
-        "- Die komplette Historie steht in bewertung_laufhistorie.csv.",
+        "- Diese Kennzahlen beziehen sich nur auf erfolgreich verarbeitete Projekte.",
+        "- Die komplette Historie steht in korrekturhilfe_laufhistorie.csv.",
     ]
     run_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -254,10 +254,10 @@ def _write_run_statistics(out_dir: Path, rows: list[dict]) -> tuple[Path, Path]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Batch-Bewertung fuer mehrere Schuelerprojekte (ZIP).")
+    parser = argparse.ArgumentParser(description="Batch-Korrekturhilfe fuer mehrere Schuelerprojekte (ZIP).")
     parser.add_argument("--zip-dir", required=True, help="Ordner mit ZIP-Dateien")
-    parser.add_argument("--profile", required=True, help="Pfad zum Bewertungsprofil (JSON)")
-    parser.add_argument("--rubric-docx", required=True, help="Pfad zum DOCX-Bewertungsbogen")
+    parser.add_argument("--profile", required=True, help="Pfad zum Korrekturhilfe-Profil (JSON)")
+    parser.add_argument("--rubric-docx", required=True, help="Pfad zur DOCX-Korrekturhilfe")
     parser.add_argument("--out-dir", required=True, help="Ausgabeordner")
     parser.add_argument("--teacher-note", default=None, help="Optionale Bemerkung fuer alle Berichte")
     args = parser.parse_args()
@@ -298,7 +298,7 @@ def main() -> int:
     ok_count = sum(1 for row in rows if row["status"] == "ok")
     print(f"Batch abgeschlossen: {ok_count}/{len(rows)} erfolgreich")
     print(f"Ausgabeordner: {out_dir}")
-    print(f"Uebersicht: {out_dir / 'bewertung_uebersicht.csv'}")
+    print(f"Uebersicht: {out_dir / 'korrekturhilfe_uebersicht.csv'}")
     print(f"Rangliste: {ranking_csv}")
     print(f"Rangliste (MD): {ranking_md}")
     print(f"Laufhistorie: {history_csv}")
