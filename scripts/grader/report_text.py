@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from html import escape
 
+from grader.action_plan import generate_personal_action_plan
 from grader.models import GradingOutcome
 
 
@@ -45,41 +46,6 @@ def _score_formula_text(total: float, maximum: float, grade: float) -> str:
         "Lineare Notenformel: note = best + (1 - punkte/maxPunkte) * (worst - best). "
         f"Berechnet mit {total:.2f}/{maximum:.2f} Punkten => Note {grade:.2f}."
     )
-
-
-def _build_action_todos(outcome: GradingOutcome) -> list[str]:
-    todos: list[str] = []
-    failed = [result for result in outcome.results if not result.passed]
-
-    for result in failed:
-        rule_id = result.rule.id
-        if rule_id.startswith("F"):
-            todos.append("Formales ueberarbeiten: Syntax pruefen, Architektur klarer strukturieren und Testbarkeit sicherstellen (main-Methode oder Testklasse).")
-        elif rule_id.startswith("FU"):
-            todos.append("Funktionalitaet nachbessern: GUI-Interaktionen, Verzweigungen und Schleifen mit realistischen Testfaellen pruefen.")
-        elif rule_id.startswith("D"):
-            todos.append("Dokumentation ergaenzen: Klassenkommentare und nachvollziehbare Inline-Hinweise zu zentralen Logikschritten ergaenzen.")
-        elif rule_id.startswith("K"):
-            todos.append("Kapselung verbessern: Attribute konsequent private halten und kontrollierte Zugriffsmethoden anbieten.")
-        elif rule_id.startswith("T"):
-            todos.append("Testumgebung erweitern: Main.java als Testtreiber ausbauen oder Test.java/*Test.java mit vergleichbaren Pruefungen anlegen.")
-        elif rule_id.startswith("I"):
-            todos.append("Projektstruktur staerken: MVC-Rollen klarer trennen und fachliche Klassen sauber modularisieren.")
-
-    # Duplikate in stabiler Reihenfolge entfernen
-    deduped: list[str] = []
-    for item in todos:
-        if item not in deduped:
-            deduped.append(item)
-
-    if not deduped:
-        deduped = [
-            "Qualitaet halten: bestehende Struktur beibehalten und nur gezielte Codeverbesserungen mit kleinen Commits vornehmen.",
-            "Zusatztests ergaenzen: mindestens einen weiteren Testfall je Kernfunktion dokumentieren und nachvollziehbar ausfuehren.",
-        ]
-
-    deduped.append("Deadline Juni-Abgabe: Alle offenen Punkte bis spaetestens 30.06.2026 abschliessen und final pruefen.")
-    return deduped
 
 
 def build_markdown_report(
@@ -132,9 +98,25 @@ def build_markdown_report(
         lines.append(f"- Anmerkung: {result.note}")
         lines.append("")
 
+    action_plan = generate_personal_action_plan(outcome, student_name)
+
     lines.append("## Handlungsempfehlung (Juni-Abgabe)")
     lines.append("")
-    for todo in _build_action_todos(outcome):
+    lines.append("### Fokus")
+    lines.append("")
+    for todo in action_plan.focus_todos:
+        lines.append(f"- [ ] {todo}")
+    lines.append("")
+
+    lines.append("### 2 Individuelle Erweiterungen")
+    lines.append("")
+    for idx, todo in enumerate(action_plan.extension_todos, start=1):
+        lines.append(f"- [ ] Erweiterung {idx}: {todo}")
+    lines.append("")
+
+    lines.append("### Marschplan bis Anfang Juni")
+    lines.append("")
+    for todo in action_plan.timeline_todos:
         lines.append(f"- [ ] {todo}")
     lines.append("")
 

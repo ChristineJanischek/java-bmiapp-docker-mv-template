@@ -5,6 +5,7 @@ from datetime import datetime
 from docx import Document
 from docx.shared import Pt
 
+from grader.action_plan import generate_personal_action_plan
 from grader.models import GradingOutcome
 
 
@@ -13,40 +14,6 @@ def _add_heading(document: Document, text: str) -> None:
     run = heading.add_run(text)
     run.bold = True
     run.font.size = Pt(14)
-
-
-def _build_action_todos(outcome: GradingOutcome) -> list[str]:
-    todos: list[str] = []
-    failed = [result for result in outcome.results if not result.passed]
-
-    for result in failed:
-        rule_id = result.rule.id
-        if rule_id.startswith("F"):
-            todos.append("Formales ueberarbeiten: Syntax pruefen, Architektur klarer strukturieren und Testbarkeit sicherstellen (main-Methode oder Testklasse).")
-        elif rule_id.startswith("FU"):
-            todos.append("Funktionalitaet nachbessern: GUI-Interaktionen, Verzweigungen und Schleifen mit realistischen Testfaellen pruefen.")
-        elif rule_id.startswith("D"):
-            todos.append("Dokumentation ergaenzen: Klassenkommentare und nachvollziehbare Inline-Hinweise zu zentralen Logikschritten ergaenzen.")
-        elif rule_id.startswith("K"):
-            todos.append("Kapselung verbessern: Attribute konsequent private halten und kontrollierte Zugriffsmethoden anbieten.")
-        elif rule_id.startswith("T"):
-            todos.append("Testumgebung erweitern: Main.java als Testtreiber ausbauen oder Test.java/*Test.java mit vergleichbaren Pruefungen anlegen.")
-        elif rule_id.startswith("I"):
-            todos.append("Projektstruktur staerken: MVC-Rollen klarer trennen und fachliche Klassen sauber modularisieren.")
-
-    deduped: list[str] = []
-    for item in todos:
-        if item not in deduped:
-            deduped.append(item)
-
-    if not deduped:
-        deduped = [
-            "Qualitaet halten: bestehende Struktur beibehalten und nur gezielte Codeverbesserungen mit kleinen Commits vornehmen.",
-            "Zusatztests ergaenzen: mindestens einen weiteren Testfall je Kernfunktion dokumentieren und nachvollziehbar ausfuehren.",
-        ]
-
-    deduped.append("Deadline Juni-Abgabe: Alle offenen Punkte bis spaetestens 30.06.2026 abschliessen und final pruefen.")
-    return deduped
 
 
 def write_report_docx(
@@ -93,8 +60,26 @@ def write_report_docx(
         note.add_run("Anmerkung: ").bold = True
         note.add_run(result.note)
 
+    action_plan = generate_personal_action_plan(outcome, student_name)
+
     _add_heading(document, "Handlungsempfehlung (Juni-Abgabe)")
-    for todo in _build_action_todos(outcome):
+    section = document.add_paragraph()
+    section.add_run("Fokus").bold = True
+    for todo in action_plan.focus_todos:
+        p = document.add_paragraph()
+        p.add_run("[ ] ").bold = True
+        p.add_run(todo)
+
+    section = document.add_paragraph()
+    section.add_run("2 Individuelle Erweiterungen").bold = True
+    for idx, todo in enumerate(action_plan.extension_todos, start=1):
+        p = document.add_paragraph()
+        p.add_run("[ ] ").bold = True
+        p.add_run(f"Erweiterung {idx}: {todo}")
+
+    section = document.add_paragraph()
+    section.add_run("Marschplan bis Anfang Juni").bold = True
+    for todo in action_plan.timeline_todos:
         p = document.add_paragraph()
         p.add_run("[ ] ").bold = True
         p.add_run(todo)
