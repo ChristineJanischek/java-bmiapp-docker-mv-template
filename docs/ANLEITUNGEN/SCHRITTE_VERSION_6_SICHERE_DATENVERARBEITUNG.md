@@ -376,6 +376,29 @@ public class InputValidatorTest {
 }
 ```
 
+### 3 Tests mit Musterloesungen
+
+Die drei passenden Kurztest-Aufgaben fuer Version 6 liegen jetzt gesammelt im Materialbereich:
+
+- Testblatt 1: [../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_1.md](../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_1.md)
+- Musterloesung 1: [../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_1_LOESUNG.md](../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_1_LOESUNG.md)
+- Testblatt 2: [../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_2.md](../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_2.md)
+- Musterloesung 2: [../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_2_LOESUNG.md](../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_2_LOESUNG.md)
+- Testblatt 3: [../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_3.md](../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_3.md)
+- Musterloesung 3: [../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_3_LOESUNG.md](../../materials/tests/sichere_datenverarbeitung/Kurztest_Sichere_Datenverarbeitung_3_LOESUNG.md)
+
+Die Aufgaben decken diese Schwerpunkte ab:
+
+- Whitelist-Validierung
+- Maskierung sensibler Logdaten
+- Validierung vor dem dauerhaften Speichern
+- sichere Fehlerbehandlung und Trennung intern/extern
+- Datenschutz, Datenminimierung und Loeschkonzepte
+
+Zusaetzliche Syntaxhilfe fuer Schueler:
+
+- [../../materials/tests/sichere_datenverarbeitung/Syntaxhilfe_Sichere_Datenverarbeitung.md](../../materials/tests/sichere_datenverarbeitung/Syntaxhilfe_Sichere_Datenverarbeitung.md)
+
 ---
 
 ## Checkliste für Implementierung

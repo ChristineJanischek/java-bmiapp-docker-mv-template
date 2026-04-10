@@ -4,9 +4,9 @@
 
 Sicherheit in DB-Anbindung - Risiken der Datenhaltung und Schutzmechanismen
 
-Diese Version baut didaktisch auf der Musterloesung aus Version 5 auf:
+Diese Version baut didaktisch auf der Musterloesung aus Version 6 auf:
 
-- Version 5 hat Persistenz eingefuehrt (JSON-Dateispeicher, Strukturdenken, ID-Beziehungen).
+- Version 6 hat sichere Datenverarbeitung eingefuehrt (Validierung, Logging, Datenschutzprinzipien).
 - Version 7 erweitert das auf professionelle Datenbank-Sicherheit bei JDBC-Anbindung.
 
 Die Lernenden gehen damit den naechsten realistischen Schritt:
@@ -32,7 +32,7 @@ Nach Version 7 sollen die Lernenden:
 
 ### Fachliches Vorwissen
 
-- Version 5 abgeschlossen: Persistenz, IDs, Datenmodell
+- Version 6 abgeschlossen: sichere Datenverarbeitung, Validierung, Logging
 - Grundlagen MVC und Exception Handling
 - SQL-Basics (SELECT, INSERT, UPDATE, DELETE)
 
@@ -49,14 +49,13 @@ Nach Version 7 sollen die Lernenden:
 - Secure Coding Grundprinzipien: [../BEST_PRACTICES/SECURE_CODING.md](../BEST_PRACTICES/SECURE_CODING.md)
 - Exception Handling: [../BEST_PRACTICES/EXCEPTION_HANDLING.md](../BEST_PRACTICES/EXCEPTION_HANDLING.md)
 - Unit-Testing: [../BEST_PRACTICES/UNIT_TESTING.md](../BEST_PRACTICES/UNIT_TESTING.md)
-- Rueckbezug Version 5: [./SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md](./SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md)
-- Rueckbezug Version 6: [./SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md](./SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md)
+- Primaerer Rueckbezug Version 6: [./SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md](./SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md)
 
 ---
 
 ## Didaktischer Leitgedanke
 
-Wie beim Uebergang von Version 4 auf 5 wird nicht alles neu gebaut.
+Wie beim Uebergang von Version 6 auf 7 wird nicht alles neu gebaut.
 Die vorhandene Loesung wird gezielt erweitert.
 
 In Version 7 ist die Leitfrage:
@@ -80,7 +79,7 @@ aber zu jedem Schritt eine klare fachliche Begruendung erhalten.
 
 ### Auftrag
 
-Analysiert eure Version-5-Anwendung und markiert alle Stellen, an denen Daten in Richtung Persistenz fliessen:
+Analysiert eure Version-6-Anwendung und markiert alle Stellen, an denen Daten in Richtung Persistenz fliessen:
 
 1. Eingabe in GUI
 2. Controller/Service
@@ -346,89 +345,26 @@ Eine Version-7-Loesung gilt als "fertig", wenn folgende Punkte erfuellt sind:
 
 ## 3 Tests mit Musterloesungen
 
-Die folgenden Tests sind so formuliert, dass Lernende zuerst selbst loesen koennen.
-Die Musterloesung kommt jeweils direkt danach.
+Die drei passenden Kurztest-Aufgaben fuer Version 7 liegen jetzt gesammelt im Materialbereich:
 
-### Test 1: SQL-Injection abwehren
+- Testblatt 1: [../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_1.md](../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_1.md)
+- Musterloesung 1: [../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_1_LOESUNG.md](../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_1_LOESUNG.md)
+- Testblatt 2: [../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_2.md](../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_2.md)
+- Musterloesung 2: [../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_2_LOESUNG.md](../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_2_LOESUNG.md)
+- Testblatt 3: [../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_3.md](../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_3.md)
+- Musterloesung 3: [../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_3_LOESUNG.md](../../materials/tests/sichere_db_anbindung/Kurztest_Sichere_DB_Anbindung_3_LOESUNG.md)
 
-#### Aufgabe
+Die Aufgaben decken diese Schwerpunkte ab:
 
-Schreibt einen Test, der prueft, dass ein Eingabewert wie
-`' OR '1'='1` nicht zu einem unkontrollierten Treffer fuehrt.
+- SQL-Injection mit Prepared Statements vermeiden
+- Secrets aus dem Code herausloesen
+- Transaktionen und Rollback fachlich begruenden
+- Least-Privilege-Rollenkonzept und robuste DB-Konfiguration
+- sichere Fehlerkommunikation und Audit-Qualitaet
 
-#### Musterloesung (JUnit 5, Beispiel)
+Zusaetzliche Syntaxhilfe fuer Schueler:
 
-```java
-@Test
-void searchByFirstName_blocksInjectionPayload() {
-    String payload = "' OR '1'='1";
-
-    List<Person> result = personRepository.findByFirstName(payload);
-
-    assertNotNull(result);
-    assertEquals(0, result.size(), "Injection-Payload darf keine Treffer erzeugen");
-}
-```
-
-#### Auswertungshinweis
-
-Wenn der Test fehlschlaegt, wird sehr wahrscheinlich SQL noch per String-Konkatenation gebaut.
-
----
-
-### Test 2: Keine Secrets im Log
-
-#### Aufgabe
-
-Prueft, dass beim Fehlschlag einer DB-Anmeldung das Passwort nicht im Log erscheint.
-
-#### Musterloesung (prinzipiell)
-
-```java
-@Test
-void logOnDbFailure_masksSensitiveValues() {
-    String rawMessage = "DB login failed user=app_user password=TopSecret123";
-
-    String sanitized = SecureLogger.sanitizeLogMessage(rawMessage);
-
-    assertFalse(sanitized.contains("TopSecret123"));
-    assertTrue(sanitized.contains("password=***"));
-}
-```
-
-#### Auswertungshinweis
-
-Die zentrale Lernidee: Fehlerdiagnose ja, Geheimnisse nein.
-
----
-
-### Test 3: Rollback bei Teilfehler
-
-#### Aufgabe
-
-Prueft, dass bei einem Fehler in Schritt 2 einer Transaktion
-nicht nur der zweite Insert scheitert, sondern auch der erste zurueckgerollt wird.
-
-#### Musterloesung (Integrationsnahes Schema)
-
-```java
-@Test
-void createPersonAndMeasurement_rollsBackCompletelyOnSecondInsertFailure() {
-    Person person = new Person("Mia", "Muster", 16, "Frau", "mia@example.de");
-    Messung invalidMessung = new Messung(-1.0, 1.68); // provoziert SQL/Validierungsfehler
-
-    assertThrows(Exception.class, () ->
-        service.createPersonWithInitialMeasurement(person, invalidMessung)
-    );
-
-    List<Person> persons = personRepository.findByLastName("Muster");
-    assertEquals(0, persons.size(), "Bei Rollback darf keine Teiloperation verbleiben");
-}
-```
-
-#### Auswertungshinweis
-
-Wenn nach Fehlern Teilzustaende bleiben, fehlt ein sauberes Transaktionskonzept.
+- [../../materials/tests/sichere_db_anbindung/Syntaxhilfe_Sichere_DB_Anbindung.md](../../materials/tests/sichere_db_anbindung/Syntaxhilfe_Sichere_DB_Anbindung.md)
 
 ---
 
@@ -467,7 +403,7 @@ Wenn nach Fehlern Teilzustaende bleiben, fehlt ein sauberes Transaktionskonzept.
 
 Eine didaktisch und fachlich starke Loesung erkennt man daran, dass sie:
 
-- nachvollziehbar vom Version-5-Stand weiterentwickelt wurde,
+- nachvollziehbar vom Version-6-Stand weiterentwickelt wurde,
 - Schutzmassnahmen begruendet statt nur eingebaut hat,
 - Sicherheitsanforderungen in Code und Tests sichtbar macht,
 - technische Sicherheit und Datenschutz zusammen denkt,
