@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 Version 4: Assoziationen - Personen & Messungen</title>
+    
+    <!-- Highlight.js CDN für Syntax-Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            line-height: 1.7;
+            color: #333;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            color: #0066cc;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            margin-top: 25px;
+        }
+        
+        h4 {
+            font-size: 1.2em;
+        }
+        
+        h5 {
+            font-size: 1.1em;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background-color: #f5f5f5;
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 4px solid #0066cc;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 1em;
+        }
+        
+        blockquote {
+            border-left: 4px solid #0066cc;
+            margin: 20px 0;
+            padding-left: 16px;
+            font-style: italic;
+            color: #666;
+            background-color: #f0f7ff;
+            padding: 12px 16px;
+            border-radius: 4px;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #0066cc;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: #004d99;
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #0066cc;
+            margin: 30px 0;
+        }
+        
+        /* Syntax Highlighting Anpassungen */
+        .hljs {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .hljs-string { color: #2d8659; }
+        .hljs-number { color: #2d8659; }
+        .hljs-literal { color: #d9534f; }
+        .hljs-attr { color: #d9534f; }
+        .hljs-built_in { color: #0066cc; }
+        .hljs-type { color: #0066cc; }
+        .hljs-class { color: #0066cc; font-weight: bold; }
+        .hljs-keyword { color: #d9534f; font-weight: bold; }
+        .hljs-function { color: #0066cc; }
+        .hljs-title { color: #0066cc; }
+        .hljs-comment { color: #999; font-style: italic; }
+        
+        @media print {
+            body {
+                margin: 0;
+            }
+            h1, h2 {
+                page-break-after: avoid;
+            }
+            pre {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                margin: 20px auto;
+                padding: 0 10px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            pre {
+                font-size: 0.8em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>📋 Version 4: Assoziationen - Personen & Messungen</h1>
+<p></p>
+<h2>🎯 Überblick Version 4</h2>
+<p></p>
+<p><strong>Version 4</strong> ist eine Musterlösung, die zeigt, wie man <strong>Assoziationen in Java</strong> implementiert:</p>
+<p></p>
+<ul>
+<li>✅ <strong>Person-Klasse</strong>: Speichert Personen mit Grunddaten</li>
+<li>✅ <strong>Messung-Klasse</strong>: Speichert einzelne BMI-Messungen mit Zeitstempel</li>
+<li>✅ <strong>1:N Beziehung</strong>: Eine Person hat mehrere Messungen</li>
+<li>✅ <strong>GUI erweitert</strong>: Personen-Verwaltung, Messungs-Historie, Statistik</li>
+<li>✅ <strong>Vollständig funktionsfähig</strong>: Alle Features integriert und getestet</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>📦 Was ist neu in Version 4?</h2>
+<p></p>
+<p>| Feature | Version 3 | Version 4 | Beschreibung |</p>
+<p>|---------|----------|----------|-------------|</p>
+<p>| <strong>Person-Verwaltung</strong> | ❌ | ✅ | Mehrere Personen erstellen und verwalten |</p>
+<p>| <strong>Messungs-Speicherung</strong> | Nur aktuell | ✅ | Alle Messungen gespeichert |</p>
+<p>| <strong>Statistik</strong> | Keine | ✅ | Durchschnitt, beste/schlechteste Messung |</p>
+<p>| <strong>Historie</strong> | Keine | ✅ | Alle Messungen mit Datum anzeigen |</p>
+<p>| <strong>1:N Assoziation</strong> | Nein | ✅ | Person ↔ Messungen verknüpft |</p>
+<p>| <strong>Komplexität</strong> | Basis | Erweitert | Objekt-orientiert mit Assoziationen |</p>
+<p></p>
+<hr />
+<p></p>
+<h2>🚀 Schnellstart Version 4</h2>
+<p></p>
+<h3>1. Branch auschecken</h3>
+<pre><code class="language-bash hljs">git checkout version-4-assoziationen</code></pre>
+<p></p>
+<h3>2. Projekt bauen</h3>
+<pre><code class="language-bash hljs">./build.sh</code></pre>
+<p></p>
+<h3>3. Anwendung starten</h3>
+<pre><code class="language-bash hljs">./run.sh</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>📚 Architektur Version 4</h2>
+<p></p>
+<h3>Klassen-Struktur</h3>
+<p></p>
+<pre><code class="language-plaintext hljs">┌─────────────────────────────────────┐
+│         MAIN-FENSTER (View)         │
+│      MainWindow erweitert v4        │
+│  - Person-Verwaltung (GUI)          │
+│  - Messung-Erfassung                │
+│  - Historie &amp; Statistik             │
+└────────────┬────────────────────────┘
+             ↓
+┌─────────────────────────────────────┐
+│      CONTROLLER (Business Logic)    │
+│      BmiManager erweitert v4        │
+│  - Person-Management                │
+│  - Messung-Management               │
+└────────┬────────────────────────────┘
+         ↓
+┌─────────────────────────────────────┐
+│        MODEL (Datenstrukturen)      │
+│  1. Bmirechner (Berechnung)         │
+│  2. Person (mit Messungen)          │
+│  3. Messung (einzelne Wert)         │
+└─────────────────────────────────────┘</code></pre>
+<p></p>
+<h3>1:N Beziehung visualisiert</h3>
+<p></p>
+<pre><code class="language-plaintext hljs">┌─────────────┐      1:N       ┌──────────────┐
+│   Person    │ ─────────────→ │   Messung    │
+│             │  hat multiple  │              │
+│ - vorname   │                │ - gewicht    │
+│ - messungen*│ (ArrayList)    │ - groesse    │
+└─────────────┘                │ - bmi        │
+                               │ - zeitstempel│
+                               └──────────────┘</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>📖 Detaillierte Schritte</h2>
+<p></p>
+<h3>Schritt 1: Person-Klasse verstehen</h3>
+<p></p>
+<p>Die <strong>Person-Klasse</strong> ist das Zentrum von Version 4:</p>
+<p></p>
+<pre><code class="language-java hljs">public class Person {
+    // Attribute
+    private String vorname;
+    private String nachname;
+    private int alter;
+    private String geschlecht;
+    private String email;
+    
+    // 1:N Beziehung: Eine Person hat MEHRERE Messungen
+    private List&lt;Messung&gt; messungen; // ← Die Assoziation!
+    
+    // Konstruktor
+    public Person(String vorname, String nachname, int alter, 
+                  String geschlecht, String email) {
+        // Messung-Liste initialisieren
+        this.messungen = new ArrayList&lt;&gt;();
+    }
+}</code></pre>
+<p></p>
+<p><strong>Wichtig</strong>: Die <code>List<Messung> messungen;</code> ist die <strong>1:N Assoziation</strong>!</p>
+<p></p>
+<h3>Schritt 2: Messung-Klasse verstehen</h3>
+<p></p>
+<p>Die <strong>Messung-Klasse</strong> speichert ein einzelnes Messergebnis:</p>
+<p></p>
+<pre><code class="language-java hljs">public class Messung {
+    private double gewicht;        // in kg
+    private double groesse;         // in m
+    private LocalDateTime zeitstempel; // WANN gemessen?
+    private double bmi;            // Berechnet
+    private String kategorie;      // BMI-Kategorie
+    private Bmirechner rechner;    // Nutzt bestehende Bmirechner-Klasse!
+    
+    // Konstruktor
+    public Messung(double gewicht, double groesse) {
+        this.gewicht = gewicht;
+        this.groesse = groesse;
+        this.zeitstempel = LocalDateTime.now(); // Aktuelles Datum/Zeit
+        
+        // Bmirechner nutzen zur Berechnung (DRY-Prinzip!)
+        this.rechner = new Bmirechner();
+        this.bmi = rechner.berechne(gewicht, groesse);
+        
+        // Kategorisierung mit Bmirechner
+        rechner.interpretiere();
+        this.kategorie = rechner.getKategorie();
+    }
+}</code></pre>
+<p></p>
+<h3>Schritt 3: So funktioniert die 1:N Beziehung</h3>
+<p></p>
+<pre><code class="language-java hljs">// 1. Person erstellen
+Person max = new Person(&quot;Max&quot;, &quot;Mustermann&quot;, 30, &quot;Mann&quot;, &quot;max@example.de&quot;);
+
+// 2. Messungen erstellen
+Messung messung1 = new Messung(85.0, 1.80);  // 26.23 BMI
+Messung messung2 = new Messung(80.0, 1.80);  // 24.69 BMI
+Messung messung3 = new Messung(90.0, 1.80);  // 27.78 BMI
+
+// 3. Messungen der Person ZUORDNEN (Assoziation herstellen!)
+max.addMessung(messung1);
+max.addMessung(messung2);
+max.addMessung(messung3);
+
+// 4. Auf die Messungen zugreifen
+for (Messung m : max.getMessungen()) {
+    System.out.println(m.getBmi() + &quot; - &quot; + m.getKategorie());
+}
+
+// 5. Statistiken berechnen
+System.out.println(&quot;Anzahl: &quot; + max.getAnzahlMessungen());           // 3
+System.out.println(&quot;Durchschnitt: &quot; + max.getDurchschnittsBmi());    // 26.23
+System.out.println(&quot;Beste: &quot; + max.getBesteMessung().getBmi());      // 24.69</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>🖥️ Die GUI in Version 4</h2>
+<p></p>
+<h3>Bereich 1: Personen-Verwaltung</h3>
+<p></p>
+<pre><code class="language-plaintext hljs">┌─────────────────────────────────────────┐
+│ 1. PERSONEN-VERWALTUNG                  │
+├─────────────────────────────────────────┤
+│ Vorname:     [Max           ]           │
+│ Nachname:    [Mustermann    ]           │
+│ Alter:       [30            ]           │
+│ Geschlecht:  [Mann         ▼]           │
+│ E-Mail:      [max@example.de]           │
+│                                          │
+│ [Person erstellen] [Felder leeren]      │
+│                                          │
+│ Person auswählen: [Max Mustermann ...▼] │
+└─────────────────────────────────────────┘</code></pre>
+<p></p>
+<p><strong>Funktionalität:</strong></p>
+<ul>
+<li>Neue Personen erstellen</li>
+<li>Bestandene Personen aus Dropdown auswählen</li>
+<li>Alle Personendaten speichern</li>
+</ul>
+<p></p>
+<h3>Bereich 2: BMI-Berechnung & Messung</h3>
+<p></p>
+<pre><code class="language-plaintext hljs">┌─────────────────────────────────────────┐
+│ 2. BMI-BERECHNUNG &amp; MESSUNG             │
+├─────────────────────────────────────────┤
+│ Gewicht (kg): [85.0        ]            │
+│ Größe (m):    [1.80        ]            │
+│                                          │
+│ ┌─────────────────────────────────────┐ │
+│ │ BMI: 26.23 - Übergewicht            │ │
+│ └─────────────────────────────────────┘ │
+│                                          │
+│ [Messung erstellen] [Nur berechnen]     │
+│ [Leeren]                                 │
+└─────────────────────────────────────────┘</code></pre>
+<p></p>
+<p><strong>Funktionalität:</strong></p>
+<ul>
+<li>Gewicht und Größe erfassen</li>
+<li>BMI berechnen und Kategorie anzeigen</li>
+<li><strong>Messung speichern</strong>: Fügt zu Person hinzu!</li>
+</ul>
+<p></p>
+<h3>Bereich 3: Messungs-Historie</h3>
+<p></p>
+<pre><code class="language-plaintext hljs">┌──────────────────────────────────────────────┐
+│ 3. MESSUNGS-HISTORIE                         │
+├──────────────────────────────────────────────┤
+│ Messungen für: Max Mustermann                │
+│ =============================================│
+│                                               │
+│ 1. 09.02.2026 14:30                          │
+│    Gewicht: 85.0 kg | Größe: 1.80 m         │
+│    BMI: 26.23 (Übergewicht)                  │
+│                                               │
+│ 2. 09.02.2026 15:15                          │
+│    Gewicht: 80.0 kg | Größe: 1.80 m         │
+│    BMI: 24.69 (Normalgewicht)                │
+│                                               │
+│ 3. 09.02.2026 16:00                          │
+│    Gewicht: 90.0 kg | Größe: 1.80 m         │
+│    BMI: 27.78 (Übergewicht)                  │
+│                                               │
+└──────────────────────────────────────────────┘</code></pre>
+<p></p>
+<p><strong>Funktionalität:</strong></p>
+<ul>
+<li>Zeigt alle Messungen mit Datum/Zeit</li>
+<li>Sortiert vom Neuesten zum Ältesten</li>
+</ul>
+<p></p>
+<h3>Bereich 4: Statistik</h3>
+<p></p>
+<pre><code class="language-plaintext hljs">┌───────────────────────────────────┐
+│ 4. STATISTIK                      │
+├───────────────────────────────────┤
+│ STATISTIK                          │
+│ ===================               │
+│                                    │
+│ Person:                            │
+│ Max Mustermann                     │
+│ 30 Jahre, Mann                     │
+│                                    │
+│ Anzahl Messungen:                  │
+│ 3                                  │
+│                                    │
+│ Durchschnitts-BMI:                 │
+│ 26.23                              │
+│                                    │
+│ Letzte Messung:                    │
+│ BMI: 27.78                         │
+│ Übergewicht                        │
+│                                    │
+│ Bester BMI:                        │
+│ 24.69                              │
+│                                    │
+│ Schlechtester BMI:                 │
+│ 27.78                              │
+│                                    │
+│ Differenz:                         │
+│ 3.09                               │
+│                                    │
+└───────────────────────────────────┘</code></pre>
+<p></p>
+<p><strong>Statistiken die berechnet werden:</strong></p>
+<ul>
+<li>Anzahl der Messungen</li>
+<li>Durchschnitts-BMI</li>
+<li>Letzte Messung</li>
+<li>Beste & schlechteste Messung (wenn >= 2 Messungen)</li>
+<li>BMI-Differenz (Fortschritt/Rückgang)</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>💻 Programmierkonzepte in Version 4</h2>
+<p></p>
+<h3>1. Assoziationen (1:N)</h3>
+<p></p>
+<p>Ein Container (Person) enthält mehrere Elemente (Messungen):</p>
+<p></p>
+<pre><code class="language-java hljs">private List&lt;Messung&gt; messungen;  // 1:N Assoziation
+
+// Hinzufügen
+public void addMessung(Messung messung) {
+    messungen.add(messung);
+}
+
+// Alle abrufen
+public List&lt;Messung&gt; getMessungen() {
+    return new ArrayList&lt;&gt;(messungen);  // Kopie!
+}</code></pre>
+<p></p>
+<h3>2. Kapselung</h3>
+<p></p>
+<p>Die <code>getMessungen()</code>-Methode gibt eine <strong>Kopie</strong> zurück:</p>
+<p></p>
+<pre><code class="language-java hljs">// RICHTIG - Kopie zurückgeben
+public List&lt;Messung&gt; getMessungen() {
+    return new ArrayList&lt;&gt;(messungen);  // ← Neue Liste!
+}
+
+// FALSCH - Original zurückgeben (Sicherheitsrisiko)
+public List&lt;Messung&gt; getMessungen() {
+    return messungen;  // ← Jeder kann die Original-Liste ändern!
+}</code></pre>
+<p></p>
+<h3>3. LocalDateTime für Zeitstempel</h3>
+<p></p>
+<pre><code class="language-java hljs">// Aktuelle Zeit erfassen
+private LocalDateTime zeitstempel = LocalDateTime.now();
+
+// Formatiert ausgeben
+public String getFormatiertesDatum() {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;dd.MM.yyyy HH:mm&quot;);
+    return zeitstempel.format(formatter);
+}</code></pre>
+<p></p>
+<h3>4. Controller-Pattern (BmiManager)</h3>
+<p></p>
+<pre><code class="language-java hljs">public class BmiManager {
+    private BmiRechner model;              // Alte Logik
+    private Person aktuellePerson;         // Neu: aktuelle Person
+    private List&lt;Person&gt; personenListe;    // Neu: alle Personen
+    
+    public Messung erstelleMessung(double gewicht, double groesse) {
+        if (aktuellePerson == null) {
+            throw new IllegalStateException(&quot;Keine Person ausgewählt!&quot;);
+        }
+        Messung messung = new Messung(gewicht, groesse);
+        aktuellePerson.addMessung(messung);  // ← Assoziation nutzen!
+        return messung;
+    }
+}</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>✅ Aufgaben & Übungen</h2>
+<p></p>
+<h3>Aufgabe 4.1: Messung hinzufügen</h3>
+<p></p>
+<p><strong>Ziel:</strong> Eine Person erstellen und 3 Messungen hinzufügen.</p>
+<p></p>
+<pre><code class="language-java hljs">public void aufgabe41() {
+    // 1. Person erstellen
+    Person anna = new Person(&quot;Anna&quot;, &quot;Schmidt&quot;, 28, &quot;Frau&quot;, &quot;anna@example.de&quot;);
+    
+    // 2. Drei Messungen erstellen
+    Messung m1 = new Messung(70, 1.65);
+    Messung m2 = new Messung(68, 1.65);
+    Messung m3 = new Messung(72, 1.65);
+    
+    // 3. Messungen hinzufügen
+    anna.addMessung(m1);
+    anna.addMessung(m2);
+    anna.addMessung(m3);
+    
+    // 4. Ausgeben
+    System.out.println(&quot;Durchschnittli-BMI: &quot; + anna.getDurchschnittsBmi());
+    System.out.println(&quot;Differenz: &quot; + anna.getBmiDifferenz());
+}</code></pre>
+<p></p>
+<p><strong>Erwartete Ausgabe:</strong></p>
+<pre><code class="language-plaintext hljs">Durchschnitts-BMI: 25.05
+Differenz: 1.76</code></pre>
+<p></p>
+<h3>Aufgabe 4.2: Statistik berechnen</h3>
+<p></p>
+<p><strong>Ziel:</strong> Für mehrere Personen die beste Messung finden.</p>
+<p></p>
+<pre><code class="language-java hljs">public void aufgabe42() {
+    List&lt;Person&gt; personen = new ArrayList&lt;&gt;();
+    
+    // Personen erstellen mit Messungen
+    Person max = new Person(&quot;Max&quot;, &quot;Mustermann&quot;, 30, &quot;Mann&quot;, &quot;max@example.de&quot;);
+    max.addMessung(new Messung(85, 1.80));
+    max.addMessung(new Messung(80, 1.80));
+    
+    Person anna = new Person(&quot;Anna&quot;, &quot;Schmidt&quot;, 28, &quot;Frau&quot;, &quot;anna@example.de&quot;);
+    anna.addMessung(new Messung(70, 1.65));
+    anna.addMessung(new Messung(68, 1.65));
+    
+    personen.add(max);
+    personen.add(anna);
+    
+    // Beste Messung pro Person ausgeben
+    for (Person p : personen) {
+        Messung beste = p.getBesteMessung();
+        System.out.printf(&quot;%s: bester BMI = %.2f\n&quot;, p.getFullName(), beste.getBmi());
+    }
+}</code></pre>
+<p></p>
+<h3>Aufgabe 4.3: GUI testen</h3>
+<p></p>
+<p><strong>Ziel:</strong> Die GUI-Version 4 nutzen und verschiedene Szenarien testen.</p>
+<p></p>
+<p>1. Person erstellen (Anna, 28 Jahre, Frau)</p>
+<p>2. 3 verschiedene Messungen erfassen</p>
+<p>3. Statistik-Bereich überprüfen</p>
+<p>4. Messung mit neuem Gewicht = beste BMI?</p>
+<p></p>
+<hr />
+<p></p>
+<h2>🧪 Tests für Version 4</h2>
+<p></p>
+<p>Mit JUnit 5 können Sie die Funktionen testen:</p>
+<p></p>
+<pre><code class="language-java hljs">import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class Version4Tests {
+    
+    @Test
+    public void testPersonErstellung() {
+        Person p = new Person(&quot;Max&quot;, &quot;Mustermann&quot;, 30, &quot;Mann&quot;, &quot;max@example.de&quot;);
+        assertEquals(&quot;Max&quot;, p.getVorname());
+        assertEquals(0, p.getAnzahlMessungen());
+    }
+    
+    @Test
+    public void testMessungHinzufügen() {
+        Person p = new Person(&quot;Max&quot;, &quot;Mustermann&quot;, 30, &quot;Mann&quot;, &quot;max@example.de&quot;);
+        Messung m = new Messung(80, 1.80);
+        p.addMessung(m);
+        
+        assertEquals(1, p.getAnzahlMessungen());
+        assertEquals(m, p.getMessungen().get(0));
+    }
+    
+    @Test
+    public void testDurchschnittsBMI() {
+        Person p = new Person(&quot;Max&quot;, &quot;Mustermann&quot;, 30, &quot;Mann&quot;, &quot;max@example.de&quot;);
+        p.addMessung(new Messung(80, 1.80));  // 24.69
+        p.addMessung(new Messung(90, 1.80));  // 27.78
+        
+        double average = p.getDurchschnittsBmi();
+        assertTrue(average &gt; 26 &amp;&amp; average &lt; 27);
+    }
+    
+    @Test
+    public void testBesteMessung() {
+        Person p = new Person(&quot;Max&quot;, &quot;Mustermann&quot;, 30, &quot;Mann&quot;, &quot;max@example.de&quot;);
+        p.addMessung(new Messung(85, 1.80));  // 26.23
+        p.addMessung(new Messung(80, 1.80));  // 24.69 ← Beste
+        
+        Messung beste = p.getBesteMessung();
+        assertEquals(24.69, beste.getBmi(), 0.01);
+    }
+}</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>📋 Checkliste für Version 4</h2>
+<p></p>
+<h3>Umgesetzte Features</h3>
+<p></p>
+<ul>
+<li>✅ Person-Klasse mit Messung-Liste</li>
+<li>✅ Messung-Klasse mit BMI-Berechnung</li>
+<li>✅ 1:N Assoziation funktioniert</li>
+<li>✅ BmiManager erweitert</li>
+<li>✅ GUI: Person-Verwaltung</li>
+<li>✅ GUI: Messung-Erfassung</li>
+<li>✅ GUI: Messungs-Historie</li>
+<li>✅ GUI: Statistik-Bereich</li>
+<li>✅ LocalDateTime für Zeitstempel</li>
+<li>✅ Kapselung beachtet</li>
+<li>✅ Validierung implementiert</li>
+<li>✅ Alle Klassen dokumentiert</li>
+</ul>
+<p></p>
+<h3>Testen</h3>
+<p></p>
+<ul>
+<li>✅ Projekt kompiliert fehlerfrei</li>
+<li>✅ GUI startet ohne Fehler</li>
+<li>✅ Person erstellen funktioniert</li>
+<li>✅ Messungen speichern funktioniert</li>
+<li>✅ Statistik wird korrekt berechnet</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>🚀 Nächste Schritte</h2>
+<p></p>
+<p>Nach Version 4 könnten Sie:</p>
+<p></p>
+<p>1. <strong>Version 5 - Datenbank</strong>: Messungen in einer Datenbank speichern (SQL)</p>
+<p>2. <strong>Version 6 - Ärzte</strong>: M:N Beziehung (Ärzte ↔ Patienten)</p>
+<p>3. <strong>Version 7 - Export</strong>: Messdaten als PDF/CSV exportieren</p>
+<p>4. <strong>Version 8 - Graphik</strong>: Trend-Visualisierung der Messungen</p>
+<p></p>
+<hr />
+<p></p>
+<h2>📚 Ressourcen & Links</h2>
+<p></p>
+<ul>
+<li><a href="../../src/start/Person.java">Person.java</a> - Quellcode</li>
+<li><a href="../../src/start/Messung.java">Messung.java</a> - Quellcode</li>
+<li><a href="../../src/start/BmiManager.java">BmiManager.java</a> - Quellcode</li>
+<li><a href="../../src/start/MainWindow.java">MainWindow.java</a> - GUI</li>
+<li><a href="./ASSOZIATIONEN<em>PERSON</em>MESSUNG.md">ASSOZIATIONEN<em>PERSON</em>MESSUNG.md</a> - Theorie</li>
+<li><a href="./ASSOZIATIONEN<em>LOESUNGEN.md">ASSOZIATIONEN</em>LOESUNGEN.md</a> - Musterlösungen</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<p><strong>Version 4 zeigt professionelle Java-Programmierung mit Assoziationen, Kapselung und klarem MVC-Pattern!</strong> 🎉</p>
+<p></p>
+</body>
+</html>

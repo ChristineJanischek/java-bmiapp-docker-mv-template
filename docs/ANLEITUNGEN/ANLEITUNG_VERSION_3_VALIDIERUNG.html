@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schritt-für-Schritt-Anleitung Version 3 (Validierung & Fehlerbehandlung)</title>
+    
+    <!-- Highlight.js CDN für Syntax-Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            line-height: 1.7;
+            color: #333;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            color: #0066cc;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            margin-top: 25px;
+        }
+        
+        h4 {
+            font-size: 1.2em;
+        }
+        
+        h5 {
+            font-size: 1.1em;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background-color: #f5f5f5;
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 4px solid #0066cc;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 1em;
+        }
+        
+        blockquote {
+            border-left: 4px solid #0066cc;
+            margin: 20px 0;
+            padding-left: 16px;
+            font-style: italic;
+            color: #666;
+            background-color: #f0f7ff;
+            padding: 12px 16px;
+            border-radius: 4px;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #0066cc;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: #004d99;
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #0066cc;
+            margin: 30px 0;
+        }
+        
+        /* Syntax Highlighting Anpassungen */
+        .hljs {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .hljs-string { color: #2d8659; }
+        .hljs-number { color: #2d8659; }
+        .hljs-literal { color: #d9534f; }
+        .hljs-attr { color: #d9534f; }
+        .hljs-built_in { color: #0066cc; }
+        .hljs-type { color: #0066cc; }
+        .hljs-class { color: #0066cc; font-weight: bold; }
+        .hljs-keyword { color: #d9534f; font-weight: bold; }
+        .hljs-function { color: #0066cc; }
+        .hljs-title { color: #0066cc; }
+        .hljs-comment { color: #999; font-style: italic; }
+        
+        @media print {
+            body {
+                margin: 0;
+            }
+            h1, h2 {
+                page-break-after: avoid;
+            }
+            pre {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                margin: 20px auto;
+                padding: 0 10px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            pre {
+                font-size: 0.8em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Schritt-für-Schritt-Anleitung Version 3 (Validierung & Fehlerbehandlung)</h1>
+<p></p>
+<h2>Ziel</h2>
+<p>Erweitere die Anwendung um Eingabevalidierung, Fehlerbehandlung und Usability-Verbesserungen.</p>
+<p></p>
+<hr />
+<p></p>
+<h2>1. Branch wechseln</h2>
+<pre><code class="language-bash hljs">git checkout version-3-validation
+git pull</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>2. Eingabevalidierung ergänzen</h2>
+<ul>
+<li>Prüfe alle Eingaben auf sinnvolle Werte (z.B. Gewicht > 0, Größe > 0.5)</li>
+<li>Markiere fehlerhafte Felder farblich</li>
+<li>Zeige hilfreiche Fehlermeldungen an</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>3. Exception Handling</h2>
+<ul>
+<li>Fange NumberFormatException und andere Fehler ab</li>
+<li>Verhindere Abstürze durch ungültige Eingaben</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>4. Usability verbessern</h2>
+<ul>
+<li>Hilfetexte für Eingabefelder</li>
+<li>Fokus auf das erste fehlerhafte Feld setzen</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>5. Anwendung testen</h2>
+<pre><code class="language-bash hljs">./build.sh
+./run.sh</code></pre>
+<ul>
+<li>Teste alle Fehlerfälle und prüfe die Benutzerführung</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>6. Änderungen committen und pushen</h2>
+<pre><code class="language-bash hljs">git add .
+git commit -m &quot;feat: Validierung und Fehlerbehandlung (Version 3)&quot;
+git push</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>Weitere Hilfen</h2>
+<ul>
+<li><a href="../BEST<em>PRACTICES/SECURE</em>CODING.md">SECURE_CODING.md</a></li>
+<li><a href="../JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md">KONTROLLSTRUKTUREN.md</a></li>
+<li><a href="../KONZEPTE/MVC<em>KONZEPT.md">MVC</em>KONZEPT.md</a></li>
+</ul>
+<p></p>
+</body>
+</html>

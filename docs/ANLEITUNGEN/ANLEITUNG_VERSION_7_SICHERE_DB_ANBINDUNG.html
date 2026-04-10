@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schritt-fuer-Schritt-Anleitung Version 7</title>
+    
+    <!-- Highlight.js CDN für Syntax-Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            line-height: 1.7;
+            color: #333;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            color: #0066cc;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            margin-top: 25px;
+        }
+        
+        h4 {
+            font-size: 1.2em;
+        }
+        
+        h5 {
+            font-size: 1.1em;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background-color: #f5f5f5;
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 4px solid #0066cc;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 1em;
+        }
+        
+        blockquote {
+            border-left: 4px solid #0066cc;
+            margin: 20px 0;
+            padding-left: 16px;
+            font-style: italic;
+            color: #666;
+            background-color: #f0f7ff;
+            padding: 12px 16px;
+            border-radius: 4px;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #0066cc;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: #004d99;
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #0066cc;
+            margin: 30px 0;
+        }
+        
+        /* Syntax Highlighting Anpassungen */
+        .hljs {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .hljs-string { color: #2d8659; }
+        .hljs-number { color: #2d8659; }
+        .hljs-literal { color: #d9534f; }
+        .hljs-attr { color: #d9534f; }
+        .hljs-built_in { color: #0066cc; }
+        .hljs-type { color: #0066cc; }
+        .hljs-class { color: #0066cc; font-weight: bold; }
+        .hljs-keyword { color: #d9534f; font-weight: bold; }
+        .hljs-function { color: #0066cc; }
+        .hljs-title { color: #0066cc; }
+        .hljs-comment { color: #999; font-style: italic; }
+        
+        @media print {
+            body {
+                margin: 0;
+            }
+            h1, h2 {
+                page-break-after: avoid;
+            }
+            pre {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                margin: 20px auto;
+                padding: 0 10px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            pre {
+                font-size: 0.8em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Schritt-fuer-Schritt-Anleitung Version 7</h1>
+<p></p>
+<h2>Thema</h2>
+<p></p>
+<p>Sicherheit in DB-Anbindung - Risiken der Datenhaltung und Schutzmechanismen</p>
+<p></p>
+<p>Diese Version baut didaktisch auf der Musterloesung aus Version 6 auf:</p>
+<p></p>
+<ul>
+<li>Version 6 hat sichere Datenverarbeitung eingefuehrt (Validierung, Logging, Datenschutzprinzipien).</li>
+<li>Version 7 erweitert das auf professionelle Datenbank-Sicherheit bei JDBC-Anbindung.</li>
+</ul>
+<p></p>
+<p>Die Lernenden gehen damit den naechsten realistischen Schritt:</p>
+<p>von "Daten bleiben erhalten" zu "Daten bleiben sicher, korrekt und nachvollziehbar erhalten".</p>
+<p></p>
+<hr />
+<p></p>
+<h2>Lernziele</h2>
+<p></p>
+<p>Nach Version 7 sollen die Lernenden:</p>
+<p></p>
+<ul>
+<li>konkrete Risiken bei DB-Anbindung benennen koennen,</li>
+<li>SQL-Injection verstehen und mit Prepared Statements verhindern,</li>
+<li>Zugangsdaten sicher verwalten (keine Secrets im Quellcode),</li>
+<li>Rollen und Rechte nach Least-Privilege-Prinzip einsetzen,</li>
+<li>Fehler sicher behandeln (intern detailliert, extern knapp),</li>
+<li>sicherheitsrelevante Aktionen nachvollziehbar protokollieren,</li>
+<li>zentrale Schutzmechanismen mit Tests belegen.</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>Vorwissen und Werkzeuge</h2>
+<p></p>
+<h3>Fachliches Vorwissen</h3>
+<p></p>
+<ul>
+<li>Version 6 abgeschlossen: sichere Datenverarbeitung, Validierung, Logging</li>
+<li>Grundlagen MVC und Exception Handling</li>
+<li>SQL-Basics (SELECT, INSERT, UPDATE, DELETE)</li>
+</ul>
+<p></p>
+<h3>Technische Werkzeuge</h3>
+<p></p>
+<ul>
+<li>Java 21 und Maven</li>
+<li>JDBC-Treiber (MySQL Connector)</li>
+<li>Laufende MySQL/MariaDB-Instanz</li>
+<li>Testframework JUnit 5</li>
+</ul>
+<p></p>
+<h3>Pflicht-Lektuere (an passender Stelle nutzen)</h3>
+<p></p>
+<ul>
+<li>Datenbankgrundlagen und JDBC: <a href="../JAVA<em>PROGRAMMIERUNG/DATENBANK.md">../JAVA</em>PROGRAMMIERUNG/DATENBANK.md</a></li>
+<li>Secure Coding Grundprinzipien: <a href="../BEST<em>PRACTICES/SECURE</em>CODING.md">../BEST<em>PRACTICES/SECURE</em>CODING.md</a></li>
+<li>Exception Handling: <a href="../BEST<em>PRACTICES/EXCEPTION</em>HANDLING.md">../BEST<em>PRACTICES/EXCEPTION</em>HANDLING.md</a></li>
+<li>Unit-Testing: <a href="../BEST<em>PRACTICES/UNIT</em>TESTING.md">../BEST<em>PRACTICES/UNIT</em>TESTING.md</a></li>
+<li>Primaerer Rueckbezug Version 6: <a href="./ANLEITUNG<em>VERSION</em>6<em>SICHERE</em>DATENVERARBEITUNG.md">./ANLEITUNG<em>VERSION</em>6<em>SICHERE</em>DATENVERARBEITUNG.md</a></li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>Didaktischer Leitgedanke</h2>
+<p></p>
+<p>Wie beim Uebergang von Version 6 auf 7 wird nicht alles neu gebaut.</p>
+<p>Die vorhandene Loesung wird gezielt erweitert.</p>
+<p></p>
+<p>In Version 7 ist die Leitfrage:</p>
+<p></p>
+<p>"Welche Stellen in der Datenbankanbindung koennen unsicher werden, und wie haerten wir sie schrittweise?"</p>
+<p></p>
+<p>Die Schritte unten sind so aufgebaut, dass die Lernenden selbststaendig arbeiten koennen,</p>
+<p>aber zu jedem Schritt eine klare fachliche Begruendung erhalten.</p>
+<p></p>
+<h3>Paedagogische Leitlinien dieser Version</h3>
+<p></p>
+<ul>
+<li>praktisch: Jede Schutzmassnahme wird sofort am eigenen Code angewendet.</li>
+<li>didaktisch klug: Erst Risiko verstehen, dann gezielt absichern.</li>
+<li>motivierend: Die Lernenden "hacken" ihre eigene Teststrecke kontrolliert und machen Sicherheitsfortschritt sichtbar.</li>
+<li>erkundend: Jede Gruppe prueft mindestens ein eigenes Angriffsszenario zusaetzlich zu den Pflichttests.</li>
+<li>best-practice-orientiert: Industriestandards (Prepared Statements, Least Privilege, Logging, Transaktionen) werden begruendet eingefuehrt.</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>Schritt 1: Risikomodell der aktuellen Loesung erstellen</h2>
+<p></p>
+<h3>Auftrag</h3>
+<p></p>
+<p>Analysiert eure Version-6-Anwendung und markiert alle Stellen, an denen Daten in Richtung Persistenz fliessen:</p>
+<p></p>
+<p>1. Eingabe in GUI</p>
+<p>2. Controller/Service</p>
+<p>3. SQL-Statement bzw. Datenbankzugriff</p>
+<p>4. Speicherung/Logging</p>
+<p></p>
+<h3>Typische Risiken</h3>
+<p></p>
+<ul>
+<li>SQL-Injection durch String-Konkatenation</li>
+<li>Klartext-Secrets im Code oder in Git</li>
+<li>zu breite DB-Rechte (z. B. DROP erlaubt)</li>
+<li>sensible Daten im Log</li>
+<li>Fehlertexte mit internen Details in der GUI</li>
+</ul>
+<p></p>
+<h3>Ergebnis</h3>
+<p></p>
+<p>Erstellt eine kleine Tabelle "Risiko -> Schutzmassnahme".</p>
+<p>Diese Tabelle wird in den folgenden Schritten systematisch abgearbeitet.</p>
+<p></p>
+<hr />
+<p></p>
+<h2>Schritt 2: Sichere DB-Konfiguration einziehen</h2>
+<p></p>
+<h3>Auftrag</h3>
+<p></p>
+<p>Ersetzt harte Zugangsdaten im Code durch Umgebungsvariablen.</p>
+<p></p>
+<h3>Warum?</h3>
+<p></p>
+<ul>
+<li>Zugangsdaten im Repository sind ein reales Sicherheitsrisiko.</li>
+<li>Konfiguration muss von der Anwendungslogik getrennt bleiben.</li>
+</ul>
+<p></p>
+<h3>Umsetzung (Beispiel)</h3>
+<p></p>
+<pre><code class="language-java hljs">public final class DbConfig {
+    private DbConfig() {}
+
+    public static String url() {
+        return required(&quot;BMI_DB_URL&quot;);
+    }
+
+    public static String user() {
+        return required(&quot;BMI_DB_USER&quot;);
+    }
+
+    public static String password() {
+        return required(&quot;BMI_DB_PASSWORD&quot;);
+    }
+
+    private static String required(String key) {
+        String value = System.getenv(key);
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException(&quot;Fehlende Umgebungsvariable: &quot; + key);
+        }
+        return value;
+    }
+}</code></pre>
+<p></p>
+<h3>Hinweis fuer Lernende</h3>
+<p></p>
+<p>Wenn ihr lokal entwickelt, koennt ihr Variablen im Terminal setzen,</p>
+<p>ohne sie in Dateien einzuchecken.</p>
+<p></p>
+<hr />
+<p></p>
+<h2>Schritt 3: SQL-Injection Schutz mit Prepared Statements</h2>
+<p></p>
+<h3>Auftrag</h3>
+<p></p>
+<p>Ersetzt unsichere SQL-Erzeugung durch parametrisierte Statements.</p>
+<p></p>
+<h3>Unsicheres Muster (nicht verwenden)</h3>
+<p></p>
+<pre><code class="language-java hljs">String sql = &quot;SELECT * FROM person WHERE vorname = '&quot; + input + &quot;'&quot;;</code></pre>
+<p></p>
+<h3>Sicheres Muster</h3>
+<p></p>
+<pre><code class="language-java hljs">String sql = &quot;SELECT id, vorname, nachname FROM person WHERE vorname = ?&quot;;
+try (Connection conn = connector.verbinden();
+     PreparedStatement ps = conn.prepareStatement(sql)) {
+    ps.setString(1, input);
+    try (ResultSet rs = ps.executeQuery()) {
+        // Verarbeitung
+    }
+}</code></pre>
+<p></p>
+<h3>Didaktischer Fokus</h3>
+<p></p>
+<p>Lernende sollen verstehen:</p>
+<p></p>
+<ul>
+<li>Trennung von Befehl und Daten</li>
+<li>Warum Escaping allein nicht ausreicht</li>
+<li>Warum dieses Muster Standard in professionellen Projekten ist</li>
+</ul>
+<p></p>
+<p>Vertiefung: <a href="../JAVA<em>PROGRAMMIERUNG/DATENBANK.md">../JAVA</em>PROGRAMMIERUNG/DATENBANK.md</a></p>
+<p></p>
+<hr />
+<p></p>
+<h2>Schritt 4: Rechtekonzept (Least Privilege)</h2>
+<p></p>
+<h3>Auftrag</h3>
+<p></p>
+<p>Legt einen eigenen App-DB-User an, der nur notwendige Rechte besitzt.</p>
+<p></p>
+<h3>Beispielidee</h3>
+<p></p>
+<ul>
+<li><code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> auf benoetigten Tabellen</li>
+<li>keine Admin-Rechte</li>
+<li>kein <code>DROP</code>, kein <code>ALTER</code></li>
+</ul>
+<p></p>
+<h3>Warum?</h3>
+<p></p>
+<p>Wenn ein Angriff gelingt, begrenzen geringe Rechte den Schaden.</p>
+<p></p>
+<h3>Reflexionsfrage</h3>
+<p></p>
+<p>"Was waere das Worst-Case-Szenario, wenn der App-User Admin-Rechte hat?"</p>
+<p></p>
+<hr />
+<p></p>
+<h2>Schritt 5: Eingabevalidierung nah an der Fachlogik</h2>
+<p></p>
+<h3>Auftrag</h3>
+<p></p>
+<p>Validiert Nutzereingaben vor dem DB-Zugriff konsequent mit Whitelist-Regeln.</p>
+<p></p>
+<h3>Minimalbeispiele</h3>
+<p></p>
+<ul>
+<li>Name: Zeichenklasse und Laenge</li>
+<li>Alter: Wertebereich</li>
+<li>Groesse/Gewicht: plausible Grenzen</li>
+</ul>
+<p></p>
+<h3>Warum doppelt denken?</h3>
+<p></p>
+<ul>
+<li>GUI-Validierung verbessert Usability</li>
+<li>Service/Controller-Validierung ist Sicherheitsgrenze</li>
+</ul>
+<p></p>
+<p>Rueckbezug: <a href="./ANLEITUNG<em>VERSION</em>6<em>SICHERE</em>DATENVERARBEITUNG.md">./ANLEITUNG<em>VERSION</em>6<em>SICHERE</em>DATENVERARBEITUNG.md</a></p>
+<p></p>
+<hr />
+<p></p>
+<h2>Schritt 6: Sichere Fehlerbehandlung bei DB-Operationen</h2>
+<p></p>
+<h3>Auftrag</h3>
+<p></p>
+<p>Fuehrt ein einheitliches Fehlerkonzept ein:</p>
+<p></p>
+<ul>
+<li>intern: detailliertes Logging inkl. Stacktrace</li>
+<li>extern: generische, lernfreundliche Meldung ohne DB-Interna</li>
+</ul>
+<p></p>
+<h3>Beispielmuster</h3>
+<p></p>
+<pre><code class="language-java hljs">try {
+    repository.savePerson(person);
+} catch (SQLException e) {
+    secureLogger.logError(&quot;DB_SAVE_PERSON&quot;, currentUserId, e);
+    throw new IllegalStateException(&quot;Daten konnten nicht gespeichert werden. Bitte erneut versuchen.&quot;);
+}</code></pre>
+<p></p>
+<h3>Didaktischer Fokus</h3>
+<p></p>
+<p>Lernende erleben den Unterschied zwischen:</p>
+<p></p>
+<ul>
+<li>technische Ursache (für Entwickler)</li>
+<li>sichere Nutzerkommunikation (für Endnutzer)</li>
+</ul>
+<p></p>
+<p>Vertiefung: <a href="../BEST<em>PRACTICES/EXCEPTION</em>HANDLING.md">../BEST<em>PRACTICES/EXCEPTION</em>HANDLING.md</a></p>
+<p></p>
+<hr />
+<p></p>
+<h2>Schritt 7: Audit Logging fuer Nachvollziehbarkeit</h2>
+<p></p>
+<h3>Auftrag</h3>
+<p></p>
+<p>Protokolliert sicherheitsrelevante Aktionen standardisiert.</p>
+<p></p>
+<h3>Loggt mindestens</h3>
+<p></p>
+<ul>
+<li>Aktion (<code>PERSON<em>CREATED</code>, <code>MEASUREMENT</em>ADDED</code>, <code>DB<em>LOGIN</em>FAILED</code>)</li>
+<li>Zeitpunkt</li>
+<li>technische Benutzerkennung</li>
+<li>Status (<code>SUCCESS</code>/<code>ERROR</code>)</li>
+</ul>
+<p></p>
+<h3>Nicht loggen</h3>
+<p></p>
+<ul>
+<li>Klartext-Passwoerter</li>
+<li>vollstaendige sensible personenbezogene Inhalte</li>
+</ul>
+<p></p>
+<h3>Warum?</h3>
+<p></p>
+<p>Audit-Logs helfen bei Fehlersuche und Sicherheitsanalyse,</p>
+<p>ohne Datenschutzprinzipien zu verletzen.</p>
+<p></p>
+<hr />
+<p></p>
+<h2>Schritt 8: Transaktionen bewusst einsetzen</h2>
+<p></p>
+<h3>Auftrag</h3>
+<p></p>
+<p>Koppelt zusammengehoerige DB-Aktionen in einer Transaktion.</p>
+<p></p>
+<h3>Beispiel</h3>
+<p></p>
+<p>Person anlegen und erste Messung speichern:</p>
+<p></p>
+<pre><code class="language-java hljs">conn.setAutoCommit(false);
+try {
+    int personId = personRepository.insert(conn, person);
+    messungRepository.insert(conn, personId, messung);
+    conn.commit();
+} catch (SQLException ex) {
+    conn.rollback();
+    throw ex;
+} finally {
+    conn.setAutoCommit(true);
+}</code></pre>
+<p></p>
+<h3>Didaktischer Fokus</h3>
+<p></p>
+<p>Lernende verstehen, warum Konsistenz ein Sicherheits- und Qualitaetsthema ist.</p>
+<p></p>
+<hr />
+<p></p>
+<h2>Schritt 9: Datenschutz in der Datenhaltung konkretisieren</h2>
+<p></p>
+<h3>Auftrag</h3>
+<p></p>
+<p>Formuliert und implementiert fuer eure App:</p>
+<p></p>
+<ul>
+<li>Datensparsamkeit: Nur notwendige Felder speichern</li>
+<li>Loeschkonzept: Daten pro Person loeschbar</li>
+<li>Exportkonzept: Transparenz fuer Betroffene</li>
+</ul>
+<p></p>
+<h3>Unterrichtsimpuls</h3>
+<p></p>
+<p>"Welche Daten brauchen wir wirklich fuer die BMI-Funktion und welche nicht?"</p>
+<p></p>
+<hr />
+<p></p>
+<h2>Schritt 10: Sicherheits-Checkliste als Abnahme</h2>
+<p></p>
+<p>Eine Version-7-Loesung gilt als "fertig", wenn folgende Punkte erfuellt sind:</p>
+<p></p>
+<ul>
+<li>[ ] Keine DB-Secrets im Quellcode</li>
+<li>[ ] Alle SQL-Zugriffe mit Prepared Statements</li>
+<li>[ ] DB-User mit minimalen Rechten</li>
+<li>[ ] Validierung in Service/Controller vorhanden</li>
+<li>[ ] Fehler intern detailliert, extern generisch</li>
+<li>[ ] Audit-Logging implementiert ohne sensible Inhalte</li>
+<li>[ ] Mindestens 3 Sicherheits-Tests erfolgreich</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>3 Tests mit Musterloesungen</h2>
+<p></p>
+<p>Die drei passenden Kurztest-Aufgaben fuer Version 7 liegen jetzt gesammelt im Materialbereich:</p>
+<p></p>
+<ul>
+<li>Testblatt 1: <a href="../../materials/tests/sichere<em>db</em>anbindung/Kurztest<em>Sichere</em>DB<em>Anbindung</em>1.md">../../materials/tests/sichere<em>db</em>anbindung/Kurztest<em>Sichere</em>DB<em>Anbindung</em>1.md</a></li>
+<li>Musterloesung 1: <a href="../../materials/tests/sichere<em>db</em>anbindung/Kurztest<em>Sichere</em>DB<em>Anbindung</em>1<em>LOESUNG.md">../../materials/tests/sichere</em>db<em>anbindung/Kurztest</em>Sichere<em>DB</em>Anbindung<em>1</em>LOESUNG.md</a></li>
+<li>Testblatt 2: <a href="../../materials/tests/sichere<em>db</em>anbindung/Kurztest<em>Sichere</em>DB<em>Anbindung</em>2.md">../../materials/tests/sichere<em>db</em>anbindung/Kurztest<em>Sichere</em>DB<em>Anbindung</em>2.md</a></li>
+<li>Musterloesung 2: <a href="../../materials/tests/sichere<em>db</em>anbindung/Kurztest<em>Sichere</em>DB<em>Anbindung</em>2<em>LOESUNG.md">../../materials/tests/sichere</em>db<em>anbindung/Kurztest</em>Sichere<em>DB</em>Anbindung<em>2</em>LOESUNG.md</a></li>
+<li>Testblatt 3: <a href="../../materials/tests/sichere<em>db</em>anbindung/Kurztest<em>Sichere</em>DB<em>Anbindung</em>3.md">../../materials/tests/sichere<em>db</em>anbindung/Kurztest<em>Sichere</em>DB<em>Anbindung</em>3.md</a></li>
+<li>Musterloesung 3: <a href="../../materials/tests/sichere<em>db</em>anbindung/Kurztest<em>Sichere</em>DB<em>Anbindung</em>3<em>LOESUNG.md">../../materials/tests/sichere</em>db<em>anbindung/Kurztest</em>Sichere<em>DB</em>Anbindung<em>3</em>LOESUNG.md</a></li>
+</ul>
+<p></p>
+<p>Die Aufgaben decken diese Schwerpunkte ab:</p>
+<p></p>
+<ul>
+<li>SQL-Injection mit Prepared Statements vermeiden</li>
+<li>Secrets aus dem Code herausloesen</li>
+<li>Transaktionen und Rollback fachlich begruenden</li>
+<li>Least-Privilege-Rollenkonzept und robuste DB-Konfiguration</li>
+<li>sichere Fehlerkommunikation und Audit-Qualitaet</li>
+</ul>
+<p></p>
+<p>Zusaetzliche Syntaxhilfe fuer Schueler:</p>
+<p></p>
+<ul>
+<li><a href="../../materials/tests/sichere<em>db</em>anbindung/Syntaxhilfe<em>Sichere</em>DB<em>Anbindung.md">../../materials/tests/sichere</em>db<em>anbindung/Syntaxhilfe</em>Sichere<em>DB</em>Anbindung.md</a></li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>Praktischer Umsetzungsfahrplan (fuer Schuelergruppen)</h2>
+<p></p>
+<h3>Phase 1: Analyse</h3>
+<p></p>
+<ul>
+<li>Risiken der aktuellen Loesung dokumentieren</li>
+<li>Schutzmassnahmen priorisieren</li>
+</ul>
+<p></p>
+<h3>Phase 2: Technische Absicherung</h3>
+<p></p>
+<ul>
+<li>Konfiguration auf Umgebungsvariablen umstellen</li>
+<li>Prepared Statements in allen Repositories</li>
+<li>Rollen/Rechte am DB-User anpassen</li>
+</ul>
+<p></p>
+<h3>Phase 3: Qualitaet und Nachweis</h3>
+<p></p>
+<ul>
+<li>Fehlerbehandlung und Audit-Logging vereinheitlichen</li>
+<li>3 Sicherheitstests gruen bekommen</li>
+<li>Kurzreflexion schreiben: "Welche Massnahme hatte den groessten Effekt?"</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>Typische Fehlerbilder (ohne Redundanz, direkt als Diagnosehilfe)</h2>
+<p></p>
+<p>1. SQL wird an einzelnen Stellen immer noch per String zusammengesetzt.</p>
+<p>2. Passwort steht in <code>application.properties</code> und ist mit committed.</p>
+<p>3. Fehlerdialog zeigt <code>SQLException</code> inklusive DB-URL.</p>
+<p>4. Logs enthalten personenbezogene Volltexte.</p>
+<p>5. Bei Teilfehlern bleiben Datensaetze halb gespeichert.</p>
+<p></p>
+<hr />
+<p></p>
+<h2>Erwartung an eine gute Version-7-Schuelerloesung</h2>
+<p></p>
+<p>Eine didaktisch und fachlich starke Loesung erkennt man daran, dass sie:</p>
+<p></p>
+<ul>
+<li>nachvollziehbar vom Version-6-Stand weiterentwickelt wurde,</li>
+<li>Schutzmassnahmen begruendet statt nur eingebaut hat,</li>
+<li>Sicherheitsanforderungen in Code und Tests sichtbar macht,</li>
+<li>technische Sicherheit und Datenschutz zusammen denkt,</li>
+<li>eine reale, wartbare DB-Anbindung als Muster fuer Folgeprojekte liefert.</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>Kurz-Zusammenfassung fuer Lernende</h2>
+<p></p>
+<p>Version 7 bedeutet nicht "mehr Features", sondern "mehr Professionalitaet".</p>
+<p></p>
+<p>Das zentrale Ziel lautet:</p>
+<p></p>
+<p>Nicht nur Daten speichern,</p>
+<p>sondern Datenhaltung verantwortungsvoll absichern.</p>
+<p></p>
+<p>Wenn eure Loesung Angriffe erschwert, Fehler kontrolliert behandelt,</p>
+<p>und ihr das mit Tests nachweisen koennt,</p>
+<p>dann habt ihr das Lernziel von Version 7 erreicht.</p>
+</body>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schritt-für-Schritt-Anleitung Version 2 (Methoden, Kontrollstrukturen, Algorithmen)</title>
+    
+    <!-- Highlight.js CDN für Syntax-Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            line-height: 1.7;
+            color: #333;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            color: #0066cc;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            margin-top: 25px;
+        }
+        
+        h4 {
+            font-size: 1.2em;
+        }
+        
+        h5 {
+            font-size: 1.1em;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background-color: #f5f5f5;
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 4px solid #0066cc;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 1em;
+        }
+        
+        blockquote {
+            border-left: 4px solid #0066cc;
+            margin: 20px 0;
+            padding-left: 16px;
+            font-style: italic;
+            color: #666;
+            background-color: #f0f7ff;
+            padding: 12px 16px;
+            border-radius: 4px;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #0066cc;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: #004d99;
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #0066cc;
+            margin: 30px 0;
+        }
+        
+        /* Syntax Highlighting Anpassungen */
+        .hljs {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .hljs-string { color: #2d8659; }
+        .hljs-number { color: #2d8659; }
+        .hljs-literal { color: #d9534f; }
+        .hljs-attr { color: #d9534f; }
+        .hljs-built_in { color: #0066cc; }
+        .hljs-type { color: #0066cc; }
+        .hljs-class { color: #0066cc; font-weight: bold; }
+        .hljs-keyword { color: #d9534f; font-weight: bold; }
+        .hljs-function { color: #0066cc; }
+        .hljs-title { color: #0066cc; }
+        .hljs-comment { color: #999; font-style: italic; }
+        
+        @media print {
+            body {
+                margin: 0;
+            }
+            h1, h2 {
+                page-break-after: avoid;
+            }
+            pre {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                margin: 20px auto;
+                padding: 0 10px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            pre {
+                font-size: 0.8em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Schritt-für-Schritt-Anleitung Version 2 (Methoden, Kontrollstrukturen, Algorithmen)</h1>
+<p></p>
+<h2>Ziel</h2>
+<p>Erweitere die Anwendung um zusätzliche Methoden, Kontrollstrukturen und Algorithmen. Ergänze die GUI um Alter (ComboBox) und Geschlecht (RadioButtons) und verbinde alles nach dem MVC-Prinzip.</p>
+<p></p>
+<hr />
+<p></p>
+<h2>1. Branch wechseln</h2>
+<pre><code class="language-bash hljs">git checkout version-2-methoden
+git pull</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>2. GUI erweitern</h2>
+<ul>
+<li>Füge eine ComboBox für das Alter (<code>cbAlter</code>) hinzu</li>
+<li>Füge RadioButtons für das Geschlecht (<code>rbMann</code>, <code>rbFrau</code>) hinzu</li>
+<li>Siehe Beispiel in <a href="./SCHRITT<em>FUER</em>SCHRITT<em>GUI</em>V2.md">SCHRITT<em>FUER</em>SCHRITT<em>GUI</em>V2.md</a></li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>3. Polymorphe Methode implementieren</h2>
+<p></p>
+<p>Erweitere die Klasse <code>Bmirechner</code> um eine <strong>überladene</strong> <code>interpretiere()</code>-Methode:</p>
+<p></p>
+<pre><code class="language-java hljs">// Neue, überladene Methode mit 4 Parametern
+public void interpretiere(double pGewicht, double pGroesse, int pAlter, String pGeschlecht) {
+    berechne(pGewicht, pGroesse);
+    // Alters- und geschlechtsspezifische Interpretation (siehe Wertetabelle unten)
+}</code></pre>
+<p></p>
+<p><strong>Was ist Polymorphie?</strong></p>
+<p>Mehrere Methoden mit gleichem Namen, aber unterschiedlichen Parametern. Siehe <a href="../JAVA_PROGRAMMIERUNG/POLYMORPHIE.md">POLYMORPHIE.md</a> für Details und Beispiele.</p>
+<p></p>
+<h3>Erweiterte BMI-Wertetabelle (Alter + Geschlecht)</h3>
+<p></p>
+<p>Die Interpretation berücksichtigt jetzt Alter und Geschlecht:</p>
+<p></p>
+<h4>Junge Erwachsene (< 25 Jahre)</h4>
+<p>| BMI-Wert    | Kategorie       |</p>
+<p>|-------------|-----------------|</p>
+<p>| < 19        | Untergewicht    |</p>
+<p>| 19 – < 24   | Normalgewicht   |</p>
+<p>| ≥ 24        | Übergewicht     |</p>
+<p></p>
+<h4>Erwachsene (25 – 64 Jahre) – Männlich</h4>
+<p>| BMI-Wert    | Kategorie       |</p>
+<p>|-------------|-----------------|</p>
+<p>| < 20        | Untergewicht    |</p>
+<p>| 20 – < 25   | Normalgewicht   |</p>
+<p>| ≥ 25        | Übergewicht     |</p>
+<p></p>
+<h4>Erwachsene (25 – 64 Jahre) – Weiblich</h4>
+<p>| BMI-Wert    | Kategorie       |</p>
+<p>|-------------|-----------------|</p>
+<p>| < 19        | Untergewicht    |</p>
+<p>| 19 – < 24   | Normalgewicht   |</p>
+<p>| ≥ 24        | Übergewicht     |</p>
+<p></p>
+<h4>Senioren (≥ 65 Jahre)</h4>
+<p>| BMI-Wert    | Kategorie       |</p>
+<p>|-------------|-----------------|</p>
+<p>| < 22        | Untergewicht    |</p>
+<p>| 22 – < 28   | Normalgewicht   |</p>
+<p>| ≥ 28        | Übergewicht     |</p>
+<p></p>
+<p><strong>Hinweis:</strong> Diese Werte sind vereinfacht für das Lernprojekt. Medizinisch korrekte Werte können abweichen.</p>
+<p></p>
+<hr />
+<p></p>
+<h2>4. Ergebnis mit JOptionPane anzeigen</h2>
+<p></p>
+<p>Zeige die Interpretation in einem Dialog-Fenster an:</p>
+<p></p>
+<pre><code class="language-java hljs">import javax.swing.JOptionPane;
+
+// Im Controller (BmiManager):
+public void zeigeInterpretation() {
+    String ergebnis = model.getKategorie();
+    double bmi = model.getErgebnis();
+    
+    String nachricht = String.format(
+        &quot;Ihr BMI: %.2f\nKategorie: %s&quot;,
+        bmi, ergebnis
+    );
+    
+    JOptionPane.showMessageDialog(
+        null,                           // Kein Parent-Frame
+        nachricht,                      // Nachricht
+        &quot;BMI-Interpretation&quot;,           // Titel
+        JOptionPane.INFORMATION_MESSAGE // Icon-Typ
+    );
+}</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>5. Unit-Tests implementieren</h2>
+<p></p>
+<p>Bevor du die GUI programmierst, teste deine Implementierung mit Unit-Tests in <code>Main.java</code>.</p>
+<p></p>
+<h3>Testfälle für die einfache Interpretation</h3>
+<p></p>
+<p>Implementiere mindestens diese Grenzwert-Tests:</p>
+<p></p>
+<p>| Test | Gewicht (kg) | Größe (m) | Erwarteter BMI | Erwartete Kategorie    |</p>
+<p>|------|--------------|-----------|----------------|------------------------|</p>
+<p>| 1    | 70           | 1.75      | 22.9           | Normalgewicht          |</p>
+<p>| 2    | 53.5         | 1.70      | 18.5           | Normalgewicht          |</p>
+<p>| 3    | 72.25        | 1.70      | 25.0           | Prädipositas           |</p>
+<p>| 4    | 50           | 1.70      | 17.3           | Leichtes Untergewicht  |</p>
+<p></p>
+<h3>Testfälle für die polymorphe Interpretation (Alter + Geschlecht)</h3>
+<p></p>
+<p>| Test | Gewicht | Größe | Alter | Geschlecht | Erwartete Kategorie |</p>
+<p>|------|---------|-------|-------|------------|---------------------|</p>
+<p>| 5    | 60      | 1.70  | 22    | männlich   | Normalgewicht       |</p>
+<p>| 6    | 73      | 1.75  | 35    | männlich   | Normalgewicht       |</p>
+<p>| 7    | 65      | 1.65  | 35    | weiblich   | Normalgewicht       |</p>
+<p>| 8    | 80      | 1.70  | 70    | männlich   | Normalgewicht       |</p>
+<p></p>
+<h3>Beispiel-Implementierung in Main.java</h3>
+<p></p>
+<pre><code class="language-java hljs">public class Main {
+    public static void main(String[] args) {
+        System.out.println(&quot;=== Unit-Tests BMI-Rechner Version 2 ===\n&quot;);
+        
+        int testsPassed = 0;
+        int testsFailed = 0;
+        
+        // Test 1: Normalfall
+        System.out.println(&quot;Test 1: Normalgewicht (70kg, 1.75m)&quot;);
+        Bmirechner test1 = new Bmirechner();
+        test1.berechne(70, 1.75);
+        test1.interpretiere();
+        
+        if (test1.getKategorie().equals(&quot;Normalgewicht&quot;)) {
+            System.out.println(&quot;✅ BESTANDEN\n&quot;);
+            testsPassed++;
+        } else {
+            System.out.println(&quot;❌ FEHLGESCHLAGEN - Erwartet: Normalgewicht, Erhalten: &quot; 
+                + test1.getKategorie() + &quot;\n&quot;);
+            testsFailed++;
+        }
+        
+        // Test 2: Polymorphie - Junge Erwachsene
+        System.out.println(&quot;Test 2: Polymorphie - 22-jähriger Mann (60kg, 1.70m)&quot;);
+        Bmirechner test2 = new Bmirechner();
+        test2.interpretiere(60, 1.70, 22, &quot;männlich&quot;);
+        
+        if (test2.getKategorie().equals(&quot;Normalgewicht&quot;)) {
+            System.out.println(&quot;✅ BESTANDEN\n&quot;);
+            testsPassed++;
+        } else {
+            System.out.println(&quot;❌ FEHLGESCHLAGEN - Erwartet: Normalgewicht, Erhalten: &quot; 
+                + test2.getKategorie() + &quot;\n&quot;);
+            testsFailed++;
+        }
+        
+        // Weitere Tests hier hinzufügen...
+        
+        // Zusammenfassung
+        System.out.println(&quot;==================&quot;);
+        System.out.println(&quot;Tests bestanden: &quot; + testsPassed);
+        System.out.println(&quot;Tests fehlgeschlagen: &quot; + testsFailed);
+        if (testsFailed == 0) {
+            System.out.println(&quot;🎉 Alle Tests erfolgreich!&quot;);
+        }
+    }
+}</code></pre>
+<p></p>
+<p><strong>Weitere Infos:</strong> Siehe <a href="../BEST<em>PRACTICES/UNIT</em>TESTING.md">UNIT_TESTING.md</a> für Best Practices und erweiterte Testmethoden.</p>
+<p></p>
+<h3>Ergänzung: toString() & Tests</h3>
+<p></p>
+<p>Für Debugging und Tests sollten Modelle eine <code>toString()</code>-Methode implementieren. Die</p>
+<p>Unit-Tests in <code>Main.java</code> bzw. Testprogrammen dürfen die Objekte mit <code>System.out.println(obj)</code></p>
+<p>ausgeben — das ruft <code>toString()</code> auf. Das macht Testausgaben kompakter und stabiler.</p>
+<p></p>
+<hr />
+<p></p>
+<h2>6. MVC-Prinzip anwenden</h2>
+<p></p>
+<h3>Controller erweitern (BmiManager)</h3>
+<p></p>
+<p>Füge eine intelligente Methode hinzu, die automatisch entscheidet, welche Interpretation verwendet wird:</p>
+<p></p>
+<pre><code class="language-java hljs">public void interpretiereIntelligent(double pGewicht, double pGroesse, 
+                                     int pAlter, String pGeschlecht) {
+    // Prüfe, ob Alter und Geschlecht gültig sind
+    boolean alterVorhanden = pAlter &gt; 0;
+    boolean geschlechtVorhanden = pGeschlecht != null &amp;&amp; !pGeschlecht.trim().isEmpty();
+    
+    if (alterVorhanden &amp;&amp; geschlechtVorhanden) {
+        // Erweiterte Interpretation mit allen Parametern
+        model.interpretiere(pGewicht, pGroesse, pAlter, pGeschlecht);
+    } else {
+        // Einfache Interpretation ohne Alter/Geschlecht
+        model.berechne(pGewicht, pGroesse);
+        model.interpretiere();
+    }
+}</code></pre>
+<p></p>
+<p><strong>Warum im Controller?</strong> Siehe <a href="../JAVA<em>PROGRAMMIERUNG/INTELLIGENTE</em>METHODENWAHL.md">INTELLIGENTE_METHODENWAHL.md</a></p>
+<p></p>
+<h3>GUI-Integration (MainWindow)</h3>
+<p></p>
+<p>Im ActionListener des "Berechnen"-Buttons:</p>
+<p></p>
+<pre><code class="language-java hljs">// Werte aus GUI auslesen
+double gewicht = Double.parseDouble(txtGewicht.getText());
+double groesse = Double.parseDouble(txtGroesse.getText());
+int alter = cbAlter.getSelectedIndex();  // 0 = nicht ausgewählt
+
+String geschlecht = null;
+if (rbMann.isSelected()) {
+    geschlecht = &quot;männlich&quot;;
+} else if (rbFrau.isSelected()) {
+    geschlecht = &quot;weiblich&quot;;
+}
+
+// Controller entscheidet automatisch, welche Methode aufgerufen wird!
+manager.interpretiereIntelligent(gewicht, groesse, alter, geschlecht);
+manager.zeigeInterpretation();</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>7. GUI-Erweiterung: Alter & Geschlecht</h2>
+<p></p>
+<h3>🎯 Lernziel</h3>
+<p>Erweitere die grafische Benutzeroberfläche um Eingabefelder für Alter und Geschlecht und verknüpfe diese mit der intelligenten Methodenwahl im Controller.</p>
+<p></p>
+<h3>Schritt 7.1: GUI-Komponenten deklarieren</h3>
+<p></p>
+<p>Füge in <code>MainWindow.java</code> folgende Felder nach den bestehenden TextFields hinzu:</p>
+<p></p>
+<pre><code class="language-java hljs">private JComboBox&lt;String&gt; cbAlter;      // ComboBox für Altersgruppen
+private JRadioButton rbMann;             // RadioButton für &quot;Männlich&quot;
+private JRadioButton rbFrau;             // RadioButton für &quot;Weiblich&quot;
+private ButtonGroup bgGeschlecht;        // ButtonGroup für RadioButtons</code></pre>
+<p></p>
+<p><strong>Imports ergänzen:</strong></p>
+<pre><code class="language-java hljs">import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;</code></pre>
+<p></p>
+<h3>Schritt 7.2: ComboBox für Alter erstellen</h3>
+<p></p>
+<p>Füge im Konstruktor nach dem Größe-Feld (nach <code>gridy=3</code>) folgende Komponenten ein:</p>
+<p></p>
+<pre><code class="language-java hljs">// Alter (Version 2) - ComboBox
+gbc.gridx = 0; gbc.gridy = 4;
+gbc.weightx = 0.3;
+gbc.anchor = GridBagConstraints.EAST;
+JLabel lbAlter = new JLabel(&quot;Alter (Jahre):&quot;);
+contentPane.add(lbAlter, gbc);
+gbc.gridx = 1;
+gbc.weightx = 0.7;
+gbc.anchor = GridBagConstraints.WEST;
+
+// ComboBox mit Altersgruppen
+String[] altersGruppen = {
+    &quot;-- nicht angegeben --&quot;,
+    &quot;18-24&quot;, &quot;25-34&quot;, &quot;35-44&quot;, &quot;45-54&quot;, 
+    &quot;55-64&quot;, &quot;65-74&quot;, &quot;75+&quot;
+};
+cbAlter = new JComboBox&lt;&gt;(altersGruppen);
+contentPane.add(cbAlter, gbc);</code></pre>
+<p></p>
+<h3>Schritt 7.3: RadioButtons für Geschlecht erstellen</h3>
+<p></p>
+<pre><code class="language-java hljs">// Geschlecht (Version 2) - RadioButtons
+gbc.gridx = 0; gbc.gridy = 5;
+gbc.weightx = 0.3;
+gbc.anchor = GridBagConstraints.EAST;
+JLabel lbGeschlecht = new JLabel(&quot;Geschlecht:&quot;);
+contentPane.add(lbGeschlecht, gbc);
+
+gbc.gridx = 1;
+gbc.weightx = 0.7;
+gbc.anchor = GridBagConstraints.WEST;
+
+// Panel für RadioButtons
+JPanel panelGeschlecht = new JPanel();
+panelGeschlecht.setBackground(Color.WHITE);
+rbMann = new JRadioButton(&quot;Männlich&quot;);
+rbMann.setBackground(Color.WHITE);
+rbFrau = new JRadioButton(&quot;Weiblich&quot;);
+rbFrau.setBackground(Color.WHITE);
+
+// ButtonGroup sorgt dafür, dass nur ein RadioButton ausgewählt werden kann
+bgGeschlecht = new ButtonGroup();
+bgGeschlecht.add(rbMann);
+bgGeschlecht.add(rbFrau);
+
+panelGeschlecht.add(rbMann);
+panelGeschlecht.add(rbFrau);
+contentPane.add(panelGeschlecht, gbc);</code></pre>
+<p></p>
+<p><strong>⚠️ Wichtig:</strong> Passe alle nachfolgenden <code>gridy</code>-Werte an:</p>
+<ul>
+<li>Ergebnisfeld: <code>gridy = 6</code> (statt 4)</li>
+<li>Buttons (Berechne/Interpretiere): <code>gridy = 7</code> (statt 5)</li>
+<li>Buttons (Leeren/Schließen): <code>gridy = 8</code> (statt 6)</li>
+</ul>
+<p></p>
+<h3>Schritt 7.4: Hilfsmethoden für Alter & Geschlecht</h3>
+<p></p>
+<p>Erstelle zwei neue Methoden in <code>MainWindow.java</code>:</p>
+<p></p>
+<pre><code class="language-java hljs">/**
+ * Liest das Alter aus dem ComboBox (Version 2).
+ * Berechnet den Mittelwert der ausgewählten Altersgruppe.
+ * @return Alter als int (0 wenn keine Gruppe gewählt)
+ */
+public int getAlterValue() {
+    String auswahl = (String) cbAlter.getSelectedItem();
+    if (auswahl == null || auswahl.equals(&quot;-- nicht angegeben --&quot;)) {
+        return 0;
+    }
+    
+    // Berechne Mittelwert der Altersgruppe
+    switch (auswahl) {
+        case &quot;18-24&quot;: return 21;
+        case &quot;25-34&quot;: return 30;
+        case &quot;35-44&quot;: return 40;
+        case &quot;45-54&quot;: return 50;
+        case &quot;55-64&quot;: return 60;
+        case &quot;65-74&quot;: return 70;
+        case &quot;75+&quot;: return 75;
+        default: return 0;
+    }
+}
+
+/**
+ * Liest das Geschlecht aus den RadioButtons (Version 2).
+ * @return &quot;Mann&quot;, &quot;Frau&quot; oder null (wenn nichts ausgewählt)
+ */
+public String getGeschlechtValue() {
+    if (rbMann.isSelected()) {
+        return &quot;Mann&quot;;
+    } else if (rbFrau.isSelected()) {
+        return &quot;Frau&quot;;
+    }
+    return null;
+}</code></pre>
+<p></p>
+<h3>Schritt 7.5: Event-Handler anpassen</h3>
+<p></p>
+<p><strong>Ändere den ActionListener für <code>btInterpretiere</code>:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">// Button: BMI interpretieren
+JButton btInterpretiere = new JButton(&quot;Interpretiere BMI&quot;);
+btInterpretiere.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        // Version 2: Nutzt intelligente Methodenwahl mit Alter &amp; Geschlecht
+        manager.interpretiereIntelligent(
+            getGewichtValue(), 
+            getGroesseValue(), 
+            getAlterValue(), 
+            getGeschlechtValue()
+        );
+        manager.zeigeInterpretation();
+        schreibeKategorie();
+    }
+});</code></pre>
+<p></p>
+<h3>Schritt 7.6: <code>clearFields()</code> erweitern</h3>
+<p></p>
+<pre><code class="language-java hljs">public void clearFields() {
+    tfGewicht.setText(&quot;&quot;);
+    tfGroesse.setText(&quot;&quot;);
+    tfErgebnis.setText(&quot;&quot;);
+    cbAlter.setSelectedIndex(0);      // Zurück auf &quot;-- nicht angegeben --&quot;
+    bgGeschlecht.clearSelection();     // Keine Auswahl bei RadioButtons
+}</code></pre>
+<p></p>
+<h3>🧪 GUI-Test (mit noVNC)</h3>
+<p></p>
+<pre><code class="language-bash hljs">docker-compose -f docker-compose.novnc.yml up</code></pre>
+<p></p>
+<p>Öffne http://localhost:6080 und teste:</p>
+<p></p>
+<p>1. <strong>Einfache Interpretation</strong> (ohne Alter/Geschlecht):</p>
+<p>- Gewicht: <code>75</code> kg, Größe: <code>1.75</code> m</p>
+<p>- Klicke "Interpretiere BMI" → Allgemeine WHO-Kategorie</p>
+<p></p>
+<p>2. <strong>Erweiterte Interpretation</strong> (mit Alter/Geschlecht):</p>
+<p>- Gewicht: <code>75</code> kg, Größe: <code>1.75</code> m</p>
+<p>- Alter: <code>35-44</code>, Geschlecht: <code>Männlich</code></p>
+<p>- Klicke "Interpretiere BMI" → Geschlechtsspezifische Kategorie</p>
+<p></p>
+<p>3. <strong>Reset</strong>: Klicke "Leeren" → Alle Felder zurückgesetzt</p>
+<p></p>
+<hr />
+<p></p>
+<h2>8. Anwendung testen</h2>
+<pre><code class="language-bash hljs">./build.sh
+./run.sh  # Oder mit noVNC: docker-compose -f docker-compose.novnc.yml up</code></pre>
+<ul>
+<li>Teste verschiedene Kombinationen von Alter und Geschlecht</li>
+<li>Prüfe, ob ohne Alter/Geschlecht die einfache Methode verwendet wird</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>9. Änderungen committen und pushen</h2>
+<pre><code class="language-bash hljs">git add .
+git commit -m &quot;feat: GUI mit Alter &amp; Geschlecht erweitert, intelligente Methodenwahl implementiert&quot;
+git push</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>Weitere Hilfen</h2>
+<ul>
+<li><a href="../JAVA<em>PROGRAMMIERUNG/INTELLIGENTE</em>METHODENWAHL.md">INTELLIGENTE_METHODENWAHL.md</a> – Entscheidungslogik im Controller</li>
+<li><a href="../BEST<em>PRACTICES/UNIT</em>TESTING.md">UNIT_TESTING.md</a> – Unit-Tests verstehen und implementieren</li>
+<li><a href="../JAVA_PROGRAMMIERUNG/POLYMORPHIE.md">POLYMORPHIE.md</a> – Polymorphie verstehen und anwenden</li>
+<li><a href="../JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md">KONTROLLSTRUKTUREN.md</a></li>
+<li><a href="../KONZEPTE/MVC<em>KONZEPT.md">MVC</em>KONZEPT.md</a></li>
+<li><a href="../BEST<em>PRACTICES/SECURE</em>CODING.md">SECURE_CODING.md</a></li>
+</ul>
+<p></p>
+</body>
+</html>

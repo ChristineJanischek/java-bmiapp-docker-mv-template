@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version 6: Sichere Datenverarbeitung</title>
+    
+    <!-- Highlight.js CDN für Syntax-Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            line-height: 1.7;
+            color: #333;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            color: #0066cc;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            margin-top: 25px;
+        }
+        
+        h4 {
+            font-size: 1.2em;
+        }
+        
+        h5 {
+            font-size: 1.1em;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background-color: #f5f5f5;
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 4px solid #0066cc;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 1em;
+        }
+        
+        blockquote {
+            border-left: 4px solid #0066cc;
+            margin: 20px 0;
+            padding-left: 16px;
+            font-style: italic;
+            color: #666;
+            background-color: #f0f7ff;
+            padding: 12px 16px;
+            border-radius: 4px;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #0066cc;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: #004d99;
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #0066cc;
+            margin: 30px 0;
+        }
+        
+        /* Syntax Highlighting Anpassungen */
+        .hljs {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .hljs-string { color: #2d8659; }
+        .hljs-number { color: #2d8659; }
+        .hljs-literal { color: #d9534f; }
+        .hljs-attr { color: #d9534f; }
+        .hljs-built_in { color: #0066cc; }
+        .hljs-type { color: #0066cc; }
+        .hljs-class { color: #0066cc; font-weight: bold; }
+        .hljs-keyword { color: #d9534f; font-weight: bold; }
+        .hljs-function { color: #0066cc; }
+        .hljs-title { color: #0066cc; }
+        .hljs-comment { color: #999; font-style: italic; }
+        
+        @media print {
+            body {
+                margin: 0;
+            }
+            h1, h2 {
+                page-break-after: avoid;
+            }
+            pre {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                margin: 20px auto;
+                padding: 0 10px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            pre {
+                font-size: 0.8em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Version 6: Sichere Datenverarbeitung</h1>
+<p></p>
+<h2>Überblick</h2>
+<p></p>
+<p>Version 6 implementiert Sicherheitsmaßnahmen für die Datenverarbeitung in der BMI-App:</p>
+<p></p>
+<ul>
+<li><strong>Eingabevalidierung</strong> mit Whitelist-Ansatz</li>
+<li><strong>Sichere Fehlerbehandlung</strong> (aussagekräftige Logs, generische Meldungen)</li>
+<li><strong>Audit-Logging</strong> für Nachvollziehbarkeit</li>
+<li><strong>DSGVO-Grundprinzipien</strong>: Minimalprinzip, Datenschutz, Löschbarkeit</li>
+</ul>
+<p></p>
+<p>Diese Version baut auf Version 5 (JSON-Dateispeicher) auf.</p>
+<p></p>
+<hr />
+<p></p>
+<h2>Best Practices: Sichere Datenverarbeitung</h2>
+<p></p>
+<h3>1. Eingabevalidierung (Whitelist-Ansatz)</h3>
+<p></p>
+<p><strong>Prinzip:</strong> Nur explizit erlaubte Daten akzeptieren.</p>
+<p></p>
+<pre><code class="language-java hljs">// ✗ FALSCH: Blacklist (fehleranfällig)
+if (!input.contains(&quot;&lt;script&gt;&quot;)) { // Was ist mit anderen Angriffsversuchen?
+    processInput(input);
+}
+
+// ✓ RICHTIG: Whitelist
+public boolean isValidName(String name) {
+    if (name == null || name.trim().isEmpty()) return false;
+    if (name.length() &gt; 50) return false;
+    // Nur Buchstaben, Umlaute, Bindestrich, Leerzeichen
+    return name.matches(&quot;^[a-zA-ZäöüßÄÖÜ\\-\\s]+$&quot;);
+}</code></pre>
+<p></p>
+<h3>2. Sichere Fehlerbehandlung</h3>
+<p></p>
+<p><strong>Intern (Log):</strong> Alle Details für Debugging.</p>
+<p><strong>Extern (UI):</strong> Generische Meldungen für Sicherheit.</p>
+<p></p>
+<pre><code class="language-java hljs">try {
+    saveData(userData);
+} catch (IOException e) {
+    // Intern: Vollständiger Stack Trace
+    logger.error(&quot;Fehler beim Speichern von Nutzer &quot; + userId, e);
+    
+    // Extern: Generische Meldung
+    showUserMessage(&quot;Daten konnten nicht gespeichert werden. Bitte versuchen Sie es später erneut.&quot;);
+}</code></pre>
+<p></p>
+<h3>3. Audit-Logging</h3>
+<p></p>
+<p><strong>Was:</strong> Wer, Wann, Was, Ergebnis.</p>
+<p><strong>Nicht:</strong> Passwörter, vollständige Namen (gekürzt/anonymisiert).</p>
+<p></p>
+<pre><code class="language-java hljs">auditLogger.log(&quot;ACTION=MEASUREMENT_ADDED | USER=U001 | TIMESTAMP=2026-04-06T10:30:00Z | MEASUREMENT_ID=M123 | STATUS=SUCCESS&quot;);</code></pre>
+<p></p>
+<h3>4. Minimalprinzip (Data Minimization)</h3>
+<p></p>
+<ul>
+<li>Speichere nur, was absolut nötig ist.</li>
+<li>Lösche alte Daten nach festgelegtem Zeitraum.</li>
+<li>Biete Nutzer die Möglichkeit, ihre Daten zu löschen.</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>Schrittweise Implementierung</h2>
+<p></p>
+<h3>Schritt 1: InputValidator-Klasse erstellen</h3>
+<p></p>
+<p>Alle Validierungslogik zentral an <strong>einer</strong> Stelle sammeln.</p>
+<p></p>
+<p><strong>Datei:</strong> <code>src/start/InputValidator.java</code></p>
+<p></p>
+<pre><code class="language-java hljs">package start;
+
+public class InputValidator {
+    
+    /**
+     * Validiert einen Namen nach Whitelist-Kriterium.
+     * Erlaubt: Buchstaben (auch Umlaute), Bindestrich, Leerzeichen.
+     * Nicht erlaubt: Sonderzeichen, Zahlen, Länge &gt; 50.
+     */
+    public static boolean isValidName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return false;
+        }
+        if (name.length() &gt; 50) {
+            return false;
+        }
+        return name.matches(&quot;^[a-zA-ZäöüßÄÖÜ\\-\\s]+$&quot;);
+    }
+    
+    /**
+     * Validiert ein Alter (18-120 Jahre sinnvoll für App).
+     */
+    public static boolean isValidAge(int age) {
+        return age &gt;= 18 &amp;&amp; age &lt;= 120;
+    }
+    
+    /**
+     * Validiert eine Körpergröße in cm (100-250 cm sinnvoll).
+     */
+    public static boolean isValidHeight(double height) {
+        return height &gt;= 100 &amp;&amp; height &lt;= 250;
+    }
+    
+    /**
+     * Validiert ein Gewicht in kg (30-300 kg sinnvoll).
+     */
+    public static boolean isValidWeight(double weight) {
+        return weight &gt;= 30 &amp;&amp; weight &lt;= 300;
+    }
+}</code></pre>
+<p></p>
+<h3>Schritt 2: SecureLogger-Klasse für Audit-Logging</h3>
+<p></p>
+<p>Zentrale Stelle für alle Sicherheits-relevanten Logs.</p>
+<p></p>
+<p><strong>Datei:</strong> <code>src/start/SecureLogger.java</code></p>
+<p></p>
+<pre><code class="language-java hljs">package start;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
+public class SecureLogger {
+    
+    private static final Logger logger = Logger.getLogger(SecureLogger.class.getName());
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+    
+    /**
+     * Loggt eine erfolgreiche Aktion (z.B. Daten gespeichert, Messung hinzugefügt).
+     * Format: ACTION=... | TIMESTAMP=... | USER_ID=... | DETAILS=... (ohne sensible Daten)
+     */
+    public static void logAction(String action, String userId, String details) {
+        String timestamp = LocalDateTime.now().format(formatter);
+        String auditEntry = String.format(
+            &quot;ACTION=%s | TIMESTAMP=%s | USER_ID=%s | DETAILS=%s | STATUS=SUCCESS&quot;,
+            action, timestamp, userId, sanitizeLogMessage(details)
+        );
+        logger.log(Level.INFO, auditEntry);
+    }
+    
+    /**
+     * Loggt einen Fehler mit vollständigem Stack Trace (intern für Admin).
+     */
+    public static void logError(String action, String userId, Exception e) {
+        String timestamp = LocalDateTime.now().format(formatter);
+        String auditEntry = String.format(
+            &quot;ACTION=%s | TIMESTAMP=%s | USER_ID=%s | STATUS=ERROR | EXCEPTION=%s&quot;,
+            action, timestamp, userId, e.getMessage()
+        );
+        logger.log(Level.SEVERE, auditEntry, e);
+    }
+    
+    /**
+     * Loggt einen Sicherheitsvorfall (z.B. ungültige Eingabe, Validierung fehlgeschlagen).
+     */
+    public static void logSecurityEvent(String event, String userId, String reason) {
+        String timestamp = LocalDateTime.now().format(formatter);
+        String securityEntry = String.format(
+            &quot;SECURITY_EVENT=%s | TIMESTAMP=%s | USER_ID=%s | REASON=%s&quot;,
+            event, timestamp, userId, sanitizeLogMessage(reason)
+        );
+        logger.log(Level.WARNING, securityEntry);
+    }
+    
+    /**
+     * Entfernt sensible Daten aus Log-Nachrichten (z.B. Passwörter, Kreditkartennummern).
+     */
+    private static String sanitizeLogMessage(String message) {
+        if (message == null) return &quot;&quot;;
+        // Entferne Strings, die wie Passwörter aussehen (vereinfacht)
+        message = message.replaceAll(&quot;(?i)password[\\s]*=[\\s]*[^\\s|]+&quot;, &quot;password=***&quot;);
+        message = message.replaceAll(&quot;(?i)card[\\s]*=[\\s]*[0-9]{4}&quot;, &quot;card=****&quot;);
+        return message;
+    }
+}</code></pre>
+<p></p>
+<h3>Schritt 3: BmiManager mit Validierung erweitern</h3>
+<p></p>
+<p>Die Eingaben von Nutzer**innen validieren, bevor sie verarbeitet werden.</p>
+<p></p>
+<p><strong>Änderungen in BmiManager.java:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">// Am Anfang der Klasse
+public void addPerson(String firstName, String lastName, int age) throws IllegalArgumentException {
+    // Eingabevalidierung
+    if (!InputValidator.isValidName(firstName)) {
+        SecureLogger.logSecurityEvent(&quot;INVALID_INPUT&quot;, &quot;UNKNOWN&quot;, &quot;firstName ungültig: &quot; + firstName);
+        throw new IllegalArgumentException(&quot;Firstname muss 1-50 Buchstaben enthalten (nur Buchstaben, Umlaute, Bindestrich).&quot;);
+    }
+    if (!InputValidator.isValidName(lastName)) {
+        SecureLogger.logSecurityEvent(&quot;INVALID_INPUT&quot;, &quot;UNKNOWN&quot;, &quot;lastName ungültig: &quot; + lastName);
+        throw new IllegalArgumentException(&quot;Lastname muss 1-50 Buchstaben enthalten (nur Buchstaben, Umlaute, Bindestrich).&quot;);
+    }
+    if (!InputValidator.isValidAge(age)) {
+        SecureLogger.logSecurityEvent(&quot;INVALID_INPUT&quot;, &quot;UNKNOWN&quot;, &quot;age ungültig: &quot; + age);
+        throw new IllegalArgumentException(&quot;Alter muss zwischen 18 und 120 Jahren liegen.&quot;);
+    }
+    
+    // Wenn Validierung erfolgreich: Aktion durchführen
+    Person person = new Person(firstName, lastName, age);
+    people.add(person);
+    
+    SecureLogger.logAction(&quot;PERSON_ADDED&quot;, &quot;UNKNOWN&quot;, 
+        &quot;Person hinzugefügt: ID=&quot; + person.getId());
+}
+
+// Ähnlich für addMeasurement()
+public void addMeasurement(String personId, double height, double weight) throws IllegalArgumentException {
+    if (!InputValidator.isValidHeight(height)) {
+        SecureLogger.logSecurityEvent(&quot;INVALID_INPUT&quot;, personId, &quot;height ungültig: &quot; + height);
+        throw new IllegalArgumentException(&quot;Körpergröße muss zwischen 100 und 250 cm liegen.&quot;);
+    }
+    if (!InputValidator.isValidWeight(weight)) {
+        SecureLogger.logSecurityEvent(&quot;INVALID_INPUT&quot;, personId, &quot;weight ungültig: &quot; + weight);
+        throw new IllegalArgumentException(&quot;Gewicht muss zwischen 30 und 300 kg liegen.&quot;);
+    }
+    
+    // Wenn Validierung erfolgreich: Messung hinzufügen
+    // ... (bestehende Logik)
+    
+    SecureLogger.logAction(&quot;MEASUREMENT_ADDED&quot;, personId, 
+        &quot;Messung hinzugefügt: height=&quot; + height + &quot;, weight=&quot; + weight);
+}</code></pre>
+<p></p>
+<h3>Schritt 4: GUI mit Fehlerbehandlung erweitern</h3>
+<p></p>
+<p>Zeige generische Fehlermeldungen für Nutzer**innen, aber logge Fehler zur Diagnose.</p>
+<p></p>
+<p><strong>Änderungen in MainWindow.java (Action Listener):</strong></p>
+<p></p>
+<pre><code class="language-java hljs">addPersonButton.addActionListener(e -&gt; {
+    try {
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
+        int age = Integer.parseInt(ageField.getText().trim());
+        
+        manager.addPerson(firstName, lastName, age);
+        
+        // Erfolg
+        JOptionPane.showMessageDialog(MainWindow.this, 
+            &quot;Person erfolgreich hinzugefügt!&quot;, 
+            &quot;Erfolg&quot;, 
+            JOptionPane.INFORMATION_MESSAGE);
+        
+        clearPersonFields();
+        refreshPersonList();
+        
+    } catch (IllegalArgumentException ex) {
+        // Validierungsfehler: Nutzer**in erhält generische Meldung
+        JOptionPane.showMessageDialog(MainWindow.this, 
+            &quot;Bitte überprüfen Sie Ihre Eingaben: &quot; + ex.getMessage(), 
+            &quot;Eingabefehler&quot;, 
+            JOptionPane.WARNING_MESSAGE);
+        
+    } catch (NumberFormatException ex) {
+        // Typ-Fehler
+        JOptionPane.showMessageDialog(MainWindow.this, 
+            &quot;Bitte geben Sie für das Alter eine Zahl ein.&quot;, 
+            &quot;Eingabefehler&quot;, 
+            JOptionPane.WARNING_MESSAGE);
+        
+    } catch (Exception ex) {
+        // Unerwarteter Fehler
+        SecureLogger.logError(&quot;ADD_PERSON_UI&quot;, &quot;UNKNOWN&quot;, ex);
+        JOptionPane.showMessageDialog(MainWindow.this, 
+            &quot;Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.&quot;, 
+            &quot;Fehler&quot;, 
+            JOptionPane.ERROR_MESSAGE);
+    }
+});</code></pre>
+<p></p>
+<h3>Schritt 5: Datenspeicherung mit Validierung</h3>
+<p></p>
+<p>Bevor Daten in die JSON-Datei geschrieben werden, Validierung durchführen.</p>
+<p></p>
+<p><strong>In BmiManager.saveToFile():</strong></p>
+<p></p>
+<pre><code class="language-java hljs">public void saveToFile(String filename) throws IOException {
+    try {
+        // Validierung: Stelle sicher, dass alle Personen valide Daten haben
+        for (Person person : people) {
+            if (!InputValidator.isValidName(person.getFirstName()) || 
+                !InputValidator.isValidName(person.getLastName())) {
+                throw new IllegalStateException(&quot;Person mit ungültigen Daten gefunden: &quot; + person);
+            }
+        }
+        
+        // Wenn alles valide: Speichern
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writerWithDefaultPrettyPrinter().writeValue(
+            new File(filename), 
+            people
+        );
+        
+        SecureLogger.logAction(&quot;DATA_SAVED&quot;, &quot;SYSTEM&quot;, &quot;Daten in &quot; + filename + &quot; gespeichert&quot;);
+        
+    } catch (IOException ex) {
+        SecureLogger.logError(&quot;SAVE_DATA&quot;, &quot;SYSTEM&quot;, ex);
+        throw ex;  // Weiterwerfen, damit GUI-Ebene reagieren kann
+    }
+}</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>Testing</h2>
+<p></p>
+<h3>Unit Tests für InputValidator</h3>
+<p></p>
+<p><strong>Datei:</strong> <code>src/test/InputValidatorTest.java</code></p>
+<p></p>
+<pre><code class="language-java hljs">package test;
+
+import start.InputValidator;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class InputValidatorTest {
+    
+    @Test
+    public void testValidName() {
+        assertTrue(InputValidator.isValidName(&quot;Max Müller&quot;));
+        assertTrue(InputValidator.isValidName(&quot;Anna-Maria&quot;));
+        assertFalse(InputValidator.isValidName(&quot;Max123&quot;));
+        assertFalse(InputValidator.isValidName(&quot;Max@Mueller&quot;));
+        assertFalse(InputValidator.isValidName(&quot;&quot;));
+        assertFalse(InputValidator.isValidName(null));
+    }
+    
+    @Test
+    public void testValidAge() {
+        assertTrue(InputValidator.isValidAge(18));
+        assertTrue(InputValidator.isValidAge(50));
+        assertTrue(InputValidator.isValidAge(120));
+        assertFalse(InputValidator.isValidAge(17));
+        assertFalse(InputValidator.isValidAge(121));
+    }
+    
+    @Test
+    public void testValidHeight() {
+        assertTrue(InputValidator.isValidHeight(170.5));
+        assertTrue(InputValidator.isValidHeight(100));
+        assertTrue(InputValidator.isValidHeight(250));
+        assertFalse(InputValidator.isValidHeight(99.9));
+        assertFalse(InputValidator.isValidHeight(250.1));
+    }
+    
+    @Test
+    public void testValidWeight() {
+        assertTrue(InputValidator.isValidWeight(75.5));
+        assertTrue(InputValidator.isValidWeight(30));
+        assertTrue(InputValidator.isValidWeight(300));
+        assertFalse(InputValidator.isValidWeight(29.9));
+        assertFalse(InputValidator.isValidWeight(300.1));
+    }
+}</code></pre>
+<p></p>
+<h3>3 Tests mit Musterloesungen</h3>
+<p></p>
+<p>Die drei passenden Kurztest-Aufgaben fuer Version 6 liegen jetzt gesammelt im Materialbereich:</p>
+<p></p>
+<ul>
+<li>Testblatt 1: <a href="../../materials/tests/sichere<em>datenverarbeitung/Kurztest</em>Sichere<em>Datenverarbeitung</em>1.md">../../materials/tests/sichere<em>datenverarbeitung/Kurztest</em>Sichere<em>Datenverarbeitung</em>1.md</a></li>
+<li>Musterloesung 1: <a href="../../materials/tests/sichere<em>datenverarbeitung/Kurztest</em>Sichere<em>Datenverarbeitung</em>1<em>LOESUNG.md">../../materials/tests/sichere</em>datenverarbeitung/Kurztest<em>Sichere</em>Datenverarbeitung<em>1</em>LOESUNG.md</a></li>
+<li>Testblatt 2: <a href="../../materials/tests/sichere<em>datenverarbeitung/Kurztest</em>Sichere<em>Datenverarbeitung</em>2.md">../../materials/tests/sichere<em>datenverarbeitung/Kurztest</em>Sichere<em>Datenverarbeitung</em>2.md</a></li>
+<li>Musterloesung 2: <a href="../../materials/tests/sichere<em>datenverarbeitung/Kurztest</em>Sichere<em>Datenverarbeitung</em>2<em>LOESUNG.md">../../materials/tests/sichere</em>datenverarbeitung/Kurztest<em>Sichere</em>Datenverarbeitung<em>2</em>LOESUNG.md</a></li>
+<li>Testblatt 3: <a href="../../materials/tests/sichere<em>datenverarbeitung/Kurztest</em>Sichere<em>Datenverarbeitung</em>3.md">../../materials/tests/sichere<em>datenverarbeitung/Kurztest</em>Sichere<em>Datenverarbeitung</em>3.md</a></li>
+<li>Musterloesung 3: <a href="../../materials/tests/sichere<em>datenverarbeitung/Kurztest</em>Sichere<em>Datenverarbeitung</em>3<em>LOESUNG.md">../../materials/tests/sichere</em>datenverarbeitung/Kurztest<em>Sichere</em>Datenverarbeitung<em>3</em>LOESUNG.md</a></li>
+</ul>
+<p></p>
+<p>Die Aufgaben decken diese Schwerpunkte ab:</p>
+<p></p>
+<ul>
+<li>Whitelist-Validierung</li>
+<li>Maskierung sensibler Logdaten</li>
+<li>Validierung vor dem dauerhaften Speichern</li>
+<li>sichere Fehlerbehandlung und Trennung intern/extern</li>
+<li>Datenschutz, Datenminimierung und Loeschkonzepte</li>
+</ul>
+<p></p>
+<p>Zusaetzliche Syntaxhilfe fuer Schueler:</p>
+<p></p>
+<ul>
+<li><a href="../../materials/tests/sichere<em>datenverarbeitung/Syntaxhilfe</em>Sichere<em>Datenverarbeitung.md">../../materials/tests/sichere</em>datenverarbeitung/Syntaxhilfe<em>Sichere</em>Datenverarbeitung.md</a></li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>Checkliste für Implementierung</h2>
+<p></p>
+<ul>
+<li>[ ] <code>InputValidator.java</code> erstellt und getestet</li>
+<li>[ ] <code>SecureLogger.java</code> erstellt</li>
+<li>[ ] <code>BmiManager.addPerson()</code> mit Validierung erweitert</li>
+<li>[ ] <code>BmiManager.addMeasurement()</code> mit Validierung erweitert</li>
+<li>[ ] <code>MainWindow</code> mit Fehlerbehandlung erweitert</li>
+<li>[ ] <code>BmiManager.saveToFile()</code> mit Validierung erweitert</li>
+<li>[ ] Unit Tests für <code>InputValidator</code> geschrieben und alle Tests grün</li>
+<li>[ ] Manuelle Tests durchgeführt (ungültige Eingaben, Logs prüfen)</li>
+<li>[ ] Commit mit aussagekräftiger Nachricht</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>DSGVO-Compliance (vereinfacht)</h2>
+<p></p>
+<p>Für eine Schulanwendung genügt eine kurze Dokumentation:</p>
+<p></p>
+<pre><code class="language-java hljs">/**
+ * DATENSCHUTZ-HINWEIS:
+ * Diese Anwendung speichert folgende personenbezogene Daten lokal (auf dem Rechner der Nutzer**in):
+ * - Name (Vorname, Nachname)
+ * - Alter
+ * - Körpergröße und Gewicht (zu Analysezwecken)
+ * 
+ * RECHTE DER NUTZER**IN:
+ * - Daten exportieren: Datei &gt; Export (JSON)
+ * - Daten löschen: Pro Person im Menü &quot;Löschen&quot; oder Gesamtdaten &gt; Verzeichnis löschen
+ * - Keine Weitergabe an Dritte
+ */</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>Zusammenfassung</h2>
+<p></p>
+<p>Version 6 macht die BMI-App <strong>sicherer</strong>:</p>
+<p></p>
+<p>✓ Eingaben werden vor Verarbeitung validiert (Whitelist)</p>
+<p>✓ Fehlerbehandlung ist robust und aussagekräftig</p>
+<p>✓ Audit-Logs ermöglichen Nachverfolgung von Problemen</p>
+<p>✓ Daten werden minimiert und sind löschbar</p>
+<p></p>
+<p><strong>Next Step:</strong> Implementierung Schritt für Schritt durchgehen.</p>
+<p></p>
+</body>
+</html>

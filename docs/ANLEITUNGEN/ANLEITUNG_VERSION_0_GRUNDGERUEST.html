@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schritt-für-Schritt-Anleitung Version 0 (main)</title>
+    
+    <!-- Highlight.js CDN für Syntax-Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            line-height: 1.7;
+            color: #333;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            color: #0066cc;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            margin-top: 25px;
+        }
+        
+        h4 {
+            font-size: 1.2em;
+        }
+        
+        h5 {
+            font-size: 1.1em;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background-color: #f5f5f5;
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 4px solid #0066cc;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-size: 1em;
+        }
+        
+        blockquote {
+            border-left: 4px solid #0066cc;
+            margin: 20px 0;
+            padding-left: 16px;
+            font-style: italic;
+            color: #666;
+            background-color: #f0f7ff;
+            padding: 12px 16px;
+            border-radius: 4px;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #0066cc;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            color: #0066cc;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: #004d99;
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #0066cc;
+            margin: 30px 0;
+        }
+        
+        /* Syntax Highlighting Anpassungen */
+        .hljs {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .hljs-string { color: #2d8659; }
+        .hljs-number { color: #2d8659; }
+        .hljs-literal { color: #d9534f; }
+        .hljs-attr { color: #d9534f; }
+        .hljs-built_in { color: #0066cc; }
+        .hljs-type { color: #0066cc; }
+        .hljs-class { color: #0066cc; font-weight: bold; }
+        .hljs-keyword { color: #d9534f; font-weight: bold; }
+        .hljs-function { color: #0066cc; }
+        .hljs-title { color: #0066cc; }
+        .hljs-comment { color: #999; font-style: italic; }
+        
+        @media print {
+            body {
+                margin: 0;
+            }
+            h1, h2 {
+                page-break-after: avoid;
+            }
+            pre {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                margin: 20px auto;
+                padding: 0 10px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            h3 {
+                font-size: 1.2em;
+            }
+            pre {
+                font-size: 0.8em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Schritt-für-Schritt-Anleitung Version 0 (main)</h1>
+<p></p>
+<h2>Ziel</h2>
+<p>Starte mit dem Grundgerüst: Implementiere das Model (<code>Bmirechner</code>) und den Controller (<code>BmiManager</code>).</p>
+<p></p>
+<hr />
+<p></p>
+<h2>1. Repository klonen und vorbereiten</h2>
+<pre><code class="language-bash hljs">git clone https://github.com/ChristineJanischek/java-bmiapp-docker-mv-template
+cd java-bmiapp-docker-mv-template
+git checkout main
+git pull</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>2. Fehlende Klassen anlegen</h2>
+<ul>
+<li>Lege die Datei <code>src/start/Bmirechner.java</code> an (Model)</li>
+<li>Lege die Datei <code>src/start/BmiManager.java</code> an (Controller)</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>3. Model (Bmirechner) implementieren</h2>
+<p></p>
+<p>Implementiere die Klasse gemäß diesem UML-Diagramm:</p>
+<p></p>
+<pre><code class="language-text hljs">┌──────────────────────────────────────────────────────────────┐
+│                        Bmirechner                            │
+├──────────────────────────────────────────────────────────────┤
+│ - gewicht: double                                            │
+│ - groesse: double                                            │
+│ - ergebnis: double                                           │
+│ - kategorie: String                                          │
+├──────────────────────────────────────────────────────────────┤
+│ + Bmirechner()                                               │
+│ + setGewicht(pGewicht: double): void                         │
+│ + setGroesse(pGroesse: double): void                         │
+│ + getGewicht(): double                                       │
+│ + getGroesse(): double                                       │
+│ + getErgebnis(): double                                      │
+│ + getKategorie(): String                                     │
+│ + berechne(pGewicht: double, pGroesse: double): double       │
+│ + interpretiere(): void                                      │
+│ + toString(): String                                         │
+└──────────────────────────────────────────────────────────────┘</code></pre>
+<p></p>
+<h3>BMI-Wertetabelle für die Interpretation</h3>
+<p></p>
+<p>| BMI-Wert         | Kategorie                |</p>
+<p>|------------------|------------------------- |</p>
+<p>| < 16             | Starkes Untergewicht     |</p>
+<p>| 16 – < 17        | Mäßiges Untergewicht     |</p>
+<p>| 17 – < 18.5      | Leichtes Untergewicht    |</p>
+<p>| 18.5 – < 25      | Normalgewicht            |</p>
+<p>| 25 – < 30        | Prädipositas             |</p>
+<p>| 30 – < 35        | Adipositas Grad I        |</p>
+<p>| 35 – < 40        | Adipositas Grad II       |</p>
+<p>| ≥ 40             | Adipositas Grad III      |</p>
+<p></p>
+<p>Weitere Infos: <a href="../JAVA<em>PROGRAMMIERUNG/GRUNDGERUEST</em>KLASSE.md">GRUNDGERUEST_KLASSE.md</a></p>
+<p></p>
+<hr />
+<p></p>
+<h2>4. Controller (BmiManager) implementieren</h2>
+<p></p>
+<p>Implementiere die Klasse gemäß diesem UML-Diagramm:</p>
+<p></p>
+<pre><code class="language-text hljs">┌─────────────────────────────────────────────┐
+│                BmiManager                   │
+├─────────────────────────────────────────────┤
+│ - model: Bmirechner                         │
+├─────────────────────────────────────────────┤
+│ + BmiManager()                              │
+│ + BmiManager(pModel: Bmirechner)            │
+│ + berechneBMI(pGewicht: double,             │
+│               pGroesse: double): double     │
+│ + interpretiereBMI(): void                  │
+│ + getModel(): Bmirechner                    │
+│ + setModel(pModel: Bmirechner): void        │
+└─────────────────────────────────────────────┘</code></pre>
+<p></p>
+<p>Der BmiManager verbindet View (später: MainWindow) und Model (Bmirechner).</p>
+<p></p>
+<p>Weitere Infos: <a href="../KONZEPTE/MVC<em>KONZEPT.md">MVC</em>KONZEPT.md</a></p>
+<p></p>
+<h3>Hinweis: Überschreiben von Methoden & Java Object-API</h3>
+<p></p>
+<p>Alle Klassen in Java erben implizit von <code>java.lang.Object</code>. Das bedeutet, dass Methoden wie</p>
+<p><code>toString()</code>, <code>equals()</code> und <code>hashCode()</code> in jedem Objekt verfügbar sind. Für dieses Projekt</p>
+<p>soll <code>Bmirechner</code> und ggf. <code>BmiManager</code> eine eigene <code>toString()</code>-Implementierung haben,</p>
+<p>die die wichtigsten Werte (z.B. BMI und Kategorie) lesbar darstellt. Unit-Tests und Testprogramme</p>
+<p>sollen die Werte mittels <code>toString()</code> ausgeben, z.B. <code>System.out.println(rechner.toString());</code>.</p>
+<p></p>
+<p>Weiterführende Anleitung: <a href="../JAVA<em>PROGRAMMIERUNG/METHODEN</em>UEBERSCHREIBEN.md">METHODEN_UEBERSCHREIBEN.md</a></p>
+<p></p>
+<hr />
+<p></p>
+<h2>5. Kompilieren und starten</h2>
+<pre><code class="language-bash hljs">./build.sh
+./run.sh</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>6. Testen</h2>
+<ul>
+<li>Starte die GUI, gib Werte ein, prüfe die Ausgabe</li>
+<li>Teste Buttons "Leeren" und "Schließen"</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
+<h2>7. Änderungen committen und pushen</h2>
+<pre><code class="language-bash hljs">git add .
+git commit -m &quot;Implementiere Bmirechner und BmiManager (Version 0)&quot;
+git push</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>8. Nächste Versionen ansehen</h2>
+<pre><code class="language-bash hljs">git checkout version-1-mvc-gui   # Musterlösung</code></pre>
+<p></p>
+<hr />
+<p></p>
+<h2>Weitere Hilfen</h2>
+<ul>
+<li><a href="../JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md">KONTROLLSTRUKTUREN.md</a></li>
+<li><a href="../KONZEPTE/MVC<em>KONZEPT.md">MVC</em>KONZEPT.md</a></li>
+<li><a href="../BEST<em>PRACTICES/SECURE</em>CODING.md">SECURE_CODING.md</a></li>
+<li><a href="../JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md">ASSOZIATIONEN.md</a></li>
+<li><a href="./INFO.md">INFO.md</a></li>
+</ul>
+<p></p>
+</body>
+</html>
