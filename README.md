@@ -133,6 +133,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 
 ### 🏗️ Konzepte & Architektur
 - [VERSIONING_STRATEGY.md](docs/KONZEPTE/VERSIONING_STRATEGY.md) – Überblick über Branches und Versionen
+- [BACKUP_STRATEGIE.md](docs/KONZEPTE/BACKUP_STRATEGIE.md) – Backup- und Meilenstein-Strategie mit Tag-Empfehlungen
 - [PARALLELE_ENTWICKLUNG_UND_BRANCH_PROTECTION.md](docs/KONZEPTE/PARALLELE_ENTWICKLUNG_UND_BRANCH_PROTECTION.md) – Parallele Entwicklung von System und `materials/tests` mit verbindlicher Branch-Protection
 - [MVC_KONZEPT.md](docs/KONZEPTE/MVC_KONZEPT.md) – Das MVC-Prinzip erklärt (Model-View-Controller)
 - [MVC_ANLEITUNG.md](docs/KONZEPTE/MVC_ANLEITUNG.md) – Praktische Anleitung zur MVC-Implementierung
