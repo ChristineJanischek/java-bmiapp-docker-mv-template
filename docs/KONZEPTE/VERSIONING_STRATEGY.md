@@ -14,6 +14,7 @@ Dieses Dokument beschreibt die didaktischen Versions-Branches des Repositories u
 | `version-4-assoziationen` | Lernversion | Assoziationen, Personen, Messungen |
 | `version-5-dateispeicher` | Lernversion | JSON-Dateispeicher und Persistenz |
 | `version-6-sichere-datenverarbeitung` | Lernversion | Sichere Datenverarbeitung, Logging, Datenschutzprinzipien |
+| `version-7-sichere-db-anbindung` | Lernversion | Sicherheit in DB-Anbindung, Risiken der Datenhaltung, Schutzmechanismen |
 
 ## Empfohlene Reihenfolge
 
@@ -24,6 +25,7 @@ Dieses Dokument beschreibt die didaktischen Versions-Branches des Repositories u
 5. `version-4-assoziationen`
 6. `version-5-dateispeicher`
 7. `version-6-sichere-datenverarbeitung`
+8. `version-7-sichere-db-anbindung`
 
 Wenn ein noch stärker reduzierter Startpunkt gebraucht wird, kann alternativ `version-0-grundgeruest` vor `version-1-mvc-gui` verwendet werden.
 
@@ -36,6 +38,7 @@ Wenn ein noch stärker reduzierter Startpunkt gebraucht wird, kann alternativ `v
 - Version 4: [docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md)
 - Version 5: [docs/ANLEITUNGEN/SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md)
 - Version 6: [docs/ANLEITUNGEN/SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md)
+- Version 7: [docs/ANLEITUNGEN/SCHRITTE_VERSION_7_SICHERE_DB_ANBINDUNG.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_7_SICHERE_DB_ANBINDUNG.md)
 
 ## Hinweise zur Pflege
 
