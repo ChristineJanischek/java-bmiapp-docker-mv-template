@@ -58,17 +58,20 @@ Für deine erste Orientierung:
 
 ## 🔀 Versionsfahrplan (Überblick)
 
-Diese Branches entsprechen den Versionen im Unterricht. Starte im Branch `main` (Version 0) und arbeite dich hoch.
+Diese Branches entsprechen den Versionen im Unterricht. Für den Unterrichtsstart ist `main` weiterhin der Einstiegspunkt. Zusätzlich existiert mit `version-0-grundgeruest` ein separates, bewusst reduziertes Grundgerüst.
 
-- `main` → **Version 0**: Schüler-Template (ohne Bmirechner.java, ohne BmiManager.java)
+- `main` → **Version 0**: Einstiegspunkt für Schüler und integrierter Referenzstand des Repos
+- `version-0-grundgeruest` → **Version 0 (alternativ)**: reduziertes Schüler-Grundgerüst
 - `version-1-mvc-gui` → **Version 1**: Musterlösung mit MVC (Model + Controller + GUI)
 - `version-2-methoden` → **Version 2**: Methoden, Kontrollstrukturen & Algorithmen
 - `version-3-validation` → **Version 3**: Eingabevalidierung & Fehlerbehandlung
-- `version-4-assoziationen` → **Version 4 (Musterlösung): Assoziationen - Personen & Messungen** ⭐ NEU
+- `version-4-assoziationen` → **Version 4**: Assoziationen, Personen & Messungen
+- `version-5-dateispeicher` → **Version 5**: JSON-Dateispeicher und Persistenz
+- `version-6-sichere-datenverarbeitung` → **Version 6**: Sichere Datenverarbeitung, Audit-Logging und Datenschutzprinzipien
 
 **Schnellstart für Schüler (Version 0):**
 ```bash
-# Repository klonen (main = Version 0)
+# Repository klonen (main = Einstiegspunkt / Version 0)
 git clone https://github.com/ChristineJanischek/java-bmiapp-docker-mv-template
 cd java-bmiapp-docker-mv-template
 
@@ -103,6 +106,14 @@ Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleit
 | **2** | `version-2-methoden` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) | Methoden, Kontrollstrukturen, Algorithmen |
 | **3** | `version-3-validation` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) | Validierung & Fehlerbehandlung |
 | **4** | `version-4-assoziationen` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) | ⭐ Assoziationen (1:N) – Personen & Messungen |
+| **5** | `version-5-dateispeicher` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md) / [HTML](docs/ANLEITUNGEN/SCHRITTE_VERSION_5_JSON_DATEISPEICHER.html) | JSON-Dateispeicher, Schema-/Daten-Trennung, Persistenz |
+| **6** | `version-6-sichere-datenverarbeitung` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md) | Sichere Datenverarbeitung, Validierung, Audit-Logging |
+
+**Ergänzende Materialien zu Version 4:**
+- [docs/ANLEITUNGEN/ASSOZIATIONEN_PERSON_MESSUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_PERSON_MESSUNG.md) – Hauptanleitung für Schüler
+- [docs/ANLEITUNGEN/ASSOZIATIONEN_QUICK_REFERENCE.md](docs/ANLEITUNGEN/ASSOZIATIONEN_QUICK_REFERENCE.md) – kompakte Schnellreferenz
+- [docs/ANLEITUNGEN/ASSOZIATIONEN_LOESUNGEN.md](docs/ANLEITUNGEN/ASSOZIATIONEN_LOESUNGEN.md) – Lehrerversion mit Musterlösungen
+- [docs/ANLEITUNGEN/VERSION_3_ASSOZIATIONEN.md](docs/ANLEITUNGEN/VERSION_3_ASSOZIATIONEN.md) – älteres Übergangsdokument zu Assoziationen
 
 **Weitere Tipps:**
 - Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen)
@@ -117,6 +128,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 ### 🎯 Erste Schritte & Getting Started
 - [TEMPLATE_QUICKSTART.md](docs/GETTING_STARTED/TEMPLATE_QUICKSTART.md) – Schneller Einstieg für Anfänger
 - [TEMPLATE_GUIDE.md](docs/GETTING_STARTED/TEMPLATE_GUIDE.md) – Dieses Projekt als Vorlage nutzen
+- [SETUP_UND_BUILD.md](docs/GETTING_STARTED/SETUP_UND_BUILD.md) – Setup, Build und lokale Ausführung Schritt für Schritt
 - [JAVA21_UPGRADE.md](docs/GETTING_STARTED/JAVA21_UPGRADE.md) – Informationen zu Java 21 LTS
 
 ### 🏗️ Konzepte & Architektur
@@ -126,9 +138,14 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 - [MVC_ANLEITUNG.md](docs/KONZEPTE/MVC_ANLEITUNG.md) – Praktische Anleitung zur MVC-Implementierung
 - [SINGLE_ENTRY_POINT.md](docs/KONZEPTE/SINGLE_ENTRY_POINT.md) – Single Entry Point-Prinzip
 
+### 🗂️ Projekt- und Workflow-Dokumente
+- [PFLICHTENHEFT.md](docs/PFLICHTENHEFT.md) – Projektkontext, Ziele und didaktische Rahmung
+- [BRANCH_PROTECTION_SETUP.md](docs/BRANCH_PROTECTION_SETUP.md) – Basis-Setup für Branch Protection auf GitHub
+
 ### ☕ Java Programmierung – Grundlagen
 - [GRUNDGERUEST_KLASSE.md](docs/JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) – Grundgerüst einer Klasse
 - [KONTROLLSTRUKTUREN.md](docs/JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md) – if, else, switch, for, while
+- [ALGORITHMEN_UND_DATENSTRUKTUREN.md](docs/ALGORITHMEN_UND_DATENSTRUKTUREN.md) – Such-, Sortier- und Listenalgorithmen als Lernmodul
 - [ASSOZIATIONEN.md](docs/JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md) – Beziehungen zwischen Klassen
 - [METHODEN_UEBERSCHREIBEN.md](docs/JAVA_PROGRAMMIERUNG/METHODEN_UEBERSCHREIBEN.md) – Methoden überschreiben (@Override)
 - [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) – Polymorphie und ihre Anwendung
@@ -136,6 +153,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 - [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) – Container-Klassen (ArrayList, HashMap, HashSet, etc.)
 - [VERERBUNG.md](docs/JAVA_PROGRAMMIERUNG/VERERBUNG.md) – Vererbung (extends, super, @Override, abstrakte Klassen)
 - [DATEIEN_LESEN_SCHREIBEN.md](docs/JAVA_PROGRAMMIERUNG/DATEIEN_LESEN_SCHREIBEN.md) – Dateien lesen und schreiben (BufferedReader, PrintWriter, CSV)
+- [SYNTAXHILFE_DATEISPEICHER.md](docs/JAVA_PROGRAMMIERUNG/SYNTAXHILFE_DATEISPEICHER.md) – kompakte Syntaxhilfe für Datei-I/O
 - [DATENBANK.md](docs/JAVA_PROGRAMMIERUNG/DATENBANK.md) – Datenbankanbindung (JDBC, MySQL, CRUD-Operationen)
 
 ### 🛡️ Best Practices & Code-Qualität
@@ -336,6 +354,20 @@ Hinweis: Die lineare Note wird aus den Profil-Einstellungen (`grade_scale`) bere
 - [ ] Kapselung mit defensiven Kopien implementiert
 - [ ] Alle Tests grün
 
+### ✅ Version 5 (version-5-dateispeicher) – JSON-Dateispeicher & Persistenz
+- [ ] JSON-Speicherkonzept verstanden (Schema vs. Daten)
+- [ ] Daten werden als JSON gespeichert und geladen
+- [ ] Personen und Messungen nach dem Laden korrekt rekonstruiert
+- [ ] Fehlerfälle beim Lesen/Schreiben abgefangen
+- [ ] Persistenz sauber in MVC integriert
+
+### ✅ Version 6 (version-6-sichere-datenverarbeitung) – Sicherheit & Datenschutz
+- [ ] Eingaben per Whitelist validiert
+- [ ] Fehler intern geloggt, extern generisch angezeigt
+- [ ] Audit-Logging für wichtige Aktionen ergänzt
+- [ ] Minimalprinzip und Löschbarkeit fachlich berücksichtigt
+- [ ] Sichere Datenverarbeitung dokumentiert und getestet
+
 ---
 
 ## 💡 Häufig Gestellte Fragen (FAQ)
@@ -344,7 +376,7 @@ Hinweis: Die lineare Note wird aus den Profil-Einstellungen (`grade_scale`) bere
 Siehe [TEMPLATE_QUICKSTART.md](docs/GETTING_STARTED/TEMPLATE_QUICKSTART.md)
 
 ### Welche Version soll ich bearbeiten?
-Starte mit Version 0 (`main`). Folge dann dem [Versionsfahrplan](#-versionsfahrplan-überblick).
+Starte mit Version 0 (`main`). Für ein bewusst reduziertes Grundgerüst kannst du alternativ `version-0-grundgeruest` nutzen. Folge dann dem [Versionsfahrplan](#-versionsfahrplan-überblick).
 
 ### Wie funktioniert das MVC-Pattern?
 [MVC_KONZEPT.md](docs/KONZEPTE/MVC_KONZEPT.md) erklärt das Pattern. [MVC_ANLEITUNG.md](docs/KONZEPTE/MVC_ANLEITUNG.md) zeigt die Praxis.
@@ -357,6 +389,12 @@ Starte mit Version 0 (`main`). Folge dann dem [Versionsfahrplan](#-versionsfahrp
 
 ### Wie teste ich meinen Code?
 [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) erklärt JUnit 5 Tests.
+
+### Wie speichere ich Daten dauerhaft?
+[SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md) zeigt die Persistenz-Erweiterung, [SYNTAXHILFE_DATEISPEICHER.md](docs/JAVA_PROGRAMMIERUNG/SYNTAXHILFE_DATEISPEICHER.md) die passende Kurzsyntax.
+
+### Wie setze ich sichere Datenverarbeitung um?
+[SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md) und [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) decken die relevanten Maßnahmen ab.
 
 ---
 
