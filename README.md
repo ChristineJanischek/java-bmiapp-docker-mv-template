@@ -306,6 +306,7 @@ Optional mit Parametern:
 - `scripts/grading_profiles/automat.json`
 - `scripts/grading_profiles/bk_oop_2026.json`
 - `scripts/grading_profiles/bk_oop_2026_rubrik24.json` (kalibriert auf 24-Punkte-Rubrik)
+- [docs/BEWERTUNGSMODUL/KI_BEWERTUNGSMODUL_WEBPROJEKTE.md](docs/BEWERTUNGSMODUL/KI_BEWERTUNGSMODUL_WEBPROJEKTE.md) - Analyse des bestehenden KIFeed-Moduls und Anleitung fuer ein gleichwertiges oder besseres Bewertungsmodul fuer Webprojekte der Oberstufe
 
 Hinweis: Die lineare Note wird aus den Profil-Einstellungen (`grade_scale`) berechnet und kann dort angepasst werden.
 
