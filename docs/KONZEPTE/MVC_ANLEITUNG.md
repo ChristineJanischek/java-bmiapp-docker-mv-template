@@ -51,7 +51,7 @@ Bevor du loslegst, hier ein Überblick über alle drei Klassen, die du implement
 - Implementiere Attribute, Konstruktoren, Getter/Setter, Methoden `berechne()`, `interpretiere()`, `toString()`.
 - Schreibe Unit-Tests für die Methoden.
 
-Detaillierte Anleitung: [SCHRITTE_VERSION_0.md](../ANLEITUNGEN/SCHRITTE_VERSION_0.md)
+Detaillierte Anleitung: [ANLEITUNG_VERSION_0_GRUNDGERUEST.md](../ANLEITUNGEN/ANLEITUNG_VERSION_0_GRUNDGERUEST.md)
 
 ---
 
@@ -146,8 +146,8 @@ Model (Bmirechner)
 | Thema | Anleitung |
 |-------|-----------|
 | **MVC-Konzept verstehen** | [MVC_KONZEPT.md](./MVC_KONZEPT.md) |
-| **Schritt-für-Schritt (Version 0)** | [SCHRITTE_VERSION_0.md](../ANLEITUNGEN/SCHRITTE_VERSION_0.md) |
-| **Schritt-für-Schritt (Version 1)** | [SCHRITTE_VERSION_1.md](../ANLEITUNGEN/SCHRITTE_VERSION_1.md) |
+| **Schritt-für-Schritt (Version 0)** | [ANLEITUNG_VERSION_0_GRUNDGERUEST.md](../ANLEITUNGEN/ANLEITUNG_VERSION_0_GRUNDGERUEST.md) |
+| **Schritt-für-Schritt (Version 1)** | [ANLEITUNG_VERSION_1_MVC_GUI.md](../ANLEITUNGEN/ANLEITUNG_VERSION_1_MVC_GUI.md) |
 | **Ereignissteuerung & Controller-Integration** | [Ereignissteuerung_und_Controller.md](../GUI_DEVELOPMENT/Ereignissteuerung_und_Controller.md) |
 | **GUI mit WindowBuilder** | [GUI_ECLIPSE_WINDOWSBUILDER.md](../GUI_DEVELOPMENT/GUI_ECLIPSE_WINDOWSBUILDER.md) |
 | **Klassen strukturieren** | [GRUNDGERUEST_KLASSE.md](../JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) |

@@ -49,7 +49,7 @@ Nach Version 7 sollen die Lernenden:
 - Secure Coding Grundprinzipien: [../BEST_PRACTICES/SECURE_CODING.md](../BEST_PRACTICES/SECURE_CODING.md)
 - Exception Handling: [../BEST_PRACTICES/EXCEPTION_HANDLING.md](../BEST_PRACTICES/EXCEPTION_HANDLING.md)
 - Unit-Testing: [../BEST_PRACTICES/UNIT_TESTING.md](../BEST_PRACTICES/UNIT_TESTING.md)
-- Primaerer Rueckbezug Version 6: [./SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md](./SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md)
+- Primaerer Rueckbezug Version 6: [./ANLEITUNG_VERSION_6_SICHERE_DATENVERARBEITUNG.md](./ANLEITUNG_VERSION_6_SICHERE_DATENVERARBEITUNG.md)
 
 ---
 
@@ -223,7 +223,7 @@ Validiert Nutzereingaben vor dem DB-Zugriff konsequent mit Whitelist-Regeln.
 - GUI-Validierung verbessert Usability
 - Service/Controller-Validierung ist Sicherheitsgrenze
 
-Rueckbezug: [./SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md](./SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md)
+Rueckbezug: [./ANLEITUNG_VERSION_6_SICHERE_DATENVERARBEITUNG.md](./ANLEITUNG_VERSION_6_SICHERE_DATENVERARBEITUNG.md)
 
 ---
 

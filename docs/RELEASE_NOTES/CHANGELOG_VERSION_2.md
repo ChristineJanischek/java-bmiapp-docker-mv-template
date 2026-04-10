@@ -207,7 +207,7 @@ Neue Dokumentationsdateien:
    - MVC-Konformität
    - Code-Beispiele
 
-4. **`SCHRITTE_VERSION_2.md`** (erweitert)
+4. **`ANLEITUNG_VERSION_2_METHODEN.md`** (erweitert)
    - **Schritt 7:** GUI-Erweiterung (Alter & Geschlecht)
    - Code-Snippets für alle Komponenten
    - Layout-Anpassung Schritt-für-Schritt
@@ -304,7 +304,7 @@ docker-compose -f docker-compose.novnc.yml up
 | `POLYMORPHIE.md` | Neue Dokumentation | +120 |
 | `UNIT_TESTING.md` | Neue Dokumentation | +180 |
 | `INTELLIGENTE_METHODENWAHL.md` | Neue Dokumentation | +95 |
-| `SCHRITTE_VERSION_2.md` | Schritt 7 ergänzt | +165 |
+| `ANLEITUNG_VERSION_2_METHODEN.md` | Schritt 7 ergänzt | +165 |
 
 **Gesamt:** +950 Zeilen Code & Dokumentation
 
@@ -327,7 +327,7 @@ In **Version 3** werden folgende Features implementiert:
    - Speichern von Berechnungen in Datei
    - Verlaufs-Anzeige
 
-→ Siehe [`SCHRITTE_VERSION_3.md`](SCHRITTE_VERSION_3.md)
+→ Siehe [`ANLEITUNG_VERSION_3_VALIDIERUNG.md`](../ANLEITUNGEN/ANLEITUNG_VERSION_3_VALIDIERUNG.md)
 
 ---
 

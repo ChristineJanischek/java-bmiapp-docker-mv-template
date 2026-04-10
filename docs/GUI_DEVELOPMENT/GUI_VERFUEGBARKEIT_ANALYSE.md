@@ -209,7 +209,7 @@ java -cp build start.MainWindow
 
 ## 📝 Dokumentationsempfehlung
 
-### Ergänze `SCHRITTE_VERSION_0.md`:
+### Ergänze `ANLEITUNG_VERSION_0_GRUNDGERUEST.md`:
 
 ```markdown
 ## 🖼️ GUI als Wegweiser nutzen
