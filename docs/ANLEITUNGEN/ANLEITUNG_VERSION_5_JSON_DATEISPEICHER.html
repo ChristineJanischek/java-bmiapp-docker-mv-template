@@ -436,6 +436,741 @@ JsonDateiDatenbankSpeicher (Persistenz)</code></pre>
 <p></p>
 <hr />
 <p></p>
+<h2>Musterlösung: Wohin kommt welcher Quellcode?</h2>
+<p></p>
+<p>Der wichtigste Punkt für Version 5 ist die saubere Verteilung des Codes auf die vorhandenen Klassen.</p>
+<p>Die JSON-Logik kommt <strong>nicht</strong> komplett in eine einzige Datei und auch <strong>nicht</strong> in die GUI.</p>
+<p></p>
+<p>Für diese Version ist die Aufteilung so sinnvoll:</p>
+<p></p>
+<p>| Datei | Aufgabe |</p>
+<p>|---|---|</p>
+<p>| <code>src/start/Person.java</code> | Personendaten und Liste der Messungen |</p>
+<p>| <code>src/start/Messung.java</code> | Einzelne Messung mit <code>id</code>, <code>personId</code>, Zeitstempel und BMI |</p>
+<p>| <code>src/start/BmiManager.java</code> | Controller: erstellt Personen/Messungen und ruft Speichern/Laden auf |</p>
+<p>| <code>src/start/JsonDateiDatenbankSpeicher.java</code> | komplette JSON-Persistenz |</p>
+<p>| <code>src/start/MainWindow.java</code> | Buttons <code>Speichern</code> und <code>Laden</code>, Anzeige aktualisieren |</p>
+<p></p>
+<h3>Merksatz</h3>
+<p></p>
+<ul>
+<li><code>Person</code> und <code>Messung</code> speichern <strong>Fachdaten</strong>.</li>
+<li><code>BmiManager</code> steuert den Ablauf.</li>
+<li><code>JsonDateiDatenbankSpeicher</code> schreibt und liest JSON.</li>
+<li><code>MainWindow</code> reagiert nur auf Benutzeraktionen.</li>
+</ul>
+<p></p>
+<h3>Datei 1: <code>Person.java</code></h3>
+<p></p>
+<p>In diese Klasse gehören:</p>
+<p></p>
+<ul>
+<li>das Feld <code>id</code>,</li>
+<li>die persönlichen Stammdaten,</li>
+<li>die Liste der Messungen,</li>
+<li>Methoden wie <code>addMessung()</code> und <code>getMessungen()</code>.</li>
+</ul>
+<p></p>
+<pre><code class="language-java hljs">package start;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Person {
+
+    private int id;
+    private String vorname;
+    private String nachname;
+    private int alter;
+    private String geschlecht;
+    private String email;
+    private List&lt;Messung&gt; messungen;
+
+    public Person(String vorname, String nachname, int alter, String geschlecht, String email) {
+        this(0, vorname, nachname, alter, geschlecht, email);
+    }
+
+    public Person(int id, String vorname, String nachname, int alter, String geschlecht, String email) {
+        this.id = id;
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.alter = alter;
+        this.geschlecht = geschlecht;
+        this.email = email;
+        this.messungen = new ArrayList&lt;&gt;();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getVorname() {
+        return vorname;
+    }
+
+    public String getNachname() {
+        return nachname;
+    }
+
+    public int getAlter() {
+        return alter;
+    }
+
+    public String getGeschlecht() {
+        return geschlecht;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void addMessung(Messung messung) {
+        if (messung == null) {
+            throw new IllegalArgumentException(&quot;Messung darf nicht null sein&quot;);
+        }
+        messungen.add(messung);
+    }
+
+    public List&lt;Messung&gt; getMessungen() {
+        return new ArrayList&lt;&gt;(messungen);
+    }
+
+    public String getFullName() {
+        return vorname + &quot; &quot; + nachname;
+    }
+}</code></pre>
+<p></p>
+<h3>Datei 2: <code>Messung.java</code></h3>
+<p></p>
+<p>In diese Klasse gehören:</p>
+<p></p>
+<ul>
+<li><code>id</code> als Primärschlüssel,</li>
+<li><code>personId</code> als Fremdschlüssel,</li>
+<li>Gewicht, Größe und Zeitstempel,</li>
+<li>BMI-Berechnung über <code>Bmirechner</code>.</li>
+</ul>
+<p></p>
+<pre><code class="language-java hljs">package start;
+
+import java.time.LocalDateTime;
+
+public class Messung {
+
+    private int id;
+    private int personId;
+    private double gewicht;
+    private double groesse;
+    private LocalDateTime zeitstempel;
+    private double bmi;
+    private String kategorie;
+    private Bmirechner rechner;
+
+    public Messung(double gewicht, double groesse) {
+        this(0, 0, gewicht, groesse, LocalDateTime.now());
+    }
+
+    public Messung(int id, int personId, double gewicht, double groesse, LocalDateTime zeitstempel) {
+        this.id = id;
+        this.personId = personId;
+        this.gewicht = gewicht;
+        this.groesse = groesse;
+        this.zeitstempel = zeitstempel;
+
+        this.rechner = new Bmirechner();
+        this.bmi = rechner.berechne(gewicht, groesse);
+        rechner.interpretiere();
+        this.kategorie = rechner.getKategorie();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
+    public double getGewicht() {
+        return gewicht;
+    }
+
+    public double getGroesse() {
+        return groesse;
+    }
+
+    public LocalDateTime getZeitstempel() {
+        return zeitstempel;
+    }
+
+    public double getBmi() {
+        return bmi;
+    }
+
+    public String getKategorie() {
+        return kategorie;
+    }
+}</code></pre>
+<p></p>
+<h3>Datei 3: <code>JsonDateiDatenbankSpeicher.java</code></h3>
+<p></p>
+<p>Hier gehört der gesamte JSON-Code hinein.</p>
+<p>Diese Klasse ist die eigentliche Musterlösung für Version 5.</p>
+<p></p>
+<p>Wichtige Methoden dieser Klasse:</p>
+<p></p>
+<ul>
+<li><code>speichern(List<Person> personen, Path ordnerPfad)</code></li>
+<li><code>laden(Path ordnerPfad)</code></li>
+<li><code>erzeugeSchemaJson()</code></li>
+<li><code>erzeugeDatenJson(List<Person> personen)</code></li>
+<li><code>parseDaten(String daten)</code></li>
+<li><code>atomarSchreiben(Path zielDatei, String inhalt)</code></li>
+<li><code>escapeJson(String text)</code></li>
+</ul>
+<p></p>
+<pre><code class="language-java hljs">package start;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class JsonDateiDatenbankSpeicher {
+
+    private static final String SCHEMA_DATEI = &quot;bmiapp.schema.json&quot;;
+    private static final String DATEN_DATEI = &quot;bmiapp.data.json&quot;;
+
+    public void speichern(List&lt;Person&gt; personen, Path ordnerPfad) throws IOException {
+        Files.createDirectories(ordnerPfad);
+        atomarSchreiben(ordnerPfad.resolve(SCHEMA_DATEI), erzeugeSchemaJson());
+        atomarSchreiben(ordnerPfad.resolve(DATEN_DATEI), erzeugeDatenJson(personen));
+    }
+
+    public List&lt;Person&gt; laden(Path ordnerPfad) throws IOException {
+        String schema = Files.readString(ordnerPfad.resolve(SCHEMA_DATEI), StandardCharsets.UTF_8);
+        String daten = Files.readString(ordnerPfad.resolve(DATEN_DATEI), StandardCharsets.UTF_8);
+
+        pruefeSchemaMinimal(schema);
+        pruefeDatenMinimal(daten);
+
+        return parseDaten(daten);
+    }
+
+    private String erzeugeSchemaJson() {
+        return &quot;&quot;&quot;
+            {
+              &quot;database&quot;: &quot;bmiapp&quot;,
+              &quot;version&quot;: 5,
+              &quot;entities&quot;: [
+                {
+                  &quot;name&quot;: &quot;personen&quot;,
+                  &quot;primaryKey&quot;: &quot;id&quot;
+                },
+                {
+                  &quot;name&quot;: &quot;messungen&quot;,
+                  &quot;primaryKey&quot;: &quot;id&quot;,
+                  &quot;foreignKey&quot;: &quot;personId&quot;
+                }
+              ]
+            }
+            &quot;&quot;&quot;;
+    }
+
+    private String erzeugeDatenJson(List&lt;Person&gt; personen) {
+        StringBuilder json = new StringBuilder();
+        json.append(&quot;{\n&quot;);
+        json.append(&quot;  \&quot;personen\&quot;: [\n&quot;);
+
+        for (int i = 0; i &lt; personen.size(); i++) {
+            Person p = personen.get(i);
+            json.append(&quot;    {&quot;)
+                .append(&quot;\&quot;id\&quot;: &quot;).append(p.getId()).append(&quot;, &quot;)
+                .append(&quot;\&quot;vorname\&quot;: \&quot;&quot;).append(escapeJson(p.getVorname())).append(&quot;\&quot;, &quot;)
+                .append(&quot;\&quot;nachname\&quot;: \&quot;&quot;).append(escapeJson(p.getNachname())).append(&quot;\&quot;, &quot;)
+                .append(&quot;\&quot;alter\&quot;: &quot;).append(p.getAlter()).append(&quot;, &quot;)
+                .append(&quot;\&quot;geschlecht\&quot;: \&quot;&quot;).append(escapeJson(p.getGeschlecht())).append(&quot;\&quot;, &quot;)
+                .append(&quot;\&quot;email\&quot;: \&quot;&quot;).append(escapeJson(p.getEmail())).append(&quot;\&quot;&quot;)
+                .append(&quot;}&quot;);
+            if (i &lt; personen.size() - 1) {
+                json.append(&quot;,&quot;);
+            }
+            json.append(&quot;\n&quot;);
+        }
+
+        json.append(&quot;  ],\n&quot;);
+        json.append(&quot;  \&quot;messungen\&quot;: [\n&quot;);
+
+        List&lt;Messung&gt; alleMessungen = new ArrayList&lt;&gt;();
+        for (Person p : personen) {
+            alleMessungen.addAll(p.getMessungen());
+        }
+
+        for (int i = 0; i &lt; alleMessungen.size(); i++) {
+            Messung m = alleMessungen.get(i);
+            json.append(&quot;    {&quot;)
+                .append(&quot;\&quot;id\&quot;: &quot;).append(m.getId()).append(&quot;, &quot;)
+                .append(&quot;\&quot;personId\&quot;: &quot;).append(m.getPersonId()).append(&quot;, &quot;)
+                .append(&quot;\&quot;gewicht\&quot;: &quot;).append(m.getGewicht()).append(&quot;, &quot;)
+                .append(&quot;\&quot;groesse\&quot;: &quot;).append(m.getGroesse()).append(&quot;, &quot;)
+                .append(&quot;\&quot;zeitstempel\&quot;: \&quot;&quot;).append(m.getZeitstempel()).append(&quot;\&quot;&quot;)
+                .append(&quot;}&quot;);
+            if (i &lt; alleMessungen.size() - 1) {
+                json.append(&quot;,&quot;);
+            }
+            json.append(&quot;\n&quot;);
+        }
+
+        json.append(&quot;  ]\n&quot;);
+        json.append(&quot;}\n&quot;);
+        return json.toString();
+    }
+
+    private List&lt;Person&gt; parseDaten(String daten) throws IOException {
+        String personenArray = extrahiereArrayInhalt(daten, &quot;personen&quot;);
+        String messungenArray = extrahiereArrayInhalt(daten, &quot;messungen&quot;);
+
+        List&lt;String&gt; personenObjekte = splitJsonObjekte(personenArray);
+        List&lt;String&gt; messungsObjekte = splitJsonObjekte(messungenArray);
+
+        List&lt;Person&gt; personen = new ArrayList&lt;&gt;();
+        Map&lt;Integer, Person&gt; personenNachId = new HashMap&lt;&gt;();
+
+        // 1. Personen lesen und in Map nach ID ablegen
+        for (String pObj : personenObjekte) {
+            if (pObj.isBlank()) {
+                continue;
+            }
+
+            Map&lt;String, String&gt; werte = parseObjektFelder(pObj);
+            int id = parseInt(werte, &quot;id&quot;);
+
+            Person person = new Person(
+                id,
+                parseString(werte, &quot;vorname&quot;),
+                parseString(werte, &quot;nachname&quot;),
+                parseInt(werte, &quot;alter&quot;),
+                parseString(werte, &quot;geschlecht&quot;),
+                parseString(werte, &quot;email&quot;)
+            );
+
+            personen.add(person);
+            personenNachId.put(id, person);
+        }
+
+        // 2. Messungen lesen und über personId zuordnen
+        for (String mObj : messungsObjekte) {
+            if (mObj.isBlank()) {
+                continue;
+            }
+
+            Map&lt;String, String&gt; werte = parseObjektFelder(mObj);
+            int personId = parseInt(werte, &quot;personId&quot;);
+            Person person = personenNachId.get(personId);
+
+            if (person == null) {
+                throw new IOException(&quot;Messung verweist auf unbekannte personId: &quot; + personId);
+            }
+
+            int id = parseInt(werte, &quot;id&quot;);
+            double gewicht = parseDouble(werte, &quot;gewicht&quot;);
+            double groesse = parseDouble(werte, &quot;groesse&quot;);
+            LocalDateTime zeitstempel = LocalDateTime.parse(parseString(werte, &quot;zeitstempel&quot;));
+
+            Messung messung = new Messung(id, personId, gewicht, groesse, zeitstempel);
+            person.addMessung(messung);
+        }
+
+        return personen;
+    }
+
+    // Hilfsmethode 1: JSON-Array-Inhalt für einen Container extrahieren
+    // Beispiel: bei arrayName=&quot;personen&quot; wird nur der Inhalt zwischen [ ... ] zurückgegeben
+    private String extrahiereArrayInhalt(String json, String arrayName) throws IOException {
+        String marker = &quot;\&quot;&quot; + arrayName + &quot;\&quot;&quot;;
+        int markerIndex = json.indexOf(marker);
+        if (markerIndex &lt; 0) {
+            throw new IOException(&quot;Array fehlt: &quot; + arrayName);
+        }
+
+        int start = json.indexOf('[', markerIndex);
+        if (start &lt; 0) {
+            throw new IOException(&quot;Ungueltiges JSON: '[' fehlt fuer &quot; + arrayName);
+        }
+
+        int tiefe = 0;
+        for (int i = start; i &lt; json.length(); i++) {
+            char c = json.charAt(i);
+            if (c == '[') {
+                tiefe++;
+            } else if (c == ']') {
+                tiefe--;
+                if (tiefe == 0) {
+                    return json.substring(start + 1, i);
+                }
+            }
+        }
+
+        throw new IOException(&quot;Ungueltiges JSON: ']' fehlt fuer &quot; + arrayName);
+    }
+
+    // Hilfsmethode 2: Ein Array-Inhalt wird in einzelne JSON-Objekte aufgeteilt
+    // Beispiel: {..},{..},{..} -&gt; Liste mit 3 Objekt-Strings
+    private List&lt;String&gt; splitJsonObjekte(String arrayInhalt) throws IOException {
+        List&lt;String&gt; objekte = new ArrayList&lt;&gt;();
+        int objektStart = -1;
+        int tiefe = 0;
+
+        for (int i = 0; i &lt; arrayInhalt.length(); i++) {
+            char c = arrayInhalt.charAt(i);
+            if (c == '{') {
+                if (tiefe == 0) {
+                    objektStart = i;
+                }
+                tiefe++;
+            } else if (c == '}') {
+                tiefe--;
+                if (tiefe &lt; 0) {
+                    throw new IOException(&quot;Ungueltiges JSON: zu viele '}'&quot;);
+                }
+                if (tiefe == 0 &amp;&amp; objektStart &gt;= 0) {
+                    objekte.add(arrayInhalt.substring(objektStart, i + 1));
+                    objektStart = -1;
+                }
+            }
+        }
+
+        if (tiefe != 0) {
+            throw new IOException(&quot;Ungueltiges JSON: unausgeglichene Objekte&quot;);
+        }
+
+        return objekte;
+    }
+
+    // Hilfsmethode 3: Einzelnes JSON-Objekt in Map&lt;String, String&gt; umwandeln
+    // Beispiel: {&quot;id&quot;:1,&quot;vorname&quot;:&quot;Mia&quot;} -&gt; Map mit id=1, vorname=Mia
+    private Map&lt;String, String&gt; parseObjektFelder(String objektJson) throws IOException {
+        Map&lt;String, String&gt; werte = new HashMap&lt;&gt;();
+        String inhalt = objektJson.trim();
+
+        if (!inhalt.startsWith(&quot;{&quot;) || !inhalt.endsWith(&quot;}&quot;)) {
+            throw new IOException(&quot;Ungueltiges Objekt-JSON: &quot; + objektJson);
+        }
+
+        inhalt = inhalt.substring(1, inhalt.length() - 1).trim();
+        if (inhalt.isEmpty()) {
+            return werte;
+        }
+
+        List&lt;String&gt; paare = splitTopLevel(inhalt);
+        for (String paar : paare) {
+            int doppelpunktIndex = indexOfTopLevelColon(paar);
+            if (doppelpunktIndex &lt; 0) {
+                throw new IOException(&quot;Ungueltiges Schluessel-Wert-Paar: &quot; + paar);
+            }
+
+            String keyRaw = paar.substring(0, doppelpunktIndex).trim();
+            String valueRaw = paar.substring(doppelpunktIndex + 1).trim();
+
+            String key = unquote(keyRaw);
+            String value = valueRaw;
+            if (value.startsWith(&quot;\&quot;&quot;) &amp;&amp; value.endsWith(&quot;\&quot;&quot;)) {
+                value = unescapeJson(unquote(value));
+            }
+            werte.put(key, value);
+        }
+
+        return werte;
+    }
+
+    // Hilfsmethode: trennt Schluessel-Wert-Paare auf Top-Level (ohne Trennung innerhalb von Strings)
+    private List&lt;String&gt; splitTopLevel(String text) {
+        List&lt;String&gt; teile = new ArrayList&lt;&gt;();
+        int start = 0;
+        boolean inString = false;
+        boolean escaped = false;
+
+        for (int i = 0; i &lt; text.length(); i++) {
+            char c = text.charAt(i);
+            if (escaped) {
+                escaped = false;
+                continue;
+            }
+            if (c == '\\') {
+                escaped = true;
+                continue;
+            }
+            if (c == '&quot;') {
+                inString = !inString;
+                continue;
+            }
+            if (c == ',' &amp;&amp; !inString) {
+                teile.add(text.substring(start, i).trim());
+                start = i + 1;
+            }
+        }
+
+        teile.add(text.substring(start).trim());
+        return teile;
+    }
+
+    // Hilfsmethode: findet den Doppelpunkt eines Schluessel-Wert-Paars auf Top-Level
+    private int indexOfTopLevelColon(String text) {
+        boolean inString = false;
+        boolean escaped = false;
+
+        for (int i = 0; i &lt; text.length(); i++) {
+            char c = text.charAt(i);
+            if (escaped) {
+                escaped = false;
+                continue;
+            }
+            if (c == '\\') {
+                escaped = true;
+                continue;
+            }
+            if (c == '&quot;') {
+                inString = !inString;
+                continue;
+            }
+            if (c == ':' &amp;&amp; !inString) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    // Hilfsmethode: entfernt die umschliessenden Anfuehrungszeichen
+    private String unquote(String text) throws IOException {
+        String trimmed = text.trim();
+        if (!trimmed.startsWith(&quot;\&quot;&quot;) || !trimmed.endsWith(&quot;\&quot;&quot;)) {
+            throw new IOException(&quot;Erwarteter JSON-String, erhalten: &quot; + text);
+        }
+        return trimmed.substring(1, trimmed.length() - 1);
+    }
+
+    private String unescapeJson(String text) {
+        StringBuilder result = new StringBuilder();
+        boolean escaped = false;
+
+        for (int i = 0; i &lt; text.length(); i++) {
+            char c = text.charAt(i);
+            if (!escaped) {
+                if (c == '\\') {
+                    escaped = true;
+                } else {
+                    result.append(c);
+                }
+            } else {
+                switch (c) {
+                    case 'n' -&gt; result.append('\n');
+                    case 'r' -&gt; result.append('\r');
+                    case 't' -&gt; result.append('\t');
+                    case '&quot;' -&gt; result.append('&quot;');
+                    case '\\' -&gt; result.append('\\');
+                    default -&gt; result.append(c);
+                }
+                escaped = false;
+            }
+        }
+
+        if (escaped) {
+            result.append('\\');
+        }
+
+        return result.toString();
+    }
+
+    private void pruefeSchemaMinimal(String schema) throws IOException {
+        if (!schema.contains(&quot;\&quot;personen\&quot;&quot;) || !schema.contains(&quot;\&quot;messungen\&quot;&quot;)) {
+            throw new IOException(&quot;Schema-Datei ungueltig&quot;);
+        }
+    }
+
+    private void pruefeDatenMinimal(String daten) throws IOException {
+        if (!daten.contains(&quot;\&quot;personen\&quot;&quot;) || !daten.contains(&quot;\&quot;messungen\&quot;&quot;)) {
+            throw new IOException(&quot;Daten-Datei ungueltig&quot;);
+        }
+    }
+
+    private void atomarSchreiben(Path zielDatei, String inhalt) throws IOException {
+        Path tempDatei = Path.of(zielDatei.toString() + &quot;.tmp&quot;);
+        Files.writeString(tempDatei, inhalt, StandardCharsets.UTF_8);
+        Files.move(tempDatei, zielDatei,
+            StandardCopyOption.REPLACE_EXISTING,
+            StandardCopyOption.ATOMIC_MOVE);
+    }
+
+    private String escapeJson(String text) {
+        if (text == null) {
+            return &quot;&quot;;
+        }
+        return text.replace(&quot;\\&quot;, &quot;\\\\&quot;)
+                   .replace(&quot;\&quot;&quot;, &quot;\\\&quot;&quot;)
+                   .replace(&quot;\n&quot;, &quot;\\n&quot;)
+                   .replace(&quot;\r&quot;, &quot;\\r&quot;)
+                   .replace(&quot;\t&quot;, &quot;\\t&quot;);
+    }
+}</code></pre>
+<p></p>
+<h3>Datei 4: <code>BmiManager.java</code></h3>
+<p></p>
+<p>In den Controller gehört <strong>kein</strong> manueller JSON-String-Aufbau.</p>
+<p>Der Controller delegiert an <code>JsonDateiDatenbankSpeicher</code>.</p>
+<p></p>
+<pre><code class="language-java hljs">package start;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BmiManager {
+
+    private List&lt;Person&gt; personenListe;
+    private Person aktuellePerson;
+    private int naechstePersonId;
+    private int naechsteMessungId;
+    private final JsonDateiDatenbankSpeicher dateiSpeicher;
+
+    public BmiManager() {
+        this.personenListe = new ArrayList&lt;&gt;();
+        this.aktuellePerson = null;
+        this.naechstePersonId = 1;
+        this.naechsteMessungId = 1;
+        this.dateiSpeicher = new JsonDateiDatenbankSpeicher();
+    }
+
+    public Person erstellePerson(String vorname, String nachname, int alter,
+            String geschlecht, String email) {
+        Person person = new Person(naechstePersonId++, vorname, nachname, alter, geschlecht, email);
+        personenListe.add(person);
+        return person;
+    }
+
+    public Messung erstelleMessung(double gewicht, double groesse) {
+        if (aktuellePerson == null) {
+            throw new IllegalStateException(&quot;Keine Person ausgewählt&quot;);
+        }
+
+        Messung messung = new Messung(naechsteMessungId++, aktuellePerson.getId(), gewicht, groesse);
+        aktuellePerson.addMessung(messung);
+        return messung;
+    }
+
+    public void speichereDaten(Path ordnerPfad) throws IOException {
+        dateiSpeicher.speichern(personenListe, ordnerPfad);
+    }
+
+    public void ladeDaten(Path ordnerPfad) throws IOException {
+        List&lt;Person&gt; geladenePersonen = dateiSpeicher.laden(ordnerPfad);
+        this.personenListe = new ArrayList&lt;&gt;(geladenePersonen);
+        this.aktuellePerson = personenListe.isEmpty() ? null : personenListe.get(0);
+        aktualisiereIdZaehler();
+    }
+
+    private void aktualisiereIdZaehler() {
+        int maxPersonId = 0;
+        int maxMessungId = 0;
+
+        for (Person p : personenListe) {
+            if (p.getId() &gt; maxPersonId) {
+                maxPersonId = p.getId();
+            }
+            for (Messung m : p.getMessungen()) {
+                if (m.getId() &gt; maxMessungId) {
+                    maxMessungId = m.getId();
+                }
+            }
+        }
+
+        naechstePersonId = maxPersonId + 1;
+        naechsteMessungId = maxMessungId + 1;
+    }
+}</code></pre>
+<p></p>
+<h3>Datei 5: <code>MainWindow.java</code></h3>
+<p></p>
+<p>In die GUI kommen nur die beiden Auslöser für Speichern und Laden.</p>
+<p>Die GUI kennt also den Speicherordner und ruft den Controller auf.</p>
+<p></p>
+<pre><code class="language-java hljs">package start;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.swing.JOptionPane;
+
+public class MainWindow {
+
+    private static final Path STANDARD_DATEN_ORDNER = Paths.get(&quot;data&quot;, &quot;bmiapp&quot;);
+    private BmiManager manager;
+
+    private void speichereDaten() {
+        try {
+            manager.speichereDaten(STANDARD_DATEN_ORDNER);
+            JOptionPane.showMessageDialog(null,
+                &quot;Daten erfolgreich gespeichert in:\n&quot; + STANDARD_DATEN_ORDNER);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,
+                &quot;Fehler beim Speichern:\n&quot; + e.getMessage());
+        }
+    }
+
+    private void ladeDaten() {
+        try {
+            manager.ladeDaten(STANDARD_DATEN_ORDNER);
+            aktualisierePersonenAuswahl();
+            aktualisiereAnzeige();
+            JOptionPane.showMessageDialog(null,
+                &quot;Daten erfolgreich geladen aus:\n&quot; + STANDARD_DATEN_ORDNER);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,
+                &quot;Fehler beim Laden:\n&quot; + e.getMessage());
+        }
+    }
+}</code></pre>
+<p></p>
+<h3>Reihenfolge beim Einbauen</h3>
+<p></p>
+<p>Wenn die Klasse noch nicht fertig ist, dann sollte die Musterlösung in genau dieser Reihenfolge umgesetzt werden:</p>
+<p></p>
+<p>1. <code>Person.java</code> um <code>id</code> ergänzen.</p>
+<p>2. <code>Messung.java</code> um <code>id</code> und <code>personId</code> ergänzen.</p>
+<p>3. <code>JsonDateiDatenbankSpeicher.java</code> vollständig anlegen.</p>
+<p>4. <code>BmiManager.java</code> um <code>speichereDaten()</code> und <code>ladeDaten()</code> erweitern.</p>
+<p>5. <code>MainWindow.java</code> um zwei Buttons und zwei Methoden ergänzen.</p>
+<p></p>
+<h3>Was nicht in welche Klasse gehört</h3>
+<p></p>
+<ul>
+<li>Kein JSON-String-Aufbau in <code>MainWindow</code></li>
+<li>Kein Dateizugriff in <code>Person</code></li>
+<li>Kein GUI-Code in <code>JsonDateiDatenbankSpeicher</code></li>
+<li>Keine Statistik dauerhaft in JSON speichern</li>
+</ul>
+<p></p>
+<hr />
+<p></p>
 <h2>Schritt 1: Das Datenmodell für Persistenz vorbereiten</h2>
 <p></p>
 <p>Bevor gespeichert werden kann, brauchen die Objekte stabile Identifikatoren.</p>
@@ -451,8 +1186,8 @@ JsonDateiDatenbankSpeicher (Persistenz)</code></pre>
 <p>Deshalb brauchen wir technische Schlüssel:</p>
 <p></p>
 <ul>
-<li><code>personId</code> für Personen</li>
-<li><code>messungId</code> für Messungen</li>
+<li><code>id</code> für Personen</li>
+<li><code>id</code> für Messungen</li>
 <li><code>personId</code> als Fremdschlüssel in der Messung</li>
 </ul>
 <p></p>
@@ -462,23 +1197,153 @@ JsonDateiDatenbankSpeicher (Persistenz)</code></pre>
 <p>Die Beziehung zwischen Person und Messung darf nicht nur im Kopf oder im Java-Objekt existieren.</p>
 <p>Sie muss explizit speicherbar werden.</p>
 <p></p>
-<h3>Umsetzungsidee</h3>
+<h3>Implementierung: Klasse Person erweitern</h3>
 <p></p>
-<p>In <code>Person</code>:</p>
+<p><strong>Schritt 1a: Vorlage für Schüler</strong></p>
 <p></p>
-<pre><code class="language-java hljs">private int id;</code></pre>
+<p>Ergänze in der Klasse <code>Person</code>:</p>
 <p></p>
-<p>In <code>Messung</code>:</p>
+<pre><code class="language-java hljs">// TODO: ID-Feld hinzufügen (private int id)
+// TODO: Getter für id schreiben: public int getId() { ... }
+// TODO: Setter für id schreiben: public void setId(int id) { ... }</code></pre>
 <p></p>
-<pre><code class="language-java hljs">private int id;
-private int personId;</code></pre>
+<p>Bei der Initialisierung neuer Personen im Controller sollte die ID 0 sein:</p>
 <p></p>
-<p>Wichtig:</p>
+<pre><code class="language-java hljs">// TODO: Im Konstruktor: this.id = 0;</code></pre>
+<p></p>
+<p><strong>Schritt 1b: Referenzlösung</strong></p>
+<p></p>
+<p>Hier ist die vollständige Implementierung für Klasse <code>Person</code>:</p>
+<p></p>
+<pre><code class="language-java hljs">public class Person {
+    private int id;  // Eindeutiger Schlüssel in der Datenbank
+    private String vorname;
+    private String nachname;
+    private int alter;
+    private String geschlecht;
+    private String email;
+    private List&lt;Messung&gt; messungen;
+    
+    // Konstruktor (ID wird anfangs auf 0 gesetzt, wird später vom Controller vergeben)
+    public Person(String vorname, String nachname, int alter, 
+                  String geschlecht, String email) {
+        this.id = 0;  // Wird später durch DB vergeben
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.alter = alter;
+        this.geschlecht = geschlecht;
+        this.email = email;
+        this.messungen = new ArrayList&lt;&gt;();
+    }
+    
+    // Getter und Setter für ID
+    public int getId() {
+        return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    // Weitere Getter/Setter bleiben wie zuvor...
+    public String getVorname() { return vorname; }
+    public void setVorname(String vorname) { this.vorname = vorname; }
+    
+    public String getNachname() { return nachname; }
+    public void setNachname(String nachname) { this.nachname = nachname; }
+    
+    public int getAlter() { return alter; }
+    public void setAlter(int alter) { this.alter = alter; }
+    
+    public String getGeschlecht() { return geschlecht; }
+    public void setGeschlecht(String geschlecht) { this.geschlecht = geschlecht; }
+    
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    
+    public List&lt;Messung&gt; getMessungen() { return messungen; }
+    
+    public void addMessung(Messung messung) {
+        messungen.add(messung);
+    }
+}</code></pre>
+<p></p>
+<h3>Implementierung: Klasse Messung erweitern</h3>
+<p></p>
+<p><strong>Schritt 1c: Vorlage für Schüler</strong></p>
+<p></p>
+<p>Ergänze in der Klasse <code>Messung</code>:</p>
+<p></p>
+<pre><code class="language-java hljs">// TODO: ID-Feld hinzufügen (private int id)
+// TODO: personId-Feld hinzufügen (private int personId)
+// TODO: Getter und Setter für beide Felder schreiben
+</code></pre>
+<p></p>
+<p><strong>Schritt 1d: Referenzlösung</strong></p>
+<p></p>
+<p>Hier ist die vollständige Implementierung für Klasse <code>Messung</code>:</p>
+<p></p>
+<pre><code class="language-java hljs">public class Messung {
+    private int id;           // Eindeutiger Schlüssel in der Datenbank
+    private int personId;     // Fremdschlüssel zur Person
+    private double gewicht;
+    private double groesse;
+    private LocalDateTime zeitstempel;
+    
+    // Konstruktor (ID und personId werden anfangs auf 0 gesetzt, 
+    // werden später vom Controller vergeben)
+    public Messung(double gewicht, double groesse) {
+        this.id = 0;              // Wird später durch DB vergeben
+        this.personId = 0;        // Wird später vom Controller gesetzt
+        this.gewicht = gewicht;
+        this.groesse = groesse;
+        this.zeitstempel = LocalDateTime.now();
+    }
+    
+    // Getter und Setter für ID
+    public int getId() {
+        return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    // Getter und Setter für personId (Fremdschlüssel)
+    public int getPersonId() {
+        return personId;
+    }
+    
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+    
+    // Weitere Getter/Setter bleiben wie zuvor...
+    public double getGewicht() { return gewicht; }
+    public void setGewicht(double gewicht) { this.gewicht = gewicht; }
+    
+    public double getGroesse() { return groesse; }
+    public void setGroesse(double groesse) { this.groesse = groesse; }
+    
+    public LocalDateTime getZeitstempel() { return zeitstempel; }
+    public void setZeitstempel(LocalDateTime zeitstempel) { 
+        this.zeitstempel = zeitstempel; 
+    }
+    
+    // Hilfsmethode: BMI berechnen
+    public double getBmi() {
+        if (groesse &lt;= 0) return 0;
+        return gewicht / (groesse * groesse);
+    }
+}</code></pre>
+<p></p>
+<h3>Wichtige Hinweise</h3>
 <p></p>
 <ul>
-<li>IDs müssen eindeutig sein.</li>
-<li>Beim Laden aus JSON müssen die IDs wieder übernommen werden.</li>
+<li>IDs müssen eindeutig sein. Der Controller verwaltet einen ID-Zähler.</li>
+<li>Beim Laden aus JSON müssen die IDs wieder übernommen werden (sonst sind neue Messungen nach dem Laden nicht korrekt zugeordnet).</li>
 <li>Der Controller sollte neue IDs vergeben können.</li>
+<li><code>personId</code> in <code>Messung</code> ist der Fremdschlüssel, der die Beziehung zur Person speichert.</li>
 </ul>
 <p></p>
 <hr />
@@ -513,6 +1378,366 @@ private int personId;</code></pre>
 <li>Code wiederverwendbar zu machen.</li>
 </ul>
 <p></p>
+<h3>Vorlage: Grundstruktur der Klasse</h3>
+<p></p>
+<p>Hier ist das Grundgerüst, das Schüler ausfüllen können:</p>
+<p></p>
+<pre><code class="language-java hljs">import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
+/**
+ * Persistenzschicht für BMI-Anwendung.
+ * 
+ * Verantwortung:
+ * - Schema als JSON speichern
+ * - Daten normalisiert speichern (Personen und Messungen getrennt)
+ * - Schema validieren beim Laden
+ * - Daten laden und wieder verknüpfen
+ */
+public class JsonDateiDatenbankSpeicher {
+    
+    // Dateinamen
+    private static final String SCHEMA_DATEI = &quot;bmiapp.schema.json&quot;;
+    private static final String DATA_DATEI = &quot;bmiapp.data.json&quot;;
+    
+    // TODO: Methode schreiben: public void speichere(Path ordner, List&lt;Person&gt; personen)
+    // TODO: Methode schreiben: public List&lt;Person&gt; lade(Path ordner)
+    // TODO: Hilfsmethode: private void schreibeSchema(Path ordner)
+    // TODO: Hilfsmethode: private void schreibeDaten(Path ordner, List&lt;Person&gt; personen)
+    // TODO: Hilfsmethode: private void validiereSchema(String schemaJson)
+    // TODO: Hilfsmethode: private String escapeJson(String text)
+}</code></pre>
+<p></p>
+<h3>Referenzlösung: Vollständige Klasse</h3>
+<p></p>
+<pre><code class="language-java hljs">import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
+/**
+ * Persistenzschicht für BMI-Anwendung mit JSON-Dateispeicher.
+ * 
+ * Architektur:
+ * - Schema und Daten werden getrennt gespeichert
+ * - Schema: bmiapp.schema.json (ändert sich selten)
+ * - Daten: bmiapp.data.json (ändert sich häufig)
+ * - Personen und Messungen sind genorma lisiert gespeichert
+ * 
+ * Didaktisches Ziel:
+ * Lernende verstehen die Trennung von Modell und Datensatz
+ * sowie die Rekonstruktion von 1:N-Beziehungen aus flachen Daten.
+ */
+public class JsonDateiDatenbankSpeicher {
+    
+    private static final String SCHEMA_DATEI = &quot;bmiapp.schema.json&quot;;
+    private static final String DATA_DATEI = &quot;bmiapp.data.json&quot;;
+    private static final String TMP_SUFFIX = &quot;.tmp&quot;;
+    
+    /**
+     * Speichert alle Personen und deren Messungen in Schema + Datendatei.
+     * 
+     * @param ordner Zielverzeichnis für die JSON-Dateien
+     * @param personen Liste aller Personen mit ihren Messungen
+     * @throws IOException bei Dateifehlern
+     */
+    public void speichere(Path ordner, List&lt;Person&gt; personen) throws IOException {
+        // Sicherstelle, dass das Verzeichnis existiert
+        Files.createDirectories(ordner);
+        
+        // Schema erzeugen (ändert sich meist nicht)
+        schreibeSchema(ordner);
+        
+        // Aktuelle Daten speichern
+        schreibeDaten(ordner, personen);
+    }
+    
+    /**
+     * Lädt all Personen und ihre Messungen aus Schema + Datendatei.
+     * 
+     * @param ordner Quellverzeichnis mit JSON-Dateien
+     * @return Liste aller Personen mit zugeordneten Messungen
+     * @throws IOException bei Dateifehlern
+     */
+    public List&lt;Person&gt; lade(Path ordner) throws IOException {
+        Path schemaPath = ordner.resolve(SCHEMA_DATEI);
+        Path dataPath = ordner.resolve(DATA_DATEI);
+        
+        // Validierung: Dateien müssen existieren
+        if (!Files.exists(schemaPath)) {
+            throw new FileNotFoundException(&quot;Schema-Datei nicht gefunden: &quot; + schemaPath);
+        }
+        if (!Files.exists(dataPath)) {
+            throw new FileNotFoundException(&quot;Daten-Datei nicht gefunden: &quot; + dataPath);
+        }
+        
+        // Schema laden und validieren
+        String schemaJson = new String(Files.readAllBytes(schemaPath), 
+                                      StandardCharsets.UTF_8);
+        validiereSchema(schemaJson);
+        
+        // Daten laden
+        String dataJson = new String(Files.readAllBytes(dataPath), 
+                                    StandardCharsets.UTF_8);
+        
+        // Objekte rekonstruieren
+        return ladenUndRekonstruieren(dataJson);
+    }
+    
+    /**
+     * Schreibt die Schema-Datei.
+     * Das Schema beschreibt die Struktur (nicht die konkreten Daten).
+     */
+    private void schreibeSchema(Path ordner) throws IOException {
+        String schemaJson = &quot;&quot;&quot;
+{
+  &quot;database&quot;: &quot;bmiapp&quot;,
+  &quot;version&quot;: 5,
+  &quot;entities&quot;: [
+    {
+      &quot;name&quot;: &quot;personen&quot;,
+      &quot;primaryKey&quot;: &quot;id&quot;,
+      &quot;fields&quot;: [
+        { &quot;name&quot;: &quot;id&quot;, &quot;type&quot;: &quot;int&quot;, &quot;required&quot;: true },
+        { &quot;name&quot;: &quot;vorname&quot;, &quot;type&quot;: &quot;string&quot;, &quot;required&quot;: true },
+        { &quot;name&quot;: &quot;nachname&quot;, &quot;type&quot;: &quot;string&quot;, &quot;required&quot;: true },
+        { &quot;name&quot;: &quot;alter&quot;, &quot;type&quot;: &quot;int&quot;, &quot;required&quot;: true },
+        { &quot;name&quot;: &quot;geschlecht&quot;, &quot;type&quot;: &quot;string&quot;, &quot;required&quot;: true },
+        { &quot;name&quot;: &quot;email&quot;, &quot;type&quot;: &quot;string&quot;, &quot;required&quot;: true }
+      ]
+    },
+    {
+      &quot;name&quot;: &quot;messungen&quot;,
+      &quot;primaryKey&quot;: &quot;id&quot;,
+      &quot;foreignKey&quot;: &quot;personId&quot;,
+      &quot;fields&quot;: [
+        { &quot;name&quot;: &quot;id&quot;, &quot;type&quot;: &quot;int&quot;, &quot;required&quot;: true },
+        { &quot;name&quot;: &quot;personId&quot;, &quot;type&quot;: &quot;int&quot;, &quot;required&quot;: true },
+        { &quot;name&quot;: &quot;gewicht&quot;, &quot;type&quot;: &quot;double&quot;, &quot;required&quot;: true },
+        { &quot;name&quot;: &quot;groesse&quot;, &quot;type&quot;: &quot;double&quot;, &quot;required&quot;: true },
+        { &quot;name&quot;: &quot;zeitstempel&quot;, &quot;type&quot;: &quot;string&quot;, &quot;required&quot;: true }
+      ]
+    }
+  ]
+}&quot;&quot;&quot;;
+        
+        // Sicher schreiben: über temporäre Datei
+        Path schemaPath = ordner.resolve(SCHEMA_DATEI);
+        Path tmpPath = ordner.resolve(SCHEMA_DATEI + TMP_SUFFIX);
+        
+        Files.writeString(tmpPath, schemaJson, StandardCharsets.UTF_8);
+        Files.move(tmpPath, schemaPath, StandardCopyOption.REPLACE_EXISTING);
+    }
+    
+    /**
+     * Schreibt die Daten-Datei mit normalisierten Personen und Messungen.
+     */
+    private void schreibeDaten(Path ordner, List&lt;Person&gt; personen) 
+            throws IOException {
+        StringBuilder json = new StringBuilder();
+        json.append(&quot;{\n&quot;);
+        json.append(&quot;  \&quot;personen\&quot;: [\n&quot;);
+        
+        // Personen speichern
+        for (int i = 0; i &lt; personen.size(); i++) {
+            Person p = personen.get(i);
+            json.append(&quot;    {\n&quot;);
+            json.append(&quot;      \&quot;id\&quot;: &quot;).append(p.getId()).append(&quot;,\n&quot;);
+            json.append(&quot;      \&quot;vorname\&quot;: \&quot;&quot;).append(escapeJson(p.getVorname()))
+                .append(&quot;\&quot;,\n&quot;);
+            json.append(&quot;      \&quot;nachname\&quot;: \&quot;&quot;).append(escapeJson(p.getNachname()))
+                .append(&quot;\&quot;,\n&quot;);
+            json.append(&quot;      \&quot;alter\&quot;: &quot;).append(p.getAlter()).append(&quot;,\n&quot;);
+            json.append(&quot;      \&quot;geschlecht\&quot;: \&quot;&quot;)
+                .append(escapeJson(p.getGeschlecht())).append(&quot;\&quot;,\n&quot;);
+            json.append(&quot;      \&quot;email\&quot;: \&quot;&quot;).append(escapeJson(p.getEmail()))
+                .append(&quot;\&quot;\n&quot;);
+            json.append(&quot;    }&quot;);
+            if (i &lt; personen.size() - 1) json.append(&quot;,&quot;);
+            json.append(&quot;\n&quot;);
+        }
+        
+        json.append(&quot;  ],\n&quot;);
+        json.append(&quot;  \&quot;messungen\&quot;: [\n&quot;);
+        
+        // Messungen speichern (flach, ohne Verschachtelung)
+        List&lt;Messung&gt; alleMessungen = new ArrayList&lt;&gt;();
+        for (Person p : personen) {
+            alleMessungen.addAll(p.getMessungen());
+        }
+        
+        for (int i = 0; i &lt; alleMessungen.size(); i++) {
+            Messung m = alleMessungen.get(i);
+            json.append(&quot;    {\n&quot;);
+            json.append(&quot;      \&quot;id\&quot;: &quot;).append(m.getId()).append(&quot;,\n&quot;);
+            json.append(&quot;      \&quot;personId\&quot;: &quot;).append(m.getPersonId())
+                .append(&quot;,\n&quot;);
+            json.append(&quot;      \&quot;gewicht\&quot;: &quot;).append(m.getGewicht()).append(&quot;,\n&quot;);
+            json.append(&quot;      \&quot;groesse\&quot;: &quot;).append(m.getGroesse()).append(&quot;,\n&quot;);
+            json.append(&quot;      \&quot;zeitstempel\&quot;: \&quot;&quot;)
+                .append(m.getZeitstempel().format(DateTimeFormatter.ISO_DATE_TIME))
+                .append(&quot;\&quot;\n&quot;);
+            json.append(&quot;    }&quot;);
+            if (i &lt; alleMessungen.size() - 1) json.append(&quot;,&quot;);
+            json.append(&quot;\n&quot;);
+        }
+        
+        json.append(&quot;  ]\n&quot;);
+        json.append(&quot;}\n&quot;);
+        
+        // Sicher schreiben über temporäre Datei
+        Path dataPath = ordner.resolve(DATA_DATEI);
+        Path tmpPath = ordner.resolve(DATA_DATEI + TMP_SUFFIX);
+        
+        Files.writeString(tmpPath, json.toString(), StandardCharsets.UTF_8);
+        Files.move(tmpPath, dataPath, StandardCopyOption.REPLACE_EXISTING);
+    }
+    
+    /**
+     * Validiert, dass das Schema die erwartete Struktur hat.
+     */
+    private void validiereSchema(String schemaJson) throws IOException {
+        // Minimalprüfung: Erwartete Entitäten müssen vorhanden sein
+        if (!schemaJson.contains(&quot;\&quot;personen\&quot;&quot;)) {
+            throw new IOException(&quot;Schema-Fehler: Entität 'personen' nicht gefunden&quot;);
+        }
+        if (!schemaJson.contains(&quot;\&quot;messungen\&quot;&quot;)) {
+            throw new IOException(&quot;Schema-Fehler: Entität 'messungen' nicht gefunden&quot;);
+        }
+    }
+    
+    /**
+     * Lädt die Daten und rekonstruiert die Objektbeziehungen.
+     */
+    private List&lt;Person&gt; ladenUndRekonstruieren(String dataJson) 
+            throws IOException {
+        List&lt;Person&gt; personen = new ArrayList&lt;&gt;();
+        Map&lt;Integer, Person&gt; personenNachId = new HashMap&lt;&gt;();
+        
+        // *** VEREINFACHTE IMPLEMENTIERUNG FÜR DIDAKTISCHE KLARHEIT ***
+        // (In echter Anwendung würde man einen JSON-Parser wie Gson verwenden)
+        
+        // Personen extrahieren (Pattern: &quot;vorname&quot;: &quot;Text&quot;)
+        String[] personBlöcke = dataJson.split(&quot;\&quot;personen\&quot;&quot;)[1]
+            .split(&quot;\&quot;messungen\&quot;&quot;)[0]
+            .split(&quot;},&quot;);
+        
+        for (String block : personBlöcke) {
+            if (!block.trim().isEmpty() &amp;&amp; block.contains(&quot;\&quot;vorname\&quot;&quot;)) {
+                try {
+                    @SuppressWarnings(&quot;unused&quot;)
+                    int id = extraziereInt(block, &quot;\&quot;id\&quot;:&quot;);
+                    String vorname = extraziereString(block, &quot;\&quot;vorname\&quot;:&quot;);
+                    String nachname = extraziereString(block, &quot;\&quot;nachname\&quot;:&quot;);
+                    int alter = extraziereInt(block, &quot;\&quot;alter\&quot;:&quot;);
+                    String geschlecht = extraziereString(block, &quot;\&quot;geschlecht\&quot;:&quot;);
+                    String email = extraziereString(block, &quot;\&quot;email\&quot;:&quot;);
+                    
+                    Person p = new Person(vorname, nachname, alter, geschlecht, email);
+                    p.setId(id);
+                    personen.add(p);
+                    personenNachId.put(id, p);
+                } catch (Exception e) {
+                    throw new IOException(&quot;Fehler beim Laden von Person: &quot; + e.getMessage());
+                }
+            }
+        }
+        
+        // Messungen extrahieren und verknüpfen
+        String[] messungBlöcke = dataJson.split(&quot;\&quot;messungen\&quot;&quot;)[1].split(&quot;},&quot;);
+        
+        for (String block : messungBlöcke) {
+            if (!block.trim().isEmpty() &amp;&amp; block.contains(&quot;\&quot;personId\&quot;&quot;)) {
+                try {
+                    int id = extraziereInt(block, &quot;\&quot;id\&quot;:&quot;);
+                    int personId = extraziereInt(block, &quot;\&quot;personId\&quot;:&quot;);
+                    double gewicht = extraziereDouble(block, &quot;\&quot;gewicht\&quot;:&quot;);
+                    double groesse = extraziereDouble(block, &quot;\&quot;groesse\&quot;:&quot;);
+                    String zeitstempel = extraziereString(block, &quot;\&quot;zeitstempel\&quot;:&quot;);
+                    
+                    Messung m = new Messung(gewicht, groesse);
+                    m.setId(id);
+                    m.setPersonId(personId);
+                    m.setZeitstempel(LocalDateTime.parse(zeitstempel));
+                    
+                    // Messung zur Person hinzufügen (Beziehung wiederherstellen!)
+                    Person person = personenNachId.get(personId);
+                    if (person != null) {
+                        person.addMessung(m);
+                    } else {
+                        throw new IOException(
+                            &quot;Messung hat ungültigen Fremdschlüssel: personId=&quot; + personId);
+                    }
+                } catch (Exception e) {
+                    throw new IOException(&quot;Fehler beim Laden von Messung: &quot; + e.getMessage());
+                }
+            }
+        }
+        
+        return personen;
+    }
+    
+    /**
+     * Nur für didaktische Vereinfachung!
+     * In echten Projekten: Gson, Jackson oder JSON-P verwenden.
+     */
+    private int extraziereInt(String text, String field) {
+        int start = text.indexOf(field) + field.length();
+        int ende = text.indexOf(&quot;,&quot;, start);
+        if (ende == -1) ende = text.indexOf(&quot;}&quot;, start);
+        return Integer.parseInt(text.substring(start, ende).trim());
+    }
+    
+    private double extraziereDouble(String text, String field) {
+        int start = text.indexOf(field) + field.length();
+        int ende = text.indexOf(&quot;,&quot;, start);
+        if (ende == -1) ende = text.indexOf(&quot;}&quot;, start);
+        return Double.parseDouble(text.substring(start, ende).trim());
+    }
+    
+    private String extraziereString(String text, String field) {
+        int start = text.indexOf(field) + field.length();
+        start = text.indexOf(&quot;\&quot;&quot;, start) + 1;
+        int ende = text.indexOf(&quot;\&quot;&quot;, start);
+        String result = text.substring(start, ende);
+        // Unescaped
+        result = result.replace(&quot;\\\&quot;&quot;, &quot;\&quot;&quot;);
+        result = result.replace(&quot;\\\\&quot;, &quot;\\&quot;);
+        return result;
+    }
+    
+    /**
+     * Escapt Sonderzeichen für sichere JSON-Strings.
+     */
+    private String escapeJson(String text) {
+        if (text == null) return &quot;&quot;;
+        return text.replace(&quot;\\&quot;, &quot;\\\\&quot;)
+                   .replace(&quot;\&quot;&quot;, &quot;\\\&quot;&quot;)
+                   .replace(&quot;\n&quot;, &quot;\\n&quot;)
+                   .replace(&quot;\r&quot;, &quot;\\r&quot;)
+                   .replace(&quot;\t&quot;, &quot;\\t&quot;);
+    }
+}</code></pre>
+<p></p>
+<h3>Wichtiges Hinweisschild für Schüler</h3>
+<p></p>
+<p><strong>Anmerkung zur Vereinfachung:</strong></p>
+<p></p>
+<p>Diese Implementierung nutzt String-Parsing statt eines richtigen JSON-Parsers (Gson, Jackson).</p>
+<p>Das ist für Lernziele didaktisch wertvoll:</p>
+<ul>
+<li>Man sieht genau, wie der Aufbau des JSON funktioniert</li>
+<li>Man versteht das Escaping und die Struktur</li>
+</ul>
+<p></p>
+<p><strong>In echten Projekten</strong> sollte man immer eine spezialisierte Bibliothek verwenden!</p>
+<p></p>
 <hr />
 <p></p>
 <h2>Schritt 3: Das Schema schreiben</h2>
@@ -529,26 +1754,6 @@ private int personId;</code></pre>
 <li>welche Felder Primär- oder Fremdschlüssel sind.</li>
 </ul>
 <p></p>
-<h3>Beispielidee</h3>
-<p></p>
-<pre><code class="language-java hljs">String schemaJson = &quot;&quot;&quot;
-{
-  \&quot;database\&quot;: \&quot;bmiapp\&quot;,
-  \&quot;version\&quot;: 5,
-  \&quot;entities\&quot;: [
-    {
-      \&quot;name\&quot;: \&quot;personen\&quot;,
-      \&quot;primaryKey\&quot;: \&quot;id\&quot;
-    },
-    {
-      \&quot;name\&quot;: \&quot;messungen\&quot;,
-      \&quot;primaryKey\&quot;: \&quot;id\&quot;,
-      \&quot;foreignKey\&quot;: \&quot;personId\&quot;
-    }
-  ]
-}
-&quot;&quot;&quot;;</code></pre>
-<p></p>
 <h3>Didaktischer Schwerpunkt</h3>
 <p></p>
 <p>Hier sollen die Lernenden erkennen:</p>
@@ -560,6 +1765,42 @@ private int personId;</code></pre>
 </ul>
 <p></p>
 <p>Das ist oft ein gedanklicher Sprung und sollte bewusst thematisiert werden.</p>
+<p></p>
+<h3>Implementierung: Methode schreibeSchema()</h3>
+<p></p>
+<p><strong>Vorlage für Schüler:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">/**
+ * Schreibt die Schema-Datei (Strukturdefinition).
+ * Das Schema ändert sich selten, die Daten aber häufig.
+ */
+private void schreibeSchema(Path ordner) throws IOException {
+    // TODO: JSON-String mit folgender Struktur aufbauen:
+    // - database: &quot;bmiapp&quot;
+    // - version: 5
+    // - entities: Array mit zwei Einträgen:
+    //   1. personen (primaryKey: id)
+    //   2. messungen (primaryKey: id, foreignKey: personId)
+    
+    // TODO: Datei bmiapp.schema.json schreiben (nutze tmp-Datei!)
+}</code></pre>
+<p></p>
+<p><strong>Referenzlösung (aus Schritt 2 entnommen):</strong></p>
+<p></p>
+<p>Siehe die Methode <code>schreibeSchema()</code> in der <code>JsonDateiDatenbankSpeicher</code>-Klasse oben (Schritt 2, Referenzlösung).</p>
+<p></p>
+<p>Die Methode:</p>
+<p>1. Erzeugt einen Multi-Line-String mit dem kompletten JSON-Schema</p>
+<p>2. Speichert ihn über eine temporäre Datei (<code>bmiapp.schema.json.tmp</code>)</p>
+<p>3. Verschiebt die Datei atomar zu <code>bmiapp.schema.json</code></p>
+<p></p>
+<p><strong>Didaktischer Fokus:</strong></p>
+<p></p>
+<ul>
+<li>Das Schema ist statisch und wird nur einmal geschrieben.</li>
+<li>Es enthält keine Personendaten, nur die Struktur.</li>
+<li>Dies ist ein gutes Thema, um über „Daten vs. Metadaten" zu sprechen.</li>
+</ul>
 <p></p>
 <hr />
 <p></p>
@@ -576,13 +1817,6 @@ private int personId;</code></pre>
 <p>Weil wir keine unnötigen Wiederholungen möchten.</p>
 <p>Jede Messung enthält nur den Verweis auf die zugehörige Person, nicht alle Personendaten.</p>
 <p></p>
-<h3>Beispielaufbau</h3>
-<p></p>
-<pre><code class="language-java hljs">datenJson.append(&quot;{\n&quot;);
-datenJson.append(&quot;  \&quot;personen\&quot;: [ ... ],\n&quot;);
-datenJson.append(&quot;  \&quot;messungen\&quot;: [ ... ]\n&quot;);
-datenJson.append(&quot;}\n&quot;);</code></pre>
-<p></p>
 <h3>Didaktische Erläuterung</h3>
 <p></p>
 <p>Für Schülerinnen und Schüler ist es sehr verlockend, jede Person inklusive aller Messungen direkt verschachtelt zu speichern.</p>
@@ -597,6 +1831,92 @@ datenJson.append(&quot;}\n&quot;);</code></pre>
 <li>Wiederaufbau von Objektgraphen.</li>
 </ul>
 <p></p>
+<h3>Implementierung: Methode schreibeDaten()</h3>
+<p></p>
+<p><strong>Vorlage für Schüler:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">/**
+ * Schreibt die Daten-Datei mit normalisierten Personen und Messungen.
+ */
+private void schreibeDaten(Path ordner, List&lt;Person&gt; personen) 
+        throws IOException {
+    // TODO: Aufbau des JSON-Strings:
+    // 1. Öffne JSON-Objekt: &quot;{&quot;
+    // 2. Array &quot;personen&quot;: Schreibe alle Personen mit ihren Feldern
+    //    - Wichtig: Verwende escapeJson() für Strings!
+    //    - Kein Komma nach der letzten Person!
+    // 3. Array &quot;messungen&quot;: Sammle ALLE Messungen aller Personen
+    //    - Flache Liste, nicht verschachtelt!
+    //    - Jede Messung hat personId als Fremdschlüssel
+    // 4. Schließe JSON-Objekt: &quot;}&quot;
+    
+    // TODO: Sicher schreiben (über tmp-Datei mit atomarem Move)
+}</code></pre>
+<p></p>
+<p><strong>Referenzlösung (aus Schritt 2 entnommen):</strong></p>
+<p></p>
+<p>Siehe die Methode <code>schreibeDaten()</code> in der <code>JsonDateiDatenbankSpeicher</code>-Klasse oben (Schritt 2).</p>
+<p></p>
+<p>Die Methode:</p>
+<p>1. Erstellt einen <code>StringBuilder</code> für schrittweisen Aufbau</p>
+<p>2. Speichert strukturiert alle Personen in einem Array</p>
+<p>3. Sammelt alle Messungen (von allen Personen) und speichert sie in einem separaten Array</p>
+<p>4. Escapet dabei alle Strings mit <code>escapeJson()</code></p>
+<p>5. Schreibt atomar über tmp-Datei</p>
+<p></p>
+<p><strong>Beispiel einer geladenen bmiapp.data.json:</strong></p>
+<p></p>
+<pre><code class="language-json hljs">{
+  &quot;personen&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;vorname&quot;: &quot;Mia&quot;,
+      &quot;nachname&quot;: &quot;Muster&quot;,
+      &quot;alter&quot;: 16,
+      &quot;geschlecht&quot;: &quot;Frau&quot;,
+      &quot;email&quot;: &quot;mia@example.de&quot;
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;vorname&quot;: &quot;Tom&quot;,
+      &quot;nachname&quot;: &quot;Test&quot;,
+      &quot;alter&quot;: 17,
+      &quot;geschlecht&quot;: &quot;Mann&quot;,
+      &quot;email&quot;: &quot;tom@example.de&quot;
+    }
+  ],
+  &quot;messungen&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;personId&quot;: 1,
+      &quot;gewicht&quot;: 62.0,
+      &quot;groesse&quot;: 1.68,
+      &quot;zeitstempel&quot;: &quot;2026-04-05T10:15:00&quot;
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;personId&quot;: 1,
+      &quot;gewicht&quot;: 61.5,
+      &quot;groesse&quot;: 1.68,
+      &quot;zeitstempel&quot;: &quot;2026-04-12T14:20:00&quot;
+    },
+    {
+      &quot;id&quot;: 3,
+      &quot;personId&quot;: 2,
+      &quot;gewicht&quot;: 75.0,
+      &quot;groesse&quot;: 1.78,
+      &quot;zeitstempel&quot;: &quot;2026-04-06T09:00:00&quot;
+    }
+  ]
+}</code></pre>
+<p></p>
+<p><strong>Beobachtungen:</strong></p>
+<ul>
+<li>Mias Daten (<code>id: 1</code>) erscheinen NUR EINMAL im Array <code>personen</code></li>
+<li>Ihre Messungen (<code>personId: 1</code>) erscheinen im Array <code>messungen</code> und referenzieren nur die <code>id: 1</code></li>
+<li>Das vermeidet Redundanz und Inkonsistenzen</li>
+</ul>
+<p></p>
 <hr />
 <p></p>
 <h2>Schritt 5: JSON sicher schreiben</h2>
@@ -605,10 +1925,10 @@ datenJson.append(&quot;}\n&quot;);</code></pre>
 <p></p>
 <h3>Worauf ist zu achten?</h3>
 <p></p>
-<p>1. UTF-8 explizit verwenden.</p>
-<p>2. Sonderzeichen in Strings escapen.</p>
-<p>3. Kein Komma hinter dem letzten Element.</p>
-<p>4. Am besten über eine temporäre Datei schreiben und dann atomar verschieben.</p>
+<p>1. <strong>UTF-8 explizit verwenden</strong> – Umlaute und Sonderzeichen sonst zerstört</p>
+<p>2. <strong>Sonderzeichen in Strings escapen</strong> – <code>"</code> wird zu <code>\"</code></p>
+<p>3. <strong>Kein Komma hinter dem letzten Element</strong> – Sonst invalidies JSON</p>
+<p>4. <strong>Atomar schreiben über temporäre Datei</strong> – Falls Absturz während Speichern</p>
 <p></p>
 <h3>Warum ist das didaktisch wichtig?</h3>
 <p></p>
@@ -620,6 +1940,78 @@ datenJson.append(&quot;}\n&quot;);</code></pre>
 <blockquote>Was passiert, wenn das Programm während des Schreibens abstürzt?</blockquote>
 <p></p>
 <p>Damit wird verständlich, warum man mit <code>.tmp</code>-Datei und atomischem Move arbeiten sollte.</p>
+<p></p>
+<h3>Implementierung: Sichere Schreibweise</h3>
+<p></p>
+<p><strong>Vorlage für Schüler:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">/**
+ * Escapet Sonderzeichen für sichere JSON-Strings.
+ */
+private String escapeJson(String text) {
+    // TODO: Folgende Zeichen escapen:
+    // - Backslash: \ wird zu \\
+    // - Anführungszeichen: &quot; wird zu \&quot;
+    // - Zeilenumbruch: \n
+    // - Wagenrücklauf: \r
+    // - Tabulator: \t
+}
+
+/**
+ * Sicheres Schreiben mit tmp-Datei und atomarem Move.
+ */
+private void schreibeSicherZuDatei(Path targetPath, String inhalt) 
+        throws IOException {
+    // TODO: 
+    // 1. Erstelle temporäre Datei: targetPath + &quot;.tmp&quot;
+    // 2. Schreibe Inhalt in tmp-Datei mit UTF-8
+    // 3. Verschiebe tmp-Datei auf Original (atomar)
+    //    - Falls Original existiert: überschreibe
+}</code></pre>
+<p></p>
+<p><strong>Referenzlösung (aus Schritt 2):</strong></p>
+<p></p>
+<p>Siehe die Methoden <code>escapeJson()</code> und die sicheren Schreibvorgänge in:</p>
+<ul>
+<li><code>schreibeSchema()</code></li>
+<li><code>schreibeDaten()</code></li>
+</ul>
+<p></p>
+<p>aus der <code>JsonDateiDatenbankSpeicher</code>-Klasse.</p>
+<p></p>
+<p><strong>Konkrete Implementierung der escapeJson()-Methode:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">private String escapeJson(String text) {
+    if (text == null) return &quot;&quot;;
+    return text.replace(&quot;\\&quot;, &quot;\\\\&quot;)       // Reihenfolge: erst \!
+               .replace(&quot;\&quot;&quot;, &quot;\\\&quot;&quot;)
+               .replace(&quot;\n&quot;, &quot;\\n&quot;)
+               .replace(&quot;\r&quot;, &quot;\\r&quot;)
+               .replace(&quot;\t&quot;, &quot;\\t&quot;);
+}</code></pre>
+<p></p>
+<p><strong>Wichtige Hinweise:</strong></p>
+<p></p>
+<p>1. <strong>Reihenfolge beim Escaping:</strong> Der Backslash muss ZUERST ersetzt werden, sonst ersetzt man die gerade eingefügten Backslashes nochmal!</p>
+<p></p>
+<p>2. <strong>Atomares Schreiben:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">Path targetPath = ordner.resolve(DATA_DATEI);
+Path tmpPath = ordner.resolve(DATA_DATEI + &quot;.tmp&quot;);
+
+// Schreib in tmp
+Files.writeString(tmpPath, json.toString(), StandardCharsets.UTF_8);
+
+// Verschieb atomar (dieser Moment ist &quot;All-or-Nothing&quot;)
+Files.move(tmpPath, targetPath, StandardCopyOption.REPLACE_EXISTING);</code></pre>
+<p></p>
+<p><strong>Lerneffekt für Schüler:</strong></p>
+<p></p>
+<ul>
+<li>Wenn die JVM nach <code>writeString()</code> abstürzt → Die tmp-Datei existiert unvollständig, die alte Datei bleibt intakt</li>
+<li>Wenn die JVM nach <code>move()</code> abstürzt → Der Move ist atomar, also entweder komplett oder gar nicht geschehen</li>
+<li>Resultat: Die Datei ist immer konsistent, nicht halb geschrieben!</li>
+</ul>
 <p></p>
 <hr />
 <p></p>
@@ -647,6 +2039,38 @@ datenJson.append(&quot;}\n&quot;);</code></pre>
 <p></p>
 <p>Die Schülerinnen und Schüler lernen dadurch einen professionellen Arbeitsstil kennen.</p>
 <p></p>
+<h3>Implementierung: Validierung des Schemas</h3>
+<p></p>
+<p><strong>Vorlage für Schüler:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">/**
+ * Validiert, dass das Schema die erwartete Struktur hat.
+ */
+private void validiereSchema(String schemaJson) throws IOException {
+    // TODO: Prüfungen:
+    // - Entität &quot;personen&quot; vorhanden?
+    // - Entität &quot;messungen&quot; vorhanden?
+    // - (Optional: Feldnamen prüfen?)
+    
+    // Falls nicht OK: throw new IOException(&quot;Beschreibung des Fehlers&quot;);
+}</code></pre>
+<p></p>
+<p><strong>Referenzlösung (aus Schritt 2):</strong></p>
+<p></p>
+<pre><code class="language-java hljs">private void validiereSchema(String schemaJson) throws IOException {
+    // Minimalprüfung: Erwartete Entitäten müssen vorhanden sein
+    if (!schemaJson.contains(&quot;\&quot;personen\&quot;&quot;)) {
+        throw new IOException(&quot;Schema-Fehler: Entität 'personen' nicht gefunden&quot;);
+    }
+    if (!schemaJson.contains(&quot;\&quot;messungen\&quot;&quot;)) {
+        throw new IOException(&quot;Schema-Fehler: Entität 'messungen' nicht gefunden&quot;);
+    }
+}</code></pre>
+<p></p>
+<p><strong>Lerneffekt:</strong></p>
+<p></p>
+<p>Wenn jemand später die Schema-Datei versehentlich beschädigt, bricht das Laden mit einer klaren Fehlermeldung ab – statt später beim Zugriff auf nicht erwartete Daten zu crashen.</p>
+<p></p>
 <hr />
 <p></p>
 <h2>Schritt 7: Daten laden und Beziehungen wiederherstellen</h2>
@@ -655,14 +2079,15 @@ datenJson.append(&quot;}\n&quot;);</code></pre>
 <p></p>
 <h3>Reihenfolge</h3>
 <p></p>
-<p>1. Alle Personen laden</p>
-<p>2. Personen in einer Map nach ID ablegen</p>
-<p>3. Alle Messungen laden</p>
-<p>4. Jede Messung über <code>personId</code> der passenden Person zuordnen</p>
+<p>1. <strong>Alle Personen laden</strong> – in eine Liste und als Map nach ID</p>
+<p>2. <strong>Personen in einer Map nach ID ablegen</strong> – für schnellen Zugriff</p>
+<p>3. <strong>Alle Messungen laden</strong> – aus der flachen Struktur</p>
+<p>4. <strong>Jede Messung über <code>personId</code> der passenden Person zuordnen</strong> – Beziehung wiederherstellen</p>
 <p></p>
 <h3>Warum in dieser Reihenfolge?</h3>
 <p></p>
 <p>Eine Messung kann erst korrekt zugeordnet werden, wenn die zugehörige Person schon existiert.</p>
+<p>Sonst: <code>NullPointerException</code> bei ungültigem Fremdschlüssel.</p>
 <p></p>
 <h3>Didaktischer Mehrwert</h3>
 <p></p>
@@ -671,14 +2096,98 @@ datenJson.append(&quot;}\n&quot;);</code></pre>
 <p></p>
 <h3>Typisches Denkmuster</h3>
 <p></p>
-<pre><code class="language-java hljs">Map&lt;Integer, Person&gt; personenNachId = new HashMap&lt;&gt;();</code></pre>
-<p></p>
-<p>Danach können Messungen so zugeordnet werden:</p>
-<p></p>
-<pre><code class="language-java hljs">Person person = personenNachId.get(personId);
-if (person != null) {
-    person.addMessung(messung);
+<pre><code class="language-java hljs">// Schritt 1: Personen laden
+Map&lt;Integer, Person&gt; personenNachId = new HashMap&lt;&gt;();
+for (Person p : geladenePersonen) {
+    personenNachId.put(p.getId(), p);
+}
+
+// Schritt 2: Messungen laden und verknüpfen
+for (Messung m : geladeneMes sungen) {
+    // Schritt 3: Fremdschlüssel auflösen
+    Person person = personenNachId.get(m.getPersonId());
+    
+    // Schritt 4: Beziehung herstellen
+    if (person != null) {
+        person.addMessung(m);
+    } else {
+        // Fehlerbehandlung: Ungültige personId!
+        throw new IOException(&quot;Messung &quot; + m.getId() + 
+            &quot; hat ungültige personId: &quot; + m.getPersonId());
+    }
 }</code></pre>
+<p></p>
+<h3>Implementierung: Methode ladenUndRekonstruieren()</h3>
+<p></p>
+<p><strong>Vorlage für Schüler:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">/**
+ * Lädt die Daten aus JSON und rekonstruiert die Objektbeziehungen.
+ */
+private List&lt;Person&gt; ladenUndRekonstruieren(String dataJson) 
+        throws IOException {
+    
+    List&lt;Person&gt; personen = new ArrayList&lt;&gt;();
+    Map&lt;Integer, Person&gt; personenNachId = new HashMap&lt;&gt;();
+    
+    // TODO: PHASE 1 - Personen laden
+    // - Extrahiere &quot;personen&quot;-Array aus dataJson
+    // - Für jede Person: ID, Vorname, Nachname, etc. auslesen
+    // - Person-Objekt erstellen
+    // - In Liste UND Map speichern (Map: id → Person)
+    
+    // TODO: PHASE 2 - Messungen laden und verknüpfen
+    // - Extrahiere &quot;messungen&quot;-Array aus dataJson
+    // - Für jede Messung: ID, personId, Gewicht, Größe, Zeitstempel auslesen
+    // - Messung-Objekt erstellen
+    // - Passende Person aus Map holen: personenNachId.get(personId)
+    // - Fehlerbehandlung: Person existiert nicht?
+    // - Messung zur Person hinzufügen: person.addMessung(messung)
+    
+    return personen;
+}</code></pre>
+<p></p>
+<p><strong>Referenzlösung (aus Schritt 2):</strong></p>
+<p></p>
+<p>Siehe die Methode <code>ladenUndRekonstruieren()</code> in der <code>JsonDateiDatenbankSpeicher</code>-Klasse (Schritt 2).</p>
+<p></p>
+<p>Die Methode zeigt:</p>
+<p>1. <strong>PHASE 1:</strong> Personen extrahieren und in HashMap speichern</p>
+<p>2. <strong>PHASE 2:</strong> Messungen extrahieren und über <code>personId</code> die passende Person finden</p>
+<p>3. <strong>Fehlerbehandlung:</strong> Falls eine Messung eine ungültige <code>personId</code> hat</p>
+<p></p>
+<p><strong>Wichtiger Code-Ausschnitt aus der Referenzlösung:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">// PHASE 1: Personen laden
+// ...Person-Extrahierung...
+Person p = new Person(vorname, nachname, alter, geschlecht, email);
+p.setId(id);
+personen.add(p);
+personenNachId.put(id, p);  // &lt;-- Hier: ID als Schlüssel!
+
+// PHASE 2: Messungen laden und verknüpfen
+// ...Messung-Extrahierung...
+Messung m = new Messung(gewicht, groesse);
+m.setId(id);
+m.setPersonId(personId);
+
+// HIER PASSIERT DIE MAGIE: Beziehung wiederherstellen!
+Person person = personenNachId.get(personId);
+if (person != null) {
+    person.addMessung(m);  // &lt;-- Messung zur Person hinzufügen!
+} else {
+    throw new IOException(&quot;Ungültige personId: &quot; + personId);
+}</code></pre>
+<p></p>
+<h3>Lerneffekt</h3>
+<p></p>
+<p>Die Lernenden verstehen:</p>
+<ul>
+<li><strong>Normalisierung:</strong> Separater Speicher für Personen und Messungen</li>
+<li><strong>Denormalisierung beim Laden:</strong> Wieder zusammenführen via IDs</li>
+<li><strong>Integrität:</strong> Eine Messung ohne gültige Person ist ein Fehler</li>
+<li><strong>Objekt-Graphen:</strong> Aus flachen Dateien entstehen wieder verbundene Objekte</li>
+</ul>
 <p></p>
 <hr />
 <p></p>
@@ -691,15 +2200,6 @@ if (person != null) {
 <pre><code class="language-java hljs">public void speichereDaten(Path ordner) throws IOException
 public void ladeDaten(Path ordner) throws IOException</code></pre>
 <p></p>
-<h3>Weitere sinnvolle Aufgaben des Controllers</h3>
-<p></p>
-<ul>
-<li>IDs verwalten,</li>
-<li>geladene Personenliste setzen,</li>
-<li>aktuelle Person nach dem Laden sinnvoll auswählen,</li>
-<li>Fehler an die GUI weitergeben.</li>
-</ul>
-<p></p>
 <h3>Didaktische Erläuterung</h3>
 <p></p>
 <p>Die Schülerinnen und Schüler sollen hier sehen, dass der Controller Vermittler ist:</p>
@@ -709,6 +2209,180 @@ public void ladeDaten(Path ordner) throws IOException</code></pre>
 <li>Persistenz kennt die GUI nicht.</li>
 <li>Der Controller verbindet beide Seiten.</li>
 </ul>
+<p></p>
+<h3>Implementierung: BmiManager erweitern</h3>
+<p></p>
+<p><strong>Vorlage für Schüler:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">public class BmiManager {
+    private List&lt;Person&gt; personen;
+    private Person aktuellePersonn;
+    private JsonDateiDatenbankSpeicher speicher;
+    
+    // ID-Verwaltung
+    private int nächstePersonId = 1;
+    private int nächsteMessungId = 1;
+    
+    public BmiManager() {
+        this.personen = new ArrayList&lt;&gt;();
+        this.speicher = new JsonDateiDatenbankSpeicher();
+        // TODO: nächstePersonId und nächsteMessungId korrekt initialisieren
+    }
+    
+    /**
+     * Speichert alle Personen und Messungen in JSON-Dateien.
+     */
+    public void speichereDaten(Path ordner) throws IOException {
+        // TODO: speicher.speichere(ordner, personen) aufrufen
+        // TODO: Bei Erfolg: Meldung an Benutzer
+        // TODO: Bei Fehler: Exception abfangen und sinnvoll weiterleiten
+    }
+    
+    /**
+     * Lädt alle Personen und Messungen aus JSON-Dateien.
+     */
+    public void ladeDaten(Path ordner) throws IOException {
+        // TODO: List&lt;Person&gt; geladenPersonen = speicher.lade(ordner)
+        // TODO: this.personen = geladenPersonen
+        // TODO: Höchste IDs ermitteln (für nächste neue Person/Messung)
+        // TODO: aktuellePersonen auf erste Person setzen (falls vorhanden)
+        // TODO: Bei Fehler: Exception abfangen und sinnvoll weiterleiten
+    }
+    
+    /**
+     * Erstellt eine neue Person und vergibt eine eindeutige ID.
+     */
+    public void personHinzufügen(String vorname, String nachname, 
+                                 int alter, String geschlecht, String email) {
+        Person p = new Person(vorname, nachname, alter, geschlecht, email);
+        p.setId(nächstePersonId++);  // TODO: ID zuweisen
+        personen.add(p);
+    }
+    
+    /**
+     * Fügt eine neue Messung zur aktuellen Person hinzu.
+     */
+    public void messungHinzufügen(double gewicht, double groesse) {
+        if (aktuellePersonn == null) {
+            throw new IllegalArgumentException(&quot;Keine Person ausgewählt&quot;);
+        }
+        Messung m = new Messung(gewicht, groesse);
+        m.setId(nächsteMessungId++);  // TODO: ID zuweisen
+        m.setPersonId(aktuellePersonn.getId());  // TODO: Fremdschlüssel setzen
+        aktuellePersonn.addMessung(m);
+    }
+    
+    // Weitere Methoden (Getter, Statistik, etc.) bleiben wie zuvor...
+}</code></pre>
+<p></p>
+<p><strong>Referenzlösung: Vollständige Methoden</strong></p>
+<p></p>
+<pre><code class="language-java hljs">public class BmiManager {
+    private List&lt;Person&gt; personen;
+    private Person aktuellePersonn;
+    private JsonDateiDatenbankSpeicher speicher;
+    
+    private int nächstePersonId = 1;
+    private int nächsteMessungId = 1;
+    
+    public BmiManager() {
+        this.personen = new ArrayList&lt;&gt;();
+        this.speicher = new JsonDateiDatenbankSpeicher();
+    }
+    
+    /**
+     * Speichert alle Personen und Messungen in JSON-Dateien.
+     */
+    public void speichereDaten(Path ordner) throws IOException {
+        if (ordner == null) {
+            throw new IllegalArgumentException(&quot;Ordnerpfad darf nicht null sein&quot;);
+        }
+        
+        try {
+            speicher.speichere(ordner, personen);
+            System.out.println(&quot;✓ Daten erfolgreich gespeichert in: &quot; + ordner);
+        } catch (IOException e) {
+            System.err.println(&quot;✗ Fehler beim Speichern: &quot; + e.getMessage());
+            throw e;
+        }
+    }
+    
+    /**
+     * Lädt alle Personen und Messungen aus JSON-Dateien.
+     */
+    public void ladeDaten(Path ordner) throws IOException {
+        if (ordner == null) {
+            throw new IllegalArgumentException(&quot;Ordnerpfad darf nicht null sein&quot;);
+        }
+        
+        try {
+            List&lt;Person&gt; geladenPersonen = speicher.lade(ordner);
+            this.personen = geladenPersonen;
+            
+            // Ermittle höchste IDs für weitere neue Einträge
+            nächstePersonId = 1;
+            nächsteMessungId = 1;
+            
+            for (Person p : personen) {
+                if (p.getId() &gt;= nächstePersonId) {
+                    nächstePersonId = p.getId() + 1;
+                }
+                for (Messung m : p.getMessungen()) {
+                    if (m.getId() &gt;= nächsteMessungId) {
+                        nächsteMessungId = m.getId() + 1;
+                    }
+                }
+            }
+            
+            // Setze aktuelle Person auf die erste (falls vorhanden)
+            if (!personen.isEmpty()) {
+                aktuellePersonn = personen.get(0);
+            }
+            
+            System.out.println(&quot;✓ Daten erfolgreich geladen: &quot; 
+                + personen.size() + &quot; Personen&quot;);
+        } catch (IOException e) {
+            System.err.println(&quot;✗ Fehler beim Laden: &quot; + e.getMessage());
+            throw e;
+        }
+    }
+    
+    /**
+     * Erstellt eine neue Person und vergibt eine eindeutige ID.
+     */
+    public void personHinzufügen(String vorname, String nachname, 
+                                 int alter, String geschlecht, String email) {
+        Person p = new Person(vorname, nachname, alter, geschlecht, email);
+        p.setId(nächstePersonId++);  // Eindeutige ID vergeben
+        personen.add(p);
+        if (aktuellePersonn == null) {
+            aktuellePersonn = p;  // Erste Person wird automatisch aktuelle
+        }
+    }
+    
+    /**
+     * Fügt eine neue Messung zur aktuellen Person hinzu.
+     */
+    public void messungHinzufügen(double gewicht, double groesse) {
+        if (aktuellePersonn == null) {
+            throw new IllegalArgumentException(&quot;Keine Person ausgewählt&quot;);
+        }
+        
+        Messung m = new Messung(gewicht, groesse);
+        m.setId(nächsteMessungId++);        // Eindeutige ID vergeben
+        m.setPersonId(aktuellePersonn.getId());  // Fremdschlüssel setzen
+        aktuellePersonn.addMessung(m);
+    }
+    
+    // Weitere Methoden...
+}</code></pre>
+<p></p>
+<h3>Wichtige Controller-Aufgaben</h3>
+<p></p>
+<p>1. <strong>ID-Verwaltung:</strong> Der Controller verwaltet zwei Zähler (<code>nächstePersonId</code>, <code>nächsteMessungId</code>). Diese werden beim Laden neu berechnet!</p>
+<p>2. <strong>Fehlerbehandlung:</strong> IO-Exceptions werden weiterpropagiert, aber mit aussagekräftigen Meldungen</p>
+<p>3. <strong>State-Management:</strong> Nach dem Laden muss die aktuelle Person sinnvoll gesetzt werden</p>
+<p>4. <strong>Entkopplung:</strong> Die GUI ruft nur <code>speichereDaten(ordner)</code> und <code>ladeDaten(ordner)</code> auf, nicht JSON-spezifische Details</p>
 <p></p>
 <hr />
 <p></p>
@@ -740,6 +2414,153 @@ public void ladeDaten(Path ordner) throws IOException</code></pre>
 <p>5. die Daten wieder laden.</p>
 <p></p>
 <p>Das macht die abstrakte Idee von Dauerhaftigkeit sichtbar.</p>
+<p></p>
+<h3>Implementierung: GUI-Buttons und ActionListener</h3>
+<p></p>
+<p><strong>Vorlage für Schüler:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">public class MainWindow extends JFrame {
+    private BmiManager manager;
+    private JButton btnSpeichern;
+    private JButton btnLaden;
+    
+    // ... weitere GUI-Komponenten ...
+    
+    public MainWindow(BmiManager manager) {
+        this.manager = manager;
+        initializeComponents();
+        setupLayout();
+    }
+    
+    private void initializeComponents() {
+        // Bestehende Buttons...
+        
+        // TODO: Neue Buttons erstellen
+        btnSpeichern = new JButton(&quot;💾 Speichern&quot;);
+        btnLaden = new JButton(&quot;📂 Laden&quot;);
+        
+        // TODO: Action-Listener registrieren
+        btnSpeichern.addActionListener(e -&gt; onSpeichern());
+        btnLaden.addActionListener(e -&gt; onLaden());
+    }
+    
+    /**
+     * Wird aufgerufen, wenn Benutzer auf &quot;Speichern&quot; klickt.
+     */
+    private void onSpeichern() {
+        // TODO: 
+        // 1. manager.speichereDaten(Pfad) aufrufen
+        // 2. Bei Erfolg: JOptionPane.showMessageDialog(&quot;Gespeichert!&quot;)
+        // 3. Bei Fehler: JOptionPane.showErrorDialog(Fehlermeldung)
+    }
+    
+    /**
+     * Wird aufgerufen, wenn Benutzer auf &quot;Laden&quot; klickt.
+     */
+    private void onLaden() {
+        // TODO:
+        // 1. manager.ladeDaten(Pfad) aufrufen
+        // 2. Die GUI komplett aktualisieren:
+        //    - Personenliste neu füllen
+        //    - Historie aktualisieren
+        //    - Statistik neu berechnen
+        // 3. Bei Erfolg: JOptionPane.showMessageDialog(&quot;Geladen!&quot;)
+        // 4. Bei Fehler: JOptionPane.showErrorDialog(Fehlermeldung)
+    }
+}</code></pre>
+<p></p>
+<p><strong>Referenzlösung: ActionListener implementieren</strong></p>
+<p></p>
+<pre><code class="language-java hljs">private void onSpeichern() {
+    try {
+        // Fester Speicherort: user.home/bmiapp_data
+        Path speicherOrt = Paths.get(System.getProperty(&quot;user.home&quot;), 
+                                     &quot;bmiapp_data&quot;);
+        manager.speichereDaten(speicherOrt);
+        
+        JOptionPane.showMessageDialog(this,
+            &quot;Daten erfolgreich gespeichert in:\n&quot; + speicherOrt,
+            &quot;Speichern erfolgreich&quot;,
+            JOptionPane.INFORMATION_MESSAGE);
+            
+    } catch (IOException ex) {
+        JOptionPane.showMessageDialog(this,
+            &quot;Fehler beim Speichern:\n&quot; + ex.getMessage(),
+            &quot;Speicherfehler&quot;,
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void onLaden() {
+    try {
+        // Gleicher Speicherort wie onSpeichern()
+        Path speicherOrt = Paths.get(System.getProperty(&quot;user.home&quot;), 
+                                     &quot;bmiapp_data&quot;);
+        
+        manager.ladeDaten(speicherOrt);
+        
+        // GUI komplete aktualisieren
+        aktuelisierePersonenliste();
+        aktuelisiereHistorie();
+        aktuelisiereStatistik();
+        
+        JOptionPane.showMessageDialog(this,
+            &quot;Daten erfolgreich geladen!&quot;,
+            &quot;Laden erfolgreich&quot;,
+            JOptionPane.INFORMATION_MESSAGE);
+            
+    } catch (IOException ex) {
+        JOptionPane.showMessageDialog(this,
+            &quot;Fehler beim Laden:\n&quot; + ex.getMessage(),
+            &quot;Ladefehler&quot;,
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+/**
+ * Hilfsmethode: Personenliste in JComboBox neu füllen
+ */
+private void aktuelisierePerson enliste() {
+    cboPersonen.removeAllItems();
+    for (Person p : manager.getPersonen()) {
+        cboPersonen.addItem(p.getVorname() + &quot; &quot; + p.getNachname());
+    }
+}
+
+/**
+ * Hilfsmethode: Historie des aktuellen Messung aktualisieren
+ */
+private void aktuelisiereHistorie() {
+    lstHistorie.removeAllItems();
+    Person aktuelle = manager.getAktuellePersonn();
+    if (aktuelle != null) {
+        for (Messung m : aktuelle.getMessungen()) {
+            String eintrag = String.format(&quot;BMI: %.2f | Größe: %.2f | Gewicht: %.1f kg&quot;,
+                m.getBmi(), m.getGroesse(), m.getGewicht());
+            lstHistorie.addItem(eintrag);
+        }
+    }
+}
+
+/**
+ * Hilfsmethode: Statistik neu berechnen und anzeigen
+ */
+private void aktuelisiereStatistik() {
+    Person aktuelle = manager.getAktuellePersonn();
+    if (aktuelle != null) {
+        int anzUb = aktuelle.getMessungen().size();
+        double durchBMI = // Berechnung...
+        lblStatistik.setText(&quot;Messungen: &quot; + anzUb + &quot; | Ø BMI: &quot; + durchBMI);
+    }
+}</code></pre>
+<p></p>
+<h3>Wichtige GUI-Punkte</h3>
+<p></p>
+<p>1. <strong>Fester Speicherort:</strong> Nutze <code>System.getProperty("user.home")</code>, damit die Datei auf jedem System gespeichert wird</p>
+<p>2. <strong>Fehlerbehandlung:</strong> Try-Catch um IO-Exceptions</p>
+<p>3. <strong>Benutzer-Feedback:</strong> JOptionPane für Erfolgs- oder Fehlermeldungen</p>
+<p>4. <strong>Nach dem Laden:</strong> GUI komplett aktualisieren (Personenliste, Historie, Statistik)</p>
+<p>5. <strong>Atomare Operationen:</strong> Speichern und Laden sollten ganz oder gar nicht erfolgen</p>
 <p></p>
 <hr />
 <p></p>
@@ -797,6 +2618,180 @@ public void ladeDaten(Path ordner) throws IOException</code></pre>
 <li>Ein Programm ist nicht schon dann gut, wenn es einmal funktioniert.</li>
 <li>Es ist gut, wenn seine Korrektheit überprüfbar ist.</li>
 </ul>
+<p></p>
+<h3>Implementierung: Example Junit Tests</h3>
+<p></p>
+<p><strong>Vorlage für Schüler:</strong></p>
+<p></p>
+<pre><code class="language-java hljs">import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import java.nio.file.Path;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class JsonDateiDatenbankSpeicherTest {
+    
+    private JsonDateiDatenbankSpeicher speicher = 
+        new JsonDateiDatenbankSpeicher();
+    
+    /**
+     * Test 1: Speichern erzeugt beide Dateien.
+     */
+    @Test
+    public void test_speichernErzeugtBeideDateien(@TempDir Path tmpDir) 
+            throws IOException {
+        // TODO:
+        // 1. Erstelle eine Person mit einer Messung
+        // 2. Speichere sie
+        // 3. Prüfe, ob bmiapp.schema.json existiert
+        // 4. Prüfe, ob bmiapp.data.json existiert
+    }
+    
+    /**
+     * Test 2: Roundtrip-Test: Speichern und wieder laden
+     */
+    @Test
+    public void test_speichernUndLadenRoundtrip(@TempDir Path tmpDir) 
+            throws IOException {
+        // TODO:
+        // 1. Erstelle Original-Person mit Messungen
+        // 2. Speichere sie
+        // 3. Lade sie neu
+        // 4. Prüfe: ID-Konsistenz, Anzahl Messungen, Werte gleich?
+    }
+    
+    /**
+     * Test 3: Ungültige personId wird erkannt
+     */
+    @Test
+    public void test_ladenMitUngültigemnFremdschlüssel(@TempDir Path tmpDir) 
+            throws IOException {
+        // TODO:
+        // 1. Erstelle eine data.json mit ungültigem personId in Messung
+        // 2. Versuche zu laden
+        // 3. Prüfe: IOException wird geworfen?
+    }
+}</code></pre>
+<p></p>
+<p><strong>Referenzlösung: Konkrete JUnit-Tests</strong></p>
+<p></p>
+<pre><code class="language-java hljs">import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class JsonDateiDatenbankSpeicherTest {
+    
+    private JsonDateiDatenbankSpeicher speicher = 
+        new JsonDateiDatenbankSpeicher();
+    
+    /**
+     * Test 1: Speichern erzeugt beide Dateien.
+     */
+    @Test
+    public void test_speichernErzeugtBeideDateien(@TempDir Path tmpDir) 
+            throws IOException {
+        // Arrange: Testdaten vorbereiten
+        List&lt;Person&gt; personen = new ArrayList&lt;&gt;();
+        Person p = new Person(&quot;Max&quot;, &quot;Mustermann&quot;, 16, &quot;Mann&quot;, &quot;max@test.de&quot;);
+        p.setId(1);
+        
+        Messung m = new Messung(70.0, 1.75);
+        m.setId(1);
+        m.setPersonId(1);
+        p.addMessung(m);
+        personen.add(p);
+        
+        // Act: Speichern
+        speicher.speichere(tmpDir, personen);
+        
+        // Assert: Dateien prüfen
+        assertTrue(Files.exists(tmpDir.resolve(&quot;bmiapp.schema.json&quot;)),
+            &quot;Schema-Datei sollte existieren&quot;);
+        assertTrue(Files.exists(tmpDir.resolve(&quot;bmiapp.data.json&quot;)),
+            &quot;Daten-Datei sollte existieren&quot;);
+    }
+    
+    /**
+     * Test 2: Speichern und wieder laden (Roundtrip)
+     */
+    @Test
+    public void test_speichernUndLadenRoundtrip(@TempDir Path tmpDir) 
+            throws IOException {
+        // Arrange: Testdaten vorbereiten
+        List&lt;Person&gt; original = new ArrayList&lt;&gt;();
+        Person p1 = new Person(&quot;Mia&quot;, &quot;Muster&quot;, 16, &quot;Frau&quot;, &quot;mia@test.de&quot;);
+        p1.setId(1);
+        
+        Messung m1 = new Messung(62.0, 1.68);
+        m1.setId(1);
+        m1.setPersonId(1);
+        p1.addMessung(m1);
+        
+        Messung m2 = new Messung(61.5, 1.68);
+        m2.setId(2);
+        m2.setPersonId(1);
+        p1.addMessung(m2);
+        
+        original.add(p1);
+        
+        // Act: Speichern
+        speicher.speichere(tmpDir, original);
+        
+        // Act: Laden
+        List&lt;Person&gt; geladen = speicher.lade(tmpDir);
+        
+        // Assert: Vollständigkeit prüfen
+        assertEquals(1, geladen.size(), &quot;Sollte eine Person haben&quot;);
+        Person pGeladen = geladen.get(0);
+        assertEquals(1, pGeladen.getId(), &quot;Person-ID sollte 1 sein&quot;);
+        assertEquals(&quot;Mia&quot;, pGeladen.getVorname(), &quot;Vorname sollte Mia sein&quot;);
+        assertEquals(2, pGeladen.getMessungen().size(), 
+            &quot;Person sollte 2 Messungen haben&quot;);
+        
+        // Messungen prüfen
+        Messung mGeladen1 = pGeladen.getMessungen().get(0);
+        assertEquals(1, mGeladen1.getId(), &quot;Erste Messung-ID sollte 1 sein&quot;);
+        assertEquals(62.0, mGeladen1.getGewicht(), &quot;Gewicht sollte 62.0 sein&quot;);
+    }
+    
+    /**
+     * Test 3: Schema-Validierung prüft auf erwartete Entitäten
+     */
+    @Test
+    public void test_ladenMitFehlenderSchemaEntity(@TempDir Path tmpDir) 
+            throws IOException {
+        // Arrange: Unvollständiges Schema
+        String schlechtesSchema = &quot;&quot;&quot;
+            {
+              &quot;database&quot;: &quot;bmiapp&quot;,
+              &quot;entities&quot;: []
+            }
+            &quot;&quot;&quot;;
+        Files.writeString(tmpDir.resolve(&quot;bmiapp.schema.json&quot;), 
+            schlechtesSchema);
+        Files.writeString(tmpDir.resolve(&quot;bmiapp.data.json&quot;), 
+            &quot;{}&quot;);
+        
+        // Act &amp; Assert: Sollte IOException werfen
+        assertThrows(IOException.class, () -&gt; {
+            speicher.lade(tmpDir);
+        }, &quot;Beim Laden mit fehlender Entity sollte IOException geworfen werden&quot;);
+    }
+}</code></pre>
+<p></p>
+<h3>Wichtige Test-Punkte</h3>
+<p></p>
+<p>1. <strong>@TempDir:</strong> JUnit 5 Feature - erstellt temporäres Verzeichnis für Tests</p>
+<p>2. <strong>Arrange-Act-Assert:</strong> Standard Test-Struktur</p>
+<p>3. <strong>AssertEquals:</strong> Prüfe Werte auf Gleichheit</p>
+<p>4. <strong>AssertThrows:</strong> Prüfe, dass Exception geworfen wird</p>
+<p>5. <strong>Edge Cases:</strong> Tests sollten auch Fehler und Grenzvälleberücksichtigen</p>
+<p></p>
+<h3>Lerneffekt</h3>
+<p></p>
+<p>Tests machen die Anforderungen explizit und dokumentieren das erwartbare Verhalten. Schüler lernen, dass guter Code testbar ist!</p>
 <p></p>
 <hr />
 <p></p>

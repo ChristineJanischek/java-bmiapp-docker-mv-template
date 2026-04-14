@@ -55,6 +55,7 @@ Für deine erste Orientierung:
 1. **Neu im Projekt?** Starte mit [docs/GETTING_STARTED/TEMPLATE_QUICKSTART.md](docs/GETTING_STARTED/TEMPLATE_QUICKSTART.md)
 2. **Schrittweise Anleitung für deine Version?** Siehe [👣 Schritt-für-Schritt-Anleitungen](#-schritt-für-schritt-anleitungen)
 3. **Fragen zu Konzepten?** Sieh dir die [📚 Dokumentation nach Thema](#-dokumentation--übersicht) an
+4. **E-Learning modernisieren?** Starte mit [docs/ELEARNING_MODERNISIERUNG/README.md](docs/ELEARNING_MODERNISIERUNG/README.md)
 
 ## 🔀 Versionsfahrplan (Überblick)
 

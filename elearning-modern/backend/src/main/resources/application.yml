@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: elearning-backend
+
+logging:
+  level:
+    de.schule.elearning: DEBUG

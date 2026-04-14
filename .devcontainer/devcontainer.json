@@ -1,0 +1,36 @@
+{
+  "name": "BMI App + E-Learning Dev",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "forwardPorts": [5173, 8080],
+  "portsAttributes": {
+    "5173": {
+      "label": "E-Learning Frontend (Vite)",
+      "onAutoForward": "openBrowserOnce"
+    },
+    "8080": {
+      "label": "E-Learning Backend (Spring Boot)",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "cd elearning-modern/frontend && npm install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-spring-boot",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-21",
+            "path": "/usr/lib/jvm/java-21-openjdk-amd64",
+            "default": true
+          }
+        ],
+        "java.jdt.ls.java.home": "/usr/lib/jvm/java-21-openjdk-amd64"
+      }
+    }
+  }
+}
