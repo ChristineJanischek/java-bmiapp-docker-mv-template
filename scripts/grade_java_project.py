@@ -11,6 +11,7 @@ from grader.models import GradingOutcome, RunConfig
 from grader.profile_loader import load_profile
 from grader.report_docx import write_report_docx
 from grader.report_text import write_markdown_and_html_report
+from grader.runtime import ensure_runtime_requirements
 from grader.scoring import calculate_linear_grade, calculate_points
 
 
@@ -18,13 +19,13 @@ def parse_args() -> RunConfig:
     parser = argparse.ArgumentParser(
         description=(
             "Analysiert ein hochgeladenes Java-Projekt (ZIP mit src) "
-            "und erzeugt eine ausgefuellte DOCX der KI-Korrekturhilfe-Feedback-App (KIFeed-App)."
+            "und erzeugt eine ausgefuellte DOCX der Korrekturhilfe."
         )
     )
     parser.add_argument("--zip", required=True, help="Pfad zur ZIP-Datei (Schuelerprojekt)")
-    parser.add_argument("--profile", required=True, help="Pfad zum KIFeed-App-Profil (JSON)")
-    parser.add_argument("--rubric-docx", required=True, help="Pfad zur DOCX-Vorlage der KIFeed-App")
-    parser.add_argument("--out", required=True, help="Ausgabepfad fuer die DOCX-Ausgabe der KIFeed-App")
+    parser.add_argument("--profile", required=True, help="Pfad zum Korrekturhilfe-Profil (JSON)")
+    parser.add_argument("--rubric-docx", required=True, help="Pfad zur DOCX-Vorlage der Korrekturhilfe")
+    parser.add_argument("--out", required=True, help="Ausgabepfad fuer die DOCX-Ausgabe der Korrekturhilfe")
     parser.add_argument("--out-md", default=None, help="Optionaler Ausgabepfad fuer Markdown")
     parser.add_argument("--out-html", default=None, help="Optionaler Ausgabepfad fuer HTML")
     parser.add_argument("--student", required=True, help="Name des Schuelers/der Schuelerin")
@@ -65,6 +66,7 @@ def _detect_source_root(extract_dir: Path, expected_root: str) -> Path:
 
 
 def main() -> int:
+    ensure_runtime_requirements()
     cfg = parse_args()
 
     profile = load_profile(cfg.profile_path)
@@ -106,7 +108,7 @@ def main() -> int:
             html_output_path=cfg.output_html_path,
         )
 
-    print("KIFeed-App-Ausgabe erstellt")
+    print("Korrekturhilfe-Ausgabe erstellt")
     print(f"Schueler/in: {cfg.student_name}")
     print(f"Punkte: {total_points:.2f}/{max_points:.2f}")
     print(f"Note (linear): {grade}")

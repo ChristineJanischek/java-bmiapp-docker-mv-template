@@ -5,9 +5,26 @@
 build/
 target/
 
-# Download-Artefakte (können aus Git regeneriert werden)
-downloads/
+# -------------------------------------------------------------------
+# DATENSCHUTZ / PRIVACY
+# Bewertungen, Schülerarbeiten und personenbezogene Daten dürfen
+# NIEMALS ins Repository – weder im Original noch als Template-Fork.
+# Zugriff nur für den Owner (Lehrkraft).
+# -------------------------------------------------------------------
+downloads/batch_korrekturhilfen/
+downloads/archiv/
+downloads/eingang/
+downloads/eingang_retest_from_archiv/
+downloads/ausgang/
+downloads/eLearning_oop/
+downloads/boegen/
+downloads/version-4/
+# Schüler-ZIPs und Bewertungsberichte generell ausschliessen
 *.zip
+downloads/
+
+# Applikations-Laufzeitdaten (lokal, nicht geteilt)
+data/bmiapp/bmiapp.data.json
 
 # Maven
 .mvn/
