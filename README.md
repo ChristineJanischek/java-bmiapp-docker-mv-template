@@ -65,6 +65,7 @@ Diese Branches entsprechen den Versionen im Unterricht. Starte im Branch `main` 
 - `version-2-methoden` → **Version 2**: Methoden, Kontrollstrukturen & Algorithmen
 - `version-3-validation` → **Version 3**: Eingabevalidierung & Fehlerbehandlung
 - `version-4-assoziationen` → **Version 4 (Musterlösung): Assoziationen - Personen & Messungen** ⭐ NEU
+- `version-5-vererbung` → **Version 5: Vererbung auf Basis von Assoziationen (Redundanzabbau)** ⭐ NEU
 
 **Schnellstart für Schüler (Version 0):**
 ```bash
@@ -103,6 +104,7 @@ Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleit
 | **2** | `version-2-methoden` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) | Methoden, Kontrollstrukturen, Algorithmen |
 | **3** | `version-3-validation` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) | Validierung & Fehlerbehandlung |
 | **4** | `version-4-assoziationen` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) | ⭐ Assoziationen (1:N) – Personen & Messungen |
+| **5** | `version-5-vererbung` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_5_VERERBUNG.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_5_VERERBUNG.md) | ⭐ Vererbung anwenden, Redundanzen abbauen |
 
 **Weitere Tipps:**
 - Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen)
@@ -172,6 +174,7 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 | **Kontrollflusselemente (if, for, while) verstehen möchte** | [KONTROLLSTRUKTUREN.md](docs/JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md) + [SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) |
 | **Eingaben validieren und Fehler behandeln möchte** | [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) + [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) + [SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) |
 | **Assoziationen (1:N, M:N) und Container-Klassen nutzen möchte** | [ASSOZIATIONEN.md](docs/JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md) + [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) + [ASSOZIATIONEN_PERSON_MESSUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_PERSON_MESSUNG.md) + [ASSOZIATIONEN_BRIDGE_KLASSE_BEHANDLUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_BRIDGE_KLASSE_BEHANDLUNG.md) + [MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md](docs/BEST_PRACTICES/MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md) + [SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) |
+| **Vererbung konkret im vorhandenen System nutzen möchte** | [VERERBUNG.md](docs/JAVA_PROGRAMMIERUNG/VERERBUNG.md) + [METHODEN_UEBERSCHREIBEN.md](docs/JAVA_PROGRAMMIERUNG/METHODEN_UEBERSCHREIBEN.md) + [SCHRITTE_VERSION_5_VERERBUNG.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_5_VERERBUNG.md) |
 | **Klassen ordnungsgemäß strukturieren möchte** | [GRUNDGERUEST_KLASSE.md](docs/JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) + [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) |
 | **Unit Tests schreiben möchte** | [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) |
 | **Polymorphie verstehen möchte** | [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) |
@@ -334,6 +337,15 @@ Hinweis: Die lineare Note wird aus den Profil-Einstellungen (`grade_scale`) bere
 - [ ] GUI erweitert: Person-Verwaltung, Messungs-Historie, Statistik
 - [ ] LocalDateTime für Zeitstempel genutzt
 - [ ] Kapselung mit defensiven Kopien implementiert
+- [ ] Alle Tests grün
+
+### ✅ Version 5 (version-5-vererbung) – Vererbung & Redundanzabbau
+- [ ] `BaseEntity` als abstrakte Basisklasse eingeführt
+- [ ] `Person` erbt von `BaseEntity`
+- [ ] `Messung` erbt von `BaseEntity`
+- [ ] Doppelte ID-Logik aus Subklassen entfernt
+- [ ] Zentrale ID-Validierung in Basisklasse umgesetzt
+- [ ] Vererbung per Unit-Test abgesichert
 - [ ] Alle Tests grün
 
 ---

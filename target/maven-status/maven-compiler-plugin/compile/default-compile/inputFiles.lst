@@ -1,3 +1,4 @@
+/workspaces/java-bmiapp-docker-mv-template/src/start/BaseEntity.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/BmiManager.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/Bmirechner.java
 /workspaces/java-bmiapp-docker-mv-template/src/start/DatabaseConnector.java
