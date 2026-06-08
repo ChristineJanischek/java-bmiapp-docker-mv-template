@@ -114,3 +114,7 @@ mvn test
 ## Naechster Ausbauschritt
 
 Nach dieser Version kannst du in einer weiteren Ausbaustufe zusaetzliche gemeinsame Logik zentralisieren, z. B. Zeitstempel- oder Audit-Felder in einer erweiterten Basisklasse.
+
+## Lernpfad-Navigation
+- Gesamtpfad: [LERNPFAD_VERSIONEN_0_BIS_6.md](./LERNPFAD_VERSIONEN_0_BIS_6.md)
+- Weiter mit Version 5b: [SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md](./SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md)

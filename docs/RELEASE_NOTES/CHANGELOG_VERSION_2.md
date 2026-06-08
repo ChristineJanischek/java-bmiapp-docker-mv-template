@@ -327,7 +327,7 @@ In **Version 3** werden folgende Features implementiert:
    - Speichern von Berechnungen in Datei
    - Verlaufs-Anzeige
 
-→ Siehe [`SCHRITTE_VERSION_3.md`](SCHRITTE_VERSION_3.md)
+→ Siehe [`SCHRITTE_VERSION_3.md`](../ANLEITUNGEN/SCHRITTE_VERSION_3.md)
 
 ---
 

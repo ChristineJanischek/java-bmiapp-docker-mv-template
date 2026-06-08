@@ -97,6 +97,8 @@ Du möchtest dieses Projekt als Vorlage für ähnliche Aufgaben nutzen? Lies die
 
 Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleitung:
 
+Empfohlener linearer Schuelerpfad (0 bis 6): [docs/ANLEITUNGEN/LERNPFAD_VERSIONEN_0_BIS_6.md](docs/ANLEITUNGEN/LERNPFAD_VERSIONEN_0_BIS_6.md)
+
 | Version | Branch | Anleitung | Beschreibung |
 |---------|--------|-----------|-------------|
 | **0** | `main` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_0.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_0.md) | Einstieg & Grundgerüst – Starte hier! |

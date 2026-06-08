@@ -419,7 +419,7 @@ public class Bmirechner {
 
 - [Schritt-für-Schritt-Anleitung: MVC implementieren](../KONZEPTE/MVC_ANLEITUNG.md)
 - [Assoziationen zwischen Klassen](../JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md)
-- [Weitere Konzepte und Prompts](./info.md)
+- [Weitere Konzepte und Prompts](../../INFO.md)
 
 ---
 

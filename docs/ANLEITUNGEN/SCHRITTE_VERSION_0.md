@@ -135,4 +135,8 @@ git checkout version-1-mvc-gui   # Musterlösung
 - [MVC_KONZEPT.md](../KONZEPTE/MVC_KONZEPT.md)
 - [SECURE_CODING.md](../BEST_PRACTICES/SECURE_CODING.md)
 - [ASSOZIATIONEN.md](../JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md)
-- [INFO.md](./INFO.md)
+- [INFO.md](../../INFO.md)
+
+## Lernpfad-Navigation
+- Gesamtpfad: [LERNPFAD_VERSIONEN_0_BIS_6.md](./LERNPFAD_VERSIONEN_0_BIS_6.md)
+- Weiter mit Version 1: [SCHRITTE_VERSION_1.md](./SCHRITTE_VERSION_1.md)

@@ -220,4 +220,4 @@ public class Kurs {
 
 ---
 
-Weitere Informationen zu objektorientierter Modellierung findest du in [info.md](./info.md).
+Weitere Informationen zu objektorientierter Modellierung findest du in [INFO.md](../../INFO.md).

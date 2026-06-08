@@ -55,6 +55,10 @@ git push
 
 ## Weitere Hilfen
 - [MVC_KONZEPT.md](../KONZEPTE/MVC_KONZEPT.md)
-- [INFO.md](./INFO.md)
+- [INFO.md](../../INFO.md)
 - [SECURE_CODING.md](../BEST_PRACTICES/SECURE_CODING.md)
 - [ASSOZIATIONEN.md](../JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md)
+
+## Lernpfad-Navigation
+- Gesamtpfad: [LERNPFAD_VERSIONEN_0_BIS_6.md](./LERNPFAD_VERSIONEN_0_BIS_6.md)
+- Weiter mit Version 2: [SCHRITTE_VERSION_2.md](./SCHRITTE_VERSION_2.md)

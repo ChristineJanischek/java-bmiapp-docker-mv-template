@@ -279,4 +279,4 @@ Optional (immutable Variante):
 ---
 
 Hinweis: Das Quiz gibt es auch als PDF (zum Ausfüllen am Rechner oder Ausdrucken):
-- Datei: [materials/quiz_kapselung.pdf](./materials/quiz_kapselung.pdf)
+- Datei: [materials/quiz_kapselung.pdf](../../materials/quiz_kapselung.pdf)

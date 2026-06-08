@@ -423,3 +423,8 @@ Version 6 macht die BMI-App **sicherer**:
 ✓ Daten werden minimiert und sind löschbar  
 
 **Next Step:** Implementierung Schritt für Schritt durchgehen.
+
+## Lernpfad-Navigation
+
+- Gesamtpfad: [LERNPFAD_VERSIONEN_0_BIS_6.md](./LERNPFAD_VERSIONEN_0_BIS_6.md)
+- Vorher: [SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md](./SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md)

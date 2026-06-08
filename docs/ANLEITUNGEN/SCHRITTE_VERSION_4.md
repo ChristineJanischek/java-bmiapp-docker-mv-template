@@ -519,10 +519,9 @@ public class Version4Tests {
 
 Nach Version 4 könnten Sie:
 
-1. **Version 5 - Datenbank**: Messungen in einer Datenbank speichern (SQL)
-2. **Version 6 - Ärzte**: M:N Beziehung (Ärzte ↔ Patienten)
-3. **Version 7 - Export**: Messdaten als PDF/CSV exportieren
-4. **Version 8 - Graphik**: Trend-Visualisierung der Messungen
+1. **Version 5a - Vererbung**: Redundanzen über `BaseEntity` abbauen
+2. **Version 5b - JSON-Dateispeicher**: Daten dauerhaft speichern und laden
+3. **Version 6 - Sichere Datenverarbeitung**: Validierung, Logging, Datenschutz
 
 ---
 
@@ -534,6 +533,11 @@ Nach Version 4 könnten Sie:
 - [MainWindow.java](../../src/start/MainWindow.java) - GUI
 - [ASSOZIATIONEN_PERSON_MESSUNG.md](./ASSOZIATIONEN_PERSON_MESSUNG.md) - Theorie
 - [ASSOZIATIONEN_LOESUNGEN.md](./ASSOZIATIONEN_LOESUNGEN.md) - Musterlösungen
+
+## Lernpfad-Navigation
+- Gesamtpfad: [LERNPFAD_VERSIONEN_0_BIS_6.md](./LERNPFAD_VERSIONEN_0_BIS_6.md)
+- Weiter mit Version 5a: [SCHRITTE_VERSION_5_VERERBUNG.md](./SCHRITTE_VERSION_5_VERERBUNG.md)
+- Danach Version 5b: [SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md](./SCHRITTE_VERSION_5_JSON_DATEISPEICHER.md)
 
 ---
 
