@@ -1,8 +1,15 @@
-# BMI-Rechner Version 3+: Assoziationen & Objektbeziehungen
+# BMI-Rechner Lernmodul Version 4: Assoziationen & Objektbeziehungen
 
 ## 📚 Lernmaterialien zur Erweiterung des BMI-Rechners
 
-Willkommen zu Version 3+ des BMI-Rechners! In dieser Version erweitern wir die Anwendung um **Assoziationen** und die Verwaltung von **Benutzerprofilen**.
+Dieses Lernmodul gehoert fachlich zu **Version 4 (version-4-assoziationen)**.
+
+### Ausgangssituation und Loesungssituation
+
+- **Ausgangssituation (vor Assoziationen):** Version 3, Branch `version-3-validation`, Anleitung `SCHRITTE_VERSION_3.md`
+- **Loesungssituation (mit Assoziationen):** Version 4, Branch `version-4-assoziationen`, Anleitung `SCHRITTE_VERSION_4.md`
+
+In Version 4 erweitern wir die Anwendung um **Assoziationen** und die Verwaltung von **Benutzerprofilen**.
 
 ---
 
@@ -69,10 +76,10 @@ Nach dieser Lerneinheit können die Schüler:
 
 ---
 
-## 🏗️ Neue Klassen
+## 🏗️ Neue Klassen in Version 4
 
 ```
-Person (Version 3+)
+Person (Version 4)
 ├── Attribute: vorname, nachname, alter, geschlecht, email
 ├── 1:N zu Messung: List<Messung> messungen
 ├── M:N zu Arzt: List<Arzt> aerzte
@@ -281,9 +288,9 @@ Ein Schüler hat das Thema verstanden, wenn er/sie:
 ## 📝 Version
 
 - **Erstellung:** 2026-02-02
-- **Material für:** Java 21, Schüler Klasse 10-13
+- **Material fuer:** Java 21, Schueler Klasse 10-13
 - **Format:** Markdown mit Code-Beispielen
-- **Bearbeitungsstand:** Version 3+
+- **Bearbeitungsstand:** Version 4 (Assoziationen)
 
 ---
 
