@@ -159,6 +159,9 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 - [CHANGELOG_VERSION_2.md](docs/RELEASE_NOTES/CHANGELOG_VERSION_2.md) – Changelog für Version 2
 - [UPGRADE_SUMMARY.md](docs/RELEASE_NOTES/UPGRADE_SUMMARY.md) – Zusammenfassung von Upgrades und Änderungen
 
+### 🧭 Anleitungskonvention (Versionen)
+- [NAMING_KONVENTION_VERSIONEN.md](docs/ANLEITUNGEN/NAMING_KONVENTION_VERSIONEN.md) – Verbindliche Dateinamen und Versionsregeln fuer Schueler-Anleitungen
+
 ---
 
 ## 📖 Dokumentation nach Lernzielen
@@ -407,6 +410,14 @@ Starte mit Version 0 (`main`). Folge dann dem [Versionsfahrplan](#-versionsfahrp
 ## 🤝 Beitragen
 
 Hast du Verbesserungsvorschläge für die Dokumentation? Erstelle ein Issue oder einen Pull Request!
+
+### Konventions-Check fuer versionierte Anleitungen
+
+Vor dem Commit von neuen/umbenannten Anleitungen bitte ausfuehren:
+
+```bash
+python3 scripts/check_guide_version_naming.py
+```
 
 ---
 

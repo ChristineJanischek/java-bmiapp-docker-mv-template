@@ -40,5 +40,6 @@
 - [ ] Branch ist aktuell (rebase/merge mit Zielbranch erfolgt)
 - [ ] Kein direkter Push auf geschützten Branch
 - [ ] Code kompiliert ohne Fehler (`mvn clean package`)
+- [ ] Bei Änderungen in `docs/ANLEITUNGEN`: `python3 scripts/check_guide_version_naming.py` erfolgreich
 - [ ] Keine offenen Gesprächsfäden im PR
 - [ ] CODEOWNERS-Freigabe durch @ChristineJanischek angefordert
