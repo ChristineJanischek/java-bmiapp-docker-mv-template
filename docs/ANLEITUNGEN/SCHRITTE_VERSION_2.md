@@ -16,7 +16,7 @@ git pull
 ## 2. GUI erweitern
 - Füge eine ComboBox für das Alter (`cbAlter`) hinzu
 - Füge RadioButtons für das Geschlecht (`rbMann`, `rbFrau`) hinzu
-- Siehe Beispiel in [SCHRITT_FUER_SCHRITT_GUI_V2.md](./SCHRITT_FUER_SCHRITT_GUI_V2.md)
+- Siehe GUI-Hinweise in [GUI_ECLIPSE_WINDOWSBUILDER.md](../GUI_DEVELOPMENT/GUI_ECLIPSE_WINDOWSBUILDER.md)
 
 ---
 
@@ -232,6 +232,10 @@ if (rbMann.isSelected()) {
 manager.interpretiereIntelligent(gewicht, groesse, alter, geschlecht);
 manager.zeigeInterpretation();
 ```
+
+## Lernpfad-Navigation
+- Gesamtpfad: [LERNPFAD_VERSIONEN_0_BIS_6.md](./LERNPFAD_VERSIONEN_0_BIS_6.md)
+- Weiter mit Version 3: [SCHRITTE_VERSION_3.md](./SCHRITTE_VERSION_3.md)
 
 ---
 

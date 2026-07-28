@@ -29,6 +29,12 @@ Nach dieser Version sollen die Lernenden:
 - eine bestehende MVC-Anwendung sauber um Persistenz erweitern können,
 - typische Fehler beim JSON-Schreiben und JSON-Lesen erkennen und vermeiden.
 
+## Lernpfad-Navigation
+
+- Gesamtpfad: [LERNPFAD_VERSIONEN_0_BIS_6.md](./LERNPFAD_VERSIONEN_0_BIS_6.md)
+- Vorher: [SCHRITTE_VERSION_5_VERERBUNG.md](./SCHRITTE_VERSION_5_VERERBUNG.md)
+- Weiter mit Version 6: [SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md](./SCHRITTE_VERSION_6_SICHERE_DATENVERARBEITUNG.md)
+
 ---
 
 ## Ausgangspunkt: Was aus Version 4 übernommen wird

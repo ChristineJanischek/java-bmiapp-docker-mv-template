@@ -1,8 +1,8 @@
-# BMI-Rechner Version 3+: Assoziationen & die Person-Klasse
+# BMI-Rechner Version 4: Assoziationen & die Person-Klasse
 
 ## Überblick
 
-In **Version 2** hatte der BMI-Rechner ein einfaches MVC-Modell:
+In **Version 3** hatte der BMI-Rechner ein einfaches MVC-Modell:
 - Eine **BMI-Berechnung** pro Eingabe
 - Keine Speicherung von Messungen
 - Keine Benutzerprofile

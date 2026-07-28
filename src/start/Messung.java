@@ -9,13 +9,12 @@ import java.time.format.DateTimeFormatter;
  * 
  * Die Berechnung nutzt die bestehende Bmirechner-Klasse (DRY-Prinzip).
  * 
- * @version 4.0
+ * @version 5.0
  * @since 2026-02-09
  */
-public class Messung {
+public class Messung extends BaseEntity {
     
     // Attribute
-    private int id;
     private int personId;
     private double gewicht;           // in kg
     private double groesse;           // in m
@@ -64,6 +63,7 @@ public class Messung {
      * @param zeitstempel Der Zeitstempel der Messung
      */
     public Messung(int id, int personId, double gewicht, double groesse, LocalDateTime zeitstempel) {
+        super(id);
         // Validierung
         if (gewicht <= 0) {
             throw new IllegalArgumentException("Gewicht muss größer als 0 sein!");
@@ -76,7 +76,6 @@ public class Messung {
             throw new IllegalArgumentException("Zeitstempel darf nicht null sein!");
         }
         
-        this.id = id;
         this.personId = personId;
         this.gewicht = gewicht;
         this.groesse = groesse;
@@ -92,10 +91,6 @@ public class Messung {
     }
     
     // Getter-Methoden
-    public int getId() {
-        return id;
-    }
-
     public int getPersonId() {
         return personId;
     }
@@ -118,10 +113,6 @@ public class Messung {
     
     public String getKategorie() {
         return kategorie;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setPersonId(int personId) {
@@ -194,7 +185,7 @@ public class Messung {
     @Override
     public String toString() {
         return "Messung{" +
-            "id=" + id +
+            "id=" + getId() +
             ", personId=" + personId +
             ", " +
                 "gewicht=" + gewicht + " kg, " +

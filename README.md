@@ -65,6 +65,7 @@ Diese Branches entsprechen den Versionen im Unterricht. Starte im Branch `main` 
 - `version-2-methoden` → **Version 2**: Methoden, Kontrollstrukturen & Algorithmen
 - `version-3-validation` → **Version 3**: Eingabevalidierung & Fehlerbehandlung
 - `version-4-assoziationen` → **Version 4 (Musterlösung): Assoziationen - Personen & Messungen** ⭐ NEU
+- `version-5-vererbung` → **Version 5: Vererbung auf Basis von Assoziationen (Redundanzabbau)** ⭐ NEU
 
 **Schnellstart für Schüler (Version 0):**
 ```bash
@@ -96,6 +97,8 @@ Du möchtest dieses Projekt als Vorlage für ähnliche Aufgaben nutzen? Lies die
 
 Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleitung:
 
+Empfohlener linearer Schuelerpfad (0 bis 6): [docs/ANLEITUNGEN/LERNPFAD_VERSIONEN_0_BIS_6.md](docs/ANLEITUNGEN/LERNPFAD_VERSIONEN_0_BIS_6.md)
+
 | Version | Branch | Anleitung | Beschreibung |
 |---------|--------|-----------|-------------|
 | **0** | `main` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_0.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_0.md) | Einstieg & Grundgerüst – Starte hier! |
@@ -103,6 +106,7 @@ Für jede Version gibt es eine eigene, ausführliche Schritt-für-Schritt-Anleit
 | **2** | `version-2-methoden` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) | Methoden, Kontrollstrukturen, Algorithmen |
 | **3** | `version-3-validation` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) | Validierung & Fehlerbehandlung |
 | **4** | `version-4-assoziationen` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) | ⭐ Assoziationen (1:N) – Personen & Messungen |
+| **5** | `version-5-vererbung` | [docs/ANLEITUNGEN/SCHRITTE_VERSION_5_VERERBUNG.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_5_VERERBUNG.md) | ⭐ Vererbung anwenden, Redundanzen abbauen |
 
 **Weitere Tipps:**
 - Achte auf Secure Coding (Eingabeprüfungen, sinnvolle Fehlermeldungen)
@@ -157,6 +161,9 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 - [CHANGELOG_VERSION_2.md](docs/RELEASE_NOTES/CHANGELOG_VERSION_2.md) – Changelog für Version 2
 - [UPGRADE_SUMMARY.md](docs/RELEASE_NOTES/UPGRADE_SUMMARY.md) – Zusammenfassung von Upgrades und Änderungen
 
+### 🧭 Anleitungskonvention (Versionen)
+- [NAMING_KONVENTION_VERSIONEN.md](docs/ANLEITUNGEN/NAMING_KONVENTION_VERSIONEN.md) – Verbindliche Dateinamen und Versionsregeln fuer Schueler-Anleitungen
+
 ---
 
 ## 📖 Dokumentation nach Lernzielen
@@ -171,7 +178,8 @@ Die komplette Dokumentation ist nach Themen organisiert. Nutze diesen Index, um 
 | **Event-Listener und Controller verbinden möchte** | [Ereignissteuerung_und_Controller.md](docs/GUI_DEVELOPMENT/Ereignissteuerung_und_Controller.md) |
 | **Kontrollflusselemente (if, for, while) verstehen möchte** | [KONTROLLSTRUKTUREN.md](docs/JAVA_PROGRAMMIERUNG/KONTROLLSTRUKTUREN.md) + [SCHRITTE_VERSION_2.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_2.md) |
 | **Eingaben validieren und Fehler behandeln möchte** | [EXCEPTION_HANDLING.md](docs/BEST_PRACTICES/EXCEPTION_HANDLING.md) + [SECURE_CODING.md](docs/BEST_PRACTICES/SECURE_CODING.md) + [SCHRITTE_VERSION_3.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_3.md) |
-| **Assoziationen (1:N, M:N) und Container-Klassen nutzen möchte** | [ASSOZIATIONEN.md](docs/JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md) + [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) + [ASSOZIATIONEN_PERSON_MESSUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_PERSON_MESSUNG.md) + [ASSOZIATIONEN_BRIDGE_KLASSE_BEHANDLUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_BRIDGE_KLASSE_BEHANDLUNG.md) + [MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md](docs/BEST_PRACTICES/MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md) + [SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) |
+| **Assoziationen (1:N, M:N) und Container-Klassen nutzen möchte** | [ASSOZIATIONEN.md](docs/JAVA_PROGRAMMIERUNG/ASSOZIATIONEN.md) + [INFORMATION_CONTANIER_KLASSEN.md](docs/INFORMATION_CONTANIER_KLASSEN.md) + [ASSOZIATIONEN_PERSON_MESSUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_PERSON_MESSUNG.md) + [LERNMODUL_VERSION_4_ASSOZIATIONEN.md](docs/ANLEITUNGEN/LERNMODUL_VERSION_4_ASSOZIATIONEN.md) + [ASSOZIATIONEN_BRIDGE_KLASSE_BEHANDLUNG.md](docs/ANLEITUNGEN/ASSOZIATIONEN_BRIDGE_KLASSE_BEHANDLUNG.md) + [MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md](docs/BEST_PRACTICES/MN_AUFLOESUNG_DESIGN_ENTSCHEIDUNG.md) + [SCHRITTE_VERSION_4.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_4.md) |
+| **Vererbung konkret im vorhandenen System nutzen möchte** | [VERERBUNG.md](docs/JAVA_PROGRAMMIERUNG/VERERBUNG.md) + [METHODEN_UEBERSCHREIBEN.md](docs/JAVA_PROGRAMMIERUNG/METHODEN_UEBERSCHREIBEN.md) + [SCHRITTE_VERSION_5_VERERBUNG.md](docs/ANLEITUNGEN/SCHRITTE_VERSION_5_VERERBUNG.md) |
 | **Klassen ordnungsgemäß strukturieren möchte** | [GRUNDGERUEST_KLASSE.md](docs/JAVA_PROGRAMMIERUNG/GRUNDGERUEST_KLASSE.md) + [KAPSELUNG.md](docs/BEST_PRACTICES/KAPSELUNG.md) |
 | **Unit Tests schreiben möchte** | [UNIT_TESTING.md](docs/BEST_PRACTICES/UNIT_TESTING.md) |
 | **Polymorphie verstehen möchte** | [POLYMORPHIE.md](docs/JAVA_PROGRAMMIERUNG/POLYMORPHIE.md) |
@@ -336,6 +344,15 @@ Hinweis: Die lineare Note wird aus den Profil-Einstellungen (`grade_scale`) bere
 - [ ] Kapselung mit defensiven Kopien implementiert
 - [ ] Alle Tests grün
 
+### ✅ Version 5 (version-5-vererbung) – Vererbung & Redundanzabbau
+- [ ] `BaseEntity` als abstrakte Basisklasse eingeführt
+- [ ] `Person` erbt von `BaseEntity`
+- [ ] `Messung` erbt von `BaseEntity`
+- [ ] Doppelte ID-Logik aus Subklassen entfernt
+- [ ] Zentrale ID-Validierung in Basisklasse umgesetzt
+- [ ] Vererbung per Unit-Test abgesichert
+- [ ] Alle Tests grün
+
 ---
 
 ## 💡 Häufig Gestellte Fragen (FAQ)
@@ -395,6 +412,14 @@ Starte mit Version 0 (`main`). Folge dann dem [Versionsfahrplan](#-versionsfahrp
 ## 🤝 Beitragen
 
 Hast du Verbesserungsvorschläge für die Dokumentation? Erstelle ein Issue oder einen Pull Request!
+
+### Konventions-Check fuer versionierte Anleitungen
+
+Vor dem Commit von neuen/umbenannten Anleitungen bitte ausfuehren:
+
+```bash
+python3 scripts/check_guide_version_naming.py
+```
 
 ---
 
